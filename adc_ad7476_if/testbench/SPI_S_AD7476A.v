@@ -26,9 +26,8 @@ module SPI_s_LTC1857(rst_i, sck_i, mosi_i, miso_o, conv_i, RDbar_i, BUSYbar_o );
 	
 	reg [2:0]   mem_index;
 	
-	parameter 		p_CHK_BUSY_PULSE = 0;
-	parameter 		p_CHK_CONV_PULSE = 1;
-	parameter 		p_LATCH_CMD 	 = 2;
+	parameter 		p_CHK_CONV_PULSE = 0;
+	parameter 		p_LATCH_CMD 	 = 1;
 	
 	reg    [2:0] 	s_data_state;	
 	
@@ -74,10 +73,10 @@ begin
                                   conv_width_cntr = 0;								  
 		                          s_data_state =  p_LATCH_CMD; 
 								  data_transmit = mem_adc_sens_data[mem_index];
-								  miso_r = 0;
-								  mem_index = mem_index + 1;
+								  //miso_r = 0;
+								  //mem_index = mem_index + 1;
 								  
-								  #40;//4 micros wait for Busy De-assertion
+								  //#40;//4 micros wait for Busy De-assertion
 								  
 								  miso_r 	= data_transmit[15];
 								  data_transmit[15:1] = data_transmit[14:0];
@@ -96,7 +95,9 @@ begin
 		     
 		                       end
 
-							   s_data_state =  p_CHK_CONV_PULSE;
+                               wait (RDbar_i==1);
+								mem_index = mem_index + 1;
+							    s_data_state =  p_CHK_CONV_PULSE;	    
 						 end
 						  
 				  
