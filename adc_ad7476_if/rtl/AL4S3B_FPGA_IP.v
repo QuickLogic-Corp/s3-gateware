@@ -1,5 +1,5 @@
 `timescale 1ns / 10ps
-//`define ENAB_UART_16550_inst
+`define ENAB_UART_16550_inst
 //`define USE_DEBUG_PORT
 //`define ENAB_GPIO_INT
 module AL4S3B_FPGA_IP ( 
@@ -186,8 +186,10 @@ wire    [3:0]  GPIO_Out;
 wire    [3:0]  GPIO_oe;
 `endif
 
+`ifdef ENAB_UART_16550_inst
 wire          	SIN_i; 
 wire 			SOUT_o;
+`endif
 
 wire 			UART_Intr_o;
 
@@ -473,7 +475,7 @@ Serializer_Deserializer_Test     u_Serializer_Deserializer_Test
 	
 // Serial Port
 //
-`ifdef ENAB_UART_16550_ins
+`ifdef ENAB_UART_16550_inst
 UART_16550 u_UART_16550        
                                ( 
     // AHB-To_Fabric Bridge I/F

@@ -1,5 +1,5 @@
 `timescale 1ns / 10ps
-//`define ENAB_UART_16550_inst
+`define ENAB_UART_16550_inst
 //`define USE_DEBUG_PORT
 //`define ENAB_GPIO_INT
 module top ( 
