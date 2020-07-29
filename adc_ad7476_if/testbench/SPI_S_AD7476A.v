@@ -40,10 +40,10 @@ module SPI_s_LTC1857(rst_i, sck_i, mosi_i, miso_o, conv_i, RDbar_i, BUSYbar_o );
 	initial
     begin
 	 // Mem fill.
-	    ltc_sample_dat_val_file_desc = $fopen("adc_sample_ltc.txt", "w"); 
-	    ltc_cmd_val_file_desc        = $fopen("adc_ltc_samp_cmd.txt", "w"); 
+	 // ltc_sample_dat_val_file_desc = $fopen("adc_sample_ltc.txt", "w"); 
+	 // ltc_cmd_val_file_desc        = $fopen("adc_ltc_samp_cmd.txt", "w"); 
 
-	    addrindex 					 = 0;
+	    //addrindex 					 = 0;
 
 	    data_received 				 = 0;
 	    miso_r 						 = 0;
@@ -61,6 +61,7 @@ begin
 	conv_width_cntr = 0;
 	mem_index = 0;
 	busy_chk_delay_cntr = 0;
+    #100
     forever 
 	begin
 	    
