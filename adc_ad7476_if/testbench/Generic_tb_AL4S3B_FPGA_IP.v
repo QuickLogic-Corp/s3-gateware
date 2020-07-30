@@ -81,9 +81,9 @@ wire            Null_Modem_Rx_to_Tx;
 `endif
 
 `ifdef GSIM
-	defparam testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.T_CYCLE_CLK_SYS_CLK0 = 62.5;
+	defparam testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.T_CYCLE_CLK_SYS_CLK0 = 100;
 `else
-    defparam testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.T_CYCLE_CLK_SYS_CLK0 = 62.5;
+    defparam testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.T_CYCLE_CLK_SYS_CLK0 = 100;
 `endif
 
 //  Application Specific signals
