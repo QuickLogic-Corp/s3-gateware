@@ -1,0 +1,45 @@
+    In the VQ file, I have made the following changes:
+
+    Added following IO’s and connected to the TB:
+
+module AL4S3B_FPGA_top ( usbp_io, usbn_io, usb_pu_cntrl_o, spi_cs_o, spi_sck_o, spi_mosi_o, spi_miso_i, led_o,
+usbpn_tx_en,clk_48mhz_i,clk_i,reset_i,boot_o ) ;
+
+output usbpn_tx_en ;
+input  clk_48mhz_i;
+input  clk_i;
+input  reset_i;
+output boot_o ;
+
+    Also, add the following changes:
+
+wire [6:0] dev_addr;
+assign dev_addr[6] = \u_AL4S3B_FPGA_IP.u_usb2m4_serial_ctrl_ep_inst_new_dev_addr[0] ;
+assign dev_addr[5] = \u_AL4S3B_FPGA_IP.u_usb2m4_serial_ctrl_ep_inst_new_dev_addr[1] ;
+assign dev_addr[4] = \u_AL4S3B_FPGA_IP.u_usb2m4_serial_ctrl_ep_inst_new_dev_addr[2] ;
+assign dev_addr[3] = \u_AL4S3B_FPGA_IP.u_usb2m4_serial_ctrl_ep_inst_new_dev_addr[3] ;
+assign dev_addr[2] = \u_AL4S3B_FPGA_IP.u_usb2m4_serial_ctrl_ep_inst_new_dev_addr[4] ;
+assign dev_addr[1] = \u_AL4S3B_FPGA_IP.u_usb2m4_serial_ctrl_ep_inst_new_dev_addr[5] ;
+assign dev_addr[0] = \u_AL4S3B_FPGA_IP.u_usb2m4_serial_ctrl_ep_inst_new_dev_addr[6] ;
+assign usbpn_tx_en = \u_AL4S3B_FPGA_IP.usb_tx_en ;
+//assign boot_o = boot;
+
+
+    Connected the Clocks and Reset from the TB:
+
+//P_BUF IntGateOut_SPDE_Sys_Clk1_Rst_ESPXXO95_FRAG_ESPXOUT (Sys_Clk1_Rst_InterfaceOut,Sys_Clk1_Rst );
+//P_BUF IntGateOut_SPDE_Sys_Clk1_ESPXXO94_FRAG_ESPXOUT (Sys_Clk1_InterfaceOut,Sys_Clk1);
+//P_BUF IntGateOut_SPDE_Sys_Clk0_Rst_ESPXXO93_FRAG_ESPXOUT (Sys_Clk0_Rst_InterfaceOut,Sys_Clk0_Rst);
+//P_BUF IntGateOut_SPDE_Sys_Clk0_ESPXXO92_FRAG_ESPXOUT (Sys_Clk0_InterfaceOut,Sys_Clk0);
+//P_BUF IntGateOut_SPDE_WB_RST_ESPXXO90_FRAG_ESPXOUT (WB_RST_InterfaceOut,WB_RST );
+  
+P_BUF IntGateOut_SPDE_Sys_Clk1_Rst_ESPXXO95_FRAG_ESPXOUT (reset_i,Sys_Clk1_Rst );
+P_BUF IntGateOut_SPDE_Sys_Clk1_ESPXXO94_FRAG_ESPXOUT (clk_48mhz_i,Sys_Clk1 );
+P_BUF IntGateOut_SPDE_Sys_Clk0_Rst_ESPXXO93_FRAG_ESPXOUT (reset_i,Sys_Clk0_Rst );
+P_BUF IntGateOut_SPDE_Sys_Clk0_ESPXXO92_FRAG_ESPXOUT (clk_i,Sys_Clk0 );
+P_BUF IntGateOut_SPDE_WB_RST_ESPXXO90_FRAG_ESPXOUT (reset_i,WB_RST );
+
+      On the SDF file, I have made the following changes:
+
+Change the RAM Instance name from “P_PR8K_2X1” to “P_PR8K_2X1_S3B” 
+
