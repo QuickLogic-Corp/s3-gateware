@@ -1,0 +1,103 @@
+# Reading C:/questasim64_10.6g/tcl/vsim/pref.tcl
+# //  Questa Sim-64
+# //  Version 10.6g win64 Aug  3 2019
+# //
+# //  Copyright 1991-2019 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+cd C:/Work/Antmicro/QuickFeather/other_usb_cores/tinyfpga-bootloader-usb-fromrakesh/svn_2020.05.11a_serialport/fifo_sim_test/FIFO_512x8_al4s3b_sync_noreg
+pwd
+# C:/Work/Antmicro/QuickFeather/other_usb_cores/tinyfpga-bootloader-usb-fromrakesh/svn_2020.05.11a_serialport/fifo_sim_test/FIFO_512x8_al4s3b_sync_noreg
+do f512x8_512x8_v.tcl
+# ** Error: invalid command name "add_input_file"
+# Error in macro ./f512x8_512x8_v.tcl line 1
+# invalid command name "add_input_file"
+#     while executing
+# "add_input_file { C:/QuickLogic/QuickWorks_2016.2_Release/spde/data/PolarPro-III/AL4S3B/rrw/fifo_blk.v}"
+do f512x8_512x8_modelsim_verilog_pre.do
+# QuestaSim-64 vlog 10.6g Compiler 2019.08 Aug  3 2019
+# Start time: 21:56:19 on May 14,2020
+# vlog -reportprogress 300 -work work C:/QuickLogic/QuickWorks_2016.2_Release/spde/data/PolarPro-III/AL4S3B/ram8k_2x1_cell.v 
+# -- Compiling module fifo_controller_model
+# -- Compiling module ram
+# ** Warning: C:/QuickLogic/QuickWorks_2016.2_Release/spde/data/PolarPro-III/AL4S3B/ram8k_2x1_cell.v(1022): (vlog-2263) Redefinition of macro: 'DATAWID' (previously defined near C:/QuickLogic/QuickWorks_2016.2_Release/spde/data/PolarPro-III/AL4S3B/ram8k_2x1_cell.v(761), old value '18 ', new value '18') .
+# -- Compiling module x2_model
+# -- Compiling module ram_block_8K
+# -- Compiling module sw_mux
+# -- Compiling module ram8k_2x1_cell
+# 
+# Top level modules:
+# 	ram8k_2x1_cell
+# End time: 21:56:19 on May 14,2020, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 1
+# QuestaSim-64 vlog 10.6g Compiler 2019.08 Aug  3 2019
+# Start time: 21:56:19 on May 14,2020
+# vlog -reportprogress 300 -work work C:/QuickLogic/QuickWorks_2016.2_Release/spde/data/PolarPro-III/AL4S3B/rrw/fifo_blk.v 
+# -- Compiling module FIFO
+# -- Compiling module ram8k_2x1_cell_macro
+# 
+# Top level modules:
+# 	FIFO
+# End time: 21:56:19 on May 14,2020, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vlog 10.6g Compiler 2019.08 Aug  3 2019
+# Start time: 21:56:19 on May 14,2020
+# vlog -reportprogress 300 -work work f512x8_512x8.v 
+# -- Compiling module f512x8_512x8
+# 
+# Top level modules:
+# 	f512x8_512x8
+# End time: 21:56:19 on May 14,2020, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vlog 10.6g Compiler 2019.08 Aug  3 2019
+# Start time: 21:56:19 on May 14,2020
+# vlog -reportprogress 300 -work work f512x8_512x8.tf 
+# -- Compiling module t
+# 
+# Top level modules:
+# 	t
+# End time: 21:56:19 on May 14,2020, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vsim -gui -novopt work.t 
+# Start time: 21:56:19 on May 14,2020
+# ** Warning: (vsim-8891) All optimizations are turned off because the -novopt switch is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features please see the User's Manual section on Preserving Object Visibility with vopt.
+# Refreshing C:/Work/Antmicro/QuickFeather/other_usb_cores/tinyfpga-bootloader-usb-fromrakesh/svn_2020.05.11a_serialport/USBbootloader_S3B/rtl/FIFO/FIFO_512x8_al4s3b_sync_noreg/work.t
+# Loading work.t
+# Refreshing C:/Work/Antmicro/QuickFeather/other_usb_cores/tinyfpga-bootloader-usb-fromrakesh/svn_2020.05.11a_serialport/USBbootloader_S3B/rtl/FIFO/FIFO_512x8_al4s3b_sync_noreg/work.f512x8_512x8
+# Loading work.f512x8_512x8
+# Refreshing C:/Work/Antmicro/QuickFeather/other_usb_cores/tinyfpga-bootloader-usb-fromrakesh/svn_2020.05.11a_serialport/USBbootloader_S3B/rtl/FIFO/FIFO_512x8_al4s3b_sync_noreg/work.FIFO
+# Loading work.FIFO
+# Refreshing C:/Work/Antmicro/QuickFeather/other_usb_cores/tinyfpga-bootloader-usb-fromrakesh/svn_2020.05.11a_serialport/USBbootloader_S3B/rtl/FIFO/FIFO_512x8_al4s3b_sync_noreg/work.ram8k_2x1_cell_macro
+# Loading work.ram8k_2x1_cell_macro
+# Refreshing C:/Work/Antmicro/QuickFeather/other_usb_cores/tinyfpga-bootloader-usb-fromrakesh/svn_2020.05.11a_serialport/USBbootloader_S3B/rtl/FIFO/FIFO_512x8_al4s3b_sync_noreg/work.ram8k_2x1_cell
+# Loading work.ram8k_2x1_cell
+# Refreshing C:/Work/Antmicro/QuickFeather/other_usb_cores/tinyfpga-bootloader-usb-fromrakesh/svn_2020.05.11a_serialport/USBbootloader_S3B/rtl/FIFO/FIFO_512x8_al4s3b_sync_noreg/work.sw_mux
+# Loading work.sw_mux
+# Refreshing C:/Work/Antmicro/QuickFeather/other_usb_cores/tinyfpga-bootloader-usb-fromrakesh/svn_2020.05.11a_serialport/USBbootloader_S3B/rtl/FIFO/FIFO_512x8_al4s3b_sync_noreg/work.ram_block_8K
+# Loading work.ram_block_8K
+# Refreshing C:/Work/Antmicro/QuickFeather/other_usb_cores/tinyfpga-bootloader-usb-fromrakesh/svn_2020.05.11a_serialport/USBbootloader_S3B/rtl/FIFO/FIFO_512x8_al4s3b_sync_noreg/work.x2_model
+# Loading work.x2_model
+# Refreshing C:/Work/Antmicro/QuickFeather/other_usb_cores/tinyfpga-bootloader-usb-fromrakesh/svn_2020.05.11a_serialport/USBbootloader_S3B/rtl/FIFO/FIFO_512x8_al4s3b_sync_noreg/work.ram
+# Loading work.ram
+# Refreshing C:/Work/Antmicro/QuickFeather/other_usb_cores/tinyfpga-bootloader-usb-fromrakesh/svn_2020.05.11a_serialport/USBbootloader_S3B/rtl/FIFO/FIFO_512x8_al4s3b_sync_noreg/work.fifo_controller_model
+# Loading work.fifo_controller_model
+# ** Warning: (vsim-3017) f512x8_512x8.v(42): [TFMPC] - Too few port connections. Expected 25, found 19.
+#    Time: 0 ps  Iteration: 0  Instance: /t/m/FIFO_INST File: C:/QuickLogic/QuickWorks_2016.2_Release/spde/data/PolarPro-III/AL4S3B/rrw/fifo_blk.v
+# ** Warning: (vsim-3722) f512x8_512x8.v(42): [TFMPC] - Missing connection for port 'LS'.
+# ** Warning: (vsim-3722) f512x8_512x8.v(42): [TFMPC] - Missing connection for port 'SD'.
+# ** Warning: (vsim-3722) f512x8_512x8.v(42): [TFMPC] - Missing connection for port 'DS'.
+# ** Warning: (vsim-3722) f512x8_512x8.v(42): [TFMPC] - Missing connection for port 'LS_RB1'.
+# ** Warning: (vsim-3722) f512x8_512x8.v(42): [TFMPC] - Missing connection for port 'SD_RB1'.
+# ** Warning: (vsim-3722) f512x8_512x8.v(42): [TFMPC] - Missing connection for port 'DS_RB1'.
+# .main_pane.wave.interior.cs.body.pw.wf
+# ** Note: $stop    : f512x8_512x8.tf(63)
+#    Time: 41100 ns  Iteration: 0  Instance: /t
+# Break in Module t at f512x8_512x8.tf line 63
