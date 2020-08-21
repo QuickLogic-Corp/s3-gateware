@@ -308,7 +308,7 @@ begin
     end  
 end
 
-assign Device_ID_o = 32'h000ADC1F;
+assign Device_ID_o = 32'h0ADC0001;
 assign Rev_Num     = 32'h00000100; 
 
 always @(posedge WBs_CLK_i or posedge DMA0_Done_i) 
