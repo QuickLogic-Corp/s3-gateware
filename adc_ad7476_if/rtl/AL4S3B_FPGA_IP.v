@@ -57,6 +57,7 @@ module AL4S3B_FPGA_IP (
 parameter       APERWIDTH                   = 17            ;
 parameter       APERSIZE                    = 10            ;
 
+                                                                // these are byte offsets.
 parameter       FPGA_REG_BASE_ADDRESS     	= 17'h00000     ; // Assumes 128K Byte FPGA Memory Aperture
 parameter       UART_BASE_ADDRESS           = 17'h01000     ;
 parameter       DMA_REG_BASE_ADDR           = 17'h10000     ;
@@ -66,23 +67,25 @@ parameter       QL_RESERVED_BASE_ADDRESS    = 17'h12000     ; // Assumes 128K By
 parameter       ADDRWIDTH_FAB_REG           =  10           ;
 parameter       DATAWIDTH_FAB_REG           =  32           ;
 
-parameter       FPGA_REG_ID_VALUE_ADR       =  7'h0         ; 
-parameter       FPGA_REV_NUM_ADR            =  7'h1         ; 
-parameter       FPGA_FIFO_RST_ADR           =  7'h2         ; 
-parameter       FPGA_SENSOR_EN_REG_ADR      =  7'h3         ; 
-parameter       FPGA_FIFO_OVERRUN_ADR       =  7'h4         ; 
+                                                                // these are byte offsets
+                                                                //  the 2 LSB's (on the right) should be 0's.
+parameter       FPGA_REG_ID_VALUE_ADR       = 10'h000       ; 
+parameter       FPGA_REV_NUM_ADR            = 10'h004       ; 
+parameter       FPGA_FIFO_RST_ADR           = 10'h008       ; 
+parameter       FPGA_SENSOR_EN_REG_ADR      = 10'h00C       ; 
+parameter       FPGA_FIFO_OVERRUN_ADR       = 10'h010       ; 
 
-parameter       FPGA_DBG1_REG_ADR           =  7'hC         ; 
-parameter       FPGA_DBG2_REG_ADR           =  7'hD         ;
-parameter       FPGA_DBG3_REG_ADR           =  7'hE         ;
+parameter       FPGA_DBG1_REG_ADR           = 10'h030       ; 
+parameter       FPGA_DBG2_REG_ADR           = 10'h034       ;
+parameter       FPGA_DBG3_REG_ADR           = 10'h038       ;
 
-parameter       FABRIC_GPIO_IN_REG_ADR      =  7'h40        ; 
-parameter       FABRIC_GPIO_OUT_REG_ADR     =  7'h41        ; 
-parameter       FABRIC_GPIO_OE_REG_ADR      =  7'h42        ; 
+parameter       FABRIC_GPIO_IN_REG_ADR      = 10'h100       ; 
+parameter       FABRIC_GPIO_OUT_REG_ADR     = 10'h104       ; 
+parameter       FABRIC_GPIO_OE_REG_ADR      = 10'h108       ; 
 
-parameter       DMA_EN_REG_ADR              =  10'h0        ;
-parameter       DMA_STS_REG_ADR             =  10'h1        ;
-parameter       DMA_INTR_EN_REG_ADR         =  10'h2        ;
+parameter       DMA_EN_REG_ADR              = 10'h000       ;
+parameter       DMA_STS_REG_ADR             = 10'h004       ;
+parameter       DMA_INTR_EN_REG_ADR         = 10'h008       ;
 
 parameter       AL4S3B_DEVICE_ID            = 16'h0         ;
 parameter       AL4S3B_REV_LEVEL            = 32'h0         ;
@@ -99,8 +102,8 @@ parameter       DEFAULT_CNTR_TIMEOUT        =  7            ;
 parameter       ADDRWIDTH_QL_RESERVED       = 10            ;
 parameter       DATAWIDTH_QL_RESERVED       = 32            ;
 
-parameter       QL_RESERVED_CUST_PROD_ADR   =  7'h7E        ;
-parameter       QL_RESERVED_REVISIONS_ADR   =  7'h7F        ;
+parameter       QL_RESERVED_CUST_PROD_ADR   = 10'h1F8       ;
+parameter       QL_RESERVED_REVISIONS_ADR   = 10'h1FC       ;
 
 parameter       QL_RESERVED_CUSTOMER_ID     =  8'h01        ;
 parameter       QL_RESERVED_PRODUCT_ID      =  8'h00        ;
@@ -267,20 +270,20 @@ wire    [31:0]  WBs_DAT_o_QL_Reserved;
 //
 // Define the Chip Select for each interface
 //
-assign WBs_CYC_FPGA_Reg   = (  WBs_ADR[APERWIDTH-1:APERSIZE+2] == FPGA_REG_BASE_ADDRESS    [APERWIDTH-1:APERSIZE+2] ) 
+assign WBs_CYC_FPGA_Reg   = (  WBs_ADR[APERWIDTH-1:APERSIZE+2] == FPGA_REG_BASE_ADDRESS[APERWIDTH-1:APERSIZE+2] ) 
                             & (  WBs_CYC                                                                                );
 							
-assign WBs_CYC_DMA_Reg    = (  WBs_ADR[APERWIDTH-1:APERSIZE+2] 	== DMA_REG_BASE_ADDR    [APERWIDTH-1:APERSIZE+2] ) 
+assign WBs_CYC_DMA_Reg    = (  WBs_ADR[APERWIDTH-1:APERSIZE+2] 	== DMA_REG_BASE_ADDR[APERWIDTH-1:APERSIZE+2] ) 
                                 & (  WBs_CYC                                                                            );
 								
-assign WBs_CYC_DMA_Data   = (  WBs_ADR[APERWIDTH-1:APERSIZE+2] 	== DMA0_DPORT_BASE_ADDR	[APERWIDTH-1:APERSIZE+2] )	
+assign WBs_CYC_DMA_Data   = (  WBs_ADR[APERWIDTH-1:APERSIZE+2] 	== DMA0_DPORT_BASE_ADDR[APERWIDTH-1:APERSIZE+2] )	
                                 & (  WBs_CYC                                                                            );
 								
-assign WBs_CYC_UART         = (  WBs_ADR[APERWIDTH-1:APERSIZE+2] == UART_BASE_ADDRESS          [APERWIDTH-1:APERSIZE+2] ) 
+assign WBs_CYC_UART         = (  WBs_ADR[APERWIDTH-1:APERSIZE+2] == UART_BASE_ADDRESS[APERWIDTH-1:APERSIZE+2] ) 
                             & (( WBs_CYC & WBs_WE  & WBs_BYTE_STB[0]                                                    ) 
                             |  ( WBs_CYC & WBs_RD                                                                       )); 
 
-assign WBs_CYC_QL_Reserved  = (  WBs_ADR[APERWIDTH-1:APERSIZE+2] == QL_RESERVED_BASE_ADDRESS   [APERWIDTH-1:APERSIZE+2] ) 
+assign WBs_CYC_QL_Reserved  = (  WBs_ADR[APERWIDTH-1:APERSIZE+2] == QL_RESERVED_BASE_ADDRESS[APERWIDTH-1:APERSIZE+2] ) 
                             & (  WBs_CYC  																				);
 
 

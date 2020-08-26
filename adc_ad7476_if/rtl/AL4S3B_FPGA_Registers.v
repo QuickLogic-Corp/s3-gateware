@@ -56,34 +56,37 @@ module AL4S3B_FPGA_Registers (
 
 //------Port Parameters----------------
 //
-parameter                ADDRWIDTH                   =  10;   // Allow for up to 128 registers in the FPGA
-parameter                DATAWIDTH                   =  32;   // Allow for up to 128 registers in the FPGA
+parameter       ADDRWIDTH                   =  10;   // Allow for up to 128 registers in the FPGA
+parameter       DATAWIDTH                   =  32;   // Allow for up to 128 registers in the FPGA
 
-parameter                FPGA_REG_ID_VALUE_ADR       =  7'h0; 
-parameter                FPGA_REV_NUM_ADR            =  7'h1; 
-parameter                FPGA_FIFO_RST_ADR           =  7'h2; 
-parameter                FPGA_SENSOR_EN_REG_ADR      =  7'h3;  
-parameter                FPGA_FIFO_OVERRUN_ADR       =  7'h4; 
+                                                                // these are byte offsets
+                                                                //  the 2 LSB's (on the right) should be 0's.
+parameter       FPGA_REG_ID_VALUE_ADR       = 10'h000       ; 
+parameter       FPGA_REV_NUM_ADR            = 10'h004       ; 
+parameter       FPGA_FIFO_RST_ADR           = 10'h008       ; 
+parameter       FPGA_SENSOR_EN_REG_ADR      = 10'h00C       ; 
+parameter       FPGA_FIFO_OVERRUN_ADR       = 10'h010       ; 
 
-parameter       		 FPGA_DBG1_REG_ADR           =  7'hC; 
-parameter       		 FPGA_DBG2_REG_ADR           =  7'hD;
-parameter       		 FPGA_DBG3_REG_ADR           =  7'hE;
+parameter       FPGA_DBG1_REG_ADR           = 10'h030       ; 
+parameter       FPGA_DBG2_REG_ADR           = 10'h034       ;
+parameter       FPGA_DBG3_REG_ADR           = 10'h038       ;
 
-parameter       		 FABRIC_GPIO_IN_REG_ADR      =  7'h40; 
-parameter       		 FABRIC_GPIO_OUT_REG_ADR     =  7'h41; 
-parameter       		 FABRIC_GPIO_OE_REG_ADR      =  7'h42; 
-                         
-parameter                DMA_EN_REG_ADR              =  10'h0; 
-parameter                DMA_STS_REG_ADR             =  10'h1;
-parameter                DMA_INTR_EN_REG_ADR         =  10'h2;
+parameter       FABRIC_GPIO_IN_REG_ADR      = 10'h100       ; 
+parameter       FABRIC_GPIO_OUT_REG_ADR     = 10'h104       ; 
+parameter       FABRIC_GPIO_OE_REG_ADR      = 10'h108       ; 
 
-parameter                AL4S3B_DEVICE_ID            =  16'h0;
-parameter                AL4S3B_REV_LEVEL            =  32'h0;
-parameter                AL4S3B_GPIO_REG             =  22'h0;
-parameter                AL4S3B_GPIO_OE_REG          =  22'h0;
-parameter                AL4S3B_SCRATCH_REG          =  32'h12345678  ;
+parameter       DMA_EN_REG_ADR              = 10'h000       ;
+parameter       DMA_STS_REG_ADR             = 10'h004       ;
+parameter       DMA_INTR_EN_REG_ADR         = 10'h008       ;
 
-parameter                AL4S3B_DEF_REG_VALUE        = 32'hFAB_DEF_AC;
+
+parameter       AL4S3B_DEVICE_ID            = 16'h0         ;
+parameter       AL4S3B_REV_LEVEL            = 32'h0         ;
+parameter       AL4S3B_GPIO_REG             = 22'h0         ;
+parameter       AL4S3B_GPIO_OE_REG          = 22'h0         ;
+parameter       AL4S3B_SCRATCH_REG          = 32'h12345678  ;
+
+parameter       AL4S3B_DEF_REG_VALUE        = 32'hFAB_DEF_AC;
 
 //------Port Signals-------------------
 //
@@ -248,16 +251,16 @@ assign DMA_Enable_o = DMA0_EN;
 assign dbg_reset_o = FIFO_Flush;
 
 // Define the FPGA's local register write enables
-assign FPGA_FIFO_RST_Dcd      = ( WBs_ADR_i == FPGA_FIFO_RST_ADR  ) & WBs_CYC_i & WBs_STB_i & WBs_WE_i   & (~WBs_ACK_o);
-assign FPGA_SENSOR_EN_REG_Dcd = ( WBs_ADR_i == FPGA_SENSOR_EN_REG_ADR ) & WBs_CYC_i & WBs_STB_i & WBs_WE_i   & (~WBs_ACK_o);
+assign FPGA_FIFO_RST_Dcd      = ( WBs_ADR_i[ADDRWIDTH-3:0] == FPGA_FIFO_RST_ADR[ADDRWIDTH-1:2]  ) & WBs_CYC_i & WBs_STB_i & WBs_WE_i   & (~WBs_ACK_o);
+assign FPGA_SENSOR_EN_REG_Dcd = ( WBs_ADR_i[ADDRWIDTH-3:0] == FPGA_SENSOR_EN_REG_ADR[ADDRWIDTH-1:2] ) & WBs_CYC_i & WBs_STB_i & WBs_WE_i   & (~WBs_ACK_o);
 
 `ifdef ENAB_GPIO_INT
-assign FB_GPIO_Reg_Wr_Dcd     = ( WBs_ADR_i == FABRIC_GPIO_OUT_REG_ADR    ) & WBs_CYC_i & WBs_STB_i & WBs_WE_i   & (~WBs_ACK_o);
-assign FB_GPIO_OE_Reg_Wr_Dcd  = ( WBs_ADR_i == FABRIC_GPIO_OE_REG_ADR     ) & WBs_CYC_i & WBs_STB_i & WBs_WE_i   & (~WBs_ACK_o);
+assign FB_GPIO_Reg_Wr_Dcd     = ( WBs_ADR_i[ADDRWIDTH-3:0] == FABRIC_GPIO_OUT_REG_ADR[ADDRWIDTH-1:2]    ) & WBs_CYC_i & WBs_STB_i & WBs_WE_i   & (~WBs_ACK_o);
+assign FB_GPIO_OE_Reg_Wr_Dcd  = ( WBs_ADR_i[ADDRWIDTH-3:0] == FABRIC_GPIO_OE_REG_ADR[ADDRWIDTH-1:2]     ) & WBs_CYC_i & WBs_STB_i & WBs_WE_i   & (~WBs_ACK_o);
 `endif
-assign DMA_EN_REG_Dcd  = ( WBs_ADR_i == DMA_EN_REG_ADR ) & WBs_CYC_DMA_REG_i & WBs_STB_i & WBs_WE_i   & (~WBs_ACK_o); 
-assign DMA_STS_REG_Dcd = ( WBs_ADR_i == DMA_STS_REG_ADR ) & WBs_CYC_DMA_REG_i & WBs_STB_i & WBs_WE_i   & (~WBs_ACK_o);
-assign DMA_INTR_EN_REG_Dcd  = ( WBs_ADR_i == DMA_INTR_EN_REG_ADR ) & WBs_CYC_DMA_REG_i & WBs_STB_i & WBs_WE_i   & (~WBs_ACK_o);
+assign DMA_EN_REG_Dcd  = ( WBs_ADR_i[ADDRWIDTH-3:0] == DMA_EN_REG_ADR[ADDRWIDTH-1:2] ) & WBs_CYC_DMA_REG_i & WBs_STB_i & WBs_WE_i   & (~WBs_ACK_o); 
+assign DMA_STS_REG_Dcd = ( WBs_ADR_i[ADDRWIDTH-3:0] == DMA_STS_REG_ADR[ADDRWIDTH-1:2] ) & WBs_CYC_DMA_REG_i & WBs_STB_i & WBs_WE_i   & (~WBs_ACK_o);
+assign DMA_INTR_EN_REG_Dcd  = ( WBs_ADR_i[ADDRWIDTH-3:0] == DMA_INTR_EN_REG_ADR[ADDRWIDTH-1:2] ) & WBs_CYC_DMA_REG_i & WBs_STB_i & WBs_WE_i   & (~WBs_ACK_o);
 
 // Define the Acknowledge back to the host for registers
 //
@@ -308,7 +311,7 @@ begin
     end  
 end
 
-assign Device_ID_o = 32'h000ADC1F;
+assign Device_ID_o = 32'h0ADC0001;
 assign Rev_Num     = 32'h00000100; 
 
 always @(posedge WBs_CLK_i or posedge DMA0_Done_i) 
@@ -345,20 +348,20 @@ always @(
 		 
  )
  begin
-    case(WBs_ADR_i[ADDRWIDTH-1:0])
-    FPGA_REG_ID_VALUE_ADR     : WBs_DAT_o <= Device_ID_o         			  ;     
-	FPGA_REV_NUM_ADR          : WBs_DAT_o <= Rev_Num            			  ;
-    FPGA_FIFO_RST_ADR         : WBs_DAT_o <= { 31'h0, FIFO_rst   		    } ;
-	FPGA_SENSOR_EN_REG_ADR    : WBs_DAT_o <= { 31'h0, Sensor_Enable_o       } ;
-	FPGA_FIFO_OVERRUN_ADR     : WBs_DAT_o <= { tcounter, 15'h0,fifo_ovrrun_r} ;
+    case(WBs_ADR_i[ADDRWIDTH-3:0])
+    FPGA_REG_ID_VALUE_ADR  [ADDRWIDTH-1:2]  : WBs_DAT_o <= Device_ID_o         			  ;     
+	FPGA_REV_NUM_ADR       [ADDRWIDTH-1:2]  : WBs_DAT_o <= Rev_Num            			  ;
+    FPGA_FIFO_RST_ADR      [ADDRWIDTH-1:2]  : WBs_DAT_o <= { 31'h0, FIFO_rst   		    } ;
+	FPGA_SENSOR_EN_REG_ADR [ADDRWIDTH-1:2]  : WBs_DAT_o <= { 31'h0, Sensor_Enable_o       } ;
+	FPGA_FIFO_OVERRUN_ADR  [ADDRWIDTH-1:2]  : WBs_DAT_o <= { tcounter, 15'h0,fifo_ovrrun_r} ;
 `ifdef ENAB_GPIO_INT
-	FABRIC_GPIO_IN_REG_ADR    : WBs_DAT_o <= { 28'h0, GPIO_IN_i             } ;
-    FABRIC_GPIO_OUT_REG_ADR   : WBs_DAT_o <= { 28'h0, GPIO_OUT_o          	} ;
-    FABRIC_GPIO_OE_REG_ADR    : WBs_DAT_o <= { 28'h0, GPIO_OE_o           	} ;
+	FABRIC_GPIO_IN_REG_ADR [ADDRWIDTH-1:2]  : WBs_DAT_o <= { 28'h0, GPIO_IN_i             } ;
+    FABRIC_GPIO_OUT_REG_ADR[ADDRWIDTH-1:2]  : WBs_DAT_o <= { 28'h0, GPIO_OUT_o          	} ;
+    FABRIC_GPIO_OE_REG_ADR [ADDRWIDTH-1:2]  : WBs_DAT_o <= { 28'h0, GPIO_OE_o           	} ;
 `endif
-	FPGA_DBG1_REG_ADR		  : WBs_DAT_o <= debug_sig1						  ;
-	FPGA_DBG2_REG_ADR		  : WBs_DAT_o <= debug_sig2						  ;
-	default                   : WBs_DAT_o <= AL4S3B_DEF_REG_VALUE             ;
+	FPGA_DBG1_REG_ADR      [ADDRWIDTH-1:2]  : WBs_DAT_o <= debug_sig1						  ;
+	FPGA_DBG2_REG_ADR	   [ADDRWIDTH-1:2]  : WBs_DAT_o <= debug_sig2						  ;
+	default                                 : WBs_DAT_o <= AL4S3B_DEF_REG_VALUE             ;
 	endcase
 end
 
@@ -413,11 +416,11 @@ always @(
          DMA0_Done_IRQ_EN		  
  )
  begin
-    case(WBs_ADR_i[ADDRWIDTH-1:0])
-    DMA_EN_REG_ADR            : WBs_DMA_REG_o <= {31'h0, DMA0_EN };       
-	DMA_STS_REG_ADR           : WBs_DMA_REG_o <= {31'h0, DMA0_Done_IRQ };
-    DMA_INTR_EN_REG_ADR       : WBs_DMA_REG_o <= {31'h0, DMA0_Done_IRQ_EN };
-	default                   : WBs_DMA_REG_o <= AL4S3B_DEF_REG_VALUE          ;
+    case(WBs_ADR_i[ADDRWIDTH-3:0])
+    DMA_EN_REG_ADR      [ADDRWIDTH-1:2] : WBs_DMA_REG_o <= {31'h0, DMA0_EN };       
+	DMA_STS_REG_ADR     [ADDRWIDTH-1:2] : WBs_DMA_REG_o <= {31'h0, DMA0_Done_IRQ };
+    DMA_INTR_EN_REG_ADR [ADDRWIDTH-1:2] : WBs_DMA_REG_o <= {31'h0, DMA0_Done_IRQ_EN };
+	default                             : WBs_DMA_REG_o <= AL4S3B_DEF_REG_VALUE          ;
 	endcase
 end
 

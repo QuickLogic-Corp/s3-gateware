@@ -35,6 +35,7 @@ module top (
 parameter       APERWIDTH                   = 17            ;
 parameter       APERSIZE                    = 10            ;
 
+                                                                // these are byte offsets
 parameter       FPGA_REG_BASE_ADDRESS       = 17'h00000     ; // Assumes 128K Byte FPGA Memory Aperture
 parameter       UART_BASE_ADDRESS           = 17'h01000     ;
 parameter       DMA_REG_BASE_ADDR           = 17'h10000     ;
@@ -44,23 +45,25 @@ parameter       QL_RESERVED_BASE_ADDRESS    = 17'h12000     ; // Assumes 128K By
 parameter       ADDRWIDTH_FAB_REG           =  10           ;
 parameter       DATAWIDTH_FAB_REG           =  32           ;
 
-parameter       FPGA_REG_ID_VALUE_ADR       =  7'h0         ; 
-parameter       FPGA_REV_NUM_ADR            =  7'h1         ; 
-parameter       FPGA_FIFO_RST_ADR           =  7'h2         ; 
-parameter       FPGA_SENSOR_EN_REG_ADR      =  7'h3         ; 
-parameter       FPGA_FIFO_OVERRUN_ADR       =  7'h4         ; 
+                                                                // these are byte offsets
+                                                                //  the 2 LSB's (on the right) should be 0's.
+parameter       FPGA_REG_ID_VALUE_ADR       = 10'h000       ; 
+parameter       FPGA_REV_NUM_ADR            = 10'h004       ; 
+parameter       FPGA_FIFO_RST_ADR           = 10'h008       ; 
+parameter       FPGA_SENSOR_EN_REG_ADR      = 10'h00C       ; 
+parameter       FPGA_FIFO_OVERRUN_ADR       = 10'h010       ; 
 
-parameter       FPGA_DBG1_REG_ADR           =  7'hC         ; 
-parameter       FPGA_DBG2_REG_ADR           =  7'hD         ;
-parameter       FPGA_DBG3_REG_ADR           =  7'hE         ;
+parameter       FPGA_DBG1_REG_ADR           = 10'h030       ; 
+parameter       FPGA_DBG2_REG_ADR           = 10'h034       ;
+parameter       FPGA_DBG3_REG_ADR           = 10'h038       ;
 
-parameter       FABRIC_GPIO_IN_REG_ADR      =  7'h40        ; 
-parameter       FABRIC_GPIO_OUT_REG_ADR     =  7'h41        ; 
-parameter       FABRIC_GPIO_OE_REG_ADR      =  7'h42        ; 
+parameter       FABRIC_GPIO_IN_REG_ADR      = 10'h100       ; 
+parameter       FABRIC_GPIO_OUT_REG_ADR     = 10'h104       ; 
+parameter       FABRIC_GPIO_OE_REG_ADR      = 10'h108       ; 
 
-parameter       DMA_EN_REG_ADR              =  10'h0         ;
-parameter       DMA_STS_REG_ADR             =  10'h1         ;
-parameter       DMA_INTR_EN_REG_ADR         =  10'h2         ;
+parameter       DMA_EN_REG_ADR              = 10'h000       ;
+parameter       DMA_STS_REG_ADR             = 10'h004       ;
+parameter       DMA_INTR_EN_REG_ADR         = 10'h008       ;
 
 parameter       AL4S3B_DEVICE_ID            = 16'h0         ;
 parameter       AL4S3B_REV_LEVEL            = 32'h0         ;
@@ -77,8 +80,8 @@ parameter       DEFAULT_CNTR_TIMEOUT        =  7            ;
 parameter       ADDRWIDTH_QL_RESERVED       =  10            ;
 parameter       DATAWIDTH_QL_RESERVED       = 32            ;
 
-parameter       QL_RESERVED_CUST_PROD_ADR   =  7'h7E        ;  // <<-- Very Top of the FPGA's Memory Aperture
-parameter       QL_RESERVED_REVISIONS_ADR   =  7'h7F        ;  // <<-- Very Top of the FPGA's Memory Aperture
+parameter       QL_RESERVED_CUST_PROD_ADR   = 10'h1F8       ;  // <<-- Very Top of the FPGA's Memory Aperture
+parameter       QL_RESERVED_REVISIONS_ADR   = 10'h1FC       ;  // <<-- Very Top of the FPGA's Memory Aperture
 
 parameter       QL_RESERVED_CUSTOMER_ID     =  8'h01        ;  // <<-- Update for each Customer
 parameter       QL_RESERVED_PRODUCT_ID      =  8'h00        ;  // <<-- Update for each Customer Product
@@ -292,7 +295,7 @@ AL4S3B_FPGA_IP              #(
     .WBs_STB                   ( WBs_STB                     ), // input         | Strobe Signal              to   FPGA
     .WBs_WR_DAT                ( WBs_WR_DAT                  ), // input  [31:0] | Write Data Bus             to   FPGA
     .WB_CLK                    ( WB_CLK                      ), // output        | FPGA Clock               from FPGA
-    .WB_RST                    ( WB_RST_FPGA               ), // input         | FPGA Reset               to   FPGA
+    .WB_RST                    ( WB_RST_FPGA                 ), // input         | FPGA Reset               to   FPGA
     .WBs_RD_DAT                ( WBs_RD_DAT                  ), // output [31:0] | Read Data Bus              from FPGA
     .WBs_ACK                   ( WBs_ACK                     ), // output        | Transfer Cycle Acknowledge from FPGA
 
