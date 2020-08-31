@@ -130,7 +130,13 @@ assign spi_sck_o = (Baud_Rate | SS_bar);
 //assign spi_tfer_done_o = (FSM_spi_state == Done_ST)? 1'b1: 1'b0;
 assign spi_tfer_done_o = (FSM_spi_state == Transmit_ST) && (bit_count == 4'hF);
 
-assign Sensor_RD_Data_o = {read_fifo_receive_data, read_fifo_receive_data_l};
+// Mask off the upper 4 bits of each data sample. They're supposed to be all 0's,
+//  but the first bit (MSB) may be inconsistent as the SPI data bus is always
+//  coming out of tri-state, so may occasionally read as a 1 instead.
+
+//assign Sensor_RD_Data_o = {read_fifo_receive_data, read_fifo_receive_data_l};
+assign Sensor_RD_Data_o = {4'b0, read_fifo_receive_data[11:0], 4'b0, read_fifo_receive_data_l[11:0]};
+
 assign Sensor_RD_Push_o   = (toggle_r & spi_done);
 
 /*
