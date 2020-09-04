@@ -364,7 +364,7 @@ begin
 		@(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK);
 `endif
 	ahb_xfr_size = 3'h2;
-	target_data = 32'hADC1F;
+	target_data = 32'h0ADC0001;
     expected_data = target_data;
 	disable_read_chk   = 0;	
 	
