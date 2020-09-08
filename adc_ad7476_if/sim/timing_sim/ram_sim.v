@@ -6,29 +6,8 @@ module RAM_CE0_FE0_PR0_WSA0_WSB0_VPR (
   input         CLK2,
   input         CLK1,
 
-  input         TEST1A,
-  input         DS,
-  input         A1_b0,
-  input         A1_b1,
-  input         A1_b2,
-  input         A1_b3,
-  input         A1_b4,
-  input         A1_b5,
-  input         A1_b6,
-  input         A1_b7,
-  input         A1_b8,
-  input         A1_b9,
-  input         A1_b10,
-  input         CLK1EN,
-  input         SD,
   input         DIR,
-  input         CS1,
-  input         CONCAT_EN,
-  input         SYNC_FIFO,
-  input         LS,
-  input         SD_RB1,
-  input         TEST1B,
-  input         ASYNC_FLUSH,
+  input         DS_RB1,
   input         A2_b0,
   input         A2_b1,
   input         A2_b2,
@@ -40,27 +19,38 @@ module RAM_CE0_FE0_PR0_WSA0_WSB0_VPR (
   input         A2_b8,
   input         A2_b9,
   input         A2_b10,
-  input         RMEB,
   input         RMB_b0,
   input         RMB_b1,
   input         RMB_b2,
   input         RMB_b3,
-  input         DS_RB1,
-  input         RMEA,
-  input  [ 1:0] WIDTH_SELECT1,
+  input         P2,
+  input         FIFO_EN,
+  input         CONCAT_EN,
+  input         ASYNC_FLUSH,
+  input         TEST1B,
+  input         PIPELINE_RD,
+  input         DS,
   input  [ 1:0] WIDTH_SELECT2,
+  input         LS_RB1,
   input         CS2,
   input         WEN1_b0,
   input         WEN1_b1,
-  input         FIFO_EN,
-  input         LS_RB1,
-  input         P1,
-  input         RMA_b0,
-  input         RMA_b1,
-  input         RMA_b2,
-  input         RMA_b3,
-  input         CLK2EN,
-  input         PIPELINE_RD,
+  input         LS,
+  input         SD_RB1,
+  input         CS1,
+  input         TEST1A,
+  input  [ 1:0] WIDTH_SELECT1,
+  input         A1_b0,
+  input         A1_b1,
+  input         A1_b2,
+  input         A1_b3,
+  input         A1_b4,
+  input         A1_b5,
+  input         A1_b6,
+  input         A1_b7,
+  input         A1_b8,
+  input         A1_b9,
+  input         A1_b10,
   input         WD_b0,
   input         WD_b1,
   input         WD_b2,
@@ -79,7 +69,17 @@ module RAM_CE0_FE0_PR0_WSA0_WSB0_VPR (
   input         WD_b15,
   input         WD_b16,
   input         WD_b17,
-  input         P2,
+  input         P1,
+  input         RMA_b0,
+  input         RMA_b1,
+  input         RMA_b2,
+  input         RMA_b3,
+  input         RMEA,
+  input         SYNC_FIFO,
+  input         CLK1EN,
+  input         CLK2EN,
+  input         RMEB,
+  input         SD,
 
   output        Almost_Full,
   output        RD_b0,
@@ -110,30 +110,9 @@ module RAM_CE0_FE0_PR0_WSA0_WSB0_VPR (
   output        POP_FLAG_b2,
   output        POP_FLAG_b3
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
-      $setup(A1_b0, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b0, "");
-      $setup(A1_b1, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b1, "");
-      $setup(A1_b2, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b2, "");
-      $setup(A1_b3, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b3, "");
-      $setup(A1_b4, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b4, "");
-      $setup(A1_b5, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b5, "");
-      $setup(A1_b6, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b6, "");
-      $setup(A1_b7, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b7, "");
-      $setup(A1_b8, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b8, "");
-      $setup(A1_b9, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b9, "");
-      $setup(A1_b10, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b10, "");
       $setup(A2_b0, posedge CLK2, "");
       $hold(posedge CLK2, A2_b0, "");
       $setup(A2_b1, posedge CLK2, "");
@@ -160,6 +139,28 @@ module RAM_CE0_FE0_PR0_WSA0_WSB0_VPR (
       $hold(posedge CLK1, WEN1_b0, "");
       $setup(WEN1_b1, posedge CLK1, "");
       $hold(posedge CLK1, WEN1_b1, "");
+      $setup(A1_b0, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b0, "");
+      $setup(A1_b1, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b1, "");
+      $setup(A1_b2, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b2, "");
+      $setup(A1_b3, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b3, "");
+      $setup(A1_b4, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b4, "");
+      $setup(A1_b5, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b5, "");
+      $setup(A1_b6, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b6, "");
+      $setup(A1_b7, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b7, "");
+      $setup(A1_b8, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b8, "");
+      $setup(A1_b9, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b9, "");
+      $setup(A1_b10, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b10, "");
       $setup(WD_b0, posedge CLK1, "");
       $hold(posedge CLK1, WD_b0, "");
       $setup(WD_b1, posedge CLK1, "");
@@ -217,26 +218,10 @@ module RAM_CE0_FE0_PR0_WSA0_WSB0_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK2_0(CLK2),
       .CLK1_0(CLK1),
-      .A1_0_b0(A1_b0),
-      .A1_0_b1(A1_b1),
-      .A1_0_b2(A1_b2),
-      .A1_0_b3(A1_b3),
-      .A1_0_b4(A1_b4),
-      .A1_0_b5(A1_b5),
-      .A1_0_b6(A1_b6),
-      .A1_0_b7(A1_b7),
-      .A1_0_b8(A1_b8),
-      .A1_0_b9(A1_b9),
-      .A1_0_b10(A1_b10),
-      .CLK1EN_0(CLK1EN),
       .DIR_0(DIR),
-      .CS1_0(CS1),
-      .CONCAT_EN_0(CONCAT_EN),
-      .SYNC_FIFO_0(SYNC_FIFO),
-      .ASYNC_FLUSH_0(ASYNC_FLUSH),
       .A2_0_b0(A2_b0),
       .A2_0_b1(A2_b1),
       .A2_0_b2(A2_b2),
@@ -248,15 +233,28 @@ module RAM_CE0_FE0_PR0_WSA0_WSB0_VPR (
       .A2_0_b8(A2_b8),
       .A2_0_b9(A2_b9),
       .A2_0_b10(A2_b10),
-      .WIDTH_SELECT1_0(WIDTH_SELECT1),
+      .P2_0(P2),
+      .FIFO_EN_0(FIFO_EN),
+      .CONCAT_EN_0(CONCAT_EN),
+      .ASYNC_FLUSH_0(ASYNC_FLUSH),
+      .PIPELINE_RD_0(PIPELINE_RD),
       .WIDTH_SELECT2_0(WIDTH_SELECT2),
       .CS2_0(CS2),
       .WEN1_0_b0(WEN1_b0),
       .WEN1_0_b1(WEN1_b1),
-      .FIFO_EN_0(FIFO_EN),
-      .P1_0(P1),
-      .CLK2EN_0(CLK2EN),
-      .PIPELINE_RD_0(PIPELINE_RD),
+      .CS1_0(CS1),
+      .WIDTH_SELECT1_0(WIDTH_SELECT1),
+      .A1_0_b0(A1_b0),
+      .A1_0_b1(A1_b1),
+      .A1_0_b2(A1_b2),
+      .A1_0_b3(A1_b3),
+      .A1_0_b4(A1_b4),
+      .A1_0_b5(A1_b5),
+      .A1_0_b6(A1_b6),
+      .A1_0_b7(A1_b7),
+      .A1_0_b8(A1_b8),
+      .A1_0_b9(A1_b9),
+      .A1_0_b10(A1_b10),
       .WD_0_b0(WD_b0),
       .WD_0_b1(WD_b1),
       .WD_0_b2(WD_b2),
@@ -275,7 +273,10 @@ module RAM_CE0_FE0_PR0_WSA0_WSB0_VPR (
       .WD_0_b15(WD_b15),
       .WD_0_b16(WD_b16),
       .WD_0_b17(WD_b17),
-      .P2_0(P2),
+      .P1_0(P1),
+      .SYNC_FIFO_0(SYNC_FIFO),
+      .CLK1EN_0(CLK1EN),
+      .CLK2EN_0(CLK2EN),
       .Almost_Full_0(Almost_Full),
       .RD_0_b0(RD_b0),
       .RD_0_b1(RD_b1),
@@ -314,29 +315,8 @@ module RAM_CE0_FE0_PR0_WSA0_WSB1_VPR (
   input         CLK2,
   input         CLK1,
 
-  input         TEST1A,
-  input         DS,
-  input         A1_b0,
-  input         A1_b1,
-  input         A1_b2,
-  input         A1_b3,
-  input         A1_b4,
-  input         A1_b5,
-  input         A1_b6,
-  input         A1_b7,
-  input         A1_b8,
-  input         A1_b9,
-  input         A1_b10,
-  input         CLK1EN,
-  input         SD,
   input         DIR,
-  input         CS1,
-  input         CONCAT_EN,
-  input         SYNC_FIFO,
-  input         LS,
-  input         SD_RB1,
-  input         TEST1B,
-  input         ASYNC_FLUSH,
+  input         DS_RB1,
   input         A2_b0,
   input         A2_b1,
   input         A2_b2,
@@ -348,27 +328,38 @@ module RAM_CE0_FE0_PR0_WSA0_WSB1_VPR (
   input         A2_b8,
   input         A2_b9,
   input         A2_b10,
-  input         RMEB,
   input         RMB_b0,
   input         RMB_b1,
   input         RMB_b2,
   input         RMB_b3,
-  input         DS_RB1,
-  input         RMEA,
-  input  [ 1:0] WIDTH_SELECT1,
+  input         P2,
+  input         FIFO_EN,
+  input         CONCAT_EN,
+  input         ASYNC_FLUSH,
+  input         TEST1B,
+  input         PIPELINE_RD,
+  input         DS,
   input  [ 1:0] WIDTH_SELECT2,
+  input         LS_RB1,
   input         CS2,
   input         WEN1_b0,
   input         WEN1_b1,
-  input         FIFO_EN,
-  input         LS_RB1,
-  input         P1,
-  input         RMA_b0,
-  input         RMA_b1,
-  input         RMA_b2,
-  input         RMA_b3,
-  input         CLK2EN,
-  input         PIPELINE_RD,
+  input         LS,
+  input         SD_RB1,
+  input         CS1,
+  input         TEST1A,
+  input  [ 1:0] WIDTH_SELECT1,
+  input         A1_b0,
+  input         A1_b1,
+  input         A1_b2,
+  input         A1_b3,
+  input         A1_b4,
+  input         A1_b5,
+  input         A1_b6,
+  input         A1_b7,
+  input         A1_b8,
+  input         A1_b9,
+  input         A1_b10,
   input         WD_b0,
   input         WD_b1,
   input         WD_b2,
@@ -387,7 +378,17 @@ module RAM_CE0_FE0_PR0_WSA0_WSB1_VPR (
   input         WD_b15,
   input         WD_b16,
   input         WD_b17,
-  input         P2,
+  input         P1,
+  input         RMA_b0,
+  input         RMA_b1,
+  input         RMA_b2,
+  input         RMA_b3,
+  input         RMEA,
+  input         SYNC_FIFO,
+  input         CLK1EN,
+  input         CLK2EN,
+  input         RMEB,
+  input         SD,
 
   output        Almost_Full,
   output        RD_b0,
@@ -418,30 +419,9 @@ module RAM_CE0_FE0_PR0_WSA0_WSB1_VPR (
   output        POP_FLAG_b2,
   output        POP_FLAG_b3
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
-      $setup(A1_b0, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b0, "");
-      $setup(A1_b1, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b1, "");
-      $setup(A1_b2, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b2, "");
-      $setup(A1_b3, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b3, "");
-      $setup(A1_b4, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b4, "");
-      $setup(A1_b5, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b5, "");
-      $setup(A1_b6, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b6, "");
-      $setup(A1_b7, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b7, "");
-      $setup(A1_b8, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b8, "");
-      $setup(A1_b9, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b9, "");
-      $setup(A1_b10, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b10, "");
       $setup(A2_b0, posedge CLK2, "");
       $hold(posedge CLK2, A2_b0, "");
       $setup(A2_b1, posedge CLK2, "");
@@ -468,6 +448,28 @@ module RAM_CE0_FE0_PR0_WSA0_WSB1_VPR (
       $hold(posedge CLK1, WEN1_b0, "");
       $setup(WEN1_b1, posedge CLK1, "");
       $hold(posedge CLK1, WEN1_b1, "");
+      $setup(A1_b0, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b0, "");
+      $setup(A1_b1, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b1, "");
+      $setup(A1_b2, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b2, "");
+      $setup(A1_b3, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b3, "");
+      $setup(A1_b4, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b4, "");
+      $setup(A1_b5, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b5, "");
+      $setup(A1_b6, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b6, "");
+      $setup(A1_b7, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b7, "");
+      $setup(A1_b8, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b8, "");
+      $setup(A1_b9, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b9, "");
+      $setup(A1_b10, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b10, "");
       $setup(WD_b0, posedge CLK1, "");
       $hold(posedge CLK1, WD_b0, "");
       $setup(WD_b1, posedge CLK1, "");
@@ -525,26 +527,10 @@ module RAM_CE0_FE0_PR0_WSA0_WSB1_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK2_0(CLK2),
       .CLK1_0(CLK1),
-      .A1_0_b0(A1_b0),
-      .A1_0_b1(A1_b1),
-      .A1_0_b2(A1_b2),
-      .A1_0_b3(A1_b3),
-      .A1_0_b4(A1_b4),
-      .A1_0_b5(A1_b5),
-      .A1_0_b6(A1_b6),
-      .A1_0_b7(A1_b7),
-      .A1_0_b8(A1_b8),
-      .A1_0_b9(A1_b9),
-      .A1_0_b10(A1_b10),
-      .CLK1EN_0(CLK1EN),
       .DIR_0(DIR),
-      .CS1_0(CS1),
-      .CONCAT_EN_0(CONCAT_EN),
-      .SYNC_FIFO_0(SYNC_FIFO),
-      .ASYNC_FLUSH_0(ASYNC_FLUSH),
       .A2_0_b0(A2_b0),
       .A2_0_b1(A2_b1),
       .A2_0_b2(A2_b2),
@@ -556,15 +542,28 @@ module RAM_CE0_FE0_PR0_WSA0_WSB1_VPR (
       .A2_0_b8(A2_b8),
       .A2_0_b9(A2_b9),
       .A2_0_b10(A2_b10),
-      .WIDTH_SELECT1_0(WIDTH_SELECT1),
+      .P2_0(P2),
+      .FIFO_EN_0(FIFO_EN),
+      .CONCAT_EN_0(CONCAT_EN),
+      .ASYNC_FLUSH_0(ASYNC_FLUSH),
+      .PIPELINE_RD_0(PIPELINE_RD),
       .WIDTH_SELECT2_0(WIDTH_SELECT2),
       .CS2_0(CS2),
       .WEN1_0_b0(WEN1_b0),
       .WEN1_0_b1(WEN1_b1),
-      .FIFO_EN_0(FIFO_EN),
-      .P1_0(P1),
-      .CLK2EN_0(CLK2EN),
-      .PIPELINE_RD_0(PIPELINE_RD),
+      .CS1_0(CS1),
+      .WIDTH_SELECT1_0(WIDTH_SELECT1),
+      .A1_0_b0(A1_b0),
+      .A1_0_b1(A1_b1),
+      .A1_0_b2(A1_b2),
+      .A1_0_b3(A1_b3),
+      .A1_0_b4(A1_b4),
+      .A1_0_b5(A1_b5),
+      .A1_0_b6(A1_b6),
+      .A1_0_b7(A1_b7),
+      .A1_0_b8(A1_b8),
+      .A1_0_b9(A1_b9),
+      .A1_0_b10(A1_b10),
       .WD_0_b0(WD_b0),
       .WD_0_b1(WD_b1),
       .WD_0_b2(WD_b2),
@@ -583,7 +582,10 @@ module RAM_CE0_FE0_PR0_WSA0_WSB1_VPR (
       .WD_0_b15(WD_b15),
       .WD_0_b16(WD_b16),
       .WD_0_b17(WD_b17),
-      .P2_0(P2),
+      .P1_0(P1),
+      .SYNC_FIFO_0(SYNC_FIFO),
+      .CLK1EN_0(CLK1EN),
+      .CLK2EN_0(CLK2EN),
       .Almost_Full_0(Almost_Full),
       .RD_0_b0(RD_b0),
       .RD_0_b1(RD_b1),
@@ -622,29 +624,8 @@ module RAM_CE0_FE0_PR0_WSA1_WSB0_VPR (
   input         CLK2,
   input         CLK1,
 
-  input         TEST1A,
-  input         DS,
-  input         A1_b0,
-  input         A1_b1,
-  input         A1_b2,
-  input         A1_b3,
-  input         A1_b4,
-  input         A1_b5,
-  input         A1_b6,
-  input         A1_b7,
-  input         A1_b8,
-  input         A1_b9,
-  input         A1_b10,
-  input         CLK1EN,
-  input         SD,
   input         DIR,
-  input         CS1,
-  input         CONCAT_EN,
-  input         SYNC_FIFO,
-  input         LS,
-  input         SD_RB1,
-  input         TEST1B,
-  input         ASYNC_FLUSH,
+  input         DS_RB1,
   input         A2_b0,
   input         A2_b1,
   input         A2_b2,
@@ -656,27 +637,38 @@ module RAM_CE0_FE0_PR0_WSA1_WSB0_VPR (
   input         A2_b8,
   input         A2_b9,
   input         A2_b10,
-  input         RMEB,
   input         RMB_b0,
   input         RMB_b1,
   input         RMB_b2,
   input         RMB_b3,
-  input         DS_RB1,
-  input         RMEA,
-  input  [ 1:0] WIDTH_SELECT1,
+  input         P2,
+  input         FIFO_EN,
+  input         CONCAT_EN,
+  input         ASYNC_FLUSH,
+  input         TEST1B,
+  input         PIPELINE_RD,
+  input         DS,
   input  [ 1:0] WIDTH_SELECT2,
+  input         LS_RB1,
   input         CS2,
   input         WEN1_b0,
   input         WEN1_b1,
-  input         FIFO_EN,
-  input         LS_RB1,
-  input         P1,
-  input         RMA_b0,
-  input         RMA_b1,
-  input         RMA_b2,
-  input         RMA_b3,
-  input         CLK2EN,
-  input         PIPELINE_RD,
+  input         LS,
+  input         SD_RB1,
+  input         CS1,
+  input         TEST1A,
+  input  [ 1:0] WIDTH_SELECT1,
+  input         A1_b0,
+  input         A1_b1,
+  input         A1_b2,
+  input         A1_b3,
+  input         A1_b4,
+  input         A1_b5,
+  input         A1_b6,
+  input         A1_b7,
+  input         A1_b8,
+  input         A1_b9,
+  input         A1_b10,
   input         WD_b0,
   input         WD_b1,
   input         WD_b2,
@@ -695,7 +687,17 @@ module RAM_CE0_FE0_PR0_WSA1_WSB0_VPR (
   input         WD_b15,
   input         WD_b16,
   input         WD_b17,
-  input         P2,
+  input         P1,
+  input         RMA_b0,
+  input         RMA_b1,
+  input         RMA_b2,
+  input         RMA_b3,
+  input         RMEA,
+  input         SYNC_FIFO,
+  input         CLK1EN,
+  input         CLK2EN,
+  input         RMEB,
+  input         SD,
 
   output        Almost_Full,
   output        RD_b0,
@@ -726,30 +728,9 @@ module RAM_CE0_FE0_PR0_WSA1_WSB0_VPR (
   output        POP_FLAG_b2,
   output        POP_FLAG_b3
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
-      $setup(A1_b0, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b0, "");
-      $setup(A1_b1, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b1, "");
-      $setup(A1_b2, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b2, "");
-      $setup(A1_b3, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b3, "");
-      $setup(A1_b4, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b4, "");
-      $setup(A1_b5, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b5, "");
-      $setup(A1_b6, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b6, "");
-      $setup(A1_b7, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b7, "");
-      $setup(A1_b8, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b8, "");
-      $setup(A1_b9, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b9, "");
-      $setup(A1_b10, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b10, "");
       $setup(A2_b0, posedge CLK2, "");
       $hold(posedge CLK2, A2_b0, "");
       $setup(A2_b1, posedge CLK2, "");
@@ -776,6 +757,28 @@ module RAM_CE0_FE0_PR0_WSA1_WSB0_VPR (
       $hold(posedge CLK1, WEN1_b0, "");
       $setup(WEN1_b1, posedge CLK1, "");
       $hold(posedge CLK1, WEN1_b1, "");
+      $setup(A1_b0, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b0, "");
+      $setup(A1_b1, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b1, "");
+      $setup(A1_b2, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b2, "");
+      $setup(A1_b3, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b3, "");
+      $setup(A1_b4, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b4, "");
+      $setup(A1_b5, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b5, "");
+      $setup(A1_b6, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b6, "");
+      $setup(A1_b7, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b7, "");
+      $setup(A1_b8, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b8, "");
+      $setup(A1_b9, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b9, "");
+      $setup(A1_b10, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b10, "");
       $setup(WD_b0, posedge CLK1, "");
       $hold(posedge CLK1, WD_b0, "");
       $setup(WD_b1, posedge CLK1, "");
@@ -833,26 +836,10 @@ module RAM_CE0_FE0_PR0_WSA1_WSB0_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK2_0(CLK2),
       .CLK1_0(CLK1),
-      .A1_0_b0(A1_b0),
-      .A1_0_b1(A1_b1),
-      .A1_0_b2(A1_b2),
-      .A1_0_b3(A1_b3),
-      .A1_0_b4(A1_b4),
-      .A1_0_b5(A1_b5),
-      .A1_0_b6(A1_b6),
-      .A1_0_b7(A1_b7),
-      .A1_0_b8(A1_b8),
-      .A1_0_b9(A1_b9),
-      .A1_0_b10(A1_b10),
-      .CLK1EN_0(CLK1EN),
       .DIR_0(DIR),
-      .CS1_0(CS1),
-      .CONCAT_EN_0(CONCAT_EN),
-      .SYNC_FIFO_0(SYNC_FIFO),
-      .ASYNC_FLUSH_0(ASYNC_FLUSH),
       .A2_0_b0(A2_b0),
       .A2_0_b1(A2_b1),
       .A2_0_b2(A2_b2),
@@ -864,15 +851,28 @@ module RAM_CE0_FE0_PR0_WSA1_WSB0_VPR (
       .A2_0_b8(A2_b8),
       .A2_0_b9(A2_b9),
       .A2_0_b10(A2_b10),
-      .WIDTH_SELECT1_0(WIDTH_SELECT1),
+      .P2_0(P2),
+      .FIFO_EN_0(FIFO_EN),
+      .CONCAT_EN_0(CONCAT_EN),
+      .ASYNC_FLUSH_0(ASYNC_FLUSH),
+      .PIPELINE_RD_0(PIPELINE_RD),
       .WIDTH_SELECT2_0(WIDTH_SELECT2),
       .CS2_0(CS2),
       .WEN1_0_b0(WEN1_b0),
       .WEN1_0_b1(WEN1_b1),
-      .FIFO_EN_0(FIFO_EN),
-      .P1_0(P1),
-      .CLK2EN_0(CLK2EN),
-      .PIPELINE_RD_0(PIPELINE_RD),
+      .CS1_0(CS1),
+      .WIDTH_SELECT1_0(WIDTH_SELECT1),
+      .A1_0_b0(A1_b0),
+      .A1_0_b1(A1_b1),
+      .A1_0_b2(A1_b2),
+      .A1_0_b3(A1_b3),
+      .A1_0_b4(A1_b4),
+      .A1_0_b5(A1_b5),
+      .A1_0_b6(A1_b6),
+      .A1_0_b7(A1_b7),
+      .A1_0_b8(A1_b8),
+      .A1_0_b9(A1_b9),
+      .A1_0_b10(A1_b10),
       .WD_0_b0(WD_b0),
       .WD_0_b1(WD_b1),
       .WD_0_b2(WD_b2),
@@ -891,7 +891,10 @@ module RAM_CE0_FE0_PR0_WSA1_WSB0_VPR (
       .WD_0_b15(WD_b15),
       .WD_0_b16(WD_b16),
       .WD_0_b17(WD_b17),
-      .P2_0(P2),
+      .P1_0(P1),
+      .SYNC_FIFO_0(SYNC_FIFO),
+      .CLK1EN_0(CLK1EN),
+      .CLK2EN_0(CLK2EN),
       .Almost_Full_0(Almost_Full),
       .RD_0_b0(RD_b0),
       .RD_0_b1(RD_b1),
@@ -930,29 +933,8 @@ module RAM_CE0_FE0_PR0_WSA1_WSB1_VPR (
   input         CLK2,
   input         CLK1,
 
-  input         TEST1A,
-  input         DS,
-  input         A1_b0,
-  input         A1_b1,
-  input         A1_b2,
-  input         A1_b3,
-  input         A1_b4,
-  input         A1_b5,
-  input         A1_b6,
-  input         A1_b7,
-  input         A1_b8,
-  input         A1_b9,
-  input         A1_b10,
-  input         CLK1EN,
-  input         SD,
   input         DIR,
-  input         CS1,
-  input         CONCAT_EN,
-  input         SYNC_FIFO,
-  input         LS,
-  input         SD_RB1,
-  input         TEST1B,
-  input         ASYNC_FLUSH,
+  input         DS_RB1,
   input         A2_b0,
   input         A2_b1,
   input         A2_b2,
@@ -964,27 +946,38 @@ module RAM_CE0_FE0_PR0_WSA1_WSB1_VPR (
   input         A2_b8,
   input         A2_b9,
   input         A2_b10,
-  input         RMEB,
   input         RMB_b0,
   input         RMB_b1,
   input         RMB_b2,
   input         RMB_b3,
-  input         DS_RB1,
-  input         RMEA,
-  input  [ 1:0] WIDTH_SELECT1,
+  input         P2,
+  input         FIFO_EN,
+  input         CONCAT_EN,
+  input         ASYNC_FLUSH,
+  input         TEST1B,
+  input         PIPELINE_RD,
+  input         DS,
   input  [ 1:0] WIDTH_SELECT2,
+  input         LS_RB1,
   input         CS2,
   input         WEN1_b0,
   input         WEN1_b1,
-  input         FIFO_EN,
-  input         LS_RB1,
-  input         P1,
-  input         RMA_b0,
-  input         RMA_b1,
-  input         RMA_b2,
-  input         RMA_b3,
-  input         CLK2EN,
-  input         PIPELINE_RD,
+  input         LS,
+  input         SD_RB1,
+  input         CS1,
+  input         TEST1A,
+  input  [ 1:0] WIDTH_SELECT1,
+  input         A1_b0,
+  input         A1_b1,
+  input         A1_b2,
+  input         A1_b3,
+  input         A1_b4,
+  input         A1_b5,
+  input         A1_b6,
+  input         A1_b7,
+  input         A1_b8,
+  input         A1_b9,
+  input         A1_b10,
   input         WD_b0,
   input         WD_b1,
   input         WD_b2,
@@ -1003,7 +996,17 @@ module RAM_CE0_FE0_PR0_WSA1_WSB1_VPR (
   input         WD_b15,
   input         WD_b16,
   input         WD_b17,
-  input         P2,
+  input         P1,
+  input         RMA_b0,
+  input         RMA_b1,
+  input         RMA_b2,
+  input         RMA_b3,
+  input         RMEA,
+  input         SYNC_FIFO,
+  input         CLK1EN,
+  input         CLK2EN,
+  input         RMEB,
+  input         SD,
 
   output        Almost_Full,
   output        RD_b0,
@@ -1034,30 +1037,9 @@ module RAM_CE0_FE0_PR0_WSA1_WSB1_VPR (
   output        POP_FLAG_b2,
   output        POP_FLAG_b3
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
-      $setup(A1_b0, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b0, "");
-      $setup(A1_b1, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b1, "");
-      $setup(A1_b2, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b2, "");
-      $setup(A1_b3, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b3, "");
-      $setup(A1_b4, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b4, "");
-      $setup(A1_b5, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b5, "");
-      $setup(A1_b6, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b6, "");
-      $setup(A1_b7, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b7, "");
-      $setup(A1_b8, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b8, "");
-      $setup(A1_b9, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b9, "");
-      $setup(A1_b10, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b10, "");
       $setup(A2_b0, posedge CLK2, "");
       $hold(posedge CLK2, A2_b0, "");
       $setup(A2_b1, posedge CLK2, "");
@@ -1084,6 +1066,28 @@ module RAM_CE0_FE0_PR0_WSA1_WSB1_VPR (
       $hold(posedge CLK1, WEN1_b0, "");
       $setup(WEN1_b1, posedge CLK1, "");
       $hold(posedge CLK1, WEN1_b1, "");
+      $setup(A1_b0, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b0, "");
+      $setup(A1_b1, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b1, "");
+      $setup(A1_b2, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b2, "");
+      $setup(A1_b3, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b3, "");
+      $setup(A1_b4, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b4, "");
+      $setup(A1_b5, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b5, "");
+      $setup(A1_b6, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b6, "");
+      $setup(A1_b7, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b7, "");
+      $setup(A1_b8, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b8, "");
+      $setup(A1_b9, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b9, "");
+      $setup(A1_b10, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b10, "");
       $setup(WD_b0, posedge CLK1, "");
       $hold(posedge CLK1, WD_b0, "");
       $setup(WD_b1, posedge CLK1, "");
@@ -1141,26 +1145,10 @@ module RAM_CE0_FE0_PR0_WSA1_WSB1_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK2_0(CLK2),
       .CLK1_0(CLK1),
-      .A1_0_b0(A1_b0),
-      .A1_0_b1(A1_b1),
-      .A1_0_b2(A1_b2),
-      .A1_0_b3(A1_b3),
-      .A1_0_b4(A1_b4),
-      .A1_0_b5(A1_b5),
-      .A1_0_b6(A1_b6),
-      .A1_0_b7(A1_b7),
-      .A1_0_b8(A1_b8),
-      .A1_0_b9(A1_b9),
-      .A1_0_b10(A1_b10),
-      .CLK1EN_0(CLK1EN),
       .DIR_0(DIR),
-      .CS1_0(CS1),
-      .CONCAT_EN_0(CONCAT_EN),
-      .SYNC_FIFO_0(SYNC_FIFO),
-      .ASYNC_FLUSH_0(ASYNC_FLUSH),
       .A2_0_b0(A2_b0),
       .A2_0_b1(A2_b1),
       .A2_0_b2(A2_b2),
@@ -1172,15 +1160,28 @@ module RAM_CE0_FE0_PR0_WSA1_WSB1_VPR (
       .A2_0_b8(A2_b8),
       .A2_0_b9(A2_b9),
       .A2_0_b10(A2_b10),
-      .WIDTH_SELECT1_0(WIDTH_SELECT1),
+      .P2_0(P2),
+      .FIFO_EN_0(FIFO_EN),
+      .CONCAT_EN_0(CONCAT_EN),
+      .ASYNC_FLUSH_0(ASYNC_FLUSH),
+      .PIPELINE_RD_0(PIPELINE_RD),
       .WIDTH_SELECT2_0(WIDTH_SELECT2),
       .CS2_0(CS2),
       .WEN1_0_b0(WEN1_b0),
       .WEN1_0_b1(WEN1_b1),
-      .FIFO_EN_0(FIFO_EN),
-      .P1_0(P1),
-      .CLK2EN_0(CLK2EN),
-      .PIPELINE_RD_0(PIPELINE_RD),
+      .CS1_0(CS1),
+      .WIDTH_SELECT1_0(WIDTH_SELECT1),
+      .A1_0_b0(A1_b0),
+      .A1_0_b1(A1_b1),
+      .A1_0_b2(A1_b2),
+      .A1_0_b3(A1_b3),
+      .A1_0_b4(A1_b4),
+      .A1_0_b5(A1_b5),
+      .A1_0_b6(A1_b6),
+      .A1_0_b7(A1_b7),
+      .A1_0_b8(A1_b8),
+      .A1_0_b9(A1_b9),
+      .A1_0_b10(A1_b10),
       .WD_0_b0(WD_b0),
       .WD_0_b1(WD_b1),
       .WD_0_b2(WD_b2),
@@ -1199,7 +1200,10 @@ module RAM_CE0_FE0_PR0_WSA1_WSB1_VPR (
       .WD_0_b15(WD_b15),
       .WD_0_b16(WD_b16),
       .WD_0_b17(WD_b17),
-      .P2_0(P2),
+      .P1_0(P1),
+      .SYNC_FIFO_0(SYNC_FIFO),
+      .CLK1EN_0(CLK1EN),
+      .CLK2EN_0(CLK2EN),
       .Almost_Full_0(Almost_Full),
       .RD_0_b0(RD_b0),
       .RD_0_b1(RD_b1),
@@ -1238,29 +1242,8 @@ module RAM_CE0_FE0_PR1_WSA0_WSB0_VPR (
   input         CLK2,
   input         CLK1,
 
-  input         TEST1A,
-  input         DS,
-  input         A1_b0,
-  input         A1_b1,
-  input         A1_b2,
-  input         A1_b3,
-  input         A1_b4,
-  input         A1_b5,
-  input         A1_b6,
-  input         A1_b7,
-  input         A1_b8,
-  input         A1_b9,
-  input         A1_b10,
-  input         CLK1EN,
-  input         SD,
   input         DIR,
-  input         CS1,
-  input         CONCAT_EN,
-  input         SYNC_FIFO,
-  input         LS,
-  input         SD_RB1,
-  input         TEST1B,
-  input         ASYNC_FLUSH,
+  input         DS_RB1,
   input         A2_b0,
   input         A2_b1,
   input         A2_b2,
@@ -1272,27 +1255,38 @@ module RAM_CE0_FE0_PR1_WSA0_WSB0_VPR (
   input         A2_b8,
   input         A2_b9,
   input         A2_b10,
-  input         RMEB,
   input         RMB_b0,
   input         RMB_b1,
   input         RMB_b2,
   input         RMB_b3,
-  input         DS_RB1,
-  input         RMEA,
-  input  [ 1:0] WIDTH_SELECT1,
+  input         P2,
+  input         FIFO_EN,
+  input         CONCAT_EN,
+  input         ASYNC_FLUSH,
+  input         TEST1B,
+  input         PIPELINE_RD,
+  input         DS,
   input  [ 1:0] WIDTH_SELECT2,
+  input         LS_RB1,
   input         CS2,
   input         WEN1_b0,
   input         WEN1_b1,
-  input         FIFO_EN,
-  input         LS_RB1,
-  input         P1,
-  input         RMA_b0,
-  input         RMA_b1,
-  input         RMA_b2,
-  input         RMA_b3,
-  input         CLK2EN,
-  input         PIPELINE_RD,
+  input         LS,
+  input         SD_RB1,
+  input         CS1,
+  input         TEST1A,
+  input  [ 1:0] WIDTH_SELECT1,
+  input         A1_b0,
+  input         A1_b1,
+  input         A1_b2,
+  input         A1_b3,
+  input         A1_b4,
+  input         A1_b5,
+  input         A1_b6,
+  input         A1_b7,
+  input         A1_b8,
+  input         A1_b9,
+  input         A1_b10,
   input         WD_b0,
   input         WD_b1,
   input         WD_b2,
@@ -1311,7 +1305,17 @@ module RAM_CE0_FE0_PR1_WSA0_WSB0_VPR (
   input         WD_b15,
   input         WD_b16,
   input         WD_b17,
-  input         P2,
+  input         P1,
+  input         RMA_b0,
+  input         RMA_b1,
+  input         RMA_b2,
+  input         RMA_b3,
+  input         RMEA,
+  input         SYNC_FIFO,
+  input         CLK1EN,
+  input         CLK2EN,
+  input         RMEB,
+  input         SD,
 
   output        Almost_Full,
   output        RD_b0,
@@ -1342,30 +1346,9 @@ module RAM_CE0_FE0_PR1_WSA0_WSB0_VPR (
   output        POP_FLAG_b2,
   output        POP_FLAG_b3
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
-      $setup(A1_b0, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b0, "");
-      $setup(A1_b1, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b1, "");
-      $setup(A1_b2, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b2, "");
-      $setup(A1_b3, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b3, "");
-      $setup(A1_b4, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b4, "");
-      $setup(A1_b5, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b5, "");
-      $setup(A1_b6, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b6, "");
-      $setup(A1_b7, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b7, "");
-      $setup(A1_b8, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b8, "");
-      $setup(A1_b9, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b9, "");
-      $setup(A1_b10, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b10, "");
       $setup(A2_b0, posedge CLK2, "");
       $hold(posedge CLK2, A2_b0, "");
       $setup(A2_b1, posedge CLK2, "");
@@ -1392,6 +1375,28 @@ module RAM_CE0_FE0_PR1_WSA0_WSB0_VPR (
       $hold(posedge CLK1, WEN1_b0, "");
       $setup(WEN1_b1, posedge CLK1, "");
       $hold(posedge CLK1, WEN1_b1, "");
+      $setup(A1_b0, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b0, "");
+      $setup(A1_b1, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b1, "");
+      $setup(A1_b2, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b2, "");
+      $setup(A1_b3, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b3, "");
+      $setup(A1_b4, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b4, "");
+      $setup(A1_b5, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b5, "");
+      $setup(A1_b6, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b6, "");
+      $setup(A1_b7, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b7, "");
+      $setup(A1_b8, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b8, "");
+      $setup(A1_b9, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b9, "");
+      $setup(A1_b10, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b10, "");
       $setup(WD_b0, posedge CLK1, "");
       $hold(posedge CLK1, WD_b0, "");
       $setup(WD_b1, posedge CLK1, "");
@@ -1449,26 +1454,10 @@ module RAM_CE0_FE0_PR1_WSA0_WSB0_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK2_0(CLK2),
       .CLK1_0(CLK1),
-      .A1_0_b0(A1_b0),
-      .A1_0_b1(A1_b1),
-      .A1_0_b2(A1_b2),
-      .A1_0_b3(A1_b3),
-      .A1_0_b4(A1_b4),
-      .A1_0_b5(A1_b5),
-      .A1_0_b6(A1_b6),
-      .A1_0_b7(A1_b7),
-      .A1_0_b8(A1_b8),
-      .A1_0_b9(A1_b9),
-      .A1_0_b10(A1_b10),
-      .CLK1EN_0(CLK1EN),
       .DIR_0(DIR),
-      .CS1_0(CS1),
-      .CONCAT_EN_0(CONCAT_EN),
-      .SYNC_FIFO_0(SYNC_FIFO),
-      .ASYNC_FLUSH_0(ASYNC_FLUSH),
       .A2_0_b0(A2_b0),
       .A2_0_b1(A2_b1),
       .A2_0_b2(A2_b2),
@@ -1480,15 +1469,28 @@ module RAM_CE0_FE0_PR1_WSA0_WSB0_VPR (
       .A2_0_b8(A2_b8),
       .A2_0_b9(A2_b9),
       .A2_0_b10(A2_b10),
-      .WIDTH_SELECT1_0(WIDTH_SELECT1),
+      .P2_0(P2),
+      .FIFO_EN_0(FIFO_EN),
+      .CONCAT_EN_0(CONCAT_EN),
+      .ASYNC_FLUSH_0(ASYNC_FLUSH),
+      .PIPELINE_RD_0(PIPELINE_RD),
       .WIDTH_SELECT2_0(WIDTH_SELECT2),
       .CS2_0(CS2),
       .WEN1_0_b0(WEN1_b0),
       .WEN1_0_b1(WEN1_b1),
-      .FIFO_EN_0(FIFO_EN),
-      .P1_0(P1),
-      .CLK2EN_0(CLK2EN),
-      .PIPELINE_RD_0(PIPELINE_RD),
+      .CS1_0(CS1),
+      .WIDTH_SELECT1_0(WIDTH_SELECT1),
+      .A1_0_b0(A1_b0),
+      .A1_0_b1(A1_b1),
+      .A1_0_b2(A1_b2),
+      .A1_0_b3(A1_b3),
+      .A1_0_b4(A1_b4),
+      .A1_0_b5(A1_b5),
+      .A1_0_b6(A1_b6),
+      .A1_0_b7(A1_b7),
+      .A1_0_b8(A1_b8),
+      .A1_0_b9(A1_b9),
+      .A1_0_b10(A1_b10),
       .WD_0_b0(WD_b0),
       .WD_0_b1(WD_b1),
       .WD_0_b2(WD_b2),
@@ -1507,7 +1509,10 @@ module RAM_CE0_FE0_PR1_WSA0_WSB0_VPR (
       .WD_0_b15(WD_b15),
       .WD_0_b16(WD_b16),
       .WD_0_b17(WD_b17),
-      .P2_0(P2),
+      .P1_0(P1),
+      .SYNC_FIFO_0(SYNC_FIFO),
+      .CLK1EN_0(CLK1EN),
+      .CLK2EN_0(CLK2EN),
       .Almost_Full_0(Almost_Full),
       .RD_0_b0(RD_b0),
       .RD_0_b1(RD_b1),
@@ -1546,29 +1551,8 @@ module RAM_CE0_FE0_PR1_WSA0_WSB1_VPR (
   input         CLK2,
   input         CLK1,
 
-  input         TEST1A,
-  input         DS,
-  input         A1_b0,
-  input         A1_b1,
-  input         A1_b2,
-  input         A1_b3,
-  input         A1_b4,
-  input         A1_b5,
-  input         A1_b6,
-  input         A1_b7,
-  input         A1_b8,
-  input         A1_b9,
-  input         A1_b10,
-  input         CLK1EN,
-  input         SD,
   input         DIR,
-  input         CS1,
-  input         CONCAT_EN,
-  input         SYNC_FIFO,
-  input         LS,
-  input         SD_RB1,
-  input         TEST1B,
-  input         ASYNC_FLUSH,
+  input         DS_RB1,
   input         A2_b0,
   input         A2_b1,
   input         A2_b2,
@@ -1580,27 +1564,38 @@ module RAM_CE0_FE0_PR1_WSA0_WSB1_VPR (
   input         A2_b8,
   input         A2_b9,
   input         A2_b10,
-  input         RMEB,
   input         RMB_b0,
   input         RMB_b1,
   input         RMB_b2,
   input         RMB_b3,
-  input         DS_RB1,
-  input         RMEA,
-  input  [ 1:0] WIDTH_SELECT1,
+  input         P2,
+  input         FIFO_EN,
+  input         CONCAT_EN,
+  input         ASYNC_FLUSH,
+  input         TEST1B,
+  input         PIPELINE_RD,
+  input         DS,
   input  [ 1:0] WIDTH_SELECT2,
+  input         LS_RB1,
   input         CS2,
   input         WEN1_b0,
   input         WEN1_b1,
-  input         FIFO_EN,
-  input         LS_RB1,
-  input         P1,
-  input         RMA_b0,
-  input         RMA_b1,
-  input         RMA_b2,
-  input         RMA_b3,
-  input         CLK2EN,
-  input         PIPELINE_RD,
+  input         LS,
+  input         SD_RB1,
+  input         CS1,
+  input         TEST1A,
+  input  [ 1:0] WIDTH_SELECT1,
+  input         A1_b0,
+  input         A1_b1,
+  input         A1_b2,
+  input         A1_b3,
+  input         A1_b4,
+  input         A1_b5,
+  input         A1_b6,
+  input         A1_b7,
+  input         A1_b8,
+  input         A1_b9,
+  input         A1_b10,
   input         WD_b0,
   input         WD_b1,
   input         WD_b2,
@@ -1619,7 +1614,17 @@ module RAM_CE0_FE0_PR1_WSA0_WSB1_VPR (
   input         WD_b15,
   input         WD_b16,
   input         WD_b17,
-  input         P2,
+  input         P1,
+  input         RMA_b0,
+  input         RMA_b1,
+  input         RMA_b2,
+  input         RMA_b3,
+  input         RMEA,
+  input         SYNC_FIFO,
+  input         CLK1EN,
+  input         CLK2EN,
+  input         RMEB,
+  input         SD,
 
   output        Almost_Full,
   output        RD_b0,
@@ -1650,30 +1655,9 @@ module RAM_CE0_FE0_PR1_WSA0_WSB1_VPR (
   output        POP_FLAG_b2,
   output        POP_FLAG_b3
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
-      $setup(A1_b0, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b0, "");
-      $setup(A1_b1, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b1, "");
-      $setup(A1_b2, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b2, "");
-      $setup(A1_b3, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b3, "");
-      $setup(A1_b4, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b4, "");
-      $setup(A1_b5, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b5, "");
-      $setup(A1_b6, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b6, "");
-      $setup(A1_b7, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b7, "");
-      $setup(A1_b8, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b8, "");
-      $setup(A1_b9, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b9, "");
-      $setup(A1_b10, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b10, "");
       $setup(A2_b0, posedge CLK2, "");
       $hold(posedge CLK2, A2_b0, "");
       $setup(A2_b1, posedge CLK2, "");
@@ -1700,6 +1684,28 @@ module RAM_CE0_FE0_PR1_WSA0_WSB1_VPR (
       $hold(posedge CLK1, WEN1_b0, "");
       $setup(WEN1_b1, posedge CLK1, "");
       $hold(posedge CLK1, WEN1_b1, "");
+      $setup(A1_b0, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b0, "");
+      $setup(A1_b1, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b1, "");
+      $setup(A1_b2, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b2, "");
+      $setup(A1_b3, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b3, "");
+      $setup(A1_b4, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b4, "");
+      $setup(A1_b5, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b5, "");
+      $setup(A1_b6, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b6, "");
+      $setup(A1_b7, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b7, "");
+      $setup(A1_b8, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b8, "");
+      $setup(A1_b9, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b9, "");
+      $setup(A1_b10, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b10, "");
       $setup(WD_b0, posedge CLK1, "");
       $hold(posedge CLK1, WD_b0, "");
       $setup(WD_b1, posedge CLK1, "");
@@ -1757,26 +1763,10 @@ module RAM_CE0_FE0_PR1_WSA0_WSB1_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK2_0(CLK2),
       .CLK1_0(CLK1),
-      .A1_0_b0(A1_b0),
-      .A1_0_b1(A1_b1),
-      .A1_0_b2(A1_b2),
-      .A1_0_b3(A1_b3),
-      .A1_0_b4(A1_b4),
-      .A1_0_b5(A1_b5),
-      .A1_0_b6(A1_b6),
-      .A1_0_b7(A1_b7),
-      .A1_0_b8(A1_b8),
-      .A1_0_b9(A1_b9),
-      .A1_0_b10(A1_b10),
-      .CLK1EN_0(CLK1EN),
       .DIR_0(DIR),
-      .CS1_0(CS1),
-      .CONCAT_EN_0(CONCAT_EN),
-      .SYNC_FIFO_0(SYNC_FIFO),
-      .ASYNC_FLUSH_0(ASYNC_FLUSH),
       .A2_0_b0(A2_b0),
       .A2_0_b1(A2_b1),
       .A2_0_b2(A2_b2),
@@ -1788,15 +1778,28 @@ module RAM_CE0_FE0_PR1_WSA0_WSB1_VPR (
       .A2_0_b8(A2_b8),
       .A2_0_b9(A2_b9),
       .A2_0_b10(A2_b10),
-      .WIDTH_SELECT1_0(WIDTH_SELECT1),
+      .P2_0(P2),
+      .FIFO_EN_0(FIFO_EN),
+      .CONCAT_EN_0(CONCAT_EN),
+      .ASYNC_FLUSH_0(ASYNC_FLUSH),
+      .PIPELINE_RD_0(PIPELINE_RD),
       .WIDTH_SELECT2_0(WIDTH_SELECT2),
       .CS2_0(CS2),
       .WEN1_0_b0(WEN1_b0),
       .WEN1_0_b1(WEN1_b1),
-      .FIFO_EN_0(FIFO_EN),
-      .P1_0(P1),
-      .CLK2EN_0(CLK2EN),
-      .PIPELINE_RD_0(PIPELINE_RD),
+      .CS1_0(CS1),
+      .WIDTH_SELECT1_0(WIDTH_SELECT1),
+      .A1_0_b0(A1_b0),
+      .A1_0_b1(A1_b1),
+      .A1_0_b2(A1_b2),
+      .A1_0_b3(A1_b3),
+      .A1_0_b4(A1_b4),
+      .A1_0_b5(A1_b5),
+      .A1_0_b6(A1_b6),
+      .A1_0_b7(A1_b7),
+      .A1_0_b8(A1_b8),
+      .A1_0_b9(A1_b9),
+      .A1_0_b10(A1_b10),
       .WD_0_b0(WD_b0),
       .WD_0_b1(WD_b1),
       .WD_0_b2(WD_b2),
@@ -1815,7 +1818,10 @@ module RAM_CE0_FE0_PR1_WSA0_WSB1_VPR (
       .WD_0_b15(WD_b15),
       .WD_0_b16(WD_b16),
       .WD_0_b17(WD_b17),
-      .P2_0(P2),
+      .P1_0(P1),
+      .SYNC_FIFO_0(SYNC_FIFO),
+      .CLK1EN_0(CLK1EN),
+      .CLK2EN_0(CLK2EN),
       .Almost_Full_0(Almost_Full),
       .RD_0_b0(RD_b0),
       .RD_0_b1(RD_b1),
@@ -1854,29 +1860,8 @@ module RAM_CE0_FE0_PR1_WSA1_WSB0_VPR (
   input         CLK2,
   input         CLK1,
 
-  input         TEST1A,
-  input         DS,
-  input         A1_b0,
-  input         A1_b1,
-  input         A1_b2,
-  input         A1_b3,
-  input         A1_b4,
-  input         A1_b5,
-  input         A1_b6,
-  input         A1_b7,
-  input         A1_b8,
-  input         A1_b9,
-  input         A1_b10,
-  input         CLK1EN,
-  input         SD,
   input         DIR,
-  input         CS1,
-  input         CONCAT_EN,
-  input         SYNC_FIFO,
-  input         LS,
-  input         SD_RB1,
-  input         TEST1B,
-  input         ASYNC_FLUSH,
+  input         DS_RB1,
   input         A2_b0,
   input         A2_b1,
   input         A2_b2,
@@ -1888,27 +1873,38 @@ module RAM_CE0_FE0_PR1_WSA1_WSB0_VPR (
   input         A2_b8,
   input         A2_b9,
   input         A2_b10,
-  input         RMEB,
   input         RMB_b0,
   input         RMB_b1,
   input         RMB_b2,
   input         RMB_b3,
-  input         DS_RB1,
-  input         RMEA,
-  input  [ 1:0] WIDTH_SELECT1,
+  input         P2,
+  input         FIFO_EN,
+  input         CONCAT_EN,
+  input         ASYNC_FLUSH,
+  input         TEST1B,
+  input         PIPELINE_RD,
+  input         DS,
   input  [ 1:0] WIDTH_SELECT2,
+  input         LS_RB1,
   input         CS2,
   input         WEN1_b0,
   input         WEN1_b1,
-  input         FIFO_EN,
-  input         LS_RB1,
-  input         P1,
-  input         RMA_b0,
-  input         RMA_b1,
-  input         RMA_b2,
-  input         RMA_b3,
-  input         CLK2EN,
-  input         PIPELINE_RD,
+  input         LS,
+  input         SD_RB1,
+  input         CS1,
+  input         TEST1A,
+  input  [ 1:0] WIDTH_SELECT1,
+  input         A1_b0,
+  input         A1_b1,
+  input         A1_b2,
+  input         A1_b3,
+  input         A1_b4,
+  input         A1_b5,
+  input         A1_b6,
+  input         A1_b7,
+  input         A1_b8,
+  input         A1_b9,
+  input         A1_b10,
   input         WD_b0,
   input         WD_b1,
   input         WD_b2,
@@ -1927,7 +1923,17 @@ module RAM_CE0_FE0_PR1_WSA1_WSB0_VPR (
   input         WD_b15,
   input         WD_b16,
   input         WD_b17,
-  input         P2,
+  input         P1,
+  input         RMA_b0,
+  input         RMA_b1,
+  input         RMA_b2,
+  input         RMA_b3,
+  input         RMEA,
+  input         SYNC_FIFO,
+  input         CLK1EN,
+  input         CLK2EN,
+  input         RMEB,
+  input         SD,
 
   output        Almost_Full,
   output        RD_b0,
@@ -1958,30 +1964,9 @@ module RAM_CE0_FE0_PR1_WSA1_WSB0_VPR (
   output        POP_FLAG_b2,
   output        POP_FLAG_b3
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
-      $setup(A1_b0, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b0, "");
-      $setup(A1_b1, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b1, "");
-      $setup(A1_b2, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b2, "");
-      $setup(A1_b3, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b3, "");
-      $setup(A1_b4, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b4, "");
-      $setup(A1_b5, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b5, "");
-      $setup(A1_b6, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b6, "");
-      $setup(A1_b7, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b7, "");
-      $setup(A1_b8, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b8, "");
-      $setup(A1_b9, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b9, "");
-      $setup(A1_b10, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b10, "");
       $setup(A2_b0, posedge CLK2, "");
       $hold(posedge CLK2, A2_b0, "");
       $setup(A2_b1, posedge CLK2, "");
@@ -2008,6 +1993,28 @@ module RAM_CE0_FE0_PR1_WSA1_WSB0_VPR (
       $hold(posedge CLK1, WEN1_b0, "");
       $setup(WEN1_b1, posedge CLK1, "");
       $hold(posedge CLK1, WEN1_b1, "");
+      $setup(A1_b0, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b0, "");
+      $setup(A1_b1, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b1, "");
+      $setup(A1_b2, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b2, "");
+      $setup(A1_b3, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b3, "");
+      $setup(A1_b4, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b4, "");
+      $setup(A1_b5, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b5, "");
+      $setup(A1_b6, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b6, "");
+      $setup(A1_b7, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b7, "");
+      $setup(A1_b8, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b8, "");
+      $setup(A1_b9, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b9, "");
+      $setup(A1_b10, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b10, "");
       $setup(WD_b0, posedge CLK1, "");
       $hold(posedge CLK1, WD_b0, "");
       $setup(WD_b1, posedge CLK1, "");
@@ -2065,26 +2072,10 @@ module RAM_CE0_FE0_PR1_WSA1_WSB0_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK2_0(CLK2),
       .CLK1_0(CLK1),
-      .A1_0_b0(A1_b0),
-      .A1_0_b1(A1_b1),
-      .A1_0_b2(A1_b2),
-      .A1_0_b3(A1_b3),
-      .A1_0_b4(A1_b4),
-      .A1_0_b5(A1_b5),
-      .A1_0_b6(A1_b6),
-      .A1_0_b7(A1_b7),
-      .A1_0_b8(A1_b8),
-      .A1_0_b9(A1_b9),
-      .A1_0_b10(A1_b10),
-      .CLK1EN_0(CLK1EN),
       .DIR_0(DIR),
-      .CS1_0(CS1),
-      .CONCAT_EN_0(CONCAT_EN),
-      .SYNC_FIFO_0(SYNC_FIFO),
-      .ASYNC_FLUSH_0(ASYNC_FLUSH),
       .A2_0_b0(A2_b0),
       .A2_0_b1(A2_b1),
       .A2_0_b2(A2_b2),
@@ -2096,15 +2087,28 @@ module RAM_CE0_FE0_PR1_WSA1_WSB0_VPR (
       .A2_0_b8(A2_b8),
       .A2_0_b9(A2_b9),
       .A2_0_b10(A2_b10),
-      .WIDTH_SELECT1_0(WIDTH_SELECT1),
+      .P2_0(P2),
+      .FIFO_EN_0(FIFO_EN),
+      .CONCAT_EN_0(CONCAT_EN),
+      .ASYNC_FLUSH_0(ASYNC_FLUSH),
+      .PIPELINE_RD_0(PIPELINE_RD),
       .WIDTH_SELECT2_0(WIDTH_SELECT2),
       .CS2_0(CS2),
       .WEN1_0_b0(WEN1_b0),
       .WEN1_0_b1(WEN1_b1),
-      .FIFO_EN_0(FIFO_EN),
-      .P1_0(P1),
-      .CLK2EN_0(CLK2EN),
-      .PIPELINE_RD_0(PIPELINE_RD),
+      .CS1_0(CS1),
+      .WIDTH_SELECT1_0(WIDTH_SELECT1),
+      .A1_0_b0(A1_b0),
+      .A1_0_b1(A1_b1),
+      .A1_0_b2(A1_b2),
+      .A1_0_b3(A1_b3),
+      .A1_0_b4(A1_b4),
+      .A1_0_b5(A1_b5),
+      .A1_0_b6(A1_b6),
+      .A1_0_b7(A1_b7),
+      .A1_0_b8(A1_b8),
+      .A1_0_b9(A1_b9),
+      .A1_0_b10(A1_b10),
       .WD_0_b0(WD_b0),
       .WD_0_b1(WD_b1),
       .WD_0_b2(WD_b2),
@@ -2123,7 +2127,10 @@ module RAM_CE0_FE0_PR1_WSA1_WSB0_VPR (
       .WD_0_b15(WD_b15),
       .WD_0_b16(WD_b16),
       .WD_0_b17(WD_b17),
-      .P2_0(P2),
+      .P1_0(P1),
+      .SYNC_FIFO_0(SYNC_FIFO),
+      .CLK1EN_0(CLK1EN),
+      .CLK2EN_0(CLK2EN),
       .Almost_Full_0(Almost_Full),
       .RD_0_b0(RD_b0),
       .RD_0_b1(RD_b1),
@@ -2162,29 +2169,8 @@ module RAM_CE0_FE0_PR1_WSA1_WSB1_VPR (
   input         CLK2,
   input         CLK1,
 
-  input         TEST1A,
-  input         DS,
-  input         A1_b0,
-  input         A1_b1,
-  input         A1_b2,
-  input         A1_b3,
-  input         A1_b4,
-  input         A1_b5,
-  input         A1_b6,
-  input         A1_b7,
-  input         A1_b8,
-  input         A1_b9,
-  input         A1_b10,
-  input         CLK1EN,
-  input         SD,
   input         DIR,
-  input         CS1,
-  input         CONCAT_EN,
-  input         SYNC_FIFO,
-  input         LS,
-  input         SD_RB1,
-  input         TEST1B,
-  input         ASYNC_FLUSH,
+  input         DS_RB1,
   input         A2_b0,
   input         A2_b1,
   input         A2_b2,
@@ -2196,27 +2182,38 @@ module RAM_CE0_FE0_PR1_WSA1_WSB1_VPR (
   input         A2_b8,
   input         A2_b9,
   input         A2_b10,
-  input         RMEB,
   input         RMB_b0,
   input         RMB_b1,
   input         RMB_b2,
   input         RMB_b3,
-  input         DS_RB1,
-  input         RMEA,
-  input  [ 1:0] WIDTH_SELECT1,
+  input         P2,
+  input         FIFO_EN,
+  input         CONCAT_EN,
+  input         ASYNC_FLUSH,
+  input         TEST1B,
+  input         PIPELINE_RD,
+  input         DS,
   input  [ 1:0] WIDTH_SELECT2,
+  input         LS_RB1,
   input         CS2,
   input         WEN1_b0,
   input         WEN1_b1,
-  input         FIFO_EN,
-  input         LS_RB1,
-  input         P1,
-  input         RMA_b0,
-  input         RMA_b1,
-  input         RMA_b2,
-  input         RMA_b3,
-  input         CLK2EN,
-  input         PIPELINE_RD,
+  input         LS,
+  input         SD_RB1,
+  input         CS1,
+  input         TEST1A,
+  input  [ 1:0] WIDTH_SELECT1,
+  input         A1_b0,
+  input         A1_b1,
+  input         A1_b2,
+  input         A1_b3,
+  input         A1_b4,
+  input         A1_b5,
+  input         A1_b6,
+  input         A1_b7,
+  input         A1_b8,
+  input         A1_b9,
+  input         A1_b10,
   input         WD_b0,
   input         WD_b1,
   input         WD_b2,
@@ -2235,7 +2232,17 @@ module RAM_CE0_FE0_PR1_WSA1_WSB1_VPR (
   input         WD_b15,
   input         WD_b16,
   input         WD_b17,
-  input         P2,
+  input         P1,
+  input         RMA_b0,
+  input         RMA_b1,
+  input         RMA_b2,
+  input         RMA_b3,
+  input         RMEA,
+  input         SYNC_FIFO,
+  input         CLK1EN,
+  input         CLK2EN,
+  input         RMEB,
+  input         SD,
 
   output        Almost_Full,
   output        RD_b0,
@@ -2266,30 +2273,9 @@ module RAM_CE0_FE0_PR1_WSA1_WSB1_VPR (
   output        POP_FLAG_b2,
   output        POP_FLAG_b3
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
-      $setup(A1_b0, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b0, "");
-      $setup(A1_b1, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b1, "");
-      $setup(A1_b2, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b2, "");
-      $setup(A1_b3, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b3, "");
-      $setup(A1_b4, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b4, "");
-      $setup(A1_b5, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b5, "");
-      $setup(A1_b6, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b6, "");
-      $setup(A1_b7, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b7, "");
-      $setup(A1_b8, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b8, "");
-      $setup(A1_b9, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b9, "");
-      $setup(A1_b10, posedge CLK1, "");
-      $hold(posedge CLK1, A1_b10, "");
       $setup(A2_b0, posedge CLK2, "");
       $hold(posedge CLK2, A2_b0, "");
       $setup(A2_b1, posedge CLK2, "");
@@ -2316,6 +2302,28 @@ module RAM_CE0_FE0_PR1_WSA1_WSB1_VPR (
       $hold(posedge CLK1, WEN1_b0, "");
       $setup(WEN1_b1, posedge CLK1, "");
       $hold(posedge CLK1, WEN1_b1, "");
+      $setup(A1_b0, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b0, "");
+      $setup(A1_b1, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b1, "");
+      $setup(A1_b2, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b2, "");
+      $setup(A1_b3, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b3, "");
+      $setup(A1_b4, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b4, "");
+      $setup(A1_b5, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b5, "");
+      $setup(A1_b6, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b6, "");
+      $setup(A1_b7, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b7, "");
+      $setup(A1_b8, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b8, "");
+      $setup(A1_b9, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b9, "");
+      $setup(A1_b10, posedge CLK1, "");
+      $hold(posedge CLK1, A1_b10, "");
       $setup(WD_b0, posedge CLK1, "");
       $hold(posedge CLK1, WD_b0, "");
       $setup(WD_b1, posedge CLK1, "");
@@ -2373,26 +2381,10 @@ module RAM_CE0_FE0_PR1_WSA1_WSB1_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK2_0(CLK2),
       .CLK1_0(CLK1),
-      .A1_0_b0(A1_b0),
-      .A1_0_b1(A1_b1),
-      .A1_0_b2(A1_b2),
-      .A1_0_b3(A1_b3),
-      .A1_0_b4(A1_b4),
-      .A1_0_b5(A1_b5),
-      .A1_0_b6(A1_b6),
-      .A1_0_b7(A1_b7),
-      .A1_0_b8(A1_b8),
-      .A1_0_b9(A1_b9),
-      .A1_0_b10(A1_b10),
-      .CLK1EN_0(CLK1EN),
       .DIR_0(DIR),
-      .CS1_0(CS1),
-      .CONCAT_EN_0(CONCAT_EN),
-      .SYNC_FIFO_0(SYNC_FIFO),
-      .ASYNC_FLUSH_0(ASYNC_FLUSH),
       .A2_0_b0(A2_b0),
       .A2_0_b1(A2_b1),
       .A2_0_b2(A2_b2),
@@ -2404,15 +2396,28 @@ module RAM_CE0_FE0_PR1_WSA1_WSB1_VPR (
       .A2_0_b8(A2_b8),
       .A2_0_b9(A2_b9),
       .A2_0_b10(A2_b10),
-      .WIDTH_SELECT1_0(WIDTH_SELECT1),
+      .P2_0(P2),
+      .FIFO_EN_0(FIFO_EN),
+      .CONCAT_EN_0(CONCAT_EN),
+      .ASYNC_FLUSH_0(ASYNC_FLUSH),
+      .PIPELINE_RD_0(PIPELINE_RD),
       .WIDTH_SELECT2_0(WIDTH_SELECT2),
       .CS2_0(CS2),
       .WEN1_0_b0(WEN1_b0),
       .WEN1_0_b1(WEN1_b1),
-      .FIFO_EN_0(FIFO_EN),
-      .P1_0(P1),
-      .CLK2EN_0(CLK2EN),
-      .PIPELINE_RD_0(PIPELINE_RD),
+      .CS1_0(CS1),
+      .WIDTH_SELECT1_0(WIDTH_SELECT1),
+      .A1_0_b0(A1_b0),
+      .A1_0_b1(A1_b1),
+      .A1_0_b2(A1_b2),
+      .A1_0_b3(A1_b3),
+      .A1_0_b4(A1_b4),
+      .A1_0_b5(A1_b5),
+      .A1_0_b6(A1_b6),
+      .A1_0_b7(A1_b7),
+      .A1_0_b8(A1_b8),
+      .A1_0_b9(A1_b9),
+      .A1_0_b10(A1_b10),
       .WD_0_b0(WD_b0),
       .WD_0_b1(WD_b1),
       .WD_0_b2(WD_b2),
@@ -2431,7 +2436,10 @@ module RAM_CE0_FE0_PR1_WSA1_WSB1_VPR (
       .WD_0_b15(WD_b15),
       .WD_0_b16(WD_b16),
       .WD_0_b17(WD_b17),
-      .P2_0(P2),
+      .P1_0(P1),
+      .SYNC_FIFO_0(SYNC_FIFO),
+      .CLK1EN_0(CLK1EN),
+      .CLK2EN_0(CLK2EN),
       .Almost_Full_0(Almost_Full),
       .RD_0_b0(RD_b0),
       .RD_0_b1(RD_b1),
@@ -2470,29 +2478,8 @@ module RAM_CE0_FE1_D0_PR0_WSA0_WSB0_VPR (
   input         CLK2,
   input         CLK1,
 
-  input         TEST1A,
-  input         DS,
-  input         A1_b0,
-  input         A1_b1,
-  input         A1_b2,
-  input         A1_b3,
-  input         A1_b4,
-  input         A1_b5,
-  input         A1_b6,
-  input         A1_b7,
-  input         A1_b8,
-  input         A1_b9,
-  input         A1_b10,
-  input         CLK1EN,
-  input         SD,
   input         DIR,
-  input         CS1,
-  input         CONCAT_EN,
-  input         SYNC_FIFO,
-  input         LS,
-  input         SD_RB1,
-  input         TEST1B,
-  input         ASYNC_FLUSH,
+  input         DS_RB1,
   input         A2_b0,
   input         A2_b1,
   input         A2_b2,
@@ -2504,27 +2491,38 @@ module RAM_CE0_FE1_D0_PR0_WSA0_WSB0_VPR (
   input         A2_b8,
   input         A2_b9,
   input         A2_b10,
-  input         RMEB,
   input         RMB_b0,
   input         RMB_b1,
   input         RMB_b2,
   input         RMB_b3,
-  input         DS_RB1,
-  input         RMEA,
-  input  [ 1:0] WIDTH_SELECT1,
+  input         P2,
+  input         FIFO_EN,
+  input         CONCAT_EN,
+  input         ASYNC_FLUSH,
+  input         TEST1B,
+  input         PIPELINE_RD,
+  input         DS,
   input  [ 1:0] WIDTH_SELECT2,
+  input         LS_RB1,
   input         CS2,
   input         WEN1_b0,
   input         WEN1_b1,
-  input         FIFO_EN,
-  input         LS_RB1,
-  input         P1,
-  input         RMA_b0,
-  input         RMA_b1,
-  input         RMA_b2,
-  input         RMA_b3,
-  input         CLK2EN,
-  input         PIPELINE_RD,
+  input         LS,
+  input         SD_RB1,
+  input         CS1,
+  input         TEST1A,
+  input  [ 1:0] WIDTH_SELECT1,
+  input         A1_b0,
+  input         A1_b1,
+  input         A1_b2,
+  input         A1_b3,
+  input         A1_b4,
+  input         A1_b5,
+  input         A1_b6,
+  input         A1_b7,
+  input         A1_b8,
+  input         A1_b9,
+  input         A1_b10,
   input         WD_b0,
   input         WD_b1,
   input         WD_b2,
@@ -2543,7 +2541,17 @@ module RAM_CE0_FE1_D0_PR0_WSA0_WSB0_VPR (
   input         WD_b15,
   input         WD_b16,
   input         WD_b17,
-  input         P2,
+  input         P1,
+  input         RMA_b0,
+  input         RMA_b1,
+  input         RMA_b2,
+  input         RMA_b3,
+  input         RMEA,
+  input         SYNC_FIFO,
+  input         CLK1EN,
+  input         CLK2EN,
+  input         RMEB,
+  input         SD,
 
   output        Almost_Full,
   output        RD_b0,
@@ -2574,10 +2582,11 @@ module RAM_CE0_FE1_D0_PR0_WSA0_WSB0_VPR (
   output        POP_FLAG_b2,
   output        POP_FLAG_b3
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
-      $setup(P1, posedge CLK1, "");
-      $hold(posedge CLK1, P1, "");
+      $setup(P2, posedge CLK2, "");
+      $hold(posedge CLK2, P2, "");
       $setup(WD_b0, posedge CLK1, "");
       $hold(posedge CLK1, WD_b0, "");
       $setup(WD_b1, posedge CLK1, "");
@@ -2614,8 +2623,8 @@ module RAM_CE0_FE1_D0_PR0_WSA0_WSB0_VPR (
       $hold(posedge CLK1, WD_b16, "");
       $setup(WD_b17, posedge CLK1, "");
       $hold(posedge CLK1, WD_b17, "");
-      $setup(P2, posedge CLK2, "");
-      $hold(posedge CLK2, P2, "");
+      $setup(P1, posedge CLK1, "");
+      $hold(posedge CLK1, P1, "");
       (CLK1*>Almost_Full)="";
       (CLK2*>RD_b0)="";
       (CLK2*>RD_b1)="";
@@ -2647,26 +2656,10 @@ module RAM_CE0_FE1_D0_PR0_WSA0_WSB0_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK2_0(CLK2),
       .CLK1_0(CLK1),
-      .A1_0_b0(A1_b0),
-      .A1_0_b1(A1_b1),
-      .A1_0_b2(A1_b2),
-      .A1_0_b3(A1_b3),
-      .A1_0_b4(A1_b4),
-      .A1_0_b5(A1_b5),
-      .A1_0_b6(A1_b6),
-      .A1_0_b7(A1_b7),
-      .A1_0_b8(A1_b8),
-      .A1_0_b9(A1_b9),
-      .A1_0_b10(A1_b10),
-      .CLK1EN_0(CLK1EN),
       .DIR_0(DIR),
-      .CS1_0(CS1),
-      .CONCAT_EN_0(CONCAT_EN),
-      .SYNC_FIFO_0(SYNC_FIFO),
-      .ASYNC_FLUSH_0(ASYNC_FLUSH),
       .A2_0_b0(A2_b0),
       .A2_0_b1(A2_b1),
       .A2_0_b2(A2_b2),
@@ -2678,15 +2671,28 @@ module RAM_CE0_FE1_D0_PR0_WSA0_WSB0_VPR (
       .A2_0_b8(A2_b8),
       .A2_0_b9(A2_b9),
       .A2_0_b10(A2_b10),
-      .WIDTH_SELECT1_0(WIDTH_SELECT1),
+      .P2_0(P2),
+      .FIFO_EN_0(FIFO_EN),
+      .CONCAT_EN_0(CONCAT_EN),
+      .ASYNC_FLUSH_0(ASYNC_FLUSH),
+      .PIPELINE_RD_0(PIPELINE_RD),
       .WIDTH_SELECT2_0(WIDTH_SELECT2),
       .CS2_0(CS2),
       .WEN1_0_b0(WEN1_b0),
       .WEN1_0_b1(WEN1_b1),
-      .FIFO_EN_0(FIFO_EN),
-      .P1_0(P1),
-      .CLK2EN_0(CLK2EN),
-      .PIPELINE_RD_0(PIPELINE_RD),
+      .CS1_0(CS1),
+      .WIDTH_SELECT1_0(WIDTH_SELECT1),
+      .A1_0_b0(A1_b0),
+      .A1_0_b1(A1_b1),
+      .A1_0_b2(A1_b2),
+      .A1_0_b3(A1_b3),
+      .A1_0_b4(A1_b4),
+      .A1_0_b5(A1_b5),
+      .A1_0_b6(A1_b6),
+      .A1_0_b7(A1_b7),
+      .A1_0_b8(A1_b8),
+      .A1_0_b9(A1_b9),
+      .A1_0_b10(A1_b10),
       .WD_0_b0(WD_b0),
       .WD_0_b1(WD_b1),
       .WD_0_b2(WD_b2),
@@ -2705,7 +2711,10 @@ module RAM_CE0_FE1_D0_PR0_WSA0_WSB0_VPR (
       .WD_0_b15(WD_b15),
       .WD_0_b16(WD_b16),
       .WD_0_b17(WD_b17),
-      .P2_0(P2),
+      .P1_0(P1),
+      .SYNC_FIFO_0(SYNC_FIFO),
+      .CLK1EN_0(CLK1EN),
+      .CLK2EN_0(CLK2EN),
       .Almost_Full_0(Almost_Full),
       .RD_0_b0(RD_b0),
       .RD_0_b1(RD_b1),
@@ -2744,29 +2753,8 @@ module RAM_CE0_FE1_D0_PR0_WSA0_WSB1_VPR (
   input         CLK2,
   input         CLK1,
 
-  input         TEST1A,
-  input         DS,
-  input         A1_b0,
-  input         A1_b1,
-  input         A1_b2,
-  input         A1_b3,
-  input         A1_b4,
-  input         A1_b5,
-  input         A1_b6,
-  input         A1_b7,
-  input         A1_b8,
-  input         A1_b9,
-  input         A1_b10,
-  input         CLK1EN,
-  input         SD,
   input         DIR,
-  input         CS1,
-  input         CONCAT_EN,
-  input         SYNC_FIFO,
-  input         LS,
-  input         SD_RB1,
-  input         TEST1B,
-  input         ASYNC_FLUSH,
+  input         DS_RB1,
   input         A2_b0,
   input         A2_b1,
   input         A2_b2,
@@ -2778,27 +2766,38 @@ module RAM_CE0_FE1_D0_PR0_WSA0_WSB1_VPR (
   input         A2_b8,
   input         A2_b9,
   input         A2_b10,
-  input         RMEB,
   input         RMB_b0,
   input         RMB_b1,
   input         RMB_b2,
   input         RMB_b3,
-  input         DS_RB1,
-  input         RMEA,
-  input  [ 1:0] WIDTH_SELECT1,
+  input         P2,
+  input         FIFO_EN,
+  input         CONCAT_EN,
+  input         ASYNC_FLUSH,
+  input         TEST1B,
+  input         PIPELINE_RD,
+  input         DS,
   input  [ 1:0] WIDTH_SELECT2,
+  input         LS_RB1,
   input         CS2,
   input         WEN1_b0,
   input         WEN1_b1,
-  input         FIFO_EN,
-  input         LS_RB1,
-  input         P1,
-  input         RMA_b0,
-  input         RMA_b1,
-  input         RMA_b2,
-  input         RMA_b3,
-  input         CLK2EN,
-  input         PIPELINE_RD,
+  input         LS,
+  input         SD_RB1,
+  input         CS1,
+  input         TEST1A,
+  input  [ 1:0] WIDTH_SELECT1,
+  input         A1_b0,
+  input         A1_b1,
+  input         A1_b2,
+  input         A1_b3,
+  input         A1_b4,
+  input         A1_b5,
+  input         A1_b6,
+  input         A1_b7,
+  input         A1_b8,
+  input         A1_b9,
+  input         A1_b10,
   input         WD_b0,
   input         WD_b1,
   input         WD_b2,
@@ -2817,7 +2816,17 @@ module RAM_CE0_FE1_D0_PR0_WSA0_WSB1_VPR (
   input         WD_b15,
   input         WD_b16,
   input         WD_b17,
-  input         P2,
+  input         P1,
+  input         RMA_b0,
+  input         RMA_b1,
+  input         RMA_b2,
+  input         RMA_b3,
+  input         RMEA,
+  input         SYNC_FIFO,
+  input         CLK1EN,
+  input         CLK2EN,
+  input         RMEB,
+  input         SD,
 
   output        Almost_Full,
   output        RD_b0,
@@ -2848,10 +2857,11 @@ module RAM_CE0_FE1_D0_PR0_WSA0_WSB1_VPR (
   output        POP_FLAG_b2,
   output        POP_FLAG_b3
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
-      $setup(P1, posedge CLK1, "");
-      $hold(posedge CLK1, P1, "");
+      $setup(P2, posedge CLK2, "");
+      $hold(posedge CLK2, P2, "");
       $setup(WD_b0, posedge CLK1, "");
       $hold(posedge CLK1, WD_b0, "");
       $setup(WD_b1, posedge CLK1, "");
@@ -2888,8 +2898,8 @@ module RAM_CE0_FE1_D0_PR0_WSA0_WSB1_VPR (
       $hold(posedge CLK1, WD_b16, "");
       $setup(WD_b17, posedge CLK1, "");
       $hold(posedge CLK1, WD_b17, "");
-      $setup(P2, posedge CLK2, "");
-      $hold(posedge CLK2, P2, "");
+      $setup(P1, posedge CLK1, "");
+      $hold(posedge CLK1, P1, "");
       (CLK1*>Almost_Full)="";
       (CLK2*>RD_b0)="";
       (CLK2*>RD_b1)="";
@@ -2921,26 +2931,10 @@ module RAM_CE0_FE1_D0_PR0_WSA0_WSB1_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK2_0(CLK2),
       .CLK1_0(CLK1),
-      .A1_0_b0(A1_b0),
-      .A1_0_b1(A1_b1),
-      .A1_0_b2(A1_b2),
-      .A1_0_b3(A1_b3),
-      .A1_0_b4(A1_b4),
-      .A1_0_b5(A1_b5),
-      .A1_0_b6(A1_b6),
-      .A1_0_b7(A1_b7),
-      .A1_0_b8(A1_b8),
-      .A1_0_b9(A1_b9),
-      .A1_0_b10(A1_b10),
-      .CLK1EN_0(CLK1EN),
       .DIR_0(DIR),
-      .CS1_0(CS1),
-      .CONCAT_EN_0(CONCAT_EN),
-      .SYNC_FIFO_0(SYNC_FIFO),
-      .ASYNC_FLUSH_0(ASYNC_FLUSH),
       .A2_0_b0(A2_b0),
       .A2_0_b1(A2_b1),
       .A2_0_b2(A2_b2),
@@ -2952,15 +2946,28 @@ module RAM_CE0_FE1_D0_PR0_WSA0_WSB1_VPR (
       .A2_0_b8(A2_b8),
       .A2_0_b9(A2_b9),
       .A2_0_b10(A2_b10),
-      .WIDTH_SELECT1_0(WIDTH_SELECT1),
+      .P2_0(P2),
+      .FIFO_EN_0(FIFO_EN),
+      .CONCAT_EN_0(CONCAT_EN),
+      .ASYNC_FLUSH_0(ASYNC_FLUSH),
+      .PIPELINE_RD_0(PIPELINE_RD),
       .WIDTH_SELECT2_0(WIDTH_SELECT2),
       .CS2_0(CS2),
       .WEN1_0_b0(WEN1_b0),
       .WEN1_0_b1(WEN1_b1),
-      .FIFO_EN_0(FIFO_EN),
-      .P1_0(P1),
-      .CLK2EN_0(CLK2EN),
-      .PIPELINE_RD_0(PIPELINE_RD),
+      .CS1_0(CS1),
+      .WIDTH_SELECT1_0(WIDTH_SELECT1),
+      .A1_0_b0(A1_b0),
+      .A1_0_b1(A1_b1),
+      .A1_0_b2(A1_b2),
+      .A1_0_b3(A1_b3),
+      .A1_0_b4(A1_b4),
+      .A1_0_b5(A1_b5),
+      .A1_0_b6(A1_b6),
+      .A1_0_b7(A1_b7),
+      .A1_0_b8(A1_b8),
+      .A1_0_b9(A1_b9),
+      .A1_0_b10(A1_b10),
       .WD_0_b0(WD_b0),
       .WD_0_b1(WD_b1),
       .WD_0_b2(WD_b2),
@@ -2979,7 +2986,10 @@ module RAM_CE0_FE1_D0_PR0_WSA0_WSB1_VPR (
       .WD_0_b15(WD_b15),
       .WD_0_b16(WD_b16),
       .WD_0_b17(WD_b17),
-      .P2_0(P2),
+      .P1_0(P1),
+      .SYNC_FIFO_0(SYNC_FIFO),
+      .CLK1EN_0(CLK1EN),
+      .CLK2EN_0(CLK2EN),
       .Almost_Full_0(Almost_Full),
       .RD_0_b0(RD_b0),
       .RD_0_b1(RD_b1),
@@ -3018,29 +3028,8 @@ module RAM_CE0_FE1_D0_PR0_WSA1_WSB0_VPR (
   input         CLK2,
   input         CLK1,
 
-  input         TEST1A,
-  input         DS,
-  input         A1_b0,
-  input         A1_b1,
-  input         A1_b2,
-  input         A1_b3,
-  input         A1_b4,
-  input         A1_b5,
-  input         A1_b6,
-  input         A1_b7,
-  input         A1_b8,
-  input         A1_b9,
-  input         A1_b10,
-  input         CLK1EN,
-  input         SD,
   input         DIR,
-  input         CS1,
-  input         CONCAT_EN,
-  input         SYNC_FIFO,
-  input         LS,
-  input         SD_RB1,
-  input         TEST1B,
-  input         ASYNC_FLUSH,
+  input         DS_RB1,
   input         A2_b0,
   input         A2_b1,
   input         A2_b2,
@@ -3052,27 +3041,38 @@ module RAM_CE0_FE1_D0_PR0_WSA1_WSB0_VPR (
   input         A2_b8,
   input         A2_b9,
   input         A2_b10,
-  input         RMEB,
   input         RMB_b0,
   input         RMB_b1,
   input         RMB_b2,
   input         RMB_b3,
-  input         DS_RB1,
-  input         RMEA,
-  input  [ 1:0] WIDTH_SELECT1,
+  input         P2,
+  input         FIFO_EN,
+  input         CONCAT_EN,
+  input         ASYNC_FLUSH,
+  input         TEST1B,
+  input         PIPELINE_RD,
+  input         DS,
   input  [ 1:0] WIDTH_SELECT2,
+  input         LS_RB1,
   input         CS2,
   input         WEN1_b0,
   input         WEN1_b1,
-  input         FIFO_EN,
-  input         LS_RB1,
-  input         P1,
-  input         RMA_b0,
-  input         RMA_b1,
-  input         RMA_b2,
-  input         RMA_b3,
-  input         CLK2EN,
-  input         PIPELINE_RD,
+  input         LS,
+  input         SD_RB1,
+  input         CS1,
+  input         TEST1A,
+  input  [ 1:0] WIDTH_SELECT1,
+  input         A1_b0,
+  input         A1_b1,
+  input         A1_b2,
+  input         A1_b3,
+  input         A1_b4,
+  input         A1_b5,
+  input         A1_b6,
+  input         A1_b7,
+  input         A1_b8,
+  input         A1_b9,
+  input         A1_b10,
   input         WD_b0,
   input         WD_b1,
   input         WD_b2,
@@ -3091,7 +3091,17 @@ module RAM_CE0_FE1_D0_PR0_WSA1_WSB0_VPR (
   input         WD_b15,
   input         WD_b16,
   input         WD_b17,
-  input         P2,
+  input         P1,
+  input         RMA_b0,
+  input         RMA_b1,
+  input         RMA_b2,
+  input         RMA_b3,
+  input         RMEA,
+  input         SYNC_FIFO,
+  input         CLK1EN,
+  input         CLK2EN,
+  input         RMEB,
+  input         SD,
 
   output        Almost_Full,
   output        RD_b0,
@@ -3122,10 +3132,11 @@ module RAM_CE0_FE1_D0_PR0_WSA1_WSB0_VPR (
   output        POP_FLAG_b2,
   output        POP_FLAG_b3
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
-      $setup(P1, posedge CLK1, "");
-      $hold(posedge CLK1, P1, "");
+      $setup(P2, posedge CLK2, "");
+      $hold(posedge CLK2, P2, "");
       $setup(WD_b0, posedge CLK1, "");
       $hold(posedge CLK1, WD_b0, "");
       $setup(WD_b1, posedge CLK1, "");
@@ -3162,8 +3173,8 @@ module RAM_CE0_FE1_D0_PR0_WSA1_WSB0_VPR (
       $hold(posedge CLK1, WD_b16, "");
       $setup(WD_b17, posedge CLK1, "");
       $hold(posedge CLK1, WD_b17, "");
-      $setup(P2, posedge CLK2, "");
-      $hold(posedge CLK2, P2, "");
+      $setup(P1, posedge CLK1, "");
+      $hold(posedge CLK1, P1, "");
       (CLK1*>Almost_Full)="";
       (CLK2*>RD_b0)="";
       (CLK2*>RD_b1)="";
@@ -3195,26 +3206,10 @@ module RAM_CE0_FE1_D0_PR0_WSA1_WSB0_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK2_0(CLK2),
       .CLK1_0(CLK1),
-      .A1_0_b0(A1_b0),
-      .A1_0_b1(A1_b1),
-      .A1_0_b2(A1_b2),
-      .A1_0_b3(A1_b3),
-      .A1_0_b4(A1_b4),
-      .A1_0_b5(A1_b5),
-      .A1_0_b6(A1_b6),
-      .A1_0_b7(A1_b7),
-      .A1_0_b8(A1_b8),
-      .A1_0_b9(A1_b9),
-      .A1_0_b10(A1_b10),
-      .CLK1EN_0(CLK1EN),
       .DIR_0(DIR),
-      .CS1_0(CS1),
-      .CONCAT_EN_0(CONCAT_EN),
-      .SYNC_FIFO_0(SYNC_FIFO),
-      .ASYNC_FLUSH_0(ASYNC_FLUSH),
       .A2_0_b0(A2_b0),
       .A2_0_b1(A2_b1),
       .A2_0_b2(A2_b2),
@@ -3226,15 +3221,28 @@ module RAM_CE0_FE1_D0_PR0_WSA1_WSB0_VPR (
       .A2_0_b8(A2_b8),
       .A2_0_b9(A2_b9),
       .A2_0_b10(A2_b10),
-      .WIDTH_SELECT1_0(WIDTH_SELECT1),
+      .P2_0(P2),
+      .FIFO_EN_0(FIFO_EN),
+      .CONCAT_EN_0(CONCAT_EN),
+      .ASYNC_FLUSH_0(ASYNC_FLUSH),
+      .PIPELINE_RD_0(PIPELINE_RD),
       .WIDTH_SELECT2_0(WIDTH_SELECT2),
       .CS2_0(CS2),
       .WEN1_0_b0(WEN1_b0),
       .WEN1_0_b1(WEN1_b1),
-      .FIFO_EN_0(FIFO_EN),
-      .P1_0(P1),
-      .CLK2EN_0(CLK2EN),
-      .PIPELINE_RD_0(PIPELINE_RD),
+      .CS1_0(CS1),
+      .WIDTH_SELECT1_0(WIDTH_SELECT1),
+      .A1_0_b0(A1_b0),
+      .A1_0_b1(A1_b1),
+      .A1_0_b2(A1_b2),
+      .A1_0_b3(A1_b3),
+      .A1_0_b4(A1_b4),
+      .A1_0_b5(A1_b5),
+      .A1_0_b6(A1_b6),
+      .A1_0_b7(A1_b7),
+      .A1_0_b8(A1_b8),
+      .A1_0_b9(A1_b9),
+      .A1_0_b10(A1_b10),
       .WD_0_b0(WD_b0),
       .WD_0_b1(WD_b1),
       .WD_0_b2(WD_b2),
@@ -3253,7 +3261,10 @@ module RAM_CE0_FE1_D0_PR0_WSA1_WSB0_VPR (
       .WD_0_b15(WD_b15),
       .WD_0_b16(WD_b16),
       .WD_0_b17(WD_b17),
-      .P2_0(P2),
+      .P1_0(P1),
+      .SYNC_FIFO_0(SYNC_FIFO),
+      .CLK1EN_0(CLK1EN),
+      .CLK2EN_0(CLK2EN),
       .Almost_Full_0(Almost_Full),
       .RD_0_b0(RD_b0),
       .RD_0_b1(RD_b1),
@@ -3292,29 +3303,8 @@ module RAM_CE0_FE1_D0_PR0_WSA1_WSB1_VPR (
   input         CLK2,
   input         CLK1,
 
-  input         TEST1A,
-  input         DS,
-  input         A1_b0,
-  input         A1_b1,
-  input         A1_b2,
-  input         A1_b3,
-  input         A1_b4,
-  input         A1_b5,
-  input         A1_b6,
-  input         A1_b7,
-  input         A1_b8,
-  input         A1_b9,
-  input         A1_b10,
-  input         CLK1EN,
-  input         SD,
   input         DIR,
-  input         CS1,
-  input         CONCAT_EN,
-  input         SYNC_FIFO,
-  input         LS,
-  input         SD_RB1,
-  input         TEST1B,
-  input         ASYNC_FLUSH,
+  input         DS_RB1,
   input         A2_b0,
   input         A2_b1,
   input         A2_b2,
@@ -3326,27 +3316,38 @@ module RAM_CE0_FE1_D0_PR0_WSA1_WSB1_VPR (
   input         A2_b8,
   input         A2_b9,
   input         A2_b10,
-  input         RMEB,
   input         RMB_b0,
   input         RMB_b1,
   input         RMB_b2,
   input         RMB_b3,
-  input         DS_RB1,
-  input         RMEA,
-  input  [ 1:0] WIDTH_SELECT1,
+  input         P2,
+  input         FIFO_EN,
+  input         CONCAT_EN,
+  input         ASYNC_FLUSH,
+  input         TEST1B,
+  input         PIPELINE_RD,
+  input         DS,
   input  [ 1:0] WIDTH_SELECT2,
+  input         LS_RB1,
   input         CS2,
   input         WEN1_b0,
   input         WEN1_b1,
-  input         FIFO_EN,
-  input         LS_RB1,
-  input         P1,
-  input         RMA_b0,
-  input         RMA_b1,
-  input         RMA_b2,
-  input         RMA_b3,
-  input         CLK2EN,
-  input         PIPELINE_RD,
+  input         LS,
+  input         SD_RB1,
+  input         CS1,
+  input         TEST1A,
+  input  [ 1:0] WIDTH_SELECT1,
+  input         A1_b0,
+  input         A1_b1,
+  input         A1_b2,
+  input         A1_b3,
+  input         A1_b4,
+  input         A1_b5,
+  input         A1_b6,
+  input         A1_b7,
+  input         A1_b8,
+  input         A1_b9,
+  input         A1_b10,
   input         WD_b0,
   input         WD_b1,
   input         WD_b2,
@@ -3365,7 +3366,17 @@ module RAM_CE0_FE1_D0_PR0_WSA1_WSB1_VPR (
   input         WD_b15,
   input         WD_b16,
   input         WD_b17,
-  input         P2,
+  input         P1,
+  input         RMA_b0,
+  input         RMA_b1,
+  input         RMA_b2,
+  input         RMA_b3,
+  input         RMEA,
+  input         SYNC_FIFO,
+  input         CLK1EN,
+  input         CLK2EN,
+  input         RMEB,
+  input         SD,
 
   output        Almost_Full,
   output        RD_b0,
@@ -3396,10 +3407,11 @@ module RAM_CE0_FE1_D0_PR0_WSA1_WSB1_VPR (
   output        POP_FLAG_b2,
   output        POP_FLAG_b3
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
-      $setup(P1, posedge CLK1, "");
-      $hold(posedge CLK1, P1, "");
+      $setup(P2, posedge CLK2, "");
+      $hold(posedge CLK2, P2, "");
       $setup(WD_b0, posedge CLK1, "");
       $hold(posedge CLK1, WD_b0, "");
       $setup(WD_b1, posedge CLK1, "");
@@ -3436,8 +3448,8 @@ module RAM_CE0_FE1_D0_PR0_WSA1_WSB1_VPR (
       $hold(posedge CLK1, WD_b16, "");
       $setup(WD_b17, posedge CLK1, "");
       $hold(posedge CLK1, WD_b17, "");
-      $setup(P2, posedge CLK2, "");
-      $hold(posedge CLK2, P2, "");
+      $setup(P1, posedge CLK1, "");
+      $hold(posedge CLK1, P1, "");
       (CLK1*>Almost_Full)="";
       (CLK2*>RD_b0)="";
       (CLK2*>RD_b1)="";
@@ -3469,26 +3481,10 @@ module RAM_CE0_FE1_D0_PR0_WSA1_WSB1_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK2_0(CLK2),
       .CLK1_0(CLK1),
-      .A1_0_b0(A1_b0),
-      .A1_0_b1(A1_b1),
-      .A1_0_b2(A1_b2),
-      .A1_0_b3(A1_b3),
-      .A1_0_b4(A1_b4),
-      .A1_0_b5(A1_b5),
-      .A1_0_b6(A1_b6),
-      .A1_0_b7(A1_b7),
-      .A1_0_b8(A1_b8),
-      .A1_0_b9(A1_b9),
-      .A1_0_b10(A1_b10),
-      .CLK1EN_0(CLK1EN),
       .DIR_0(DIR),
-      .CS1_0(CS1),
-      .CONCAT_EN_0(CONCAT_EN),
-      .SYNC_FIFO_0(SYNC_FIFO),
-      .ASYNC_FLUSH_0(ASYNC_FLUSH),
       .A2_0_b0(A2_b0),
       .A2_0_b1(A2_b1),
       .A2_0_b2(A2_b2),
@@ -3500,15 +3496,28 @@ module RAM_CE0_FE1_D0_PR0_WSA1_WSB1_VPR (
       .A2_0_b8(A2_b8),
       .A2_0_b9(A2_b9),
       .A2_0_b10(A2_b10),
-      .WIDTH_SELECT1_0(WIDTH_SELECT1),
+      .P2_0(P2),
+      .FIFO_EN_0(FIFO_EN),
+      .CONCAT_EN_0(CONCAT_EN),
+      .ASYNC_FLUSH_0(ASYNC_FLUSH),
+      .PIPELINE_RD_0(PIPELINE_RD),
       .WIDTH_SELECT2_0(WIDTH_SELECT2),
       .CS2_0(CS2),
       .WEN1_0_b0(WEN1_b0),
       .WEN1_0_b1(WEN1_b1),
-      .FIFO_EN_0(FIFO_EN),
-      .P1_0(P1),
-      .CLK2EN_0(CLK2EN),
-      .PIPELINE_RD_0(PIPELINE_RD),
+      .CS1_0(CS1),
+      .WIDTH_SELECT1_0(WIDTH_SELECT1),
+      .A1_0_b0(A1_b0),
+      .A1_0_b1(A1_b1),
+      .A1_0_b2(A1_b2),
+      .A1_0_b3(A1_b3),
+      .A1_0_b4(A1_b4),
+      .A1_0_b5(A1_b5),
+      .A1_0_b6(A1_b6),
+      .A1_0_b7(A1_b7),
+      .A1_0_b8(A1_b8),
+      .A1_0_b9(A1_b9),
+      .A1_0_b10(A1_b10),
       .WD_0_b0(WD_b0),
       .WD_0_b1(WD_b1),
       .WD_0_b2(WD_b2),
@@ -3527,7 +3536,10 @@ module RAM_CE0_FE1_D0_PR0_WSA1_WSB1_VPR (
       .WD_0_b15(WD_b15),
       .WD_0_b16(WD_b16),
       .WD_0_b17(WD_b17),
-      .P2_0(P2),
+      .P1_0(P1),
+      .SYNC_FIFO_0(SYNC_FIFO),
+      .CLK1EN_0(CLK1EN),
+      .CLK2EN_0(CLK2EN),
       .Almost_Full_0(Almost_Full),
       .RD_0_b0(RD_b0),
       .RD_0_b1(RD_b1),
@@ -3566,29 +3578,8 @@ module RAM_CE0_FE1_D0_PR1_WSA0_WSB0_VPR (
   input         CLK2,
   input         CLK1,
 
-  input         TEST1A,
-  input         DS,
-  input         A1_b0,
-  input         A1_b1,
-  input         A1_b2,
-  input         A1_b3,
-  input         A1_b4,
-  input         A1_b5,
-  input         A1_b6,
-  input         A1_b7,
-  input         A1_b8,
-  input         A1_b9,
-  input         A1_b10,
-  input         CLK1EN,
-  input         SD,
   input         DIR,
-  input         CS1,
-  input         CONCAT_EN,
-  input         SYNC_FIFO,
-  input         LS,
-  input         SD_RB1,
-  input         TEST1B,
-  input         ASYNC_FLUSH,
+  input         DS_RB1,
   input         A2_b0,
   input         A2_b1,
   input         A2_b2,
@@ -3600,27 +3591,38 @@ module RAM_CE0_FE1_D0_PR1_WSA0_WSB0_VPR (
   input         A2_b8,
   input         A2_b9,
   input         A2_b10,
-  input         RMEB,
   input         RMB_b0,
   input         RMB_b1,
   input         RMB_b2,
   input         RMB_b3,
-  input         DS_RB1,
-  input         RMEA,
-  input  [ 1:0] WIDTH_SELECT1,
+  input         P2,
+  input         FIFO_EN,
+  input         CONCAT_EN,
+  input         ASYNC_FLUSH,
+  input         TEST1B,
+  input         PIPELINE_RD,
+  input         DS,
   input  [ 1:0] WIDTH_SELECT2,
+  input         LS_RB1,
   input         CS2,
   input         WEN1_b0,
   input         WEN1_b1,
-  input         FIFO_EN,
-  input         LS_RB1,
-  input         P1,
-  input         RMA_b0,
-  input         RMA_b1,
-  input         RMA_b2,
-  input         RMA_b3,
-  input         CLK2EN,
-  input         PIPELINE_RD,
+  input         LS,
+  input         SD_RB1,
+  input         CS1,
+  input         TEST1A,
+  input  [ 1:0] WIDTH_SELECT1,
+  input         A1_b0,
+  input         A1_b1,
+  input         A1_b2,
+  input         A1_b3,
+  input         A1_b4,
+  input         A1_b5,
+  input         A1_b6,
+  input         A1_b7,
+  input         A1_b8,
+  input         A1_b9,
+  input         A1_b10,
   input         WD_b0,
   input         WD_b1,
   input         WD_b2,
@@ -3639,7 +3641,17 @@ module RAM_CE0_FE1_D0_PR1_WSA0_WSB0_VPR (
   input         WD_b15,
   input         WD_b16,
   input         WD_b17,
-  input         P2,
+  input         P1,
+  input         RMA_b0,
+  input         RMA_b1,
+  input         RMA_b2,
+  input         RMA_b3,
+  input         RMEA,
+  input         SYNC_FIFO,
+  input         CLK1EN,
+  input         CLK2EN,
+  input         RMEB,
+  input         SD,
 
   output        Almost_Full,
   output        RD_b0,
@@ -3670,10 +3682,11 @@ module RAM_CE0_FE1_D0_PR1_WSA0_WSB0_VPR (
   output        POP_FLAG_b2,
   output        POP_FLAG_b3
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
-      $setup(P1, posedge CLK1, "");
-      $hold(posedge CLK1, P1, "");
+      $setup(P2, posedge CLK2, "");
+      $hold(posedge CLK2, P2, "");
       $setup(WD_b0, posedge CLK1, "");
       $hold(posedge CLK1, WD_b0, "");
       $setup(WD_b1, posedge CLK1, "");
@@ -3710,8 +3723,8 @@ module RAM_CE0_FE1_D0_PR1_WSA0_WSB0_VPR (
       $hold(posedge CLK1, WD_b16, "");
       $setup(WD_b17, posedge CLK1, "");
       $hold(posedge CLK1, WD_b17, "");
-      $setup(P2, posedge CLK2, "");
-      $hold(posedge CLK2, P2, "");
+      $setup(P1, posedge CLK1, "");
+      $hold(posedge CLK1, P1, "");
       (CLK1*>Almost_Full)="";
       (CLK2*>RD_b0)="";
       (CLK2*>RD_b1)="";
@@ -3743,26 +3756,10 @@ module RAM_CE0_FE1_D0_PR1_WSA0_WSB0_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK2_0(CLK2),
       .CLK1_0(CLK1),
-      .A1_0_b0(A1_b0),
-      .A1_0_b1(A1_b1),
-      .A1_0_b2(A1_b2),
-      .A1_0_b3(A1_b3),
-      .A1_0_b4(A1_b4),
-      .A1_0_b5(A1_b5),
-      .A1_0_b6(A1_b6),
-      .A1_0_b7(A1_b7),
-      .A1_0_b8(A1_b8),
-      .A1_0_b9(A1_b9),
-      .A1_0_b10(A1_b10),
-      .CLK1EN_0(CLK1EN),
       .DIR_0(DIR),
-      .CS1_0(CS1),
-      .CONCAT_EN_0(CONCAT_EN),
-      .SYNC_FIFO_0(SYNC_FIFO),
-      .ASYNC_FLUSH_0(ASYNC_FLUSH),
       .A2_0_b0(A2_b0),
       .A2_0_b1(A2_b1),
       .A2_0_b2(A2_b2),
@@ -3774,15 +3771,28 @@ module RAM_CE0_FE1_D0_PR1_WSA0_WSB0_VPR (
       .A2_0_b8(A2_b8),
       .A2_0_b9(A2_b9),
       .A2_0_b10(A2_b10),
-      .WIDTH_SELECT1_0(WIDTH_SELECT1),
+      .P2_0(P2),
+      .FIFO_EN_0(FIFO_EN),
+      .CONCAT_EN_0(CONCAT_EN),
+      .ASYNC_FLUSH_0(ASYNC_FLUSH),
+      .PIPELINE_RD_0(PIPELINE_RD),
       .WIDTH_SELECT2_0(WIDTH_SELECT2),
       .CS2_0(CS2),
       .WEN1_0_b0(WEN1_b0),
       .WEN1_0_b1(WEN1_b1),
-      .FIFO_EN_0(FIFO_EN),
-      .P1_0(P1),
-      .CLK2EN_0(CLK2EN),
-      .PIPELINE_RD_0(PIPELINE_RD),
+      .CS1_0(CS1),
+      .WIDTH_SELECT1_0(WIDTH_SELECT1),
+      .A1_0_b0(A1_b0),
+      .A1_0_b1(A1_b1),
+      .A1_0_b2(A1_b2),
+      .A1_0_b3(A1_b3),
+      .A1_0_b4(A1_b4),
+      .A1_0_b5(A1_b5),
+      .A1_0_b6(A1_b6),
+      .A1_0_b7(A1_b7),
+      .A1_0_b8(A1_b8),
+      .A1_0_b9(A1_b9),
+      .A1_0_b10(A1_b10),
       .WD_0_b0(WD_b0),
       .WD_0_b1(WD_b1),
       .WD_0_b2(WD_b2),
@@ -3801,7 +3811,10 @@ module RAM_CE0_FE1_D0_PR1_WSA0_WSB0_VPR (
       .WD_0_b15(WD_b15),
       .WD_0_b16(WD_b16),
       .WD_0_b17(WD_b17),
-      .P2_0(P2),
+      .P1_0(P1),
+      .SYNC_FIFO_0(SYNC_FIFO),
+      .CLK1EN_0(CLK1EN),
+      .CLK2EN_0(CLK2EN),
       .Almost_Full_0(Almost_Full),
       .RD_0_b0(RD_b0),
       .RD_0_b1(RD_b1),
@@ -3840,29 +3853,8 @@ module RAM_CE0_FE1_D0_PR1_WSA0_WSB1_VPR (
   input         CLK2,
   input         CLK1,
 
-  input         TEST1A,
-  input         DS,
-  input         A1_b0,
-  input         A1_b1,
-  input         A1_b2,
-  input         A1_b3,
-  input         A1_b4,
-  input         A1_b5,
-  input         A1_b6,
-  input         A1_b7,
-  input         A1_b8,
-  input         A1_b9,
-  input         A1_b10,
-  input         CLK1EN,
-  input         SD,
   input         DIR,
-  input         CS1,
-  input         CONCAT_EN,
-  input         SYNC_FIFO,
-  input         LS,
-  input         SD_RB1,
-  input         TEST1B,
-  input         ASYNC_FLUSH,
+  input         DS_RB1,
   input         A2_b0,
   input         A2_b1,
   input         A2_b2,
@@ -3874,27 +3866,38 @@ module RAM_CE0_FE1_D0_PR1_WSA0_WSB1_VPR (
   input         A2_b8,
   input         A2_b9,
   input         A2_b10,
-  input         RMEB,
   input         RMB_b0,
   input         RMB_b1,
   input         RMB_b2,
   input         RMB_b3,
-  input         DS_RB1,
-  input         RMEA,
-  input  [ 1:0] WIDTH_SELECT1,
+  input         P2,
+  input         FIFO_EN,
+  input         CONCAT_EN,
+  input         ASYNC_FLUSH,
+  input         TEST1B,
+  input         PIPELINE_RD,
+  input         DS,
   input  [ 1:0] WIDTH_SELECT2,
+  input         LS_RB1,
   input         CS2,
   input         WEN1_b0,
   input         WEN1_b1,
-  input         FIFO_EN,
-  input         LS_RB1,
-  input         P1,
-  input         RMA_b0,
-  input         RMA_b1,
-  input         RMA_b2,
-  input         RMA_b3,
-  input         CLK2EN,
-  input         PIPELINE_RD,
+  input         LS,
+  input         SD_RB1,
+  input         CS1,
+  input         TEST1A,
+  input  [ 1:0] WIDTH_SELECT1,
+  input         A1_b0,
+  input         A1_b1,
+  input         A1_b2,
+  input         A1_b3,
+  input         A1_b4,
+  input         A1_b5,
+  input         A1_b6,
+  input         A1_b7,
+  input         A1_b8,
+  input         A1_b9,
+  input         A1_b10,
   input         WD_b0,
   input         WD_b1,
   input         WD_b2,
@@ -3913,7 +3916,17 @@ module RAM_CE0_FE1_D0_PR1_WSA0_WSB1_VPR (
   input         WD_b15,
   input         WD_b16,
   input         WD_b17,
-  input         P2,
+  input         P1,
+  input         RMA_b0,
+  input         RMA_b1,
+  input         RMA_b2,
+  input         RMA_b3,
+  input         RMEA,
+  input         SYNC_FIFO,
+  input         CLK1EN,
+  input         CLK2EN,
+  input         RMEB,
+  input         SD,
 
   output        Almost_Full,
   output        RD_b0,
@@ -3944,10 +3957,11 @@ module RAM_CE0_FE1_D0_PR1_WSA0_WSB1_VPR (
   output        POP_FLAG_b2,
   output        POP_FLAG_b3
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
-      $setup(P1, posedge CLK1, "");
-      $hold(posedge CLK1, P1, "");
+      $setup(P2, posedge CLK2, "");
+      $hold(posedge CLK2, P2, "");
       $setup(WD_b0, posedge CLK1, "");
       $hold(posedge CLK1, WD_b0, "");
       $setup(WD_b1, posedge CLK1, "");
@@ -3984,8 +3998,8 @@ module RAM_CE0_FE1_D0_PR1_WSA0_WSB1_VPR (
       $hold(posedge CLK1, WD_b16, "");
       $setup(WD_b17, posedge CLK1, "");
       $hold(posedge CLK1, WD_b17, "");
-      $setup(P2, posedge CLK2, "");
-      $hold(posedge CLK2, P2, "");
+      $setup(P1, posedge CLK1, "");
+      $hold(posedge CLK1, P1, "");
       (CLK1*>Almost_Full)="";
       (CLK2*>RD_b0)="";
       (CLK2*>RD_b1)="";
@@ -4017,26 +4031,10 @@ module RAM_CE0_FE1_D0_PR1_WSA0_WSB1_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK2_0(CLK2),
       .CLK1_0(CLK1),
-      .A1_0_b0(A1_b0),
-      .A1_0_b1(A1_b1),
-      .A1_0_b2(A1_b2),
-      .A1_0_b3(A1_b3),
-      .A1_0_b4(A1_b4),
-      .A1_0_b5(A1_b5),
-      .A1_0_b6(A1_b6),
-      .A1_0_b7(A1_b7),
-      .A1_0_b8(A1_b8),
-      .A1_0_b9(A1_b9),
-      .A1_0_b10(A1_b10),
-      .CLK1EN_0(CLK1EN),
       .DIR_0(DIR),
-      .CS1_0(CS1),
-      .CONCAT_EN_0(CONCAT_EN),
-      .SYNC_FIFO_0(SYNC_FIFO),
-      .ASYNC_FLUSH_0(ASYNC_FLUSH),
       .A2_0_b0(A2_b0),
       .A2_0_b1(A2_b1),
       .A2_0_b2(A2_b2),
@@ -4048,15 +4046,28 @@ module RAM_CE0_FE1_D0_PR1_WSA0_WSB1_VPR (
       .A2_0_b8(A2_b8),
       .A2_0_b9(A2_b9),
       .A2_0_b10(A2_b10),
-      .WIDTH_SELECT1_0(WIDTH_SELECT1),
+      .P2_0(P2),
+      .FIFO_EN_0(FIFO_EN),
+      .CONCAT_EN_0(CONCAT_EN),
+      .ASYNC_FLUSH_0(ASYNC_FLUSH),
+      .PIPELINE_RD_0(PIPELINE_RD),
       .WIDTH_SELECT2_0(WIDTH_SELECT2),
       .CS2_0(CS2),
       .WEN1_0_b0(WEN1_b0),
       .WEN1_0_b1(WEN1_b1),
-      .FIFO_EN_0(FIFO_EN),
-      .P1_0(P1),
-      .CLK2EN_0(CLK2EN),
-      .PIPELINE_RD_0(PIPELINE_RD),
+      .CS1_0(CS1),
+      .WIDTH_SELECT1_0(WIDTH_SELECT1),
+      .A1_0_b0(A1_b0),
+      .A1_0_b1(A1_b1),
+      .A1_0_b2(A1_b2),
+      .A1_0_b3(A1_b3),
+      .A1_0_b4(A1_b4),
+      .A1_0_b5(A1_b5),
+      .A1_0_b6(A1_b6),
+      .A1_0_b7(A1_b7),
+      .A1_0_b8(A1_b8),
+      .A1_0_b9(A1_b9),
+      .A1_0_b10(A1_b10),
       .WD_0_b0(WD_b0),
       .WD_0_b1(WD_b1),
       .WD_0_b2(WD_b2),
@@ -4075,7 +4086,10 @@ module RAM_CE0_FE1_D0_PR1_WSA0_WSB1_VPR (
       .WD_0_b15(WD_b15),
       .WD_0_b16(WD_b16),
       .WD_0_b17(WD_b17),
-      .P2_0(P2),
+      .P1_0(P1),
+      .SYNC_FIFO_0(SYNC_FIFO),
+      .CLK1EN_0(CLK1EN),
+      .CLK2EN_0(CLK2EN),
       .Almost_Full_0(Almost_Full),
       .RD_0_b0(RD_b0),
       .RD_0_b1(RD_b1),
@@ -4114,29 +4128,8 @@ module RAM_CE0_FE1_D0_PR1_WSA1_WSB0_VPR (
   input         CLK2,
   input         CLK1,
 
-  input         TEST1A,
-  input         DS,
-  input         A1_b0,
-  input         A1_b1,
-  input         A1_b2,
-  input         A1_b3,
-  input         A1_b4,
-  input         A1_b5,
-  input         A1_b6,
-  input         A1_b7,
-  input         A1_b8,
-  input         A1_b9,
-  input         A1_b10,
-  input         CLK1EN,
-  input         SD,
   input         DIR,
-  input         CS1,
-  input         CONCAT_EN,
-  input         SYNC_FIFO,
-  input         LS,
-  input         SD_RB1,
-  input         TEST1B,
-  input         ASYNC_FLUSH,
+  input         DS_RB1,
   input         A2_b0,
   input         A2_b1,
   input         A2_b2,
@@ -4148,27 +4141,38 @@ module RAM_CE0_FE1_D0_PR1_WSA1_WSB0_VPR (
   input         A2_b8,
   input         A2_b9,
   input         A2_b10,
-  input         RMEB,
   input         RMB_b0,
   input         RMB_b1,
   input         RMB_b2,
   input         RMB_b3,
-  input         DS_RB1,
-  input         RMEA,
-  input  [ 1:0] WIDTH_SELECT1,
+  input         P2,
+  input         FIFO_EN,
+  input         CONCAT_EN,
+  input         ASYNC_FLUSH,
+  input         TEST1B,
+  input         PIPELINE_RD,
+  input         DS,
   input  [ 1:0] WIDTH_SELECT2,
+  input         LS_RB1,
   input         CS2,
   input         WEN1_b0,
   input         WEN1_b1,
-  input         FIFO_EN,
-  input         LS_RB1,
-  input         P1,
-  input         RMA_b0,
-  input         RMA_b1,
-  input         RMA_b2,
-  input         RMA_b3,
-  input         CLK2EN,
-  input         PIPELINE_RD,
+  input         LS,
+  input         SD_RB1,
+  input         CS1,
+  input         TEST1A,
+  input  [ 1:0] WIDTH_SELECT1,
+  input         A1_b0,
+  input         A1_b1,
+  input         A1_b2,
+  input         A1_b3,
+  input         A1_b4,
+  input         A1_b5,
+  input         A1_b6,
+  input         A1_b7,
+  input         A1_b8,
+  input         A1_b9,
+  input         A1_b10,
   input         WD_b0,
   input         WD_b1,
   input         WD_b2,
@@ -4187,7 +4191,17 @@ module RAM_CE0_FE1_D0_PR1_WSA1_WSB0_VPR (
   input         WD_b15,
   input         WD_b16,
   input         WD_b17,
-  input         P2,
+  input         P1,
+  input         RMA_b0,
+  input         RMA_b1,
+  input         RMA_b2,
+  input         RMA_b3,
+  input         RMEA,
+  input         SYNC_FIFO,
+  input         CLK1EN,
+  input         CLK2EN,
+  input         RMEB,
+  input         SD,
 
   output        Almost_Full,
   output        RD_b0,
@@ -4218,10 +4232,11 @@ module RAM_CE0_FE1_D0_PR1_WSA1_WSB0_VPR (
   output        POP_FLAG_b2,
   output        POP_FLAG_b3
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
-      $setup(P1, posedge CLK1, "");
-      $hold(posedge CLK1, P1, "");
+      $setup(P2, posedge CLK2, "");
+      $hold(posedge CLK2, P2, "");
       $setup(WD_b0, posedge CLK1, "");
       $hold(posedge CLK1, WD_b0, "");
       $setup(WD_b1, posedge CLK1, "");
@@ -4258,8 +4273,8 @@ module RAM_CE0_FE1_D0_PR1_WSA1_WSB0_VPR (
       $hold(posedge CLK1, WD_b16, "");
       $setup(WD_b17, posedge CLK1, "");
       $hold(posedge CLK1, WD_b17, "");
-      $setup(P2, posedge CLK2, "");
-      $hold(posedge CLK2, P2, "");
+      $setup(P1, posedge CLK1, "");
+      $hold(posedge CLK1, P1, "");
       (CLK1*>Almost_Full)="";
       (CLK2*>RD_b0)="";
       (CLK2*>RD_b1)="";
@@ -4291,26 +4306,10 @@ module RAM_CE0_FE1_D0_PR1_WSA1_WSB0_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK2_0(CLK2),
       .CLK1_0(CLK1),
-      .A1_0_b0(A1_b0),
-      .A1_0_b1(A1_b1),
-      .A1_0_b2(A1_b2),
-      .A1_0_b3(A1_b3),
-      .A1_0_b4(A1_b4),
-      .A1_0_b5(A1_b5),
-      .A1_0_b6(A1_b6),
-      .A1_0_b7(A1_b7),
-      .A1_0_b8(A1_b8),
-      .A1_0_b9(A1_b9),
-      .A1_0_b10(A1_b10),
-      .CLK1EN_0(CLK1EN),
       .DIR_0(DIR),
-      .CS1_0(CS1),
-      .CONCAT_EN_0(CONCAT_EN),
-      .SYNC_FIFO_0(SYNC_FIFO),
-      .ASYNC_FLUSH_0(ASYNC_FLUSH),
       .A2_0_b0(A2_b0),
       .A2_0_b1(A2_b1),
       .A2_0_b2(A2_b2),
@@ -4322,15 +4321,28 @@ module RAM_CE0_FE1_D0_PR1_WSA1_WSB0_VPR (
       .A2_0_b8(A2_b8),
       .A2_0_b9(A2_b9),
       .A2_0_b10(A2_b10),
-      .WIDTH_SELECT1_0(WIDTH_SELECT1),
+      .P2_0(P2),
+      .FIFO_EN_0(FIFO_EN),
+      .CONCAT_EN_0(CONCAT_EN),
+      .ASYNC_FLUSH_0(ASYNC_FLUSH),
+      .PIPELINE_RD_0(PIPELINE_RD),
       .WIDTH_SELECT2_0(WIDTH_SELECT2),
       .CS2_0(CS2),
       .WEN1_0_b0(WEN1_b0),
       .WEN1_0_b1(WEN1_b1),
-      .FIFO_EN_0(FIFO_EN),
-      .P1_0(P1),
-      .CLK2EN_0(CLK2EN),
-      .PIPELINE_RD_0(PIPELINE_RD),
+      .CS1_0(CS1),
+      .WIDTH_SELECT1_0(WIDTH_SELECT1),
+      .A1_0_b0(A1_b0),
+      .A1_0_b1(A1_b1),
+      .A1_0_b2(A1_b2),
+      .A1_0_b3(A1_b3),
+      .A1_0_b4(A1_b4),
+      .A1_0_b5(A1_b5),
+      .A1_0_b6(A1_b6),
+      .A1_0_b7(A1_b7),
+      .A1_0_b8(A1_b8),
+      .A1_0_b9(A1_b9),
+      .A1_0_b10(A1_b10),
       .WD_0_b0(WD_b0),
       .WD_0_b1(WD_b1),
       .WD_0_b2(WD_b2),
@@ -4349,7 +4361,10 @@ module RAM_CE0_FE1_D0_PR1_WSA1_WSB0_VPR (
       .WD_0_b15(WD_b15),
       .WD_0_b16(WD_b16),
       .WD_0_b17(WD_b17),
-      .P2_0(P2),
+      .P1_0(P1),
+      .SYNC_FIFO_0(SYNC_FIFO),
+      .CLK1EN_0(CLK1EN),
+      .CLK2EN_0(CLK2EN),
       .Almost_Full_0(Almost_Full),
       .RD_0_b0(RD_b0),
       .RD_0_b1(RD_b1),
@@ -4388,29 +4403,8 @@ module RAM_CE0_FE1_D0_PR1_WSA1_WSB1_VPR (
   input         CLK2,
   input         CLK1,
 
-  input         TEST1A,
-  input         DS,
-  input         A1_b0,
-  input         A1_b1,
-  input         A1_b2,
-  input         A1_b3,
-  input         A1_b4,
-  input         A1_b5,
-  input         A1_b6,
-  input         A1_b7,
-  input         A1_b8,
-  input         A1_b9,
-  input         A1_b10,
-  input         CLK1EN,
-  input         SD,
   input         DIR,
-  input         CS1,
-  input         CONCAT_EN,
-  input         SYNC_FIFO,
-  input         LS,
-  input         SD_RB1,
-  input         TEST1B,
-  input         ASYNC_FLUSH,
+  input         DS_RB1,
   input         A2_b0,
   input         A2_b1,
   input         A2_b2,
@@ -4422,27 +4416,38 @@ module RAM_CE0_FE1_D0_PR1_WSA1_WSB1_VPR (
   input         A2_b8,
   input         A2_b9,
   input         A2_b10,
-  input         RMEB,
   input         RMB_b0,
   input         RMB_b1,
   input         RMB_b2,
   input         RMB_b3,
-  input         DS_RB1,
-  input         RMEA,
-  input  [ 1:0] WIDTH_SELECT1,
+  input         P2,
+  input         FIFO_EN,
+  input         CONCAT_EN,
+  input         ASYNC_FLUSH,
+  input         TEST1B,
+  input         PIPELINE_RD,
+  input         DS,
   input  [ 1:0] WIDTH_SELECT2,
+  input         LS_RB1,
   input         CS2,
   input         WEN1_b0,
   input         WEN1_b1,
-  input         FIFO_EN,
-  input         LS_RB1,
-  input         P1,
-  input         RMA_b0,
-  input         RMA_b1,
-  input         RMA_b2,
-  input         RMA_b3,
-  input         CLK2EN,
-  input         PIPELINE_RD,
+  input         LS,
+  input         SD_RB1,
+  input         CS1,
+  input         TEST1A,
+  input  [ 1:0] WIDTH_SELECT1,
+  input         A1_b0,
+  input         A1_b1,
+  input         A1_b2,
+  input         A1_b3,
+  input         A1_b4,
+  input         A1_b5,
+  input         A1_b6,
+  input         A1_b7,
+  input         A1_b8,
+  input         A1_b9,
+  input         A1_b10,
   input         WD_b0,
   input         WD_b1,
   input         WD_b2,
@@ -4461,7 +4466,17 @@ module RAM_CE0_FE1_D0_PR1_WSA1_WSB1_VPR (
   input         WD_b15,
   input         WD_b16,
   input         WD_b17,
-  input         P2,
+  input         P1,
+  input         RMA_b0,
+  input         RMA_b1,
+  input         RMA_b2,
+  input         RMA_b3,
+  input         RMEA,
+  input         SYNC_FIFO,
+  input         CLK1EN,
+  input         CLK2EN,
+  input         RMEB,
+  input         SD,
 
   output        Almost_Full,
   output        RD_b0,
@@ -4492,10 +4507,11 @@ module RAM_CE0_FE1_D0_PR1_WSA1_WSB1_VPR (
   output        POP_FLAG_b2,
   output        POP_FLAG_b3
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
-      $setup(P1, posedge CLK1, "");
-      $hold(posedge CLK1, P1, "");
+      $setup(P2, posedge CLK2, "");
+      $hold(posedge CLK2, P2, "");
       $setup(WD_b0, posedge CLK1, "");
       $hold(posedge CLK1, WD_b0, "");
       $setup(WD_b1, posedge CLK1, "");
@@ -4532,8 +4548,8 @@ module RAM_CE0_FE1_D0_PR1_WSA1_WSB1_VPR (
       $hold(posedge CLK1, WD_b16, "");
       $setup(WD_b17, posedge CLK1, "");
       $hold(posedge CLK1, WD_b17, "");
-      $setup(P2, posedge CLK2, "");
-      $hold(posedge CLK2, P2, "");
+      $setup(P1, posedge CLK1, "");
+      $hold(posedge CLK1, P1, "");
       (CLK1*>Almost_Full)="";
       (CLK2*>RD_b0)="";
       (CLK2*>RD_b1)="";
@@ -4565,26 +4581,10 @@ module RAM_CE0_FE1_D0_PR1_WSA1_WSB1_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK2_0(CLK2),
       .CLK1_0(CLK1),
-      .A1_0_b0(A1_b0),
-      .A1_0_b1(A1_b1),
-      .A1_0_b2(A1_b2),
-      .A1_0_b3(A1_b3),
-      .A1_0_b4(A1_b4),
-      .A1_0_b5(A1_b5),
-      .A1_0_b6(A1_b6),
-      .A1_0_b7(A1_b7),
-      .A1_0_b8(A1_b8),
-      .A1_0_b9(A1_b9),
-      .A1_0_b10(A1_b10),
-      .CLK1EN_0(CLK1EN),
       .DIR_0(DIR),
-      .CS1_0(CS1),
-      .CONCAT_EN_0(CONCAT_EN),
-      .SYNC_FIFO_0(SYNC_FIFO),
-      .ASYNC_FLUSH_0(ASYNC_FLUSH),
       .A2_0_b0(A2_b0),
       .A2_0_b1(A2_b1),
       .A2_0_b2(A2_b2),
@@ -4596,15 +4596,28 @@ module RAM_CE0_FE1_D0_PR1_WSA1_WSB1_VPR (
       .A2_0_b8(A2_b8),
       .A2_0_b9(A2_b9),
       .A2_0_b10(A2_b10),
-      .WIDTH_SELECT1_0(WIDTH_SELECT1),
+      .P2_0(P2),
+      .FIFO_EN_0(FIFO_EN),
+      .CONCAT_EN_0(CONCAT_EN),
+      .ASYNC_FLUSH_0(ASYNC_FLUSH),
+      .PIPELINE_RD_0(PIPELINE_RD),
       .WIDTH_SELECT2_0(WIDTH_SELECT2),
       .CS2_0(CS2),
       .WEN1_0_b0(WEN1_b0),
       .WEN1_0_b1(WEN1_b1),
-      .FIFO_EN_0(FIFO_EN),
-      .P1_0(P1),
-      .CLK2EN_0(CLK2EN),
-      .PIPELINE_RD_0(PIPELINE_RD),
+      .CS1_0(CS1),
+      .WIDTH_SELECT1_0(WIDTH_SELECT1),
+      .A1_0_b0(A1_b0),
+      .A1_0_b1(A1_b1),
+      .A1_0_b2(A1_b2),
+      .A1_0_b3(A1_b3),
+      .A1_0_b4(A1_b4),
+      .A1_0_b5(A1_b5),
+      .A1_0_b6(A1_b6),
+      .A1_0_b7(A1_b7),
+      .A1_0_b8(A1_b8),
+      .A1_0_b9(A1_b9),
+      .A1_0_b10(A1_b10),
       .WD_0_b0(WD_b0),
       .WD_0_b1(WD_b1),
       .WD_0_b2(WD_b2),
@@ -4623,7 +4636,10 @@ module RAM_CE0_FE1_D0_PR1_WSA1_WSB1_VPR (
       .WD_0_b15(WD_b15),
       .WD_0_b16(WD_b16),
       .WD_0_b17(WD_b17),
-      .P2_0(P2),
+      .P1_0(P1),
+      .SYNC_FIFO_0(SYNC_FIFO),
+      .CLK1EN_0(CLK1EN),
+      .CLK2EN_0(CLK2EN),
       .Almost_Full_0(Almost_Full),
       .RD_0_b0(RD_b0),
       .RD_0_b1(RD_b1),
@@ -4662,30 +4678,16 @@ module RAM_CE0_FE1_D1_PR0_WSA0_WSB0_VPR (
   input         CLK2,
   input         CLK1,
 
-  input         TEST1A,
-  input         DS,
-  input         CLK1EN,
-  input         SD,
   input         DIR,
-  input         CS1,
-  input         CONCAT_EN,
-  input         SYNC_FIFO,
-  input         LS,
-  input         SD_RB1,
-  input         TEST1B,
-  input         ASYNC_FLUSH,
-  input         RMEB,
+  input         DS_RB1,
   input         RMB_b0,
   input         RMB_b1,
   input         RMB_b2,
   input         RMB_b3,
-  input         DS_RB1,
-  input         RMEA,
-  input  [ 1:0] WIDTH_SELECT1,
-  input  [ 1:0] WIDTH_SELECT2,
-  input         CS2,
-  input         WEN1_b0,
-  input         WEN1_b1,
+  input         P2,
+  input         FIFO_EN,
+  input         CONCAT_EN,
+  input         ASYNC_FLUSH,
   input         A2_b0,
   input         A2_b1,
   input         A2_b2,
@@ -4697,15 +4699,7 @@ module RAM_CE0_FE1_D1_PR0_WSA0_WSB0_VPR (
   input         A2_b8,
   input         A2_b9,
   input         A2_b10,
-  input         FIFO_EN,
-  input         LS_RB1,
-  input         P1,
-  input         RMA_b0,
-  input         RMA_b1,
-  input         RMA_b2,
-  input         RMA_b3,
-  input         CLK2EN,
-  input         P2,
+  input         TEST1B,
   input         PIPELINE_RD,
   input         WD_b0,
   input         WD_b1,
@@ -4725,6 +4719,15 @@ module RAM_CE0_FE1_D1_PR0_WSA0_WSB0_VPR (
   input         WD_b15,
   input         WD_b16,
   input         WD_b17,
+  input         DS,
+  input  [ 1:0] WIDTH_SELECT2,
+  input         LS_RB1,
+  input         CS2,
+  input         LS,
+  input         SD_RB1,
+  input         TEST1A,
+  input         CS1,
+  input  [ 1:0] WIDTH_SELECT1,
   input         A1_b0,
   input         A1_b1,
   input         A1_b2,
@@ -4736,7 +4739,28 @@ module RAM_CE0_FE1_D1_PR0_WSA0_WSB0_VPR (
   input         A1_b8,
   input         A1_b9,
   input         A1_b10,
+  input         P1,
+  input         RMA_b0,
+  input         RMA_b1,
+  input         RMA_b2,
+  input         RMA_b3,
+  input         WEN1_b0,
+  input         WEN1_b1,
+  input         RMEA,
+  input         SYNC_FIFO,
+  input         CLK1EN,
+  input         CLK2EN,
+  input         RMEB,
+  input         SD,
 
+  output        POP_FLAG_b0,
+  output        POP_FLAG_b1,
+  output        POP_FLAG_b2,
+  output        POP_FLAG_b3,
+  output        PUSH_FLAG_b0,
+  output        PUSH_FLAG_b1,
+  output        PUSH_FLAG_b2,
+  output        PUSH_FLAG_b3,
   output        RD_b0,
   output        RD_b1,
   output        RD_b2,
@@ -4755,21 +4779,14 @@ module RAM_CE0_FE1_D1_PR0_WSA0_WSB0_VPR (
   output        RD_b15,
   output        RD_b16,
   output        RD_b17,
-  output        Almost_Empty,
   output        Almost_Full,
-  output        POP_FLAG_b0,
-  output        POP_FLAG_b1,
-  output        POP_FLAG_b2,
-  output        POP_FLAG_b3,
-  output        PUSH_FLAG_b0,
-  output        PUSH_FLAG_b1,
-  output        PUSH_FLAG_b2,
-  output        PUSH_FLAG_b3
+  output        Almost_Empty
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
-      $setup(P1, posedge CLK1, "");
-      $hold(posedge CLK1, P1, "");
+      $setup(P2, posedge CLK2, "");
+      $hold(posedge CLK2, P2, "");
       $setup(WD_b0, posedge CLK2, "");
       $hold(posedge CLK2, WD_b0, "");
       $setup(WD_b1, posedge CLK2, "");
@@ -4806,8 +4823,16 @@ module RAM_CE0_FE1_D1_PR0_WSA0_WSB0_VPR (
       $hold(posedge CLK2, WD_b16, "");
       $setup(WD_b17, posedge CLK2, "");
       $hold(posedge CLK2, WD_b17, "");
-      $setup(P2, posedge CLK2, "");
-      $hold(posedge CLK2, P2, "");
+      $setup(P1, posedge CLK1, "");
+      $hold(posedge CLK1, P1, "");
+      (CLK1*>POP_FLAG_b0)="";
+      (CLK1*>POP_FLAG_b1)="";
+      (CLK1*>POP_FLAG_b2)="";
+      (CLK1*>POP_FLAG_b3)="";
+      (CLK2*>PUSH_FLAG_b0)="";
+      (CLK2*>PUSH_FLAG_b1)="";
+      (CLK2*>PUSH_FLAG_b2)="";
+      (CLK2*>PUSH_FLAG_b3)="";
       (CLK1*>RD_b0)="";
       (CLK1*>RD_b1)="";
       (CLK1*>RD_b2)="";
@@ -4826,33 +4851,19 @@ module RAM_CE0_FE1_D1_PR0_WSA0_WSB0_VPR (
       (CLK1*>RD_b15)="";
       (CLK1*>RD_b16)="";
       (CLK1*>RD_b17)="";
-      (CLK1*>Almost_Empty)="";
       (CLK2*>Almost_Full)="";
-      (CLK1*>POP_FLAG_b0)="";
-      (CLK1*>POP_FLAG_b1)="";
-      (CLK1*>POP_FLAG_b2)="";
-      (CLK1*>POP_FLAG_b3)="";
-      (CLK2*>PUSH_FLAG_b0)="";
-      (CLK2*>PUSH_FLAG_b1)="";
-      (CLK2*>PUSH_FLAG_b2)="";
-      (CLK2*>PUSH_FLAG_b3)="";
+      (CLK1*>Almost_Empty)="";
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK2_0(CLK2),
       .CLK1_0(CLK1),
-      .CLK1EN_0(CLK1EN),
       .DIR_0(DIR),
-      .CS1_0(CS1),
+      .P2_0(P2),
+      .FIFO_EN_0(FIFO_EN),
       .CONCAT_EN_0(CONCAT_EN),
-      .SYNC_FIFO_0(SYNC_FIFO),
       .ASYNC_FLUSH_0(ASYNC_FLUSH),
-      .WIDTH_SELECT1_0(WIDTH_SELECT1),
-      .WIDTH_SELECT2_0(WIDTH_SELECT2),
-      .CS2_0(CS2),
-      .WEN1_0_b0(WEN1_b0),
-      .WEN1_0_b1(WEN1_b1),
       .A2_0_b0(A2_b0),
       .A2_0_b1(A2_b1),
       .A2_0_b2(A2_b2),
@@ -4864,10 +4875,6 @@ module RAM_CE0_FE1_D1_PR0_WSA0_WSB0_VPR (
       .A2_0_b8(A2_b8),
       .A2_0_b9(A2_b9),
       .A2_0_b10(A2_b10),
-      .FIFO_EN_0(FIFO_EN),
-      .P1_0(P1),
-      .CLK2EN_0(CLK2EN),
-      .P2_0(P2),
       .PIPELINE_RD_0(PIPELINE_RD),
       .WD_0_b0(WD_b0),
       .WD_0_b1(WD_b1),
@@ -4887,6 +4894,10 @@ module RAM_CE0_FE1_D1_PR0_WSA0_WSB0_VPR (
       .WD_0_b15(WD_b15),
       .WD_0_b16(WD_b16),
       .WD_0_b17(WD_b17),
+      .WIDTH_SELECT2_0(WIDTH_SELECT2),
+      .CS2_0(CS2),
+      .CS1_0(CS1),
+      .WIDTH_SELECT1_0(WIDTH_SELECT1),
       .A1_0_b0(A1_b0),
       .A1_0_b1(A1_b1),
       .A1_0_b2(A1_b2),
@@ -4898,6 +4909,20 @@ module RAM_CE0_FE1_D1_PR0_WSA0_WSB0_VPR (
       .A1_0_b8(A1_b8),
       .A1_0_b9(A1_b9),
       .A1_0_b10(A1_b10),
+      .P1_0(P1),
+      .WEN1_0_b0(WEN1_b0),
+      .WEN1_0_b1(WEN1_b1),
+      .SYNC_FIFO_0(SYNC_FIFO),
+      .CLK1EN_0(CLK1EN),
+      .CLK2EN_0(CLK2EN),
+      .POP_FLAG_0_b0(POP_FLAG_b0),
+      .POP_FLAG_0_b1(POP_FLAG_b1),
+      .POP_FLAG_0_b2(POP_FLAG_b2),
+      .POP_FLAG_0_b3(POP_FLAG_b3),
+      .PUSH_FLAG_0_b0(PUSH_FLAG_b0),
+      .PUSH_FLAG_0_b1(PUSH_FLAG_b1),
+      .PUSH_FLAG_0_b2(PUSH_FLAG_b2),
+      .PUSH_FLAG_0_b3(PUSH_FLAG_b3),
       .RD_0_b0(RD_b0),
       .RD_0_b1(RD_b1),
       .RD_0_b2(RD_b2),
@@ -4916,16 +4941,8 @@ module RAM_CE0_FE1_D1_PR0_WSA0_WSB0_VPR (
       .RD_0_b15(RD_b15),
       .RD_0_b16(RD_b16),
       .RD_0_b17(RD_b17),
-      .Almost_Empty_0(Almost_Empty),
       .Almost_Full_0(Almost_Full),
-      .POP_FLAG_0_b0(POP_FLAG_b0),
-      .POP_FLAG_0_b1(POP_FLAG_b1),
-      .POP_FLAG_0_b2(POP_FLAG_b2),
-      .POP_FLAG_0_b3(POP_FLAG_b3),
-      .PUSH_FLAG_0_b0(PUSH_FLAG_b0),
-      .PUSH_FLAG_0_b1(PUSH_FLAG_b1),
-      .PUSH_FLAG_0_b2(PUSH_FLAG_b2),
-      .PUSH_FLAG_0_b3(PUSH_FLAG_b3));
+      .Almost_Empty_0(Almost_Empty));
 
 endmodule
 
@@ -4936,30 +4953,16 @@ module RAM_CE0_FE1_D1_PR0_WSA0_WSB1_VPR (
   input         CLK2,
   input         CLK1,
 
-  input         TEST1A,
-  input         DS,
-  input         CLK1EN,
-  input         SD,
   input         DIR,
-  input         CS1,
-  input         CONCAT_EN,
-  input         SYNC_FIFO,
-  input         LS,
-  input         SD_RB1,
-  input         TEST1B,
-  input         ASYNC_FLUSH,
-  input         RMEB,
+  input         DS_RB1,
   input         RMB_b0,
   input         RMB_b1,
   input         RMB_b2,
   input         RMB_b3,
-  input         DS_RB1,
-  input         RMEA,
-  input  [ 1:0] WIDTH_SELECT1,
-  input  [ 1:0] WIDTH_SELECT2,
-  input         CS2,
-  input         WEN1_b0,
-  input         WEN1_b1,
+  input         P2,
+  input         FIFO_EN,
+  input         CONCAT_EN,
+  input         ASYNC_FLUSH,
   input         A2_b0,
   input         A2_b1,
   input         A2_b2,
@@ -4971,15 +4974,7 @@ module RAM_CE0_FE1_D1_PR0_WSA0_WSB1_VPR (
   input         A2_b8,
   input         A2_b9,
   input         A2_b10,
-  input         FIFO_EN,
-  input         LS_RB1,
-  input         P1,
-  input         RMA_b0,
-  input         RMA_b1,
-  input         RMA_b2,
-  input         RMA_b3,
-  input         CLK2EN,
-  input         P2,
+  input         TEST1B,
   input         PIPELINE_RD,
   input         WD_b0,
   input         WD_b1,
@@ -4999,6 +4994,15 @@ module RAM_CE0_FE1_D1_PR0_WSA0_WSB1_VPR (
   input         WD_b15,
   input         WD_b16,
   input         WD_b17,
+  input         DS,
+  input  [ 1:0] WIDTH_SELECT2,
+  input         LS_RB1,
+  input         CS2,
+  input         LS,
+  input         SD_RB1,
+  input         TEST1A,
+  input         CS1,
+  input  [ 1:0] WIDTH_SELECT1,
   input         A1_b0,
   input         A1_b1,
   input         A1_b2,
@@ -5010,7 +5014,28 @@ module RAM_CE0_FE1_D1_PR0_WSA0_WSB1_VPR (
   input         A1_b8,
   input         A1_b9,
   input         A1_b10,
+  input         P1,
+  input         RMA_b0,
+  input         RMA_b1,
+  input         RMA_b2,
+  input         RMA_b3,
+  input         WEN1_b0,
+  input         WEN1_b1,
+  input         RMEA,
+  input         SYNC_FIFO,
+  input         CLK1EN,
+  input         CLK2EN,
+  input         RMEB,
+  input         SD,
 
+  output        POP_FLAG_b0,
+  output        POP_FLAG_b1,
+  output        POP_FLAG_b2,
+  output        POP_FLAG_b3,
+  output        PUSH_FLAG_b0,
+  output        PUSH_FLAG_b1,
+  output        PUSH_FLAG_b2,
+  output        PUSH_FLAG_b3,
   output        RD_b0,
   output        RD_b1,
   output        RD_b2,
@@ -5029,21 +5054,14 @@ module RAM_CE0_FE1_D1_PR0_WSA0_WSB1_VPR (
   output        RD_b15,
   output        RD_b16,
   output        RD_b17,
-  output        Almost_Empty,
   output        Almost_Full,
-  output        POP_FLAG_b0,
-  output        POP_FLAG_b1,
-  output        POP_FLAG_b2,
-  output        POP_FLAG_b3,
-  output        PUSH_FLAG_b0,
-  output        PUSH_FLAG_b1,
-  output        PUSH_FLAG_b2,
-  output        PUSH_FLAG_b3
+  output        Almost_Empty
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
-      $setup(P1, posedge CLK1, "");
-      $hold(posedge CLK1, P1, "");
+      $setup(P2, posedge CLK2, "");
+      $hold(posedge CLK2, P2, "");
       $setup(WD_b0, posedge CLK2, "");
       $hold(posedge CLK2, WD_b0, "");
       $setup(WD_b1, posedge CLK2, "");
@@ -5080,8 +5098,16 @@ module RAM_CE0_FE1_D1_PR0_WSA0_WSB1_VPR (
       $hold(posedge CLK2, WD_b16, "");
       $setup(WD_b17, posedge CLK2, "");
       $hold(posedge CLK2, WD_b17, "");
-      $setup(P2, posedge CLK2, "");
-      $hold(posedge CLK2, P2, "");
+      $setup(P1, posedge CLK1, "");
+      $hold(posedge CLK1, P1, "");
+      (CLK1*>POP_FLAG_b0)="";
+      (CLK1*>POP_FLAG_b1)="";
+      (CLK1*>POP_FLAG_b2)="";
+      (CLK1*>POP_FLAG_b3)="";
+      (CLK2*>PUSH_FLAG_b0)="";
+      (CLK2*>PUSH_FLAG_b1)="";
+      (CLK2*>PUSH_FLAG_b2)="";
+      (CLK2*>PUSH_FLAG_b3)="";
       (CLK1*>RD_b0)="";
       (CLK1*>RD_b1)="";
       (CLK1*>RD_b2)="";
@@ -5100,33 +5126,19 @@ module RAM_CE0_FE1_D1_PR0_WSA0_WSB1_VPR (
       (CLK1*>RD_b15)="";
       (CLK1*>RD_b16)="";
       (CLK1*>RD_b17)="";
-      (CLK1*>Almost_Empty)="";
       (CLK2*>Almost_Full)="";
-      (CLK1*>POP_FLAG_b0)="";
-      (CLK1*>POP_FLAG_b1)="";
-      (CLK1*>POP_FLAG_b2)="";
-      (CLK1*>POP_FLAG_b3)="";
-      (CLK2*>PUSH_FLAG_b0)="";
-      (CLK2*>PUSH_FLAG_b1)="";
-      (CLK2*>PUSH_FLAG_b2)="";
-      (CLK2*>PUSH_FLAG_b3)="";
+      (CLK1*>Almost_Empty)="";
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK2_0(CLK2),
       .CLK1_0(CLK1),
-      .CLK1EN_0(CLK1EN),
       .DIR_0(DIR),
-      .CS1_0(CS1),
+      .P2_0(P2),
+      .FIFO_EN_0(FIFO_EN),
       .CONCAT_EN_0(CONCAT_EN),
-      .SYNC_FIFO_0(SYNC_FIFO),
       .ASYNC_FLUSH_0(ASYNC_FLUSH),
-      .WIDTH_SELECT1_0(WIDTH_SELECT1),
-      .WIDTH_SELECT2_0(WIDTH_SELECT2),
-      .CS2_0(CS2),
-      .WEN1_0_b0(WEN1_b0),
-      .WEN1_0_b1(WEN1_b1),
       .A2_0_b0(A2_b0),
       .A2_0_b1(A2_b1),
       .A2_0_b2(A2_b2),
@@ -5138,10 +5150,6 @@ module RAM_CE0_FE1_D1_PR0_WSA0_WSB1_VPR (
       .A2_0_b8(A2_b8),
       .A2_0_b9(A2_b9),
       .A2_0_b10(A2_b10),
-      .FIFO_EN_0(FIFO_EN),
-      .P1_0(P1),
-      .CLK2EN_0(CLK2EN),
-      .P2_0(P2),
       .PIPELINE_RD_0(PIPELINE_RD),
       .WD_0_b0(WD_b0),
       .WD_0_b1(WD_b1),
@@ -5161,6 +5169,10 @@ module RAM_CE0_FE1_D1_PR0_WSA0_WSB1_VPR (
       .WD_0_b15(WD_b15),
       .WD_0_b16(WD_b16),
       .WD_0_b17(WD_b17),
+      .WIDTH_SELECT2_0(WIDTH_SELECT2),
+      .CS2_0(CS2),
+      .CS1_0(CS1),
+      .WIDTH_SELECT1_0(WIDTH_SELECT1),
       .A1_0_b0(A1_b0),
       .A1_0_b1(A1_b1),
       .A1_0_b2(A1_b2),
@@ -5172,6 +5184,20 @@ module RAM_CE0_FE1_D1_PR0_WSA0_WSB1_VPR (
       .A1_0_b8(A1_b8),
       .A1_0_b9(A1_b9),
       .A1_0_b10(A1_b10),
+      .P1_0(P1),
+      .WEN1_0_b0(WEN1_b0),
+      .WEN1_0_b1(WEN1_b1),
+      .SYNC_FIFO_0(SYNC_FIFO),
+      .CLK1EN_0(CLK1EN),
+      .CLK2EN_0(CLK2EN),
+      .POP_FLAG_0_b0(POP_FLAG_b0),
+      .POP_FLAG_0_b1(POP_FLAG_b1),
+      .POP_FLAG_0_b2(POP_FLAG_b2),
+      .POP_FLAG_0_b3(POP_FLAG_b3),
+      .PUSH_FLAG_0_b0(PUSH_FLAG_b0),
+      .PUSH_FLAG_0_b1(PUSH_FLAG_b1),
+      .PUSH_FLAG_0_b2(PUSH_FLAG_b2),
+      .PUSH_FLAG_0_b3(PUSH_FLAG_b3),
       .RD_0_b0(RD_b0),
       .RD_0_b1(RD_b1),
       .RD_0_b2(RD_b2),
@@ -5190,16 +5216,8 @@ module RAM_CE0_FE1_D1_PR0_WSA0_WSB1_VPR (
       .RD_0_b15(RD_b15),
       .RD_0_b16(RD_b16),
       .RD_0_b17(RD_b17),
-      .Almost_Empty_0(Almost_Empty),
       .Almost_Full_0(Almost_Full),
-      .POP_FLAG_0_b0(POP_FLAG_b0),
-      .POP_FLAG_0_b1(POP_FLAG_b1),
-      .POP_FLAG_0_b2(POP_FLAG_b2),
-      .POP_FLAG_0_b3(POP_FLAG_b3),
-      .PUSH_FLAG_0_b0(PUSH_FLAG_b0),
-      .PUSH_FLAG_0_b1(PUSH_FLAG_b1),
-      .PUSH_FLAG_0_b2(PUSH_FLAG_b2),
-      .PUSH_FLAG_0_b3(PUSH_FLAG_b3));
+      .Almost_Empty_0(Almost_Empty));
 
 endmodule
 
@@ -5210,30 +5228,16 @@ module RAM_CE0_FE1_D1_PR0_WSA1_WSB0_VPR (
   input         CLK2,
   input         CLK1,
 
-  input         TEST1A,
-  input         DS,
-  input         CLK1EN,
-  input         SD,
   input         DIR,
-  input         CS1,
-  input         CONCAT_EN,
-  input         SYNC_FIFO,
-  input         LS,
-  input         SD_RB1,
-  input         TEST1B,
-  input         ASYNC_FLUSH,
-  input         RMEB,
+  input         DS_RB1,
   input         RMB_b0,
   input         RMB_b1,
   input         RMB_b2,
   input         RMB_b3,
-  input         DS_RB1,
-  input         RMEA,
-  input  [ 1:0] WIDTH_SELECT1,
-  input  [ 1:0] WIDTH_SELECT2,
-  input         CS2,
-  input         WEN1_b0,
-  input         WEN1_b1,
+  input         P2,
+  input         FIFO_EN,
+  input         CONCAT_EN,
+  input         ASYNC_FLUSH,
   input         A2_b0,
   input         A2_b1,
   input         A2_b2,
@@ -5245,15 +5249,7 @@ module RAM_CE0_FE1_D1_PR0_WSA1_WSB0_VPR (
   input         A2_b8,
   input         A2_b9,
   input         A2_b10,
-  input         FIFO_EN,
-  input         LS_RB1,
-  input         P1,
-  input         RMA_b0,
-  input         RMA_b1,
-  input         RMA_b2,
-  input         RMA_b3,
-  input         CLK2EN,
-  input         P2,
+  input         TEST1B,
   input         PIPELINE_RD,
   input         WD_b0,
   input         WD_b1,
@@ -5273,6 +5269,15 @@ module RAM_CE0_FE1_D1_PR0_WSA1_WSB0_VPR (
   input         WD_b15,
   input         WD_b16,
   input         WD_b17,
+  input         DS,
+  input  [ 1:0] WIDTH_SELECT2,
+  input         LS_RB1,
+  input         CS2,
+  input         LS,
+  input         SD_RB1,
+  input         TEST1A,
+  input         CS1,
+  input  [ 1:0] WIDTH_SELECT1,
   input         A1_b0,
   input         A1_b1,
   input         A1_b2,
@@ -5284,7 +5289,28 @@ module RAM_CE0_FE1_D1_PR0_WSA1_WSB0_VPR (
   input         A1_b8,
   input         A1_b9,
   input         A1_b10,
+  input         P1,
+  input         RMA_b0,
+  input         RMA_b1,
+  input         RMA_b2,
+  input         RMA_b3,
+  input         WEN1_b0,
+  input         WEN1_b1,
+  input         RMEA,
+  input         SYNC_FIFO,
+  input         CLK1EN,
+  input         CLK2EN,
+  input         RMEB,
+  input         SD,
 
+  output        POP_FLAG_b0,
+  output        POP_FLAG_b1,
+  output        POP_FLAG_b2,
+  output        POP_FLAG_b3,
+  output        PUSH_FLAG_b0,
+  output        PUSH_FLAG_b1,
+  output        PUSH_FLAG_b2,
+  output        PUSH_FLAG_b3,
   output        RD_b0,
   output        RD_b1,
   output        RD_b2,
@@ -5303,21 +5329,14 @@ module RAM_CE0_FE1_D1_PR0_WSA1_WSB0_VPR (
   output        RD_b15,
   output        RD_b16,
   output        RD_b17,
-  output        Almost_Empty,
   output        Almost_Full,
-  output        POP_FLAG_b0,
-  output        POP_FLAG_b1,
-  output        POP_FLAG_b2,
-  output        POP_FLAG_b3,
-  output        PUSH_FLAG_b0,
-  output        PUSH_FLAG_b1,
-  output        PUSH_FLAG_b2,
-  output        PUSH_FLAG_b3
+  output        Almost_Empty
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
-      $setup(P1, posedge CLK1, "");
-      $hold(posedge CLK1, P1, "");
+      $setup(P2, posedge CLK2, "");
+      $hold(posedge CLK2, P2, "");
       $setup(WD_b0, posedge CLK2, "");
       $hold(posedge CLK2, WD_b0, "");
       $setup(WD_b1, posedge CLK2, "");
@@ -5354,8 +5373,16 @@ module RAM_CE0_FE1_D1_PR0_WSA1_WSB0_VPR (
       $hold(posedge CLK2, WD_b16, "");
       $setup(WD_b17, posedge CLK2, "");
       $hold(posedge CLK2, WD_b17, "");
-      $setup(P2, posedge CLK2, "");
-      $hold(posedge CLK2, P2, "");
+      $setup(P1, posedge CLK1, "");
+      $hold(posedge CLK1, P1, "");
+      (CLK1*>POP_FLAG_b0)="";
+      (CLK1*>POP_FLAG_b1)="";
+      (CLK1*>POP_FLAG_b2)="";
+      (CLK1*>POP_FLAG_b3)="";
+      (CLK2*>PUSH_FLAG_b0)="";
+      (CLK2*>PUSH_FLAG_b1)="";
+      (CLK2*>PUSH_FLAG_b2)="";
+      (CLK2*>PUSH_FLAG_b3)="";
       (CLK1*>RD_b0)="";
       (CLK1*>RD_b1)="";
       (CLK1*>RD_b2)="";
@@ -5374,33 +5401,19 @@ module RAM_CE0_FE1_D1_PR0_WSA1_WSB0_VPR (
       (CLK1*>RD_b15)="";
       (CLK1*>RD_b16)="";
       (CLK1*>RD_b17)="";
-      (CLK1*>Almost_Empty)="";
       (CLK2*>Almost_Full)="";
-      (CLK1*>POP_FLAG_b0)="";
-      (CLK1*>POP_FLAG_b1)="";
-      (CLK1*>POP_FLAG_b2)="";
-      (CLK1*>POP_FLAG_b3)="";
-      (CLK2*>PUSH_FLAG_b0)="";
-      (CLK2*>PUSH_FLAG_b1)="";
-      (CLK2*>PUSH_FLAG_b2)="";
-      (CLK2*>PUSH_FLAG_b3)="";
+      (CLK1*>Almost_Empty)="";
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK2_0(CLK2),
       .CLK1_0(CLK1),
-      .CLK1EN_0(CLK1EN),
       .DIR_0(DIR),
-      .CS1_0(CS1),
+      .P2_0(P2),
+      .FIFO_EN_0(FIFO_EN),
       .CONCAT_EN_0(CONCAT_EN),
-      .SYNC_FIFO_0(SYNC_FIFO),
       .ASYNC_FLUSH_0(ASYNC_FLUSH),
-      .WIDTH_SELECT1_0(WIDTH_SELECT1),
-      .WIDTH_SELECT2_0(WIDTH_SELECT2),
-      .CS2_0(CS2),
-      .WEN1_0_b0(WEN1_b0),
-      .WEN1_0_b1(WEN1_b1),
       .A2_0_b0(A2_b0),
       .A2_0_b1(A2_b1),
       .A2_0_b2(A2_b2),
@@ -5412,10 +5425,6 @@ module RAM_CE0_FE1_D1_PR0_WSA1_WSB0_VPR (
       .A2_0_b8(A2_b8),
       .A2_0_b9(A2_b9),
       .A2_0_b10(A2_b10),
-      .FIFO_EN_0(FIFO_EN),
-      .P1_0(P1),
-      .CLK2EN_0(CLK2EN),
-      .P2_0(P2),
       .PIPELINE_RD_0(PIPELINE_RD),
       .WD_0_b0(WD_b0),
       .WD_0_b1(WD_b1),
@@ -5435,6 +5444,10 @@ module RAM_CE0_FE1_D1_PR0_WSA1_WSB0_VPR (
       .WD_0_b15(WD_b15),
       .WD_0_b16(WD_b16),
       .WD_0_b17(WD_b17),
+      .WIDTH_SELECT2_0(WIDTH_SELECT2),
+      .CS2_0(CS2),
+      .CS1_0(CS1),
+      .WIDTH_SELECT1_0(WIDTH_SELECT1),
       .A1_0_b0(A1_b0),
       .A1_0_b1(A1_b1),
       .A1_0_b2(A1_b2),
@@ -5446,6 +5459,20 @@ module RAM_CE0_FE1_D1_PR0_WSA1_WSB0_VPR (
       .A1_0_b8(A1_b8),
       .A1_0_b9(A1_b9),
       .A1_0_b10(A1_b10),
+      .P1_0(P1),
+      .WEN1_0_b0(WEN1_b0),
+      .WEN1_0_b1(WEN1_b1),
+      .SYNC_FIFO_0(SYNC_FIFO),
+      .CLK1EN_0(CLK1EN),
+      .CLK2EN_0(CLK2EN),
+      .POP_FLAG_0_b0(POP_FLAG_b0),
+      .POP_FLAG_0_b1(POP_FLAG_b1),
+      .POP_FLAG_0_b2(POP_FLAG_b2),
+      .POP_FLAG_0_b3(POP_FLAG_b3),
+      .PUSH_FLAG_0_b0(PUSH_FLAG_b0),
+      .PUSH_FLAG_0_b1(PUSH_FLAG_b1),
+      .PUSH_FLAG_0_b2(PUSH_FLAG_b2),
+      .PUSH_FLAG_0_b3(PUSH_FLAG_b3),
       .RD_0_b0(RD_b0),
       .RD_0_b1(RD_b1),
       .RD_0_b2(RD_b2),
@@ -5464,16 +5491,8 @@ module RAM_CE0_FE1_D1_PR0_WSA1_WSB0_VPR (
       .RD_0_b15(RD_b15),
       .RD_0_b16(RD_b16),
       .RD_0_b17(RD_b17),
-      .Almost_Empty_0(Almost_Empty),
       .Almost_Full_0(Almost_Full),
-      .POP_FLAG_0_b0(POP_FLAG_b0),
-      .POP_FLAG_0_b1(POP_FLAG_b1),
-      .POP_FLAG_0_b2(POP_FLAG_b2),
-      .POP_FLAG_0_b3(POP_FLAG_b3),
-      .PUSH_FLAG_0_b0(PUSH_FLAG_b0),
-      .PUSH_FLAG_0_b1(PUSH_FLAG_b1),
-      .PUSH_FLAG_0_b2(PUSH_FLAG_b2),
-      .PUSH_FLAG_0_b3(PUSH_FLAG_b3));
+      .Almost_Empty_0(Almost_Empty));
 
 endmodule
 
@@ -5484,30 +5503,16 @@ module RAM_CE0_FE1_D1_PR0_WSA1_WSB1_VPR (
   input         CLK2,
   input         CLK1,
 
-  input         TEST1A,
-  input         DS,
-  input         CLK1EN,
-  input         SD,
   input         DIR,
-  input         CS1,
-  input         CONCAT_EN,
-  input         SYNC_FIFO,
-  input         LS,
-  input         SD_RB1,
-  input         TEST1B,
-  input         ASYNC_FLUSH,
-  input         RMEB,
+  input         DS_RB1,
   input         RMB_b0,
   input         RMB_b1,
   input         RMB_b2,
   input         RMB_b3,
-  input         DS_RB1,
-  input         RMEA,
-  input  [ 1:0] WIDTH_SELECT1,
-  input  [ 1:0] WIDTH_SELECT2,
-  input         CS2,
-  input         WEN1_b0,
-  input         WEN1_b1,
+  input         P2,
+  input         FIFO_EN,
+  input         CONCAT_EN,
+  input         ASYNC_FLUSH,
   input         A2_b0,
   input         A2_b1,
   input         A2_b2,
@@ -5519,15 +5524,7 @@ module RAM_CE0_FE1_D1_PR0_WSA1_WSB1_VPR (
   input         A2_b8,
   input         A2_b9,
   input         A2_b10,
-  input         FIFO_EN,
-  input         LS_RB1,
-  input         P1,
-  input         RMA_b0,
-  input         RMA_b1,
-  input         RMA_b2,
-  input         RMA_b3,
-  input         CLK2EN,
-  input         P2,
+  input         TEST1B,
   input         PIPELINE_RD,
   input         WD_b0,
   input         WD_b1,
@@ -5547,6 +5544,15 @@ module RAM_CE0_FE1_D1_PR0_WSA1_WSB1_VPR (
   input         WD_b15,
   input         WD_b16,
   input         WD_b17,
+  input         DS,
+  input  [ 1:0] WIDTH_SELECT2,
+  input         LS_RB1,
+  input         CS2,
+  input         LS,
+  input         SD_RB1,
+  input         TEST1A,
+  input         CS1,
+  input  [ 1:0] WIDTH_SELECT1,
   input         A1_b0,
   input         A1_b1,
   input         A1_b2,
@@ -5558,7 +5564,28 @@ module RAM_CE0_FE1_D1_PR0_WSA1_WSB1_VPR (
   input         A1_b8,
   input         A1_b9,
   input         A1_b10,
+  input         P1,
+  input         RMA_b0,
+  input         RMA_b1,
+  input         RMA_b2,
+  input         RMA_b3,
+  input         WEN1_b0,
+  input         WEN1_b1,
+  input         RMEA,
+  input         SYNC_FIFO,
+  input         CLK1EN,
+  input         CLK2EN,
+  input         RMEB,
+  input         SD,
 
+  output        POP_FLAG_b0,
+  output        POP_FLAG_b1,
+  output        POP_FLAG_b2,
+  output        POP_FLAG_b3,
+  output        PUSH_FLAG_b0,
+  output        PUSH_FLAG_b1,
+  output        PUSH_FLAG_b2,
+  output        PUSH_FLAG_b3,
   output        RD_b0,
   output        RD_b1,
   output        RD_b2,
@@ -5577,21 +5604,14 @@ module RAM_CE0_FE1_D1_PR0_WSA1_WSB1_VPR (
   output        RD_b15,
   output        RD_b16,
   output        RD_b17,
-  output        Almost_Empty,
   output        Almost_Full,
-  output        POP_FLAG_b0,
-  output        POP_FLAG_b1,
-  output        POP_FLAG_b2,
-  output        POP_FLAG_b3,
-  output        PUSH_FLAG_b0,
-  output        PUSH_FLAG_b1,
-  output        PUSH_FLAG_b2,
-  output        PUSH_FLAG_b3
+  output        Almost_Empty
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
-      $setup(P1, posedge CLK1, "");
-      $hold(posedge CLK1, P1, "");
+      $setup(P2, posedge CLK2, "");
+      $hold(posedge CLK2, P2, "");
       $setup(WD_b0, posedge CLK2, "");
       $hold(posedge CLK2, WD_b0, "");
       $setup(WD_b1, posedge CLK2, "");
@@ -5628,8 +5648,16 @@ module RAM_CE0_FE1_D1_PR0_WSA1_WSB1_VPR (
       $hold(posedge CLK2, WD_b16, "");
       $setup(WD_b17, posedge CLK2, "");
       $hold(posedge CLK2, WD_b17, "");
-      $setup(P2, posedge CLK2, "");
-      $hold(posedge CLK2, P2, "");
+      $setup(P1, posedge CLK1, "");
+      $hold(posedge CLK1, P1, "");
+      (CLK1*>POP_FLAG_b0)="";
+      (CLK1*>POP_FLAG_b1)="";
+      (CLK1*>POP_FLAG_b2)="";
+      (CLK1*>POP_FLAG_b3)="";
+      (CLK2*>PUSH_FLAG_b0)="";
+      (CLK2*>PUSH_FLAG_b1)="";
+      (CLK2*>PUSH_FLAG_b2)="";
+      (CLK2*>PUSH_FLAG_b3)="";
       (CLK1*>RD_b0)="";
       (CLK1*>RD_b1)="";
       (CLK1*>RD_b2)="";
@@ -5648,33 +5676,19 @@ module RAM_CE0_FE1_D1_PR0_WSA1_WSB1_VPR (
       (CLK1*>RD_b15)="";
       (CLK1*>RD_b16)="";
       (CLK1*>RD_b17)="";
-      (CLK1*>Almost_Empty)="";
       (CLK2*>Almost_Full)="";
-      (CLK1*>POP_FLAG_b0)="";
-      (CLK1*>POP_FLAG_b1)="";
-      (CLK1*>POP_FLAG_b2)="";
-      (CLK1*>POP_FLAG_b3)="";
-      (CLK2*>PUSH_FLAG_b0)="";
-      (CLK2*>PUSH_FLAG_b1)="";
-      (CLK2*>PUSH_FLAG_b2)="";
-      (CLK2*>PUSH_FLAG_b3)="";
+      (CLK1*>Almost_Empty)="";
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK2_0(CLK2),
       .CLK1_0(CLK1),
-      .CLK1EN_0(CLK1EN),
       .DIR_0(DIR),
-      .CS1_0(CS1),
+      .P2_0(P2),
+      .FIFO_EN_0(FIFO_EN),
       .CONCAT_EN_0(CONCAT_EN),
-      .SYNC_FIFO_0(SYNC_FIFO),
       .ASYNC_FLUSH_0(ASYNC_FLUSH),
-      .WIDTH_SELECT1_0(WIDTH_SELECT1),
-      .WIDTH_SELECT2_0(WIDTH_SELECT2),
-      .CS2_0(CS2),
-      .WEN1_0_b0(WEN1_b0),
-      .WEN1_0_b1(WEN1_b1),
       .A2_0_b0(A2_b0),
       .A2_0_b1(A2_b1),
       .A2_0_b2(A2_b2),
@@ -5686,10 +5700,6 @@ module RAM_CE0_FE1_D1_PR0_WSA1_WSB1_VPR (
       .A2_0_b8(A2_b8),
       .A2_0_b9(A2_b9),
       .A2_0_b10(A2_b10),
-      .FIFO_EN_0(FIFO_EN),
-      .P1_0(P1),
-      .CLK2EN_0(CLK2EN),
-      .P2_0(P2),
       .PIPELINE_RD_0(PIPELINE_RD),
       .WD_0_b0(WD_b0),
       .WD_0_b1(WD_b1),
@@ -5709,6 +5719,10 @@ module RAM_CE0_FE1_D1_PR0_WSA1_WSB1_VPR (
       .WD_0_b15(WD_b15),
       .WD_0_b16(WD_b16),
       .WD_0_b17(WD_b17),
+      .WIDTH_SELECT2_0(WIDTH_SELECT2),
+      .CS2_0(CS2),
+      .CS1_0(CS1),
+      .WIDTH_SELECT1_0(WIDTH_SELECT1),
       .A1_0_b0(A1_b0),
       .A1_0_b1(A1_b1),
       .A1_0_b2(A1_b2),
@@ -5720,6 +5734,20 @@ module RAM_CE0_FE1_D1_PR0_WSA1_WSB1_VPR (
       .A1_0_b8(A1_b8),
       .A1_0_b9(A1_b9),
       .A1_0_b10(A1_b10),
+      .P1_0(P1),
+      .WEN1_0_b0(WEN1_b0),
+      .WEN1_0_b1(WEN1_b1),
+      .SYNC_FIFO_0(SYNC_FIFO),
+      .CLK1EN_0(CLK1EN),
+      .CLK2EN_0(CLK2EN),
+      .POP_FLAG_0_b0(POP_FLAG_b0),
+      .POP_FLAG_0_b1(POP_FLAG_b1),
+      .POP_FLAG_0_b2(POP_FLAG_b2),
+      .POP_FLAG_0_b3(POP_FLAG_b3),
+      .PUSH_FLAG_0_b0(PUSH_FLAG_b0),
+      .PUSH_FLAG_0_b1(PUSH_FLAG_b1),
+      .PUSH_FLAG_0_b2(PUSH_FLAG_b2),
+      .PUSH_FLAG_0_b3(PUSH_FLAG_b3),
       .RD_0_b0(RD_b0),
       .RD_0_b1(RD_b1),
       .RD_0_b2(RD_b2),
@@ -5738,16 +5766,8 @@ module RAM_CE0_FE1_D1_PR0_WSA1_WSB1_VPR (
       .RD_0_b15(RD_b15),
       .RD_0_b16(RD_b16),
       .RD_0_b17(RD_b17),
-      .Almost_Empty_0(Almost_Empty),
       .Almost_Full_0(Almost_Full),
-      .POP_FLAG_0_b0(POP_FLAG_b0),
-      .POP_FLAG_0_b1(POP_FLAG_b1),
-      .POP_FLAG_0_b2(POP_FLAG_b2),
-      .POP_FLAG_0_b3(POP_FLAG_b3),
-      .PUSH_FLAG_0_b0(PUSH_FLAG_b0),
-      .PUSH_FLAG_0_b1(PUSH_FLAG_b1),
-      .PUSH_FLAG_0_b2(PUSH_FLAG_b2),
-      .PUSH_FLAG_0_b3(PUSH_FLAG_b3));
+      .Almost_Empty_0(Almost_Empty));
 
 endmodule
 
@@ -5758,30 +5778,16 @@ module RAM_CE0_FE1_D1_PR1_WSA0_WSB0_VPR (
   input         CLK2,
   input         CLK1,
 
-  input         TEST1A,
-  input         DS,
-  input         CLK1EN,
-  input         SD,
   input         DIR,
-  input         CS1,
-  input         CONCAT_EN,
-  input         SYNC_FIFO,
-  input         LS,
-  input         SD_RB1,
-  input         TEST1B,
-  input         ASYNC_FLUSH,
-  input         RMEB,
+  input         DS_RB1,
   input         RMB_b0,
   input         RMB_b1,
   input         RMB_b2,
   input         RMB_b3,
-  input         DS_RB1,
-  input         RMEA,
-  input  [ 1:0] WIDTH_SELECT1,
-  input  [ 1:0] WIDTH_SELECT2,
-  input         CS2,
-  input         WEN1_b0,
-  input         WEN1_b1,
+  input         P2,
+  input         FIFO_EN,
+  input         CONCAT_EN,
+  input         ASYNC_FLUSH,
   input         A2_b0,
   input         A2_b1,
   input         A2_b2,
@@ -5793,15 +5799,7 @@ module RAM_CE0_FE1_D1_PR1_WSA0_WSB0_VPR (
   input         A2_b8,
   input         A2_b9,
   input         A2_b10,
-  input         FIFO_EN,
-  input         LS_RB1,
-  input         P1,
-  input         RMA_b0,
-  input         RMA_b1,
-  input         RMA_b2,
-  input         RMA_b3,
-  input         CLK2EN,
-  input         P2,
+  input         TEST1B,
   input         PIPELINE_RD,
   input         WD_b0,
   input         WD_b1,
@@ -5821,6 +5819,15 @@ module RAM_CE0_FE1_D1_PR1_WSA0_WSB0_VPR (
   input         WD_b15,
   input         WD_b16,
   input         WD_b17,
+  input         DS,
+  input  [ 1:0] WIDTH_SELECT2,
+  input         LS_RB1,
+  input         CS2,
+  input         LS,
+  input         SD_RB1,
+  input         TEST1A,
+  input         CS1,
+  input  [ 1:0] WIDTH_SELECT1,
   input         A1_b0,
   input         A1_b1,
   input         A1_b2,
@@ -5832,7 +5839,28 @@ module RAM_CE0_FE1_D1_PR1_WSA0_WSB0_VPR (
   input         A1_b8,
   input         A1_b9,
   input         A1_b10,
+  input         P1,
+  input         RMA_b0,
+  input         RMA_b1,
+  input         RMA_b2,
+  input         RMA_b3,
+  input         WEN1_b0,
+  input         WEN1_b1,
+  input         RMEA,
+  input         SYNC_FIFO,
+  input         CLK1EN,
+  input         CLK2EN,
+  input         RMEB,
+  input         SD,
 
+  output        POP_FLAG_b0,
+  output        POP_FLAG_b1,
+  output        POP_FLAG_b2,
+  output        POP_FLAG_b3,
+  output        PUSH_FLAG_b0,
+  output        PUSH_FLAG_b1,
+  output        PUSH_FLAG_b2,
+  output        PUSH_FLAG_b3,
   output        RD_b0,
   output        RD_b1,
   output        RD_b2,
@@ -5851,21 +5879,14 @@ module RAM_CE0_FE1_D1_PR1_WSA0_WSB0_VPR (
   output        RD_b15,
   output        RD_b16,
   output        RD_b17,
-  output        Almost_Empty,
   output        Almost_Full,
-  output        POP_FLAG_b0,
-  output        POP_FLAG_b1,
-  output        POP_FLAG_b2,
-  output        POP_FLAG_b3,
-  output        PUSH_FLAG_b0,
-  output        PUSH_FLAG_b1,
-  output        PUSH_FLAG_b2,
-  output        PUSH_FLAG_b3
+  output        Almost_Empty
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
-      $setup(P1, posedge CLK1, "");
-      $hold(posedge CLK1, P1, "");
+      $setup(P2, posedge CLK2, "");
+      $hold(posedge CLK2, P2, "");
       $setup(WD_b0, posedge CLK2, "");
       $hold(posedge CLK2, WD_b0, "");
       $setup(WD_b1, posedge CLK2, "");
@@ -5902,8 +5923,16 @@ module RAM_CE0_FE1_D1_PR1_WSA0_WSB0_VPR (
       $hold(posedge CLK2, WD_b16, "");
       $setup(WD_b17, posedge CLK2, "");
       $hold(posedge CLK2, WD_b17, "");
-      $setup(P2, posedge CLK2, "");
-      $hold(posedge CLK2, P2, "");
+      $setup(P1, posedge CLK1, "");
+      $hold(posedge CLK1, P1, "");
+      (CLK1*>POP_FLAG_b0)="";
+      (CLK1*>POP_FLAG_b1)="";
+      (CLK1*>POP_FLAG_b2)="";
+      (CLK1*>POP_FLAG_b3)="";
+      (CLK2*>PUSH_FLAG_b0)="";
+      (CLK2*>PUSH_FLAG_b1)="";
+      (CLK2*>PUSH_FLAG_b2)="";
+      (CLK2*>PUSH_FLAG_b3)="";
       (CLK1*>RD_b0)="";
       (CLK1*>RD_b1)="";
       (CLK1*>RD_b2)="";
@@ -5922,33 +5951,19 @@ module RAM_CE0_FE1_D1_PR1_WSA0_WSB0_VPR (
       (CLK1*>RD_b15)="";
       (CLK1*>RD_b16)="";
       (CLK1*>RD_b17)="";
-      (CLK1*>Almost_Empty)="";
       (CLK2*>Almost_Full)="";
-      (CLK1*>POP_FLAG_b0)="";
-      (CLK1*>POP_FLAG_b1)="";
-      (CLK1*>POP_FLAG_b2)="";
-      (CLK1*>POP_FLAG_b3)="";
-      (CLK2*>PUSH_FLAG_b0)="";
-      (CLK2*>PUSH_FLAG_b1)="";
-      (CLK2*>PUSH_FLAG_b2)="";
-      (CLK2*>PUSH_FLAG_b3)="";
+      (CLK1*>Almost_Empty)="";
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK2_0(CLK2),
       .CLK1_0(CLK1),
-      .CLK1EN_0(CLK1EN),
       .DIR_0(DIR),
-      .CS1_0(CS1),
+      .P2_0(P2),
+      .FIFO_EN_0(FIFO_EN),
       .CONCAT_EN_0(CONCAT_EN),
-      .SYNC_FIFO_0(SYNC_FIFO),
       .ASYNC_FLUSH_0(ASYNC_FLUSH),
-      .WIDTH_SELECT1_0(WIDTH_SELECT1),
-      .WIDTH_SELECT2_0(WIDTH_SELECT2),
-      .CS2_0(CS2),
-      .WEN1_0_b0(WEN1_b0),
-      .WEN1_0_b1(WEN1_b1),
       .A2_0_b0(A2_b0),
       .A2_0_b1(A2_b1),
       .A2_0_b2(A2_b2),
@@ -5960,10 +5975,6 @@ module RAM_CE0_FE1_D1_PR1_WSA0_WSB0_VPR (
       .A2_0_b8(A2_b8),
       .A2_0_b9(A2_b9),
       .A2_0_b10(A2_b10),
-      .FIFO_EN_0(FIFO_EN),
-      .P1_0(P1),
-      .CLK2EN_0(CLK2EN),
-      .P2_0(P2),
       .PIPELINE_RD_0(PIPELINE_RD),
       .WD_0_b0(WD_b0),
       .WD_0_b1(WD_b1),
@@ -5983,6 +5994,10 @@ module RAM_CE0_FE1_D1_PR1_WSA0_WSB0_VPR (
       .WD_0_b15(WD_b15),
       .WD_0_b16(WD_b16),
       .WD_0_b17(WD_b17),
+      .WIDTH_SELECT2_0(WIDTH_SELECT2),
+      .CS2_0(CS2),
+      .CS1_0(CS1),
+      .WIDTH_SELECT1_0(WIDTH_SELECT1),
       .A1_0_b0(A1_b0),
       .A1_0_b1(A1_b1),
       .A1_0_b2(A1_b2),
@@ -5994,6 +6009,20 @@ module RAM_CE0_FE1_D1_PR1_WSA0_WSB0_VPR (
       .A1_0_b8(A1_b8),
       .A1_0_b9(A1_b9),
       .A1_0_b10(A1_b10),
+      .P1_0(P1),
+      .WEN1_0_b0(WEN1_b0),
+      .WEN1_0_b1(WEN1_b1),
+      .SYNC_FIFO_0(SYNC_FIFO),
+      .CLK1EN_0(CLK1EN),
+      .CLK2EN_0(CLK2EN),
+      .POP_FLAG_0_b0(POP_FLAG_b0),
+      .POP_FLAG_0_b1(POP_FLAG_b1),
+      .POP_FLAG_0_b2(POP_FLAG_b2),
+      .POP_FLAG_0_b3(POP_FLAG_b3),
+      .PUSH_FLAG_0_b0(PUSH_FLAG_b0),
+      .PUSH_FLAG_0_b1(PUSH_FLAG_b1),
+      .PUSH_FLAG_0_b2(PUSH_FLAG_b2),
+      .PUSH_FLAG_0_b3(PUSH_FLAG_b3),
       .RD_0_b0(RD_b0),
       .RD_0_b1(RD_b1),
       .RD_0_b2(RD_b2),
@@ -6012,16 +6041,8 @@ module RAM_CE0_FE1_D1_PR1_WSA0_WSB0_VPR (
       .RD_0_b15(RD_b15),
       .RD_0_b16(RD_b16),
       .RD_0_b17(RD_b17),
-      .Almost_Empty_0(Almost_Empty),
       .Almost_Full_0(Almost_Full),
-      .POP_FLAG_0_b0(POP_FLAG_b0),
-      .POP_FLAG_0_b1(POP_FLAG_b1),
-      .POP_FLAG_0_b2(POP_FLAG_b2),
-      .POP_FLAG_0_b3(POP_FLAG_b3),
-      .PUSH_FLAG_0_b0(PUSH_FLAG_b0),
-      .PUSH_FLAG_0_b1(PUSH_FLAG_b1),
-      .PUSH_FLAG_0_b2(PUSH_FLAG_b2),
-      .PUSH_FLAG_0_b3(PUSH_FLAG_b3));
+      .Almost_Empty_0(Almost_Empty));
 
 endmodule
 
@@ -6032,30 +6053,16 @@ module RAM_CE0_FE1_D1_PR1_WSA0_WSB1_VPR (
   input         CLK2,
   input         CLK1,
 
-  input         TEST1A,
-  input         DS,
-  input         CLK1EN,
-  input         SD,
   input         DIR,
-  input         CS1,
-  input         CONCAT_EN,
-  input         SYNC_FIFO,
-  input         LS,
-  input         SD_RB1,
-  input         TEST1B,
-  input         ASYNC_FLUSH,
-  input         RMEB,
+  input         DS_RB1,
   input         RMB_b0,
   input         RMB_b1,
   input         RMB_b2,
   input         RMB_b3,
-  input         DS_RB1,
-  input         RMEA,
-  input  [ 1:0] WIDTH_SELECT1,
-  input  [ 1:0] WIDTH_SELECT2,
-  input         CS2,
-  input         WEN1_b0,
-  input         WEN1_b1,
+  input         P2,
+  input         FIFO_EN,
+  input         CONCAT_EN,
+  input         ASYNC_FLUSH,
   input         A2_b0,
   input         A2_b1,
   input         A2_b2,
@@ -6067,15 +6074,7 @@ module RAM_CE0_FE1_D1_PR1_WSA0_WSB1_VPR (
   input         A2_b8,
   input         A2_b9,
   input         A2_b10,
-  input         FIFO_EN,
-  input         LS_RB1,
-  input         P1,
-  input         RMA_b0,
-  input         RMA_b1,
-  input         RMA_b2,
-  input         RMA_b3,
-  input         CLK2EN,
-  input         P2,
+  input         TEST1B,
   input         PIPELINE_RD,
   input         WD_b0,
   input         WD_b1,
@@ -6095,6 +6094,15 @@ module RAM_CE0_FE1_D1_PR1_WSA0_WSB1_VPR (
   input         WD_b15,
   input         WD_b16,
   input         WD_b17,
+  input         DS,
+  input  [ 1:0] WIDTH_SELECT2,
+  input         LS_RB1,
+  input         CS2,
+  input         LS,
+  input         SD_RB1,
+  input         TEST1A,
+  input         CS1,
+  input  [ 1:0] WIDTH_SELECT1,
   input         A1_b0,
   input         A1_b1,
   input         A1_b2,
@@ -6106,7 +6114,28 @@ module RAM_CE0_FE1_D1_PR1_WSA0_WSB1_VPR (
   input         A1_b8,
   input         A1_b9,
   input         A1_b10,
+  input         P1,
+  input         RMA_b0,
+  input         RMA_b1,
+  input         RMA_b2,
+  input         RMA_b3,
+  input         WEN1_b0,
+  input         WEN1_b1,
+  input         RMEA,
+  input         SYNC_FIFO,
+  input         CLK1EN,
+  input         CLK2EN,
+  input         RMEB,
+  input         SD,
 
+  output        POP_FLAG_b0,
+  output        POP_FLAG_b1,
+  output        POP_FLAG_b2,
+  output        POP_FLAG_b3,
+  output        PUSH_FLAG_b0,
+  output        PUSH_FLAG_b1,
+  output        PUSH_FLAG_b2,
+  output        PUSH_FLAG_b3,
   output        RD_b0,
   output        RD_b1,
   output        RD_b2,
@@ -6125,21 +6154,14 @@ module RAM_CE0_FE1_D1_PR1_WSA0_WSB1_VPR (
   output        RD_b15,
   output        RD_b16,
   output        RD_b17,
-  output        Almost_Empty,
   output        Almost_Full,
-  output        POP_FLAG_b0,
-  output        POP_FLAG_b1,
-  output        POP_FLAG_b2,
-  output        POP_FLAG_b3,
-  output        PUSH_FLAG_b0,
-  output        PUSH_FLAG_b1,
-  output        PUSH_FLAG_b2,
-  output        PUSH_FLAG_b3
+  output        Almost_Empty
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
-      $setup(P1, posedge CLK1, "");
-      $hold(posedge CLK1, P1, "");
+      $setup(P2, posedge CLK2, "");
+      $hold(posedge CLK2, P2, "");
       $setup(WD_b0, posedge CLK2, "");
       $hold(posedge CLK2, WD_b0, "");
       $setup(WD_b1, posedge CLK2, "");
@@ -6176,8 +6198,16 @@ module RAM_CE0_FE1_D1_PR1_WSA0_WSB1_VPR (
       $hold(posedge CLK2, WD_b16, "");
       $setup(WD_b17, posedge CLK2, "");
       $hold(posedge CLK2, WD_b17, "");
-      $setup(P2, posedge CLK2, "");
-      $hold(posedge CLK2, P2, "");
+      $setup(P1, posedge CLK1, "");
+      $hold(posedge CLK1, P1, "");
+      (CLK1*>POP_FLAG_b0)="";
+      (CLK1*>POP_FLAG_b1)="";
+      (CLK1*>POP_FLAG_b2)="";
+      (CLK1*>POP_FLAG_b3)="";
+      (CLK2*>PUSH_FLAG_b0)="";
+      (CLK2*>PUSH_FLAG_b1)="";
+      (CLK2*>PUSH_FLAG_b2)="";
+      (CLK2*>PUSH_FLAG_b3)="";
       (CLK1*>RD_b0)="";
       (CLK1*>RD_b1)="";
       (CLK1*>RD_b2)="";
@@ -6196,33 +6226,19 @@ module RAM_CE0_FE1_D1_PR1_WSA0_WSB1_VPR (
       (CLK1*>RD_b15)="";
       (CLK1*>RD_b16)="";
       (CLK1*>RD_b17)="";
-      (CLK1*>Almost_Empty)="";
       (CLK2*>Almost_Full)="";
-      (CLK1*>POP_FLAG_b0)="";
-      (CLK1*>POP_FLAG_b1)="";
-      (CLK1*>POP_FLAG_b2)="";
-      (CLK1*>POP_FLAG_b3)="";
-      (CLK2*>PUSH_FLAG_b0)="";
-      (CLK2*>PUSH_FLAG_b1)="";
-      (CLK2*>PUSH_FLAG_b2)="";
-      (CLK2*>PUSH_FLAG_b3)="";
+      (CLK1*>Almost_Empty)="";
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK2_0(CLK2),
       .CLK1_0(CLK1),
-      .CLK1EN_0(CLK1EN),
       .DIR_0(DIR),
-      .CS1_0(CS1),
+      .P2_0(P2),
+      .FIFO_EN_0(FIFO_EN),
       .CONCAT_EN_0(CONCAT_EN),
-      .SYNC_FIFO_0(SYNC_FIFO),
       .ASYNC_FLUSH_0(ASYNC_FLUSH),
-      .WIDTH_SELECT1_0(WIDTH_SELECT1),
-      .WIDTH_SELECT2_0(WIDTH_SELECT2),
-      .CS2_0(CS2),
-      .WEN1_0_b0(WEN1_b0),
-      .WEN1_0_b1(WEN1_b1),
       .A2_0_b0(A2_b0),
       .A2_0_b1(A2_b1),
       .A2_0_b2(A2_b2),
@@ -6234,10 +6250,6 @@ module RAM_CE0_FE1_D1_PR1_WSA0_WSB1_VPR (
       .A2_0_b8(A2_b8),
       .A2_0_b9(A2_b9),
       .A2_0_b10(A2_b10),
-      .FIFO_EN_0(FIFO_EN),
-      .P1_0(P1),
-      .CLK2EN_0(CLK2EN),
-      .P2_0(P2),
       .PIPELINE_RD_0(PIPELINE_RD),
       .WD_0_b0(WD_b0),
       .WD_0_b1(WD_b1),
@@ -6257,6 +6269,10 @@ module RAM_CE0_FE1_D1_PR1_WSA0_WSB1_VPR (
       .WD_0_b15(WD_b15),
       .WD_0_b16(WD_b16),
       .WD_0_b17(WD_b17),
+      .WIDTH_SELECT2_0(WIDTH_SELECT2),
+      .CS2_0(CS2),
+      .CS1_0(CS1),
+      .WIDTH_SELECT1_0(WIDTH_SELECT1),
       .A1_0_b0(A1_b0),
       .A1_0_b1(A1_b1),
       .A1_0_b2(A1_b2),
@@ -6268,6 +6284,20 @@ module RAM_CE0_FE1_D1_PR1_WSA0_WSB1_VPR (
       .A1_0_b8(A1_b8),
       .A1_0_b9(A1_b9),
       .A1_0_b10(A1_b10),
+      .P1_0(P1),
+      .WEN1_0_b0(WEN1_b0),
+      .WEN1_0_b1(WEN1_b1),
+      .SYNC_FIFO_0(SYNC_FIFO),
+      .CLK1EN_0(CLK1EN),
+      .CLK2EN_0(CLK2EN),
+      .POP_FLAG_0_b0(POP_FLAG_b0),
+      .POP_FLAG_0_b1(POP_FLAG_b1),
+      .POP_FLAG_0_b2(POP_FLAG_b2),
+      .POP_FLAG_0_b3(POP_FLAG_b3),
+      .PUSH_FLAG_0_b0(PUSH_FLAG_b0),
+      .PUSH_FLAG_0_b1(PUSH_FLAG_b1),
+      .PUSH_FLAG_0_b2(PUSH_FLAG_b2),
+      .PUSH_FLAG_0_b3(PUSH_FLAG_b3),
       .RD_0_b0(RD_b0),
       .RD_0_b1(RD_b1),
       .RD_0_b2(RD_b2),
@@ -6286,16 +6316,8 @@ module RAM_CE0_FE1_D1_PR1_WSA0_WSB1_VPR (
       .RD_0_b15(RD_b15),
       .RD_0_b16(RD_b16),
       .RD_0_b17(RD_b17),
-      .Almost_Empty_0(Almost_Empty),
       .Almost_Full_0(Almost_Full),
-      .POP_FLAG_0_b0(POP_FLAG_b0),
-      .POP_FLAG_0_b1(POP_FLAG_b1),
-      .POP_FLAG_0_b2(POP_FLAG_b2),
-      .POP_FLAG_0_b3(POP_FLAG_b3),
-      .PUSH_FLAG_0_b0(PUSH_FLAG_b0),
-      .PUSH_FLAG_0_b1(PUSH_FLAG_b1),
-      .PUSH_FLAG_0_b2(PUSH_FLAG_b2),
-      .PUSH_FLAG_0_b3(PUSH_FLAG_b3));
+      .Almost_Empty_0(Almost_Empty));
 
 endmodule
 
@@ -6306,30 +6328,16 @@ module RAM_CE0_FE1_D1_PR1_WSA1_WSB0_VPR (
   input         CLK2,
   input         CLK1,
 
-  input         TEST1A,
-  input         DS,
-  input         CLK1EN,
-  input         SD,
   input         DIR,
-  input         CS1,
-  input         CONCAT_EN,
-  input         SYNC_FIFO,
-  input         LS,
-  input         SD_RB1,
-  input         TEST1B,
-  input         ASYNC_FLUSH,
-  input         RMEB,
+  input         DS_RB1,
   input         RMB_b0,
   input         RMB_b1,
   input         RMB_b2,
   input         RMB_b3,
-  input         DS_RB1,
-  input         RMEA,
-  input  [ 1:0] WIDTH_SELECT1,
-  input  [ 1:0] WIDTH_SELECT2,
-  input         CS2,
-  input         WEN1_b0,
-  input         WEN1_b1,
+  input         P2,
+  input         FIFO_EN,
+  input         CONCAT_EN,
+  input         ASYNC_FLUSH,
   input         A2_b0,
   input         A2_b1,
   input         A2_b2,
@@ -6341,15 +6349,7 @@ module RAM_CE0_FE1_D1_PR1_WSA1_WSB0_VPR (
   input         A2_b8,
   input         A2_b9,
   input         A2_b10,
-  input         FIFO_EN,
-  input         LS_RB1,
-  input         P1,
-  input         RMA_b0,
-  input         RMA_b1,
-  input         RMA_b2,
-  input         RMA_b3,
-  input         CLK2EN,
-  input         P2,
+  input         TEST1B,
   input         PIPELINE_RD,
   input         WD_b0,
   input         WD_b1,
@@ -6369,6 +6369,15 @@ module RAM_CE0_FE1_D1_PR1_WSA1_WSB0_VPR (
   input         WD_b15,
   input         WD_b16,
   input         WD_b17,
+  input         DS,
+  input  [ 1:0] WIDTH_SELECT2,
+  input         LS_RB1,
+  input         CS2,
+  input         LS,
+  input         SD_RB1,
+  input         TEST1A,
+  input         CS1,
+  input  [ 1:0] WIDTH_SELECT1,
   input         A1_b0,
   input         A1_b1,
   input         A1_b2,
@@ -6380,7 +6389,28 @@ module RAM_CE0_FE1_D1_PR1_WSA1_WSB0_VPR (
   input         A1_b8,
   input         A1_b9,
   input         A1_b10,
+  input         P1,
+  input         RMA_b0,
+  input         RMA_b1,
+  input         RMA_b2,
+  input         RMA_b3,
+  input         WEN1_b0,
+  input         WEN1_b1,
+  input         RMEA,
+  input         SYNC_FIFO,
+  input         CLK1EN,
+  input         CLK2EN,
+  input         RMEB,
+  input         SD,
 
+  output        POP_FLAG_b0,
+  output        POP_FLAG_b1,
+  output        POP_FLAG_b2,
+  output        POP_FLAG_b3,
+  output        PUSH_FLAG_b0,
+  output        PUSH_FLAG_b1,
+  output        PUSH_FLAG_b2,
+  output        PUSH_FLAG_b3,
   output        RD_b0,
   output        RD_b1,
   output        RD_b2,
@@ -6399,21 +6429,14 @@ module RAM_CE0_FE1_D1_PR1_WSA1_WSB0_VPR (
   output        RD_b15,
   output        RD_b16,
   output        RD_b17,
-  output        Almost_Empty,
   output        Almost_Full,
-  output        POP_FLAG_b0,
-  output        POP_FLAG_b1,
-  output        POP_FLAG_b2,
-  output        POP_FLAG_b3,
-  output        PUSH_FLAG_b0,
-  output        PUSH_FLAG_b1,
-  output        PUSH_FLAG_b2,
-  output        PUSH_FLAG_b3
+  output        Almost_Empty
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
-      $setup(P1, posedge CLK1, "");
-      $hold(posedge CLK1, P1, "");
+      $setup(P2, posedge CLK2, "");
+      $hold(posedge CLK2, P2, "");
       $setup(WD_b0, posedge CLK2, "");
       $hold(posedge CLK2, WD_b0, "");
       $setup(WD_b1, posedge CLK2, "");
@@ -6450,8 +6473,16 @@ module RAM_CE0_FE1_D1_PR1_WSA1_WSB0_VPR (
       $hold(posedge CLK2, WD_b16, "");
       $setup(WD_b17, posedge CLK2, "");
       $hold(posedge CLK2, WD_b17, "");
-      $setup(P2, posedge CLK2, "");
-      $hold(posedge CLK2, P2, "");
+      $setup(P1, posedge CLK1, "");
+      $hold(posedge CLK1, P1, "");
+      (CLK1*>POP_FLAG_b0)="";
+      (CLK1*>POP_FLAG_b1)="";
+      (CLK1*>POP_FLAG_b2)="";
+      (CLK1*>POP_FLAG_b3)="";
+      (CLK2*>PUSH_FLAG_b0)="";
+      (CLK2*>PUSH_FLAG_b1)="";
+      (CLK2*>PUSH_FLAG_b2)="";
+      (CLK2*>PUSH_FLAG_b3)="";
       (CLK1*>RD_b0)="";
       (CLK1*>RD_b1)="";
       (CLK1*>RD_b2)="";
@@ -6470,33 +6501,19 @@ module RAM_CE0_FE1_D1_PR1_WSA1_WSB0_VPR (
       (CLK1*>RD_b15)="";
       (CLK1*>RD_b16)="";
       (CLK1*>RD_b17)="";
-      (CLK1*>Almost_Empty)="";
       (CLK2*>Almost_Full)="";
-      (CLK1*>POP_FLAG_b0)="";
-      (CLK1*>POP_FLAG_b1)="";
-      (CLK1*>POP_FLAG_b2)="";
-      (CLK1*>POP_FLAG_b3)="";
-      (CLK2*>PUSH_FLAG_b0)="";
-      (CLK2*>PUSH_FLAG_b1)="";
-      (CLK2*>PUSH_FLAG_b2)="";
-      (CLK2*>PUSH_FLAG_b3)="";
+      (CLK1*>Almost_Empty)="";
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK2_0(CLK2),
       .CLK1_0(CLK1),
-      .CLK1EN_0(CLK1EN),
       .DIR_0(DIR),
-      .CS1_0(CS1),
+      .P2_0(P2),
+      .FIFO_EN_0(FIFO_EN),
       .CONCAT_EN_0(CONCAT_EN),
-      .SYNC_FIFO_0(SYNC_FIFO),
       .ASYNC_FLUSH_0(ASYNC_FLUSH),
-      .WIDTH_SELECT1_0(WIDTH_SELECT1),
-      .WIDTH_SELECT2_0(WIDTH_SELECT2),
-      .CS2_0(CS2),
-      .WEN1_0_b0(WEN1_b0),
-      .WEN1_0_b1(WEN1_b1),
       .A2_0_b0(A2_b0),
       .A2_0_b1(A2_b1),
       .A2_0_b2(A2_b2),
@@ -6508,10 +6525,6 @@ module RAM_CE0_FE1_D1_PR1_WSA1_WSB0_VPR (
       .A2_0_b8(A2_b8),
       .A2_0_b9(A2_b9),
       .A2_0_b10(A2_b10),
-      .FIFO_EN_0(FIFO_EN),
-      .P1_0(P1),
-      .CLK2EN_0(CLK2EN),
-      .P2_0(P2),
       .PIPELINE_RD_0(PIPELINE_RD),
       .WD_0_b0(WD_b0),
       .WD_0_b1(WD_b1),
@@ -6531,6 +6544,10 @@ module RAM_CE0_FE1_D1_PR1_WSA1_WSB0_VPR (
       .WD_0_b15(WD_b15),
       .WD_0_b16(WD_b16),
       .WD_0_b17(WD_b17),
+      .WIDTH_SELECT2_0(WIDTH_SELECT2),
+      .CS2_0(CS2),
+      .CS1_0(CS1),
+      .WIDTH_SELECT1_0(WIDTH_SELECT1),
       .A1_0_b0(A1_b0),
       .A1_0_b1(A1_b1),
       .A1_0_b2(A1_b2),
@@ -6542,6 +6559,20 @@ module RAM_CE0_FE1_D1_PR1_WSA1_WSB0_VPR (
       .A1_0_b8(A1_b8),
       .A1_0_b9(A1_b9),
       .A1_0_b10(A1_b10),
+      .P1_0(P1),
+      .WEN1_0_b0(WEN1_b0),
+      .WEN1_0_b1(WEN1_b1),
+      .SYNC_FIFO_0(SYNC_FIFO),
+      .CLK1EN_0(CLK1EN),
+      .CLK2EN_0(CLK2EN),
+      .POP_FLAG_0_b0(POP_FLAG_b0),
+      .POP_FLAG_0_b1(POP_FLAG_b1),
+      .POP_FLAG_0_b2(POP_FLAG_b2),
+      .POP_FLAG_0_b3(POP_FLAG_b3),
+      .PUSH_FLAG_0_b0(PUSH_FLAG_b0),
+      .PUSH_FLAG_0_b1(PUSH_FLAG_b1),
+      .PUSH_FLAG_0_b2(PUSH_FLAG_b2),
+      .PUSH_FLAG_0_b3(PUSH_FLAG_b3),
       .RD_0_b0(RD_b0),
       .RD_0_b1(RD_b1),
       .RD_0_b2(RD_b2),
@@ -6560,16 +6591,8 @@ module RAM_CE0_FE1_D1_PR1_WSA1_WSB0_VPR (
       .RD_0_b15(RD_b15),
       .RD_0_b16(RD_b16),
       .RD_0_b17(RD_b17),
-      .Almost_Empty_0(Almost_Empty),
       .Almost_Full_0(Almost_Full),
-      .POP_FLAG_0_b0(POP_FLAG_b0),
-      .POP_FLAG_0_b1(POP_FLAG_b1),
-      .POP_FLAG_0_b2(POP_FLAG_b2),
-      .POP_FLAG_0_b3(POP_FLAG_b3),
-      .PUSH_FLAG_0_b0(PUSH_FLAG_b0),
-      .PUSH_FLAG_0_b1(PUSH_FLAG_b1),
-      .PUSH_FLAG_0_b2(PUSH_FLAG_b2),
-      .PUSH_FLAG_0_b3(PUSH_FLAG_b3));
+      .Almost_Empty_0(Almost_Empty));
 
 endmodule
 
@@ -6580,30 +6603,16 @@ module RAM_CE0_FE1_D1_PR1_WSA1_WSB1_VPR (
   input         CLK2,
   input         CLK1,
 
-  input         TEST1A,
-  input         DS,
-  input         CLK1EN,
-  input         SD,
   input         DIR,
-  input         CS1,
-  input         CONCAT_EN,
-  input         SYNC_FIFO,
-  input         LS,
-  input         SD_RB1,
-  input         TEST1B,
-  input         ASYNC_FLUSH,
-  input         RMEB,
+  input         DS_RB1,
   input         RMB_b0,
   input         RMB_b1,
   input         RMB_b2,
   input         RMB_b3,
-  input         DS_RB1,
-  input         RMEA,
-  input  [ 1:0] WIDTH_SELECT1,
-  input  [ 1:0] WIDTH_SELECT2,
-  input         CS2,
-  input         WEN1_b0,
-  input         WEN1_b1,
+  input         P2,
+  input         FIFO_EN,
+  input         CONCAT_EN,
+  input         ASYNC_FLUSH,
   input         A2_b0,
   input         A2_b1,
   input         A2_b2,
@@ -6615,15 +6624,7 @@ module RAM_CE0_FE1_D1_PR1_WSA1_WSB1_VPR (
   input         A2_b8,
   input         A2_b9,
   input         A2_b10,
-  input         FIFO_EN,
-  input         LS_RB1,
-  input         P1,
-  input         RMA_b0,
-  input         RMA_b1,
-  input         RMA_b2,
-  input         RMA_b3,
-  input         CLK2EN,
-  input         P2,
+  input         TEST1B,
   input         PIPELINE_RD,
   input         WD_b0,
   input         WD_b1,
@@ -6643,6 +6644,15 @@ module RAM_CE0_FE1_D1_PR1_WSA1_WSB1_VPR (
   input         WD_b15,
   input         WD_b16,
   input         WD_b17,
+  input         DS,
+  input  [ 1:0] WIDTH_SELECT2,
+  input         LS_RB1,
+  input         CS2,
+  input         LS,
+  input         SD_RB1,
+  input         TEST1A,
+  input         CS1,
+  input  [ 1:0] WIDTH_SELECT1,
   input         A1_b0,
   input         A1_b1,
   input         A1_b2,
@@ -6654,7 +6664,28 @@ module RAM_CE0_FE1_D1_PR1_WSA1_WSB1_VPR (
   input         A1_b8,
   input         A1_b9,
   input         A1_b10,
+  input         P1,
+  input         RMA_b0,
+  input         RMA_b1,
+  input         RMA_b2,
+  input         RMA_b3,
+  input         WEN1_b0,
+  input         WEN1_b1,
+  input         RMEA,
+  input         SYNC_FIFO,
+  input         CLK1EN,
+  input         CLK2EN,
+  input         RMEB,
+  input         SD,
 
+  output        POP_FLAG_b0,
+  output        POP_FLAG_b1,
+  output        POP_FLAG_b2,
+  output        POP_FLAG_b3,
+  output        PUSH_FLAG_b0,
+  output        PUSH_FLAG_b1,
+  output        PUSH_FLAG_b2,
+  output        PUSH_FLAG_b3,
   output        RD_b0,
   output        RD_b1,
   output        RD_b2,
@@ -6673,21 +6704,14 @@ module RAM_CE0_FE1_D1_PR1_WSA1_WSB1_VPR (
   output        RD_b15,
   output        RD_b16,
   output        RD_b17,
-  output        Almost_Empty,
   output        Almost_Full,
-  output        POP_FLAG_b0,
-  output        POP_FLAG_b1,
-  output        POP_FLAG_b2,
-  output        POP_FLAG_b3,
-  output        PUSH_FLAG_b0,
-  output        PUSH_FLAG_b1,
-  output        PUSH_FLAG_b2,
-  output        PUSH_FLAG_b3
+  output        Almost_Empty
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
-      $setup(P1, posedge CLK1, "");
-      $hold(posedge CLK1, P1, "");
+      $setup(P2, posedge CLK2, "");
+      $hold(posedge CLK2, P2, "");
       $setup(WD_b0, posedge CLK2, "");
       $hold(posedge CLK2, WD_b0, "");
       $setup(WD_b1, posedge CLK2, "");
@@ -6724,8 +6748,16 @@ module RAM_CE0_FE1_D1_PR1_WSA1_WSB1_VPR (
       $hold(posedge CLK2, WD_b16, "");
       $setup(WD_b17, posedge CLK2, "");
       $hold(posedge CLK2, WD_b17, "");
-      $setup(P2, posedge CLK2, "");
-      $hold(posedge CLK2, P2, "");
+      $setup(P1, posedge CLK1, "");
+      $hold(posedge CLK1, P1, "");
+      (CLK1*>POP_FLAG_b0)="";
+      (CLK1*>POP_FLAG_b1)="";
+      (CLK1*>POP_FLAG_b2)="";
+      (CLK1*>POP_FLAG_b3)="";
+      (CLK2*>PUSH_FLAG_b0)="";
+      (CLK2*>PUSH_FLAG_b1)="";
+      (CLK2*>PUSH_FLAG_b2)="";
+      (CLK2*>PUSH_FLAG_b3)="";
       (CLK1*>RD_b0)="";
       (CLK1*>RD_b1)="";
       (CLK1*>RD_b2)="";
@@ -6744,33 +6776,19 @@ module RAM_CE0_FE1_D1_PR1_WSA1_WSB1_VPR (
       (CLK1*>RD_b15)="";
       (CLK1*>RD_b16)="";
       (CLK1*>RD_b17)="";
-      (CLK1*>Almost_Empty)="";
       (CLK2*>Almost_Full)="";
-      (CLK1*>POP_FLAG_b0)="";
-      (CLK1*>POP_FLAG_b1)="";
-      (CLK1*>POP_FLAG_b2)="";
-      (CLK1*>POP_FLAG_b3)="";
-      (CLK2*>PUSH_FLAG_b0)="";
-      (CLK2*>PUSH_FLAG_b1)="";
-      (CLK2*>PUSH_FLAG_b2)="";
-      (CLK2*>PUSH_FLAG_b3)="";
+      (CLK1*>Almost_Empty)="";
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK2_0(CLK2),
       .CLK1_0(CLK1),
-      .CLK1EN_0(CLK1EN),
       .DIR_0(DIR),
-      .CS1_0(CS1),
+      .P2_0(P2),
+      .FIFO_EN_0(FIFO_EN),
       .CONCAT_EN_0(CONCAT_EN),
-      .SYNC_FIFO_0(SYNC_FIFO),
       .ASYNC_FLUSH_0(ASYNC_FLUSH),
-      .WIDTH_SELECT1_0(WIDTH_SELECT1),
-      .WIDTH_SELECT2_0(WIDTH_SELECT2),
-      .CS2_0(CS2),
-      .WEN1_0_b0(WEN1_b0),
-      .WEN1_0_b1(WEN1_b1),
       .A2_0_b0(A2_b0),
       .A2_0_b1(A2_b1),
       .A2_0_b2(A2_b2),
@@ -6782,10 +6800,6 @@ module RAM_CE0_FE1_D1_PR1_WSA1_WSB1_VPR (
       .A2_0_b8(A2_b8),
       .A2_0_b9(A2_b9),
       .A2_0_b10(A2_b10),
-      .FIFO_EN_0(FIFO_EN),
-      .P1_0(P1),
-      .CLK2EN_0(CLK2EN),
-      .P2_0(P2),
       .PIPELINE_RD_0(PIPELINE_RD),
       .WD_0_b0(WD_b0),
       .WD_0_b1(WD_b1),
@@ -6805,6 +6819,10 @@ module RAM_CE0_FE1_D1_PR1_WSA1_WSB1_VPR (
       .WD_0_b15(WD_b15),
       .WD_0_b16(WD_b16),
       .WD_0_b17(WD_b17),
+      .WIDTH_SELECT2_0(WIDTH_SELECT2),
+      .CS2_0(CS2),
+      .CS1_0(CS1),
+      .WIDTH_SELECT1_0(WIDTH_SELECT1),
       .A1_0_b0(A1_b0),
       .A1_0_b1(A1_b1),
       .A1_0_b2(A1_b2),
@@ -6816,6 +6834,20 @@ module RAM_CE0_FE1_D1_PR1_WSA1_WSB1_VPR (
       .A1_0_b8(A1_b8),
       .A1_0_b9(A1_b9),
       .A1_0_b10(A1_b10),
+      .P1_0(P1),
+      .WEN1_0_b0(WEN1_b0),
+      .WEN1_0_b1(WEN1_b1),
+      .SYNC_FIFO_0(SYNC_FIFO),
+      .CLK1EN_0(CLK1EN),
+      .CLK2EN_0(CLK2EN),
+      .POP_FLAG_0_b0(POP_FLAG_b0),
+      .POP_FLAG_0_b1(POP_FLAG_b1),
+      .POP_FLAG_0_b2(POP_FLAG_b2),
+      .POP_FLAG_0_b3(POP_FLAG_b3),
+      .PUSH_FLAG_0_b0(PUSH_FLAG_b0),
+      .PUSH_FLAG_0_b1(PUSH_FLAG_b1),
+      .PUSH_FLAG_0_b2(PUSH_FLAG_b2),
+      .PUSH_FLAG_0_b3(PUSH_FLAG_b3),
       .RD_0_b0(RD_b0),
       .RD_0_b1(RD_b1),
       .RD_0_b2(RD_b2),
@@ -6834,16 +6866,8 @@ module RAM_CE0_FE1_D1_PR1_WSA1_WSB1_VPR (
       .RD_0_b15(RD_b15),
       .RD_0_b16(RD_b16),
       .RD_0_b17(RD_b17),
-      .Almost_Empty_0(Almost_Empty),
       .Almost_Full_0(Almost_Full),
-      .POP_FLAG_0_b0(POP_FLAG_b0),
-      .POP_FLAG_0_b1(POP_FLAG_b1),
-      .POP_FLAG_0_b2(POP_FLAG_b2),
-      .POP_FLAG_0_b3(POP_FLAG_b3),
-      .PUSH_FLAG_0_b0(PUSH_FLAG_b0),
-      .PUSH_FLAG_0_b1(PUSH_FLAG_b1),
-      .PUSH_FLAG_0_b2(PUSH_FLAG_b2),
-      .PUSH_FLAG_0_b3(PUSH_FLAG_b3));
+      .Almost_Empty_0(Almost_Empty));
 
 endmodule
 
@@ -7044,6 +7068,7 @@ module RAM_CE1_FE0_PR0_WSA0_WSB0_VPR (
   output        RD_1_b16,
   output        RD_1_b17
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
       $setup(A1_0_b0, posedge CLK1_0, "");
@@ -7253,7 +7278,7 @@ module RAM_CE1_FE0_PR0_WSA0_WSB0_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK1_0(CLK1_0),
       .CLK2_0(CLK2_0),
       .CLK1_1(CLK1_1),
@@ -7626,6 +7651,7 @@ module RAM_CE1_FE0_PR0_WSA0_WSB1_VPR (
   output        RD_1_b16,
   output        RD_1_b17
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
       $setup(A1_0_b0, posedge CLK1_0, "");
@@ -7835,7 +7861,7 @@ module RAM_CE1_FE0_PR0_WSA0_WSB1_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK1_0(CLK1_0),
       .CLK2_0(CLK2_0),
       .CLK1_1(CLK1_1),
@@ -8208,6 +8234,7 @@ module RAM_CE1_FE0_PR0_WSA0_WSB2_VPR (
   output        RD_1_b16,
   output        RD_1_b17
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
       $setup(A1_0_b0, posedge CLK1_0, "");
@@ -8417,7 +8444,7 @@ module RAM_CE1_FE0_PR0_WSA0_WSB2_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK1_0(CLK1_0),
       .CLK2_0(CLK2_0),
       .CLK1_1(CLK1_1),
@@ -8790,6 +8817,7 @@ module RAM_CE1_FE0_PR0_WSA1_WSB0_VPR (
   output        RD_1_b16,
   output        RD_1_b17
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
       $setup(A1_0_b0, posedge CLK1_0, "");
@@ -8999,7 +9027,7 @@ module RAM_CE1_FE0_PR0_WSA1_WSB0_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK1_0(CLK1_0),
       .CLK2_0(CLK2_0),
       .CLK1_1(CLK1_1),
@@ -9372,6 +9400,7 @@ module RAM_CE1_FE0_PR0_WSA1_WSB1_VPR (
   output        RD_1_b16,
   output        RD_1_b17
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
       $setup(A1_0_b0, posedge CLK1_0, "");
@@ -9581,7 +9610,7 @@ module RAM_CE1_FE0_PR0_WSA1_WSB1_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK1_0(CLK1_0),
       .CLK2_0(CLK2_0),
       .CLK1_1(CLK1_1),
@@ -9954,6 +9983,7 @@ module RAM_CE1_FE0_PR0_WSA1_WSB2_VPR (
   output        RD_1_b16,
   output        RD_1_b17
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
       $setup(A1_0_b0, posedge CLK1_0, "");
@@ -10163,7 +10193,7 @@ module RAM_CE1_FE0_PR0_WSA1_WSB2_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK1_0(CLK1_0),
       .CLK2_0(CLK2_0),
       .CLK1_1(CLK1_1),
@@ -10536,6 +10566,7 @@ module RAM_CE1_FE0_PR0_WSA2_WSB0_VPR (
   output        RD_1_b16,
   output        RD_1_b17
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
       $setup(A1_0_b0, posedge CLK1_0, "");
@@ -10745,7 +10776,7 @@ module RAM_CE1_FE0_PR0_WSA2_WSB0_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK1_0(CLK1_0),
       .CLK2_0(CLK2_0),
       .CLK1_1(CLK1_1),
@@ -11118,6 +11149,7 @@ module RAM_CE1_FE0_PR0_WSA2_WSB1_VPR (
   output        RD_1_b16,
   output        RD_1_b17
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
       $setup(A1_0_b0, posedge CLK1_0, "");
@@ -11327,7 +11359,7 @@ module RAM_CE1_FE0_PR0_WSA2_WSB1_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK1_0(CLK1_0),
       .CLK2_0(CLK2_0),
       .CLK1_1(CLK1_1),
@@ -11700,6 +11732,7 @@ module RAM_CE1_FE0_PR0_WSA2_WSB2_VPR (
   output        RD_1_b16,
   output        RD_1_b17
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
       $setup(A1_0_b0, posedge CLK1_0, "");
@@ -11909,7 +11942,7 @@ module RAM_CE1_FE0_PR0_WSA2_WSB2_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK1_0(CLK1_0),
       .CLK2_0(CLK2_0),
       .CLK1_1(CLK1_1),
@@ -12282,6 +12315,7 @@ module RAM_CE1_FE0_PR1_WSA0_WSB0_VPR (
   output        RD_1_b16,
   output        RD_1_b17
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
       $setup(A1_0_b0, posedge CLK1_0, "");
@@ -12491,7 +12525,7 @@ module RAM_CE1_FE0_PR1_WSA0_WSB0_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK1_0(CLK1_0),
       .CLK2_0(CLK2_0),
       .CLK1_1(CLK1_1),
@@ -12864,6 +12898,7 @@ module RAM_CE1_FE0_PR1_WSA0_WSB1_VPR (
   output        RD_1_b16,
   output        RD_1_b17
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
       $setup(A1_0_b0, posedge CLK1_0, "");
@@ -13073,7 +13108,7 @@ module RAM_CE1_FE0_PR1_WSA0_WSB1_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK1_0(CLK1_0),
       .CLK2_0(CLK2_0),
       .CLK1_1(CLK1_1),
@@ -13446,6 +13481,7 @@ module RAM_CE1_FE0_PR1_WSA0_WSB2_VPR (
   output        RD_1_b16,
   output        RD_1_b17
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
       $setup(A1_0_b0, posedge CLK1_0, "");
@@ -13655,7 +13691,7 @@ module RAM_CE1_FE0_PR1_WSA0_WSB2_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK1_0(CLK1_0),
       .CLK2_0(CLK2_0),
       .CLK1_1(CLK1_1),
@@ -14028,6 +14064,7 @@ module RAM_CE1_FE0_PR1_WSA1_WSB0_VPR (
   output        RD_1_b16,
   output        RD_1_b17
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
       $setup(A1_0_b0, posedge CLK1_0, "");
@@ -14237,7 +14274,7 @@ module RAM_CE1_FE0_PR1_WSA1_WSB0_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK1_0(CLK1_0),
       .CLK2_0(CLK2_0),
       .CLK1_1(CLK1_1),
@@ -14610,6 +14647,7 @@ module RAM_CE1_FE0_PR1_WSA1_WSB1_VPR (
   output        RD_1_b16,
   output        RD_1_b17
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
       $setup(A1_0_b0, posedge CLK1_0, "");
@@ -14819,7 +14857,7 @@ module RAM_CE1_FE0_PR1_WSA1_WSB1_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK1_0(CLK1_0),
       .CLK2_0(CLK2_0),
       .CLK1_1(CLK1_1),
@@ -15192,6 +15230,7 @@ module RAM_CE1_FE0_PR1_WSA1_WSB2_VPR (
   output        RD_1_b16,
   output        RD_1_b17
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
       $setup(A1_0_b0, posedge CLK1_0, "");
@@ -15401,7 +15440,7 @@ module RAM_CE1_FE0_PR1_WSA1_WSB2_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK1_0(CLK1_0),
       .CLK2_0(CLK2_0),
       .CLK1_1(CLK1_1),
@@ -15774,6 +15813,7 @@ module RAM_CE1_FE0_PR1_WSA2_WSB0_VPR (
   output        RD_1_b16,
   output        RD_1_b17
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
       $setup(A1_0_b0, posedge CLK1_0, "");
@@ -15983,7 +16023,7 @@ module RAM_CE1_FE0_PR1_WSA2_WSB0_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK1_0(CLK1_0),
       .CLK2_0(CLK2_0),
       .CLK1_1(CLK1_1),
@@ -16356,6 +16396,7 @@ module RAM_CE1_FE0_PR1_WSA2_WSB1_VPR (
   output        RD_1_b16,
   output        RD_1_b17
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
       $setup(A1_0_b0, posedge CLK1_0, "");
@@ -16565,7 +16606,7 @@ module RAM_CE1_FE0_PR1_WSA2_WSB1_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK1_0(CLK1_0),
       .CLK2_0(CLK2_0),
       .CLK1_1(CLK1_1),
@@ -16938,6 +16979,7 @@ module RAM_CE1_FE0_PR1_WSA2_WSB2_VPR (
   output        RD_1_b16,
   output        RD_1_b17
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
       $setup(A1_0_b0, posedge CLK1_0, "");
@@ -17147,7 +17189,7 @@ module RAM_CE1_FE0_PR1_WSA2_WSB2_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK1_0(CLK1_0),
       .CLK2_0(CLK2_0),
       .CLK1_1(CLK1_1),
@@ -17520,6 +17562,7 @@ module RAM_CE1_FE1_D0_PR0_WSA0_WSB0_VPR (
   output        RD_1_b16,
   output        RD_1_b17
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
       $setup(WD_0_b0, posedge CLK1_0, "");
@@ -17661,7 +17704,7 @@ module RAM_CE1_FE1_D0_PR0_WSA0_WSB0_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK1_0(CLK1_0),
       .CLK2_0(CLK2_0),
       .CLK1_1(CLK1_1),
@@ -18034,6 +18077,7 @@ module RAM_CE1_FE1_D0_PR0_WSA0_WSB1_VPR (
   output        RD_1_b16,
   output        RD_1_b17
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
       $setup(WD_0_b0, posedge CLK1_0, "");
@@ -18175,7 +18219,7 @@ module RAM_CE1_FE1_D0_PR0_WSA0_WSB1_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK1_0(CLK1_0),
       .CLK2_0(CLK2_0),
       .CLK1_1(CLK1_1),
@@ -18548,6 +18592,7 @@ module RAM_CE1_FE1_D0_PR0_WSA0_WSB2_VPR (
   output        RD_1_b16,
   output        RD_1_b17
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
       $setup(WD_0_b0, posedge CLK1_0, "");
@@ -18689,7 +18734,7 @@ module RAM_CE1_FE1_D0_PR0_WSA0_WSB2_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK1_0(CLK1_0),
       .CLK2_0(CLK2_0),
       .CLK1_1(CLK1_1),
@@ -19062,6 +19107,7 @@ module RAM_CE1_FE1_D0_PR0_WSA1_WSB0_VPR (
   output        RD_1_b16,
   output        RD_1_b17
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
       $setup(WD_0_b0, posedge CLK1_0, "");
@@ -19203,7 +19249,7 @@ module RAM_CE1_FE1_D0_PR0_WSA1_WSB0_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK1_0(CLK1_0),
       .CLK2_0(CLK2_0),
       .CLK1_1(CLK1_1),
@@ -19576,6 +19622,7 @@ module RAM_CE1_FE1_D0_PR0_WSA1_WSB1_VPR (
   output        RD_1_b16,
   output        RD_1_b17
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
       $setup(WD_0_b0, posedge CLK1_0, "");
@@ -19717,7 +19764,7 @@ module RAM_CE1_FE1_D0_PR0_WSA1_WSB1_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK1_0(CLK1_0),
       .CLK2_0(CLK2_0),
       .CLK1_1(CLK1_1),
@@ -20090,6 +20137,7 @@ module RAM_CE1_FE1_D0_PR0_WSA1_WSB2_VPR (
   output        RD_1_b16,
   output        RD_1_b17
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
       $setup(WD_0_b0, posedge CLK1_0, "");
@@ -20231,7 +20279,7 @@ module RAM_CE1_FE1_D0_PR0_WSA1_WSB2_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK1_0(CLK1_0),
       .CLK2_0(CLK2_0),
       .CLK1_1(CLK1_1),
@@ -20604,6 +20652,7 @@ module RAM_CE1_FE1_D0_PR0_WSA2_WSB0_VPR (
   output        RD_1_b16,
   output        RD_1_b17
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
       $setup(WD_0_b0, posedge CLK1_0, "");
@@ -20745,7 +20794,7 @@ module RAM_CE1_FE1_D0_PR0_WSA2_WSB0_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK1_0(CLK1_0),
       .CLK2_0(CLK2_0),
       .CLK1_1(CLK1_1),
@@ -21118,6 +21167,7 @@ module RAM_CE1_FE1_D0_PR0_WSA2_WSB1_VPR (
   output        RD_1_b16,
   output        RD_1_b17
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
       $setup(WD_0_b0, posedge CLK1_0, "");
@@ -21259,7 +21309,7 @@ module RAM_CE1_FE1_D0_PR0_WSA2_WSB1_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK1_0(CLK1_0),
       .CLK2_0(CLK2_0),
       .CLK1_1(CLK1_1),
@@ -21632,6 +21682,7 @@ module RAM_CE1_FE1_D0_PR0_WSA2_WSB2_VPR (
   output        RD_1_b16,
   output        RD_1_b17
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
       $setup(WD_0_b0, posedge CLK1_0, "");
@@ -21773,7 +21824,7 @@ module RAM_CE1_FE1_D0_PR0_WSA2_WSB2_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK1_0(CLK1_0),
       .CLK2_0(CLK2_0),
       .CLK1_1(CLK1_1),
@@ -22146,6 +22197,7 @@ module RAM_CE1_FE1_D0_PR1_WSA0_WSB0_VPR (
   output        RD_1_b16,
   output        RD_1_b17
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
       $setup(WD_0_b0, posedge CLK1_0, "");
@@ -22287,7 +22339,7 @@ module RAM_CE1_FE1_D0_PR1_WSA0_WSB0_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK1_0(CLK1_0),
       .CLK2_0(CLK2_0),
       .CLK1_1(CLK1_1),
@@ -22660,6 +22712,7 @@ module RAM_CE1_FE1_D0_PR1_WSA0_WSB1_VPR (
   output        RD_1_b16,
   output        RD_1_b17
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
       $setup(WD_0_b0, posedge CLK1_0, "");
@@ -22801,7 +22854,7 @@ module RAM_CE1_FE1_D0_PR1_WSA0_WSB1_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK1_0(CLK1_0),
       .CLK2_0(CLK2_0),
       .CLK1_1(CLK1_1),
@@ -23174,6 +23227,7 @@ module RAM_CE1_FE1_D0_PR1_WSA0_WSB2_VPR (
   output        RD_1_b16,
   output        RD_1_b17
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
       $setup(WD_0_b0, posedge CLK1_0, "");
@@ -23315,7 +23369,7 @@ module RAM_CE1_FE1_D0_PR1_WSA0_WSB2_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK1_0(CLK1_0),
       .CLK2_0(CLK2_0),
       .CLK1_1(CLK1_1),
@@ -23688,6 +23742,7 @@ module RAM_CE1_FE1_D0_PR1_WSA1_WSB0_VPR (
   output        RD_1_b16,
   output        RD_1_b17
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
       $setup(WD_0_b0, posedge CLK1_0, "");
@@ -23829,7 +23884,7 @@ module RAM_CE1_FE1_D0_PR1_WSA1_WSB0_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK1_0(CLK1_0),
       .CLK2_0(CLK2_0),
       .CLK1_1(CLK1_1),
@@ -24202,6 +24257,7 @@ module RAM_CE1_FE1_D0_PR1_WSA1_WSB1_VPR (
   output        RD_1_b16,
   output        RD_1_b17
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
       $setup(WD_0_b0, posedge CLK1_0, "");
@@ -24343,7 +24399,7 @@ module RAM_CE1_FE1_D0_PR1_WSA1_WSB1_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK1_0(CLK1_0),
       .CLK2_0(CLK2_0),
       .CLK1_1(CLK1_1),
@@ -24716,6 +24772,7 @@ module RAM_CE1_FE1_D0_PR1_WSA1_WSB2_VPR (
   output        RD_1_b16,
   output        RD_1_b17
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
       $setup(WD_0_b0, posedge CLK1_0, "");
@@ -24857,7 +24914,7 @@ module RAM_CE1_FE1_D0_PR1_WSA1_WSB2_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK1_0(CLK1_0),
       .CLK2_0(CLK2_0),
       .CLK1_1(CLK1_1),
@@ -25230,6 +25287,7 @@ module RAM_CE1_FE1_D0_PR1_WSA2_WSB0_VPR (
   output        RD_1_b16,
   output        RD_1_b17
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
       $setup(WD_0_b0, posedge CLK1_0, "");
@@ -25371,7 +25429,7 @@ module RAM_CE1_FE1_D0_PR1_WSA2_WSB0_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK1_0(CLK1_0),
       .CLK2_0(CLK2_0),
       .CLK1_1(CLK1_1),
@@ -25744,6 +25802,7 @@ module RAM_CE1_FE1_D0_PR1_WSA2_WSB1_VPR (
   output        RD_1_b16,
   output        RD_1_b17
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
       $setup(WD_0_b0, posedge CLK1_0, "");
@@ -25885,7 +25944,7 @@ module RAM_CE1_FE1_D0_PR1_WSA2_WSB1_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK1_0(CLK1_0),
       .CLK2_0(CLK2_0),
       .CLK1_1(CLK1_1),
@@ -26258,6 +26317,7 @@ module RAM_CE1_FE1_D0_PR1_WSA2_WSB2_VPR (
   output        RD_1_b16,
   output        RD_1_b17
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
       $setup(WD_0_b0, posedge CLK1_0, "");
@@ -26399,7 +26459,7 @@ module RAM_CE1_FE1_D0_PR1_WSA2_WSB2_VPR (
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
       .CLK1_0(CLK1_0),
       .CLK2_0(CLK2_0),
       .CLK1_1(CLK1_1),
@@ -26579,26 +26639,41 @@ endmodule
 (* blackbox *)
 module RAM_CE1_FE1_D1_PR0_WSA0_WSB0_VPR (
 
-  input         CLK1_0,
+  input         CLK2_1,
   input         CLK1_1,
   input         CLK2_0,
-  input         CLK2_1,
+  input         CLK1_0,
 
-  input         TEST1A,
-  input         DS,
-  input  [ 1:0] WIDTH_SELECT2_0,
-  input         P1_1,
-  input  [ 1:0] WIDTH_SELECT2_1,
+  input         CS1_1,
+  input         A1_1_b0,
+  input         A1_1_b1,
+  input         A1_1_b2,
+  input         A1_1_b3,
+  input         A1_1_b4,
+  input         A1_1_b5,
+  input         A1_1_b6,
+  input         A1_1_b7,
+  input         A1_1_b8,
+  input         A1_1_b9,
+  input         A1_1_b10,
+  input         FIFO_EN_0,
+  input         DS_RB1,
+  input         CS1_0,
   input         PIPELINE_RD_0,
-  input         SD,
+  input         ASYNC_FLUSH_1,
   input         DIR_1,
-  input         CONCAT_EN_0,
-  input         LS,
-  input         CLK1EN_1,
-  input         P2_1,
-  input         WEN1_0_b0,
-  input         WEN1_0_b1,
-  input         PIPELINE_RD_1,
+  input         CS2_1,
+  input         CLK1EN_0,
+  input  [ 1:0] WIDTH_SELECT1_0,
+  input         RMB_b0,
+  input         RMB_b1,
+  input         RMB_b2,
+  input         RMB_b3,
+  input         ASYNC_FLUSH_0,
+  input         SYNC_FIFO_0,
+  input         SYNC_FIFO_1,
+  input         RMEB,
+  input         TEST1B,
   input         WD_0_b0,
   input         WD_0_b1,
   input         WD_0_b2,
@@ -26617,45 +26692,6 @@ module RAM_CE1_FE1_D1_PR0_WSA0_WSB0_VPR (
   input         WD_0_b15,
   input         WD_0_b16,
   input         WD_0_b17,
-  input  [ 1:0] WIDTH_SELECT1_1,
-  input         SD_RB1,
-  input         TEST1B,
-  input         RMEB,
-  input         RMB_b0,
-  input         RMB_b1,
-  input         RMB_b2,
-  input         RMB_b3,
-  input         DS_RB1,
-  input         CS2_0,
-  input         CLK1EN_0,
-  input         SYNC_FIFO_1,
-  input         CLK2EN_0,
-  input         SYNC_FIFO_0,
-  input         ASYNC_FLUSH_0,
-  input         A2_1_b0,
-  input         A2_1_b1,
-  input         A2_1_b2,
-  input         A2_1_b3,
-  input         A2_1_b4,
-  input         A2_1_b5,
-  input         A2_1_b6,
-  input         A2_1_b7,
-  input         A2_1_b8,
-  input         A2_1_b9,
-  input         A2_1_b10,
-  input         RMEA,
-  input         A1_1_b0,
-  input         A1_1_b1,
-  input         A1_1_b2,
-  input         A1_1_b3,
-  input         A1_1_b4,
-  input         A1_1_b5,
-  input         A1_1_b6,
-  input         A1_1_b7,
-  input         A1_1_b8,
-  input         A1_1_b9,
-  input         A1_1_b10,
-  input         CS1_1,
   input         A2_0_b0,
   input         A2_0_b1,
   input         A2_0_b2,
@@ -26667,7 +26703,36 @@ module RAM_CE1_FE1_D1_PR0_WSA0_WSB0_VPR (
   input         A2_0_b8,
   input         A2_0_b9,
   input         A2_0_b10,
-  input         P2_0,
+  input         A1_0_b0,
+  input         A1_0_b1,
+  input         A1_0_b2,
+  input         A1_0_b3,
+  input         A1_0_b4,
+  input         A1_0_b5,
+  input         A1_0_b6,
+  input         A1_0_b7,
+  input         A1_0_b8,
+  input         A1_0_b9,
+  input         A1_0_b10,
+  input         WEN1_1_b0,
+  input         WEN1_1_b1,
+  input         FIFO_EN_1,
+  input         CLK2EN_0,
+  input         DS,
+  input         LS_RB1,
+  input         CLK1EN_1,
+  input  [ 1:0] WIDTH_SELECT2_0,
+  input         A2_1_b0,
+  input         A2_1_b1,
+  input         A2_1_b2,
+  input         A2_1_b3,
+  input         A2_1_b4,
+  input         A2_1_b5,
+  input         A2_1_b6,
+  input         A2_1_b7,
+  input         A2_1_b8,
+  input         A2_1_b9,
+  input         A2_1_b10,
   input         WD_1_b0,
   input         WD_1_b1,
   input         WD_1_b2,
@@ -26686,35 +26751,37 @@ module RAM_CE1_FE1_D1_PR0_WSA0_WSB0_VPR (
   input         WD_1_b15,
   input         WD_1_b16,
   input         WD_1_b17,
-  input         ASYNC_FLUSH_1,
-  input         LS_RB1,
-  input         CS2_1,
+  input         P2_0,
+  input         CS2_0,
+  input         P1_1,
+  input         CONCAT_EN_1,
+  input         LS,
+  input  [ 1:0] WIDTH_SELECT1_1,
+  input         SD_RB1,
+  input         TEST1A,
+  input         CLK2EN_1,
   input         RMA_b0,
   input         RMA_b1,
   input         RMA_b2,
   input         RMA_b3,
-  input  [ 1:0] WIDTH_SELECT1_0,
-  input         CS1_0,
-  input         FIFO_EN_0,
-  input         CONCAT_EN_1,
+  input         WEN1_0_b0,
+  input         WEN1_0_b1,
+  input         RMEA,
   input         DIR_0,
-  input         CLK2EN_1,
   input         P1_0,
-  input         FIFO_EN_1,
-  input         WEN1_1_b0,
-  input         WEN1_1_b1,
-  input         A1_0_b0,
-  input         A1_0_b1,
-  input         A1_0_b2,
-  input         A1_0_b3,
-  input         A1_0_b4,
-  input         A1_0_b5,
-  input         A1_0_b6,
-  input         A1_0_b7,
-  input         A1_0_b8,
-  input         A1_0_b9,
-  input         A1_0_b10,
+  input         PIPELINE_RD_1,
+  input  [ 1:0] WIDTH_SELECT2_1,
+  input         CONCAT_EN_0,
+  input         P2_1,
+  input         SD,
 
+  output        PUSH_FLAG_1_b0,
+  output        PUSH_FLAG_1_b1,
+  output        PUSH_FLAG_1_b2,
+  output        PUSH_FLAG_1_b3,
+  output        Almost_Empty_0,
+  output        Almost_Empty_1,
+  output        Almost_Full_1,
   output        RD_1_b0,
   output        RD_1_b1,
   output        RD_1_b2,
@@ -26733,25 +26800,15 @@ module RAM_CE1_FE1_D1_PR0_WSA0_WSB0_VPR (
   output        RD_1_b15,
   output        RD_1_b16,
   output        RD_1_b17,
-  output        Almost_Empty_0,
-  output        Almost_Full_1,
-  output        PUSH_FLAG_1_b0,
-  output        PUSH_FLAG_1_b1,
-  output        PUSH_FLAG_1_b2,
-  output        PUSH_FLAG_1_b3,
-  output        POP_FLAG_0_b0,
-  output        POP_FLAG_0_b1,
-  output        POP_FLAG_0_b2,
-  output        POP_FLAG_0_b3,
-  output        PUSH_FLAG_0_b0,
-  output        PUSH_FLAG_0_b1,
-  output        PUSH_FLAG_0_b2,
-  output        PUSH_FLAG_0_b3,
+  output        Almost_Full_0,
   output        POP_FLAG_1_b0,
   output        POP_FLAG_1_b1,
   output        POP_FLAG_1_b2,
   output        POP_FLAG_1_b3,
-  output        Almost_Full_0,
+  output        POP_FLAG_0_b0,
+  output        POP_FLAG_0_b1,
+  output        POP_FLAG_0_b2,
+  output        POP_FLAG_0_b3,
   output        RD_0_b0,
   output        RD_0_b1,
   output        RD_0_b2,
@@ -26770,14 +26827,14 @@ module RAM_CE1_FE1_D1_PR0_WSA0_WSB0_VPR (
   output        RD_0_b15,
   output        RD_0_b16,
   output        RD_0_b17,
-  output        Almost_Empty_1
+  output        PUSH_FLAG_0_b0,
+  output        PUSH_FLAG_0_b1,
+  output        PUSH_FLAG_0_b2,
+  output        PUSH_FLAG_0_b3
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
-      $setup(P1_1, posedge CLK1_1, "");
-      $hold(posedge CLK1_1, P1_1, "");
-      $setup(P2_1, posedge CLK2_1, "");
-      $hold(posedge CLK2_1, P2_1, "");
       $setup(WD_0_b0, posedge CLK2_0, "");
       $hold(posedge CLK2_0, WD_0_b0, "");
       $setup(WD_0_b1, posedge CLK2_0, "");
@@ -26814,8 +26871,6 @@ module RAM_CE1_FE1_D1_PR0_WSA0_WSB0_VPR (
       $hold(posedge CLK2_0, WD_0_b16, "");
       $setup(WD_0_b17, posedge CLK2_0, "");
       $hold(posedge CLK2_0, WD_0_b17, "");
-      $setup(P2_0, posedge CLK2_0, "");
-      $hold(posedge CLK2_0, P2_0, "");
       $setup(WD_1_b0, posedge CLK2_1, "");
       $hold(posedge CLK2_1, WD_1_b0, "");
       $setup(WD_1_b1, posedge CLK2_1, "");
@@ -26852,8 +26907,21 @@ module RAM_CE1_FE1_D1_PR0_WSA0_WSB0_VPR (
       $hold(posedge CLK2_1, WD_1_b16, "");
       $setup(WD_1_b17, posedge CLK2_1, "");
       $hold(posedge CLK2_1, WD_1_b17, "");
+      $setup(P2_0, posedge CLK2_0, "");
+      $hold(posedge CLK2_0, P2_0, "");
+      $setup(P1_1, posedge CLK1_1, "");
+      $hold(posedge CLK1_1, P1_1, "");
       $setup(P1_0, posedge CLK1_0, "");
       $hold(posedge CLK1_0, P1_0, "");
+      $setup(P2_1, posedge CLK2_1, "");
+      $hold(posedge CLK2_1, P2_1, "");
+      (CLK2_1*>PUSH_FLAG_1_b0)="";
+      (CLK2_1*>PUSH_FLAG_1_b1)="";
+      (CLK2_1*>PUSH_FLAG_1_b2)="";
+      (CLK2_1*>PUSH_FLAG_1_b3)="";
+      (CLK1_0*>Almost_Empty_0)="";
+      (CLK1_1*>Almost_Empty_1)="";
+      (CLK2_1*>Almost_Full_1)="";
       (CLK1_1*>RD_1_b0)="";
       (CLK1_1*>RD_1_b1)="";
       (CLK1_1*>RD_1_b2)="";
@@ -26872,25 +26940,15 @@ module RAM_CE1_FE1_D1_PR0_WSA0_WSB0_VPR (
       (CLK1_1*>RD_1_b15)="";
       (CLK1_1*>RD_1_b16)="";
       (CLK1_1*>RD_1_b17)="";
-      (CLK1_0*>Almost_Empty_0)="";
-      (CLK2_1*>Almost_Full_1)="";
-      (CLK2_1*>PUSH_FLAG_1_b0)="";
-      (CLK2_1*>PUSH_FLAG_1_b1)="";
-      (CLK2_1*>PUSH_FLAG_1_b2)="";
-      (CLK2_1*>PUSH_FLAG_1_b3)="";
-      (CLK1_0*>POP_FLAG_0_b0)="";
-      (CLK1_0*>POP_FLAG_0_b1)="";
-      (CLK1_0*>POP_FLAG_0_b2)="";
-      (CLK1_0*>POP_FLAG_0_b3)="";
-      (CLK2_0*>PUSH_FLAG_0_b0)="";
-      (CLK2_0*>PUSH_FLAG_0_b1)="";
-      (CLK2_0*>PUSH_FLAG_0_b2)="";
-      (CLK2_0*>PUSH_FLAG_0_b3)="";
+      (CLK2_0*>Almost_Full_0)="";
       (CLK1_1*>POP_FLAG_1_b0)="";
       (CLK1_1*>POP_FLAG_1_b1)="";
       (CLK1_1*>POP_FLAG_1_b2)="";
       (CLK1_1*>POP_FLAG_1_b3)="";
-      (CLK2_0*>Almost_Full_0)="";
+      (CLK1_0*>POP_FLAG_0_b0)="";
+      (CLK1_0*>POP_FLAG_0_b1)="";
+      (CLK1_0*>POP_FLAG_0_b2)="";
+      (CLK1_0*>POP_FLAG_0_b3)="";
       (CLK1_0*>RD_0_b0)="";
       (CLK1_0*>RD_0_b1)="";
       (CLK1_0*>RD_0_b2)="";
@@ -26909,26 +26967,41 @@ module RAM_CE1_FE1_D1_PR0_WSA0_WSB0_VPR (
       (CLK1_0*>RD_0_b15)="";
       (CLK1_0*>RD_0_b16)="";
       (CLK1_0*>RD_0_b17)="";
-      (CLK1_1*>Almost_Empty_1)="";
+      (CLK2_0*>PUSH_FLAG_0_b0)="";
+      (CLK2_0*>PUSH_FLAG_0_b1)="";
+      (CLK2_0*>PUSH_FLAG_0_b2)="";
+      (CLK2_0*>PUSH_FLAG_0_b3)="";
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
-      .CLK1_0(CLK1_0),
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
+      .CLK2_1(CLK2_1),
       .CLK1_1(CLK1_1),
       .CLK2_0(CLK2_0),
-      .CLK2_1(CLK2_1),
-      .WIDTH_SELECT2_0(WIDTH_SELECT2_0),
-      .P1_1(P1_1),
-      .WIDTH_SELECT2_1(WIDTH_SELECT2_1),
+      .CLK1_0(CLK1_0),
+      .CS1_1(CS1_1),
+      .A1_1_b0(A1_1_b0),
+      .A1_1_b1(A1_1_b1),
+      .A1_1_b2(A1_1_b2),
+      .A1_1_b3(A1_1_b3),
+      .A1_1_b4(A1_1_b4),
+      .A1_1_b5(A1_1_b5),
+      .A1_1_b6(A1_1_b6),
+      .A1_1_b7(A1_1_b7),
+      .A1_1_b8(A1_1_b8),
+      .A1_1_b9(A1_1_b9),
+      .A1_1_b10(A1_1_b10),
+      .FIFO_EN_0(FIFO_EN_0),
+      .CS1_0(CS1_0),
       .PIPELINE_RD_0(PIPELINE_RD_0),
+      .ASYNC_FLUSH_1(ASYNC_FLUSH_1),
       .DIR_1(DIR_1),
-      .CONCAT_EN_0(CONCAT_EN_0),
-      .CLK1EN_1(CLK1EN_1),
-      .P2_1(P2_1),
-      .WEN1_0_b0(WEN1_0_b0),
-      .WEN1_0_b1(WEN1_0_b1),
-      .PIPELINE_RD_1(PIPELINE_RD_1),
+      .CS2_1(CS2_1),
+      .CLK1EN_0(CLK1EN_0),
+      .WIDTH_SELECT1_0(WIDTH_SELECT1_0),
+      .ASYNC_FLUSH_0(ASYNC_FLUSH_0),
+      .SYNC_FIFO_0(SYNC_FIFO_0),
+      .SYNC_FIFO_1(SYNC_FIFO_1),
       .WD_0_b0(WD_0_b0),
       .WD_0_b1(WD_0_b1),
       .WD_0_b2(WD_0_b2),
@@ -26947,36 +27020,6 @@ module RAM_CE1_FE1_D1_PR0_WSA0_WSB0_VPR (
       .WD_0_b15(WD_0_b15),
       .WD_0_b16(WD_0_b16),
       .WD_0_b17(WD_0_b17),
-      .WIDTH_SELECT1_1(WIDTH_SELECT1_1),
-      .CS2_0(CS2_0),
-      .CLK1EN_0(CLK1EN_0),
-      .SYNC_FIFO_1(SYNC_FIFO_1),
-      .CLK2EN_0(CLK2EN_0),
-      .SYNC_FIFO_0(SYNC_FIFO_0),
-      .ASYNC_FLUSH_0(ASYNC_FLUSH_0),
-      .A2_1_b0(A2_1_b0),
-      .A2_1_b1(A2_1_b1),
-      .A2_1_b2(A2_1_b2),
-      .A2_1_b3(A2_1_b3),
-      .A2_1_b4(A2_1_b4),
-      .A2_1_b5(A2_1_b5),
-      .A2_1_b6(A2_1_b6),
-      .A2_1_b7(A2_1_b7),
-      .A2_1_b8(A2_1_b8),
-      .A2_1_b9(A2_1_b9),
-      .A2_1_b10(A2_1_b10),
-      .A1_1_b0(A1_1_b0),
-      .A1_1_b1(A1_1_b1),
-      .A1_1_b2(A1_1_b2),
-      .A1_1_b3(A1_1_b3),
-      .A1_1_b4(A1_1_b4),
-      .A1_1_b5(A1_1_b5),
-      .A1_1_b6(A1_1_b6),
-      .A1_1_b7(A1_1_b7),
-      .A1_1_b8(A1_1_b8),
-      .A1_1_b9(A1_1_b9),
-      .A1_1_b10(A1_1_b10),
-      .CS1_1(CS1_1),
       .A2_0_b0(A2_0_b0),
       .A2_0_b1(A2_0_b1),
       .A2_0_b2(A2_0_b2),
@@ -26988,7 +27031,34 @@ module RAM_CE1_FE1_D1_PR0_WSA0_WSB0_VPR (
       .A2_0_b8(A2_0_b8),
       .A2_0_b9(A2_0_b9),
       .A2_0_b10(A2_0_b10),
-      .P2_0(P2_0),
+      .A1_0_b0(A1_0_b0),
+      .A1_0_b1(A1_0_b1),
+      .A1_0_b2(A1_0_b2),
+      .A1_0_b3(A1_0_b3),
+      .A1_0_b4(A1_0_b4),
+      .A1_0_b5(A1_0_b5),
+      .A1_0_b6(A1_0_b6),
+      .A1_0_b7(A1_0_b7),
+      .A1_0_b8(A1_0_b8),
+      .A1_0_b9(A1_0_b9),
+      .A1_0_b10(A1_0_b10),
+      .WEN1_1_b0(WEN1_1_b0),
+      .WEN1_1_b1(WEN1_1_b1),
+      .FIFO_EN_1(FIFO_EN_1),
+      .CLK2EN_0(CLK2EN_0),
+      .CLK1EN_1(CLK1EN_1),
+      .WIDTH_SELECT2_0(WIDTH_SELECT2_0),
+      .A2_1_b0(A2_1_b0),
+      .A2_1_b1(A2_1_b1),
+      .A2_1_b2(A2_1_b2),
+      .A2_1_b3(A2_1_b3),
+      .A2_1_b4(A2_1_b4),
+      .A2_1_b5(A2_1_b5),
+      .A2_1_b6(A2_1_b6),
+      .A2_1_b7(A2_1_b7),
+      .A2_1_b8(A2_1_b8),
+      .A2_1_b9(A2_1_b9),
+      .A2_1_b10(A2_1_b10),
       .WD_1_b0(WD_1_b0),
       .WD_1_b1(WD_1_b1),
       .WD_1_b2(WD_1_b2),
@@ -27007,29 +27077,27 @@ module RAM_CE1_FE1_D1_PR0_WSA0_WSB0_VPR (
       .WD_1_b15(WD_1_b15),
       .WD_1_b16(WD_1_b16),
       .WD_1_b17(WD_1_b17),
-      .ASYNC_FLUSH_1(ASYNC_FLUSH_1),
-      .CS2_1(CS2_1),
-      .WIDTH_SELECT1_0(WIDTH_SELECT1_0),
-      .CS1_0(CS1_0),
-      .FIFO_EN_0(FIFO_EN_0),
+      .P2_0(P2_0),
+      .CS2_0(CS2_0),
+      .P1_1(P1_1),
       .CONCAT_EN_1(CONCAT_EN_1),
-      .DIR_0(DIR_0),
+      .WIDTH_SELECT1_1(WIDTH_SELECT1_1),
       .CLK2EN_1(CLK2EN_1),
+      .WEN1_0_b0(WEN1_0_b0),
+      .WEN1_0_b1(WEN1_0_b1),
+      .DIR_0(DIR_0),
       .P1_0(P1_0),
-      .FIFO_EN_1(FIFO_EN_1),
-      .WEN1_1_b0(WEN1_1_b0),
-      .WEN1_1_b1(WEN1_1_b1),
-      .A1_0_b0(A1_0_b0),
-      .A1_0_b1(A1_0_b1),
-      .A1_0_b2(A1_0_b2),
-      .A1_0_b3(A1_0_b3),
-      .A1_0_b4(A1_0_b4),
-      .A1_0_b5(A1_0_b5),
-      .A1_0_b6(A1_0_b6),
-      .A1_0_b7(A1_0_b7),
-      .A1_0_b8(A1_0_b8),
-      .A1_0_b9(A1_0_b9),
-      .A1_0_b10(A1_0_b10),
+      .PIPELINE_RD_1(PIPELINE_RD_1),
+      .WIDTH_SELECT2_1(WIDTH_SELECT2_1),
+      .CONCAT_EN_0(CONCAT_EN_0),
+      .P2_1(P2_1),
+      .PUSH_FLAG_1_b0(PUSH_FLAG_1_b0),
+      .PUSH_FLAG_1_b1(PUSH_FLAG_1_b1),
+      .PUSH_FLAG_1_b2(PUSH_FLAG_1_b2),
+      .PUSH_FLAG_1_b3(PUSH_FLAG_1_b3),
+      .Almost_Empty_0(Almost_Empty_0),
+      .Almost_Empty_1(Almost_Empty_1),
+      .Almost_Full_1(Almost_Full_1),
       .RD_1_b0(RD_1_b0),
       .RD_1_b1(RD_1_b1),
       .RD_1_b2(RD_1_b2),
@@ -27048,25 +27116,15 @@ module RAM_CE1_FE1_D1_PR0_WSA0_WSB0_VPR (
       .RD_1_b15(RD_1_b15),
       .RD_1_b16(RD_1_b16),
       .RD_1_b17(RD_1_b17),
-      .Almost_Empty_0(Almost_Empty_0),
-      .Almost_Full_1(Almost_Full_1),
-      .PUSH_FLAG_1_b0(PUSH_FLAG_1_b0),
-      .PUSH_FLAG_1_b1(PUSH_FLAG_1_b1),
-      .PUSH_FLAG_1_b2(PUSH_FLAG_1_b2),
-      .PUSH_FLAG_1_b3(PUSH_FLAG_1_b3),
-      .POP_FLAG_0_b0(POP_FLAG_0_b0),
-      .POP_FLAG_0_b1(POP_FLAG_0_b1),
-      .POP_FLAG_0_b2(POP_FLAG_0_b2),
-      .POP_FLAG_0_b3(POP_FLAG_0_b3),
-      .PUSH_FLAG_0_b0(PUSH_FLAG_0_b0),
-      .PUSH_FLAG_0_b1(PUSH_FLAG_0_b1),
-      .PUSH_FLAG_0_b2(PUSH_FLAG_0_b2),
-      .PUSH_FLAG_0_b3(PUSH_FLAG_0_b3),
+      .Almost_Full_0(Almost_Full_0),
       .POP_FLAG_1_b0(POP_FLAG_1_b0),
       .POP_FLAG_1_b1(POP_FLAG_1_b1),
       .POP_FLAG_1_b2(POP_FLAG_1_b2),
       .POP_FLAG_1_b3(POP_FLAG_1_b3),
-      .Almost_Full_0(Almost_Full_0),
+      .POP_FLAG_0_b0(POP_FLAG_0_b0),
+      .POP_FLAG_0_b1(POP_FLAG_0_b1),
+      .POP_FLAG_0_b2(POP_FLAG_0_b2),
+      .POP_FLAG_0_b3(POP_FLAG_0_b3),
       .RD_0_b0(RD_0_b0),
       .RD_0_b1(RD_0_b1),
       .RD_0_b2(RD_0_b2),
@@ -27085,7 +27143,10 @@ module RAM_CE1_FE1_D1_PR0_WSA0_WSB0_VPR (
       .RD_0_b15(RD_0_b15),
       .RD_0_b16(RD_0_b16),
       .RD_0_b17(RD_0_b17),
-      .Almost_Empty_1(Almost_Empty_1));
+      .PUSH_FLAG_0_b0(PUSH_FLAG_0_b0),
+      .PUSH_FLAG_0_b1(PUSH_FLAG_0_b1),
+      .PUSH_FLAG_0_b2(PUSH_FLAG_0_b2),
+      .PUSH_FLAG_0_b3(PUSH_FLAG_0_b3));
 
 endmodule
 
@@ -27093,26 +27154,41 @@ endmodule
 (* blackbox *)
 module RAM_CE1_FE1_D1_PR0_WSA0_WSB1_VPR (
 
-  input         CLK1_0,
+  input         CLK2_1,
   input         CLK1_1,
   input         CLK2_0,
-  input         CLK2_1,
+  input         CLK1_0,
 
-  input         TEST1A,
-  input         DS,
-  input  [ 1:0] WIDTH_SELECT2_0,
-  input         P1_1,
-  input  [ 1:0] WIDTH_SELECT2_1,
+  input         CS1_1,
+  input         A1_1_b0,
+  input         A1_1_b1,
+  input         A1_1_b2,
+  input         A1_1_b3,
+  input         A1_1_b4,
+  input         A1_1_b5,
+  input         A1_1_b6,
+  input         A1_1_b7,
+  input         A1_1_b8,
+  input         A1_1_b9,
+  input         A1_1_b10,
+  input         FIFO_EN_0,
+  input         DS_RB1,
+  input         CS1_0,
   input         PIPELINE_RD_0,
-  input         SD,
+  input         ASYNC_FLUSH_1,
   input         DIR_1,
-  input         CONCAT_EN_0,
-  input         LS,
-  input         CLK1EN_1,
-  input         P2_1,
-  input         WEN1_0_b0,
-  input         WEN1_0_b1,
-  input         PIPELINE_RD_1,
+  input         CS2_1,
+  input         CLK1EN_0,
+  input  [ 1:0] WIDTH_SELECT1_0,
+  input         RMB_b0,
+  input         RMB_b1,
+  input         RMB_b2,
+  input         RMB_b3,
+  input         ASYNC_FLUSH_0,
+  input         SYNC_FIFO_0,
+  input         SYNC_FIFO_1,
+  input         RMEB,
+  input         TEST1B,
   input         WD_0_b0,
   input         WD_0_b1,
   input         WD_0_b2,
@@ -27131,45 +27207,6 @@ module RAM_CE1_FE1_D1_PR0_WSA0_WSB1_VPR (
   input         WD_0_b15,
   input         WD_0_b16,
   input         WD_0_b17,
-  input  [ 1:0] WIDTH_SELECT1_1,
-  input         SD_RB1,
-  input         TEST1B,
-  input         RMEB,
-  input         RMB_b0,
-  input         RMB_b1,
-  input         RMB_b2,
-  input         RMB_b3,
-  input         DS_RB1,
-  input         CS2_0,
-  input         CLK1EN_0,
-  input         SYNC_FIFO_1,
-  input         CLK2EN_0,
-  input         SYNC_FIFO_0,
-  input         ASYNC_FLUSH_0,
-  input         A2_1_b0,
-  input         A2_1_b1,
-  input         A2_1_b2,
-  input         A2_1_b3,
-  input         A2_1_b4,
-  input         A2_1_b5,
-  input         A2_1_b6,
-  input         A2_1_b7,
-  input         A2_1_b8,
-  input         A2_1_b9,
-  input         A2_1_b10,
-  input         RMEA,
-  input         A1_1_b0,
-  input         A1_1_b1,
-  input         A1_1_b2,
-  input         A1_1_b3,
-  input         A1_1_b4,
-  input         A1_1_b5,
-  input         A1_1_b6,
-  input         A1_1_b7,
-  input         A1_1_b8,
-  input         A1_1_b9,
-  input         A1_1_b10,
-  input         CS1_1,
   input         A2_0_b0,
   input         A2_0_b1,
   input         A2_0_b2,
@@ -27181,7 +27218,36 @@ module RAM_CE1_FE1_D1_PR0_WSA0_WSB1_VPR (
   input         A2_0_b8,
   input         A2_0_b9,
   input         A2_0_b10,
-  input         P2_0,
+  input         A1_0_b0,
+  input         A1_0_b1,
+  input         A1_0_b2,
+  input         A1_0_b3,
+  input         A1_0_b4,
+  input         A1_0_b5,
+  input         A1_0_b6,
+  input         A1_0_b7,
+  input         A1_0_b8,
+  input         A1_0_b9,
+  input         A1_0_b10,
+  input         WEN1_1_b0,
+  input         WEN1_1_b1,
+  input         FIFO_EN_1,
+  input         CLK2EN_0,
+  input         DS,
+  input         LS_RB1,
+  input         CLK1EN_1,
+  input  [ 1:0] WIDTH_SELECT2_0,
+  input         A2_1_b0,
+  input         A2_1_b1,
+  input         A2_1_b2,
+  input         A2_1_b3,
+  input         A2_1_b4,
+  input         A2_1_b5,
+  input         A2_1_b6,
+  input         A2_1_b7,
+  input         A2_1_b8,
+  input         A2_1_b9,
+  input         A2_1_b10,
   input         WD_1_b0,
   input         WD_1_b1,
   input         WD_1_b2,
@@ -27200,35 +27266,37 @@ module RAM_CE1_FE1_D1_PR0_WSA0_WSB1_VPR (
   input         WD_1_b15,
   input         WD_1_b16,
   input         WD_1_b17,
-  input         ASYNC_FLUSH_1,
-  input         LS_RB1,
-  input         CS2_1,
+  input         P2_0,
+  input         CS2_0,
+  input         P1_1,
+  input         CONCAT_EN_1,
+  input         LS,
+  input  [ 1:0] WIDTH_SELECT1_1,
+  input         SD_RB1,
+  input         TEST1A,
+  input         CLK2EN_1,
   input         RMA_b0,
   input         RMA_b1,
   input         RMA_b2,
   input         RMA_b3,
-  input  [ 1:0] WIDTH_SELECT1_0,
-  input         CS1_0,
-  input         FIFO_EN_0,
-  input         CONCAT_EN_1,
+  input         WEN1_0_b0,
+  input         WEN1_0_b1,
+  input         RMEA,
   input         DIR_0,
-  input         CLK2EN_1,
   input         P1_0,
-  input         FIFO_EN_1,
-  input         WEN1_1_b0,
-  input         WEN1_1_b1,
-  input         A1_0_b0,
-  input         A1_0_b1,
-  input         A1_0_b2,
-  input         A1_0_b3,
-  input         A1_0_b4,
-  input         A1_0_b5,
-  input         A1_0_b6,
-  input         A1_0_b7,
-  input         A1_0_b8,
-  input         A1_0_b9,
-  input         A1_0_b10,
+  input         PIPELINE_RD_1,
+  input  [ 1:0] WIDTH_SELECT2_1,
+  input         CONCAT_EN_0,
+  input         P2_1,
+  input         SD,
 
+  output        PUSH_FLAG_1_b0,
+  output        PUSH_FLAG_1_b1,
+  output        PUSH_FLAG_1_b2,
+  output        PUSH_FLAG_1_b3,
+  output        Almost_Empty_0,
+  output        Almost_Empty_1,
+  output        Almost_Full_1,
   output        RD_1_b0,
   output        RD_1_b1,
   output        RD_1_b2,
@@ -27247,25 +27315,15 @@ module RAM_CE1_FE1_D1_PR0_WSA0_WSB1_VPR (
   output        RD_1_b15,
   output        RD_1_b16,
   output        RD_1_b17,
-  output        Almost_Empty_0,
-  output        Almost_Full_1,
-  output        PUSH_FLAG_1_b0,
-  output        PUSH_FLAG_1_b1,
-  output        PUSH_FLAG_1_b2,
-  output        PUSH_FLAG_1_b3,
-  output        POP_FLAG_0_b0,
-  output        POP_FLAG_0_b1,
-  output        POP_FLAG_0_b2,
-  output        POP_FLAG_0_b3,
-  output        PUSH_FLAG_0_b0,
-  output        PUSH_FLAG_0_b1,
-  output        PUSH_FLAG_0_b2,
-  output        PUSH_FLAG_0_b3,
+  output        Almost_Full_0,
   output        POP_FLAG_1_b0,
   output        POP_FLAG_1_b1,
   output        POP_FLAG_1_b2,
   output        POP_FLAG_1_b3,
-  output        Almost_Full_0,
+  output        POP_FLAG_0_b0,
+  output        POP_FLAG_0_b1,
+  output        POP_FLAG_0_b2,
+  output        POP_FLAG_0_b3,
   output        RD_0_b0,
   output        RD_0_b1,
   output        RD_0_b2,
@@ -27284,14 +27342,14 @@ module RAM_CE1_FE1_D1_PR0_WSA0_WSB1_VPR (
   output        RD_0_b15,
   output        RD_0_b16,
   output        RD_0_b17,
-  output        Almost_Empty_1
+  output        PUSH_FLAG_0_b0,
+  output        PUSH_FLAG_0_b1,
+  output        PUSH_FLAG_0_b2,
+  output        PUSH_FLAG_0_b3
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
-      $setup(P1_1, posedge CLK1_1, "");
-      $hold(posedge CLK1_1, P1_1, "");
-      $setup(P2_1, posedge CLK2_1, "");
-      $hold(posedge CLK2_1, P2_1, "");
       $setup(WD_0_b0, posedge CLK2_0, "");
       $hold(posedge CLK2_0, WD_0_b0, "");
       $setup(WD_0_b1, posedge CLK2_0, "");
@@ -27328,8 +27386,6 @@ module RAM_CE1_FE1_D1_PR0_WSA0_WSB1_VPR (
       $hold(posedge CLK2_0, WD_0_b16, "");
       $setup(WD_0_b17, posedge CLK2_0, "");
       $hold(posedge CLK2_0, WD_0_b17, "");
-      $setup(P2_0, posedge CLK2_0, "");
-      $hold(posedge CLK2_0, P2_0, "");
       $setup(WD_1_b0, posedge CLK2_1, "");
       $hold(posedge CLK2_1, WD_1_b0, "");
       $setup(WD_1_b1, posedge CLK2_1, "");
@@ -27366,8 +27422,21 @@ module RAM_CE1_FE1_D1_PR0_WSA0_WSB1_VPR (
       $hold(posedge CLK2_1, WD_1_b16, "");
       $setup(WD_1_b17, posedge CLK2_1, "");
       $hold(posedge CLK2_1, WD_1_b17, "");
+      $setup(P2_0, posedge CLK2_0, "");
+      $hold(posedge CLK2_0, P2_0, "");
+      $setup(P1_1, posedge CLK1_1, "");
+      $hold(posedge CLK1_1, P1_1, "");
       $setup(P1_0, posedge CLK1_0, "");
       $hold(posedge CLK1_0, P1_0, "");
+      $setup(P2_1, posedge CLK2_1, "");
+      $hold(posedge CLK2_1, P2_1, "");
+      (CLK2_1*>PUSH_FLAG_1_b0)="";
+      (CLK2_1*>PUSH_FLAG_1_b1)="";
+      (CLK2_1*>PUSH_FLAG_1_b2)="";
+      (CLK2_1*>PUSH_FLAG_1_b3)="";
+      (CLK1_0*>Almost_Empty_0)="";
+      (CLK1_1*>Almost_Empty_1)="";
+      (CLK2_1*>Almost_Full_1)="";
       (CLK1_1*>RD_1_b0)="";
       (CLK1_1*>RD_1_b1)="";
       (CLK1_1*>RD_1_b2)="";
@@ -27386,25 +27455,15 @@ module RAM_CE1_FE1_D1_PR0_WSA0_WSB1_VPR (
       (CLK1_1*>RD_1_b15)="";
       (CLK1_1*>RD_1_b16)="";
       (CLK1_1*>RD_1_b17)="";
-      (CLK1_0*>Almost_Empty_0)="";
-      (CLK2_1*>Almost_Full_1)="";
-      (CLK2_1*>PUSH_FLAG_1_b0)="";
-      (CLK2_1*>PUSH_FLAG_1_b1)="";
-      (CLK2_1*>PUSH_FLAG_1_b2)="";
-      (CLK2_1*>PUSH_FLAG_1_b3)="";
-      (CLK1_0*>POP_FLAG_0_b0)="";
-      (CLK1_0*>POP_FLAG_0_b1)="";
-      (CLK1_0*>POP_FLAG_0_b2)="";
-      (CLK1_0*>POP_FLAG_0_b3)="";
-      (CLK2_0*>PUSH_FLAG_0_b0)="";
-      (CLK2_0*>PUSH_FLAG_0_b1)="";
-      (CLK2_0*>PUSH_FLAG_0_b2)="";
-      (CLK2_0*>PUSH_FLAG_0_b3)="";
+      (CLK2_0*>Almost_Full_0)="";
       (CLK1_1*>POP_FLAG_1_b0)="";
       (CLK1_1*>POP_FLAG_1_b1)="";
       (CLK1_1*>POP_FLAG_1_b2)="";
       (CLK1_1*>POP_FLAG_1_b3)="";
-      (CLK2_0*>Almost_Full_0)="";
+      (CLK1_0*>POP_FLAG_0_b0)="";
+      (CLK1_0*>POP_FLAG_0_b1)="";
+      (CLK1_0*>POP_FLAG_0_b2)="";
+      (CLK1_0*>POP_FLAG_0_b3)="";
       (CLK1_0*>RD_0_b0)="";
       (CLK1_0*>RD_0_b1)="";
       (CLK1_0*>RD_0_b2)="";
@@ -27423,26 +27482,41 @@ module RAM_CE1_FE1_D1_PR0_WSA0_WSB1_VPR (
       (CLK1_0*>RD_0_b15)="";
       (CLK1_0*>RD_0_b16)="";
       (CLK1_0*>RD_0_b17)="";
-      (CLK1_1*>Almost_Empty_1)="";
+      (CLK2_0*>PUSH_FLAG_0_b0)="";
+      (CLK2_0*>PUSH_FLAG_0_b1)="";
+      (CLK2_0*>PUSH_FLAG_0_b2)="";
+      (CLK2_0*>PUSH_FLAG_0_b3)="";
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
-      .CLK1_0(CLK1_0),
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
+      .CLK2_1(CLK2_1),
       .CLK1_1(CLK1_1),
       .CLK2_0(CLK2_0),
-      .CLK2_1(CLK2_1),
-      .WIDTH_SELECT2_0(WIDTH_SELECT2_0),
-      .P1_1(P1_1),
-      .WIDTH_SELECT2_1(WIDTH_SELECT2_1),
+      .CLK1_0(CLK1_0),
+      .CS1_1(CS1_1),
+      .A1_1_b0(A1_1_b0),
+      .A1_1_b1(A1_1_b1),
+      .A1_1_b2(A1_1_b2),
+      .A1_1_b3(A1_1_b3),
+      .A1_1_b4(A1_1_b4),
+      .A1_1_b5(A1_1_b5),
+      .A1_1_b6(A1_1_b6),
+      .A1_1_b7(A1_1_b7),
+      .A1_1_b8(A1_1_b8),
+      .A1_1_b9(A1_1_b9),
+      .A1_1_b10(A1_1_b10),
+      .FIFO_EN_0(FIFO_EN_0),
+      .CS1_0(CS1_0),
       .PIPELINE_RD_0(PIPELINE_RD_0),
+      .ASYNC_FLUSH_1(ASYNC_FLUSH_1),
       .DIR_1(DIR_1),
-      .CONCAT_EN_0(CONCAT_EN_0),
-      .CLK1EN_1(CLK1EN_1),
-      .P2_1(P2_1),
-      .WEN1_0_b0(WEN1_0_b0),
-      .WEN1_0_b1(WEN1_0_b1),
-      .PIPELINE_RD_1(PIPELINE_RD_1),
+      .CS2_1(CS2_1),
+      .CLK1EN_0(CLK1EN_0),
+      .WIDTH_SELECT1_0(WIDTH_SELECT1_0),
+      .ASYNC_FLUSH_0(ASYNC_FLUSH_0),
+      .SYNC_FIFO_0(SYNC_FIFO_0),
+      .SYNC_FIFO_1(SYNC_FIFO_1),
       .WD_0_b0(WD_0_b0),
       .WD_0_b1(WD_0_b1),
       .WD_0_b2(WD_0_b2),
@@ -27461,36 +27535,6 @@ module RAM_CE1_FE1_D1_PR0_WSA0_WSB1_VPR (
       .WD_0_b15(WD_0_b15),
       .WD_0_b16(WD_0_b16),
       .WD_0_b17(WD_0_b17),
-      .WIDTH_SELECT1_1(WIDTH_SELECT1_1),
-      .CS2_0(CS2_0),
-      .CLK1EN_0(CLK1EN_0),
-      .SYNC_FIFO_1(SYNC_FIFO_1),
-      .CLK2EN_0(CLK2EN_0),
-      .SYNC_FIFO_0(SYNC_FIFO_0),
-      .ASYNC_FLUSH_0(ASYNC_FLUSH_0),
-      .A2_1_b0(A2_1_b0),
-      .A2_1_b1(A2_1_b1),
-      .A2_1_b2(A2_1_b2),
-      .A2_1_b3(A2_1_b3),
-      .A2_1_b4(A2_1_b4),
-      .A2_1_b5(A2_1_b5),
-      .A2_1_b6(A2_1_b6),
-      .A2_1_b7(A2_1_b7),
-      .A2_1_b8(A2_1_b8),
-      .A2_1_b9(A2_1_b9),
-      .A2_1_b10(A2_1_b10),
-      .A1_1_b0(A1_1_b0),
-      .A1_1_b1(A1_1_b1),
-      .A1_1_b2(A1_1_b2),
-      .A1_1_b3(A1_1_b3),
-      .A1_1_b4(A1_1_b4),
-      .A1_1_b5(A1_1_b5),
-      .A1_1_b6(A1_1_b6),
-      .A1_1_b7(A1_1_b7),
-      .A1_1_b8(A1_1_b8),
-      .A1_1_b9(A1_1_b9),
-      .A1_1_b10(A1_1_b10),
-      .CS1_1(CS1_1),
       .A2_0_b0(A2_0_b0),
       .A2_0_b1(A2_0_b1),
       .A2_0_b2(A2_0_b2),
@@ -27502,7 +27546,34 @@ module RAM_CE1_FE1_D1_PR0_WSA0_WSB1_VPR (
       .A2_0_b8(A2_0_b8),
       .A2_0_b9(A2_0_b9),
       .A2_0_b10(A2_0_b10),
-      .P2_0(P2_0),
+      .A1_0_b0(A1_0_b0),
+      .A1_0_b1(A1_0_b1),
+      .A1_0_b2(A1_0_b2),
+      .A1_0_b3(A1_0_b3),
+      .A1_0_b4(A1_0_b4),
+      .A1_0_b5(A1_0_b5),
+      .A1_0_b6(A1_0_b6),
+      .A1_0_b7(A1_0_b7),
+      .A1_0_b8(A1_0_b8),
+      .A1_0_b9(A1_0_b9),
+      .A1_0_b10(A1_0_b10),
+      .WEN1_1_b0(WEN1_1_b0),
+      .WEN1_1_b1(WEN1_1_b1),
+      .FIFO_EN_1(FIFO_EN_1),
+      .CLK2EN_0(CLK2EN_0),
+      .CLK1EN_1(CLK1EN_1),
+      .WIDTH_SELECT2_0(WIDTH_SELECT2_0),
+      .A2_1_b0(A2_1_b0),
+      .A2_1_b1(A2_1_b1),
+      .A2_1_b2(A2_1_b2),
+      .A2_1_b3(A2_1_b3),
+      .A2_1_b4(A2_1_b4),
+      .A2_1_b5(A2_1_b5),
+      .A2_1_b6(A2_1_b6),
+      .A2_1_b7(A2_1_b7),
+      .A2_1_b8(A2_1_b8),
+      .A2_1_b9(A2_1_b9),
+      .A2_1_b10(A2_1_b10),
       .WD_1_b0(WD_1_b0),
       .WD_1_b1(WD_1_b1),
       .WD_1_b2(WD_1_b2),
@@ -27521,29 +27592,27 @@ module RAM_CE1_FE1_D1_PR0_WSA0_WSB1_VPR (
       .WD_1_b15(WD_1_b15),
       .WD_1_b16(WD_1_b16),
       .WD_1_b17(WD_1_b17),
-      .ASYNC_FLUSH_1(ASYNC_FLUSH_1),
-      .CS2_1(CS2_1),
-      .WIDTH_SELECT1_0(WIDTH_SELECT1_0),
-      .CS1_0(CS1_0),
-      .FIFO_EN_0(FIFO_EN_0),
+      .P2_0(P2_0),
+      .CS2_0(CS2_0),
+      .P1_1(P1_1),
       .CONCAT_EN_1(CONCAT_EN_1),
-      .DIR_0(DIR_0),
+      .WIDTH_SELECT1_1(WIDTH_SELECT1_1),
       .CLK2EN_1(CLK2EN_1),
+      .WEN1_0_b0(WEN1_0_b0),
+      .WEN1_0_b1(WEN1_0_b1),
+      .DIR_0(DIR_0),
       .P1_0(P1_0),
-      .FIFO_EN_1(FIFO_EN_1),
-      .WEN1_1_b0(WEN1_1_b0),
-      .WEN1_1_b1(WEN1_1_b1),
-      .A1_0_b0(A1_0_b0),
-      .A1_0_b1(A1_0_b1),
-      .A1_0_b2(A1_0_b2),
-      .A1_0_b3(A1_0_b3),
-      .A1_0_b4(A1_0_b4),
-      .A1_0_b5(A1_0_b5),
-      .A1_0_b6(A1_0_b6),
-      .A1_0_b7(A1_0_b7),
-      .A1_0_b8(A1_0_b8),
-      .A1_0_b9(A1_0_b9),
-      .A1_0_b10(A1_0_b10),
+      .PIPELINE_RD_1(PIPELINE_RD_1),
+      .WIDTH_SELECT2_1(WIDTH_SELECT2_1),
+      .CONCAT_EN_0(CONCAT_EN_0),
+      .P2_1(P2_1),
+      .PUSH_FLAG_1_b0(PUSH_FLAG_1_b0),
+      .PUSH_FLAG_1_b1(PUSH_FLAG_1_b1),
+      .PUSH_FLAG_1_b2(PUSH_FLAG_1_b2),
+      .PUSH_FLAG_1_b3(PUSH_FLAG_1_b3),
+      .Almost_Empty_0(Almost_Empty_0),
+      .Almost_Empty_1(Almost_Empty_1),
+      .Almost_Full_1(Almost_Full_1),
       .RD_1_b0(RD_1_b0),
       .RD_1_b1(RD_1_b1),
       .RD_1_b2(RD_1_b2),
@@ -27562,25 +27631,15 @@ module RAM_CE1_FE1_D1_PR0_WSA0_WSB1_VPR (
       .RD_1_b15(RD_1_b15),
       .RD_1_b16(RD_1_b16),
       .RD_1_b17(RD_1_b17),
-      .Almost_Empty_0(Almost_Empty_0),
-      .Almost_Full_1(Almost_Full_1),
-      .PUSH_FLAG_1_b0(PUSH_FLAG_1_b0),
-      .PUSH_FLAG_1_b1(PUSH_FLAG_1_b1),
-      .PUSH_FLAG_1_b2(PUSH_FLAG_1_b2),
-      .PUSH_FLAG_1_b3(PUSH_FLAG_1_b3),
-      .POP_FLAG_0_b0(POP_FLAG_0_b0),
-      .POP_FLAG_0_b1(POP_FLAG_0_b1),
-      .POP_FLAG_0_b2(POP_FLAG_0_b2),
-      .POP_FLAG_0_b3(POP_FLAG_0_b3),
-      .PUSH_FLAG_0_b0(PUSH_FLAG_0_b0),
-      .PUSH_FLAG_0_b1(PUSH_FLAG_0_b1),
-      .PUSH_FLAG_0_b2(PUSH_FLAG_0_b2),
-      .PUSH_FLAG_0_b3(PUSH_FLAG_0_b3),
+      .Almost_Full_0(Almost_Full_0),
       .POP_FLAG_1_b0(POP_FLAG_1_b0),
       .POP_FLAG_1_b1(POP_FLAG_1_b1),
       .POP_FLAG_1_b2(POP_FLAG_1_b2),
       .POP_FLAG_1_b3(POP_FLAG_1_b3),
-      .Almost_Full_0(Almost_Full_0),
+      .POP_FLAG_0_b0(POP_FLAG_0_b0),
+      .POP_FLAG_0_b1(POP_FLAG_0_b1),
+      .POP_FLAG_0_b2(POP_FLAG_0_b2),
+      .POP_FLAG_0_b3(POP_FLAG_0_b3),
       .RD_0_b0(RD_0_b0),
       .RD_0_b1(RD_0_b1),
       .RD_0_b2(RD_0_b2),
@@ -27599,7 +27658,10 @@ module RAM_CE1_FE1_D1_PR0_WSA0_WSB1_VPR (
       .RD_0_b15(RD_0_b15),
       .RD_0_b16(RD_0_b16),
       .RD_0_b17(RD_0_b17),
-      .Almost_Empty_1(Almost_Empty_1));
+      .PUSH_FLAG_0_b0(PUSH_FLAG_0_b0),
+      .PUSH_FLAG_0_b1(PUSH_FLAG_0_b1),
+      .PUSH_FLAG_0_b2(PUSH_FLAG_0_b2),
+      .PUSH_FLAG_0_b3(PUSH_FLAG_0_b3));
 
 endmodule
 
@@ -27607,26 +27669,41 @@ endmodule
 (* blackbox *)
 module RAM_CE1_FE1_D1_PR0_WSA0_WSB2_VPR (
 
-  input         CLK1_0,
+  input         CLK2_1,
   input         CLK1_1,
   input         CLK2_0,
-  input         CLK2_1,
+  input         CLK1_0,
 
-  input         TEST1A,
-  input         DS,
-  input  [ 1:0] WIDTH_SELECT2_0,
-  input         P1_1,
-  input  [ 1:0] WIDTH_SELECT2_1,
+  input         CS1_1,
+  input         A1_1_b0,
+  input         A1_1_b1,
+  input         A1_1_b2,
+  input         A1_1_b3,
+  input         A1_1_b4,
+  input         A1_1_b5,
+  input         A1_1_b6,
+  input         A1_1_b7,
+  input         A1_1_b8,
+  input         A1_1_b9,
+  input         A1_1_b10,
+  input         FIFO_EN_0,
+  input         DS_RB1,
+  input         CS1_0,
   input         PIPELINE_RD_0,
-  input         SD,
+  input         ASYNC_FLUSH_1,
   input         DIR_1,
-  input         CONCAT_EN_0,
-  input         LS,
-  input         CLK1EN_1,
-  input         P2_1,
-  input         WEN1_0_b0,
-  input         WEN1_0_b1,
-  input         PIPELINE_RD_1,
+  input         CS2_1,
+  input         CLK1EN_0,
+  input  [ 1:0] WIDTH_SELECT1_0,
+  input         RMB_b0,
+  input         RMB_b1,
+  input         RMB_b2,
+  input         RMB_b3,
+  input         ASYNC_FLUSH_0,
+  input         SYNC_FIFO_0,
+  input         SYNC_FIFO_1,
+  input         RMEB,
+  input         TEST1B,
   input         WD_0_b0,
   input         WD_0_b1,
   input         WD_0_b2,
@@ -27645,45 +27722,6 @@ module RAM_CE1_FE1_D1_PR0_WSA0_WSB2_VPR (
   input         WD_0_b15,
   input         WD_0_b16,
   input         WD_0_b17,
-  input  [ 1:0] WIDTH_SELECT1_1,
-  input         SD_RB1,
-  input         TEST1B,
-  input         RMEB,
-  input         RMB_b0,
-  input         RMB_b1,
-  input         RMB_b2,
-  input         RMB_b3,
-  input         DS_RB1,
-  input         CS2_0,
-  input         CLK1EN_0,
-  input         SYNC_FIFO_1,
-  input         CLK2EN_0,
-  input         SYNC_FIFO_0,
-  input         ASYNC_FLUSH_0,
-  input         A2_1_b0,
-  input         A2_1_b1,
-  input         A2_1_b2,
-  input         A2_1_b3,
-  input         A2_1_b4,
-  input         A2_1_b5,
-  input         A2_1_b6,
-  input         A2_1_b7,
-  input         A2_1_b8,
-  input         A2_1_b9,
-  input         A2_1_b10,
-  input         RMEA,
-  input         A1_1_b0,
-  input         A1_1_b1,
-  input         A1_1_b2,
-  input         A1_1_b3,
-  input         A1_1_b4,
-  input         A1_1_b5,
-  input         A1_1_b6,
-  input         A1_1_b7,
-  input         A1_1_b8,
-  input         A1_1_b9,
-  input         A1_1_b10,
-  input         CS1_1,
   input         A2_0_b0,
   input         A2_0_b1,
   input         A2_0_b2,
@@ -27695,7 +27733,36 @@ module RAM_CE1_FE1_D1_PR0_WSA0_WSB2_VPR (
   input         A2_0_b8,
   input         A2_0_b9,
   input         A2_0_b10,
-  input         P2_0,
+  input         A1_0_b0,
+  input         A1_0_b1,
+  input         A1_0_b2,
+  input         A1_0_b3,
+  input         A1_0_b4,
+  input         A1_0_b5,
+  input         A1_0_b6,
+  input         A1_0_b7,
+  input         A1_0_b8,
+  input         A1_0_b9,
+  input         A1_0_b10,
+  input         WEN1_1_b0,
+  input         WEN1_1_b1,
+  input         FIFO_EN_1,
+  input         CLK2EN_0,
+  input         DS,
+  input         LS_RB1,
+  input         CLK1EN_1,
+  input  [ 1:0] WIDTH_SELECT2_0,
+  input         A2_1_b0,
+  input         A2_1_b1,
+  input         A2_1_b2,
+  input         A2_1_b3,
+  input         A2_1_b4,
+  input         A2_1_b5,
+  input         A2_1_b6,
+  input         A2_1_b7,
+  input         A2_1_b8,
+  input         A2_1_b9,
+  input         A2_1_b10,
   input         WD_1_b0,
   input         WD_1_b1,
   input         WD_1_b2,
@@ -27714,35 +27781,37 @@ module RAM_CE1_FE1_D1_PR0_WSA0_WSB2_VPR (
   input         WD_1_b15,
   input         WD_1_b16,
   input         WD_1_b17,
-  input         ASYNC_FLUSH_1,
-  input         LS_RB1,
-  input         CS2_1,
+  input         P2_0,
+  input         CS2_0,
+  input         P1_1,
+  input         CONCAT_EN_1,
+  input         LS,
+  input  [ 1:0] WIDTH_SELECT1_1,
+  input         SD_RB1,
+  input         TEST1A,
+  input         CLK2EN_1,
   input         RMA_b0,
   input         RMA_b1,
   input         RMA_b2,
   input         RMA_b3,
-  input  [ 1:0] WIDTH_SELECT1_0,
-  input         CS1_0,
-  input         FIFO_EN_0,
-  input         CONCAT_EN_1,
+  input         WEN1_0_b0,
+  input         WEN1_0_b1,
+  input         RMEA,
   input         DIR_0,
-  input         CLK2EN_1,
   input         P1_0,
-  input         FIFO_EN_1,
-  input         WEN1_1_b0,
-  input         WEN1_1_b1,
-  input         A1_0_b0,
-  input         A1_0_b1,
-  input         A1_0_b2,
-  input         A1_0_b3,
-  input         A1_0_b4,
-  input         A1_0_b5,
-  input         A1_0_b6,
-  input         A1_0_b7,
-  input         A1_0_b8,
-  input         A1_0_b9,
-  input         A1_0_b10,
+  input         PIPELINE_RD_1,
+  input  [ 1:0] WIDTH_SELECT2_1,
+  input         CONCAT_EN_0,
+  input         P2_1,
+  input         SD,
 
+  output        PUSH_FLAG_1_b0,
+  output        PUSH_FLAG_1_b1,
+  output        PUSH_FLAG_1_b2,
+  output        PUSH_FLAG_1_b3,
+  output        Almost_Empty_0,
+  output        Almost_Empty_1,
+  output        Almost_Full_1,
   output        RD_1_b0,
   output        RD_1_b1,
   output        RD_1_b2,
@@ -27761,25 +27830,15 @@ module RAM_CE1_FE1_D1_PR0_WSA0_WSB2_VPR (
   output        RD_1_b15,
   output        RD_1_b16,
   output        RD_1_b17,
-  output        Almost_Empty_0,
-  output        Almost_Full_1,
-  output        PUSH_FLAG_1_b0,
-  output        PUSH_FLAG_1_b1,
-  output        PUSH_FLAG_1_b2,
-  output        PUSH_FLAG_1_b3,
-  output        POP_FLAG_0_b0,
-  output        POP_FLAG_0_b1,
-  output        POP_FLAG_0_b2,
-  output        POP_FLAG_0_b3,
-  output        PUSH_FLAG_0_b0,
-  output        PUSH_FLAG_0_b1,
-  output        PUSH_FLAG_0_b2,
-  output        PUSH_FLAG_0_b3,
+  output        Almost_Full_0,
   output        POP_FLAG_1_b0,
   output        POP_FLAG_1_b1,
   output        POP_FLAG_1_b2,
   output        POP_FLAG_1_b3,
-  output        Almost_Full_0,
+  output        POP_FLAG_0_b0,
+  output        POP_FLAG_0_b1,
+  output        POP_FLAG_0_b2,
+  output        POP_FLAG_0_b3,
   output        RD_0_b0,
   output        RD_0_b1,
   output        RD_0_b2,
@@ -27798,14 +27857,14 @@ module RAM_CE1_FE1_D1_PR0_WSA0_WSB2_VPR (
   output        RD_0_b15,
   output        RD_0_b16,
   output        RD_0_b17,
-  output        Almost_Empty_1
+  output        PUSH_FLAG_0_b0,
+  output        PUSH_FLAG_0_b1,
+  output        PUSH_FLAG_0_b2,
+  output        PUSH_FLAG_0_b3
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
-      $setup(P1_1, posedge CLK1_1, "");
-      $hold(posedge CLK1_1, P1_1, "");
-      $setup(P2_1, posedge CLK2_1, "");
-      $hold(posedge CLK2_1, P2_1, "");
       $setup(WD_0_b0, posedge CLK2_0, "");
       $hold(posedge CLK2_0, WD_0_b0, "");
       $setup(WD_0_b1, posedge CLK2_0, "");
@@ -27842,8 +27901,6 @@ module RAM_CE1_FE1_D1_PR0_WSA0_WSB2_VPR (
       $hold(posedge CLK2_0, WD_0_b16, "");
       $setup(WD_0_b17, posedge CLK2_0, "");
       $hold(posedge CLK2_0, WD_0_b17, "");
-      $setup(P2_0, posedge CLK2_0, "");
-      $hold(posedge CLK2_0, P2_0, "");
       $setup(WD_1_b0, posedge CLK2_1, "");
       $hold(posedge CLK2_1, WD_1_b0, "");
       $setup(WD_1_b1, posedge CLK2_1, "");
@@ -27880,8 +27937,21 @@ module RAM_CE1_FE1_D1_PR0_WSA0_WSB2_VPR (
       $hold(posedge CLK2_1, WD_1_b16, "");
       $setup(WD_1_b17, posedge CLK2_1, "");
       $hold(posedge CLK2_1, WD_1_b17, "");
+      $setup(P2_0, posedge CLK2_0, "");
+      $hold(posedge CLK2_0, P2_0, "");
+      $setup(P1_1, posedge CLK1_1, "");
+      $hold(posedge CLK1_1, P1_1, "");
       $setup(P1_0, posedge CLK1_0, "");
       $hold(posedge CLK1_0, P1_0, "");
+      $setup(P2_1, posedge CLK2_1, "");
+      $hold(posedge CLK2_1, P2_1, "");
+      (CLK2_1*>PUSH_FLAG_1_b0)="";
+      (CLK2_1*>PUSH_FLAG_1_b1)="";
+      (CLK2_1*>PUSH_FLAG_1_b2)="";
+      (CLK2_1*>PUSH_FLAG_1_b3)="";
+      (CLK1_0*>Almost_Empty_0)="";
+      (CLK1_1*>Almost_Empty_1)="";
+      (CLK2_1*>Almost_Full_1)="";
       (CLK1_1*>RD_1_b0)="";
       (CLK1_1*>RD_1_b1)="";
       (CLK1_1*>RD_1_b2)="";
@@ -27900,25 +27970,15 @@ module RAM_CE1_FE1_D1_PR0_WSA0_WSB2_VPR (
       (CLK1_1*>RD_1_b15)="";
       (CLK1_1*>RD_1_b16)="";
       (CLK1_1*>RD_1_b17)="";
-      (CLK1_0*>Almost_Empty_0)="";
-      (CLK2_1*>Almost_Full_1)="";
-      (CLK2_1*>PUSH_FLAG_1_b0)="";
-      (CLK2_1*>PUSH_FLAG_1_b1)="";
-      (CLK2_1*>PUSH_FLAG_1_b2)="";
-      (CLK2_1*>PUSH_FLAG_1_b3)="";
-      (CLK1_0*>POP_FLAG_0_b0)="";
-      (CLK1_0*>POP_FLAG_0_b1)="";
-      (CLK1_0*>POP_FLAG_0_b2)="";
-      (CLK1_0*>POP_FLAG_0_b3)="";
-      (CLK2_0*>PUSH_FLAG_0_b0)="";
-      (CLK2_0*>PUSH_FLAG_0_b1)="";
-      (CLK2_0*>PUSH_FLAG_0_b2)="";
-      (CLK2_0*>PUSH_FLAG_0_b3)="";
+      (CLK2_0*>Almost_Full_0)="";
       (CLK1_1*>POP_FLAG_1_b0)="";
       (CLK1_1*>POP_FLAG_1_b1)="";
       (CLK1_1*>POP_FLAG_1_b2)="";
       (CLK1_1*>POP_FLAG_1_b3)="";
-      (CLK2_0*>Almost_Full_0)="";
+      (CLK1_0*>POP_FLAG_0_b0)="";
+      (CLK1_0*>POP_FLAG_0_b1)="";
+      (CLK1_0*>POP_FLAG_0_b2)="";
+      (CLK1_0*>POP_FLAG_0_b3)="";
       (CLK1_0*>RD_0_b0)="";
       (CLK1_0*>RD_0_b1)="";
       (CLK1_0*>RD_0_b2)="";
@@ -27937,26 +27997,41 @@ module RAM_CE1_FE1_D1_PR0_WSA0_WSB2_VPR (
       (CLK1_0*>RD_0_b15)="";
       (CLK1_0*>RD_0_b16)="";
       (CLK1_0*>RD_0_b17)="";
-      (CLK1_1*>Almost_Empty_1)="";
+      (CLK2_0*>PUSH_FLAG_0_b0)="";
+      (CLK2_0*>PUSH_FLAG_0_b1)="";
+      (CLK2_0*>PUSH_FLAG_0_b2)="";
+      (CLK2_0*>PUSH_FLAG_0_b3)="";
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
-      .CLK1_0(CLK1_0),
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
+      .CLK2_1(CLK2_1),
       .CLK1_1(CLK1_1),
       .CLK2_0(CLK2_0),
-      .CLK2_1(CLK2_1),
-      .WIDTH_SELECT2_0(WIDTH_SELECT2_0),
-      .P1_1(P1_1),
-      .WIDTH_SELECT2_1(WIDTH_SELECT2_1),
+      .CLK1_0(CLK1_0),
+      .CS1_1(CS1_1),
+      .A1_1_b0(A1_1_b0),
+      .A1_1_b1(A1_1_b1),
+      .A1_1_b2(A1_1_b2),
+      .A1_1_b3(A1_1_b3),
+      .A1_1_b4(A1_1_b4),
+      .A1_1_b5(A1_1_b5),
+      .A1_1_b6(A1_1_b6),
+      .A1_1_b7(A1_1_b7),
+      .A1_1_b8(A1_1_b8),
+      .A1_1_b9(A1_1_b9),
+      .A1_1_b10(A1_1_b10),
+      .FIFO_EN_0(FIFO_EN_0),
+      .CS1_0(CS1_0),
       .PIPELINE_RD_0(PIPELINE_RD_0),
+      .ASYNC_FLUSH_1(ASYNC_FLUSH_1),
       .DIR_1(DIR_1),
-      .CONCAT_EN_0(CONCAT_EN_0),
-      .CLK1EN_1(CLK1EN_1),
-      .P2_1(P2_1),
-      .WEN1_0_b0(WEN1_0_b0),
-      .WEN1_0_b1(WEN1_0_b1),
-      .PIPELINE_RD_1(PIPELINE_RD_1),
+      .CS2_1(CS2_1),
+      .CLK1EN_0(CLK1EN_0),
+      .WIDTH_SELECT1_0(WIDTH_SELECT1_0),
+      .ASYNC_FLUSH_0(ASYNC_FLUSH_0),
+      .SYNC_FIFO_0(SYNC_FIFO_0),
+      .SYNC_FIFO_1(SYNC_FIFO_1),
       .WD_0_b0(WD_0_b0),
       .WD_0_b1(WD_0_b1),
       .WD_0_b2(WD_0_b2),
@@ -27975,36 +28050,6 @@ module RAM_CE1_FE1_D1_PR0_WSA0_WSB2_VPR (
       .WD_0_b15(WD_0_b15),
       .WD_0_b16(WD_0_b16),
       .WD_0_b17(WD_0_b17),
-      .WIDTH_SELECT1_1(WIDTH_SELECT1_1),
-      .CS2_0(CS2_0),
-      .CLK1EN_0(CLK1EN_0),
-      .SYNC_FIFO_1(SYNC_FIFO_1),
-      .CLK2EN_0(CLK2EN_0),
-      .SYNC_FIFO_0(SYNC_FIFO_0),
-      .ASYNC_FLUSH_0(ASYNC_FLUSH_0),
-      .A2_1_b0(A2_1_b0),
-      .A2_1_b1(A2_1_b1),
-      .A2_1_b2(A2_1_b2),
-      .A2_1_b3(A2_1_b3),
-      .A2_1_b4(A2_1_b4),
-      .A2_1_b5(A2_1_b5),
-      .A2_1_b6(A2_1_b6),
-      .A2_1_b7(A2_1_b7),
-      .A2_1_b8(A2_1_b8),
-      .A2_1_b9(A2_1_b9),
-      .A2_1_b10(A2_1_b10),
-      .A1_1_b0(A1_1_b0),
-      .A1_1_b1(A1_1_b1),
-      .A1_1_b2(A1_1_b2),
-      .A1_1_b3(A1_1_b3),
-      .A1_1_b4(A1_1_b4),
-      .A1_1_b5(A1_1_b5),
-      .A1_1_b6(A1_1_b6),
-      .A1_1_b7(A1_1_b7),
-      .A1_1_b8(A1_1_b8),
-      .A1_1_b9(A1_1_b9),
-      .A1_1_b10(A1_1_b10),
-      .CS1_1(CS1_1),
       .A2_0_b0(A2_0_b0),
       .A2_0_b1(A2_0_b1),
       .A2_0_b2(A2_0_b2),
@@ -28016,7 +28061,34 @@ module RAM_CE1_FE1_D1_PR0_WSA0_WSB2_VPR (
       .A2_0_b8(A2_0_b8),
       .A2_0_b9(A2_0_b9),
       .A2_0_b10(A2_0_b10),
-      .P2_0(P2_0),
+      .A1_0_b0(A1_0_b0),
+      .A1_0_b1(A1_0_b1),
+      .A1_0_b2(A1_0_b2),
+      .A1_0_b3(A1_0_b3),
+      .A1_0_b4(A1_0_b4),
+      .A1_0_b5(A1_0_b5),
+      .A1_0_b6(A1_0_b6),
+      .A1_0_b7(A1_0_b7),
+      .A1_0_b8(A1_0_b8),
+      .A1_0_b9(A1_0_b9),
+      .A1_0_b10(A1_0_b10),
+      .WEN1_1_b0(WEN1_1_b0),
+      .WEN1_1_b1(WEN1_1_b1),
+      .FIFO_EN_1(FIFO_EN_1),
+      .CLK2EN_0(CLK2EN_0),
+      .CLK1EN_1(CLK1EN_1),
+      .WIDTH_SELECT2_0(WIDTH_SELECT2_0),
+      .A2_1_b0(A2_1_b0),
+      .A2_1_b1(A2_1_b1),
+      .A2_1_b2(A2_1_b2),
+      .A2_1_b3(A2_1_b3),
+      .A2_1_b4(A2_1_b4),
+      .A2_1_b5(A2_1_b5),
+      .A2_1_b6(A2_1_b6),
+      .A2_1_b7(A2_1_b7),
+      .A2_1_b8(A2_1_b8),
+      .A2_1_b9(A2_1_b9),
+      .A2_1_b10(A2_1_b10),
       .WD_1_b0(WD_1_b0),
       .WD_1_b1(WD_1_b1),
       .WD_1_b2(WD_1_b2),
@@ -28035,29 +28107,27 @@ module RAM_CE1_FE1_D1_PR0_WSA0_WSB2_VPR (
       .WD_1_b15(WD_1_b15),
       .WD_1_b16(WD_1_b16),
       .WD_1_b17(WD_1_b17),
-      .ASYNC_FLUSH_1(ASYNC_FLUSH_1),
-      .CS2_1(CS2_1),
-      .WIDTH_SELECT1_0(WIDTH_SELECT1_0),
-      .CS1_0(CS1_0),
-      .FIFO_EN_0(FIFO_EN_0),
+      .P2_0(P2_0),
+      .CS2_0(CS2_0),
+      .P1_1(P1_1),
       .CONCAT_EN_1(CONCAT_EN_1),
-      .DIR_0(DIR_0),
+      .WIDTH_SELECT1_1(WIDTH_SELECT1_1),
       .CLK2EN_1(CLK2EN_1),
+      .WEN1_0_b0(WEN1_0_b0),
+      .WEN1_0_b1(WEN1_0_b1),
+      .DIR_0(DIR_0),
       .P1_0(P1_0),
-      .FIFO_EN_1(FIFO_EN_1),
-      .WEN1_1_b0(WEN1_1_b0),
-      .WEN1_1_b1(WEN1_1_b1),
-      .A1_0_b0(A1_0_b0),
-      .A1_0_b1(A1_0_b1),
-      .A1_0_b2(A1_0_b2),
-      .A1_0_b3(A1_0_b3),
-      .A1_0_b4(A1_0_b4),
-      .A1_0_b5(A1_0_b5),
-      .A1_0_b6(A1_0_b6),
-      .A1_0_b7(A1_0_b7),
-      .A1_0_b8(A1_0_b8),
-      .A1_0_b9(A1_0_b9),
-      .A1_0_b10(A1_0_b10),
+      .PIPELINE_RD_1(PIPELINE_RD_1),
+      .WIDTH_SELECT2_1(WIDTH_SELECT2_1),
+      .CONCAT_EN_0(CONCAT_EN_0),
+      .P2_1(P2_1),
+      .PUSH_FLAG_1_b0(PUSH_FLAG_1_b0),
+      .PUSH_FLAG_1_b1(PUSH_FLAG_1_b1),
+      .PUSH_FLAG_1_b2(PUSH_FLAG_1_b2),
+      .PUSH_FLAG_1_b3(PUSH_FLAG_1_b3),
+      .Almost_Empty_0(Almost_Empty_0),
+      .Almost_Empty_1(Almost_Empty_1),
+      .Almost_Full_1(Almost_Full_1),
       .RD_1_b0(RD_1_b0),
       .RD_1_b1(RD_1_b1),
       .RD_1_b2(RD_1_b2),
@@ -28076,25 +28146,15 @@ module RAM_CE1_FE1_D1_PR0_WSA0_WSB2_VPR (
       .RD_1_b15(RD_1_b15),
       .RD_1_b16(RD_1_b16),
       .RD_1_b17(RD_1_b17),
-      .Almost_Empty_0(Almost_Empty_0),
-      .Almost_Full_1(Almost_Full_1),
-      .PUSH_FLAG_1_b0(PUSH_FLAG_1_b0),
-      .PUSH_FLAG_1_b1(PUSH_FLAG_1_b1),
-      .PUSH_FLAG_1_b2(PUSH_FLAG_1_b2),
-      .PUSH_FLAG_1_b3(PUSH_FLAG_1_b3),
-      .POP_FLAG_0_b0(POP_FLAG_0_b0),
-      .POP_FLAG_0_b1(POP_FLAG_0_b1),
-      .POP_FLAG_0_b2(POP_FLAG_0_b2),
-      .POP_FLAG_0_b3(POP_FLAG_0_b3),
-      .PUSH_FLAG_0_b0(PUSH_FLAG_0_b0),
-      .PUSH_FLAG_0_b1(PUSH_FLAG_0_b1),
-      .PUSH_FLAG_0_b2(PUSH_FLAG_0_b2),
-      .PUSH_FLAG_0_b3(PUSH_FLAG_0_b3),
+      .Almost_Full_0(Almost_Full_0),
       .POP_FLAG_1_b0(POP_FLAG_1_b0),
       .POP_FLAG_1_b1(POP_FLAG_1_b1),
       .POP_FLAG_1_b2(POP_FLAG_1_b2),
       .POP_FLAG_1_b3(POP_FLAG_1_b3),
-      .Almost_Full_0(Almost_Full_0),
+      .POP_FLAG_0_b0(POP_FLAG_0_b0),
+      .POP_FLAG_0_b1(POP_FLAG_0_b1),
+      .POP_FLAG_0_b2(POP_FLAG_0_b2),
+      .POP_FLAG_0_b3(POP_FLAG_0_b3),
       .RD_0_b0(RD_0_b0),
       .RD_0_b1(RD_0_b1),
       .RD_0_b2(RD_0_b2),
@@ -28113,7 +28173,10 @@ module RAM_CE1_FE1_D1_PR0_WSA0_WSB2_VPR (
       .RD_0_b15(RD_0_b15),
       .RD_0_b16(RD_0_b16),
       .RD_0_b17(RD_0_b17),
-      .Almost_Empty_1(Almost_Empty_1));
+      .PUSH_FLAG_0_b0(PUSH_FLAG_0_b0),
+      .PUSH_FLAG_0_b1(PUSH_FLAG_0_b1),
+      .PUSH_FLAG_0_b2(PUSH_FLAG_0_b2),
+      .PUSH_FLAG_0_b3(PUSH_FLAG_0_b3));
 
 endmodule
 
@@ -28121,26 +28184,41 @@ endmodule
 (* blackbox *)
 module RAM_CE1_FE1_D1_PR0_WSA1_WSB0_VPR (
 
-  input         CLK1_0,
+  input         CLK2_1,
   input         CLK1_1,
   input         CLK2_0,
-  input         CLK2_1,
+  input         CLK1_0,
 
-  input         TEST1A,
-  input         DS,
-  input  [ 1:0] WIDTH_SELECT2_0,
-  input         P1_1,
-  input  [ 1:0] WIDTH_SELECT2_1,
+  input         CS1_1,
+  input         A1_1_b0,
+  input         A1_1_b1,
+  input         A1_1_b2,
+  input         A1_1_b3,
+  input         A1_1_b4,
+  input         A1_1_b5,
+  input         A1_1_b6,
+  input         A1_1_b7,
+  input         A1_1_b8,
+  input         A1_1_b9,
+  input         A1_1_b10,
+  input         FIFO_EN_0,
+  input         DS_RB1,
+  input         CS1_0,
   input         PIPELINE_RD_0,
-  input         SD,
+  input         ASYNC_FLUSH_1,
   input         DIR_1,
-  input         CONCAT_EN_0,
-  input         LS,
-  input         CLK1EN_1,
-  input         P2_1,
-  input         WEN1_0_b0,
-  input         WEN1_0_b1,
-  input         PIPELINE_RD_1,
+  input         CS2_1,
+  input         CLK1EN_0,
+  input  [ 1:0] WIDTH_SELECT1_0,
+  input         RMB_b0,
+  input         RMB_b1,
+  input         RMB_b2,
+  input         RMB_b3,
+  input         ASYNC_FLUSH_0,
+  input         SYNC_FIFO_0,
+  input         SYNC_FIFO_1,
+  input         RMEB,
+  input         TEST1B,
   input         WD_0_b0,
   input         WD_0_b1,
   input         WD_0_b2,
@@ -28159,45 +28237,6 @@ module RAM_CE1_FE1_D1_PR0_WSA1_WSB0_VPR (
   input         WD_0_b15,
   input         WD_0_b16,
   input         WD_0_b17,
-  input  [ 1:0] WIDTH_SELECT1_1,
-  input         SD_RB1,
-  input         TEST1B,
-  input         RMEB,
-  input         RMB_b0,
-  input         RMB_b1,
-  input         RMB_b2,
-  input         RMB_b3,
-  input         DS_RB1,
-  input         CS2_0,
-  input         CLK1EN_0,
-  input         SYNC_FIFO_1,
-  input         CLK2EN_0,
-  input         SYNC_FIFO_0,
-  input         ASYNC_FLUSH_0,
-  input         A2_1_b0,
-  input         A2_1_b1,
-  input         A2_1_b2,
-  input         A2_1_b3,
-  input         A2_1_b4,
-  input         A2_1_b5,
-  input         A2_1_b6,
-  input         A2_1_b7,
-  input         A2_1_b8,
-  input         A2_1_b9,
-  input         A2_1_b10,
-  input         RMEA,
-  input         A1_1_b0,
-  input         A1_1_b1,
-  input         A1_1_b2,
-  input         A1_1_b3,
-  input         A1_1_b4,
-  input         A1_1_b5,
-  input         A1_1_b6,
-  input         A1_1_b7,
-  input         A1_1_b8,
-  input         A1_1_b9,
-  input         A1_1_b10,
-  input         CS1_1,
   input         A2_0_b0,
   input         A2_0_b1,
   input         A2_0_b2,
@@ -28209,7 +28248,36 @@ module RAM_CE1_FE1_D1_PR0_WSA1_WSB0_VPR (
   input         A2_0_b8,
   input         A2_0_b9,
   input         A2_0_b10,
-  input         P2_0,
+  input         A1_0_b0,
+  input         A1_0_b1,
+  input         A1_0_b2,
+  input         A1_0_b3,
+  input         A1_0_b4,
+  input         A1_0_b5,
+  input         A1_0_b6,
+  input         A1_0_b7,
+  input         A1_0_b8,
+  input         A1_0_b9,
+  input         A1_0_b10,
+  input         WEN1_1_b0,
+  input         WEN1_1_b1,
+  input         FIFO_EN_1,
+  input         CLK2EN_0,
+  input         DS,
+  input         LS_RB1,
+  input         CLK1EN_1,
+  input  [ 1:0] WIDTH_SELECT2_0,
+  input         A2_1_b0,
+  input         A2_1_b1,
+  input         A2_1_b2,
+  input         A2_1_b3,
+  input         A2_1_b4,
+  input         A2_1_b5,
+  input         A2_1_b6,
+  input         A2_1_b7,
+  input         A2_1_b8,
+  input         A2_1_b9,
+  input         A2_1_b10,
   input         WD_1_b0,
   input         WD_1_b1,
   input         WD_1_b2,
@@ -28228,35 +28296,37 @@ module RAM_CE1_FE1_D1_PR0_WSA1_WSB0_VPR (
   input         WD_1_b15,
   input         WD_1_b16,
   input         WD_1_b17,
-  input         ASYNC_FLUSH_1,
-  input         LS_RB1,
-  input         CS2_1,
+  input         P2_0,
+  input         CS2_0,
+  input         P1_1,
+  input         CONCAT_EN_1,
+  input         LS,
+  input  [ 1:0] WIDTH_SELECT1_1,
+  input         SD_RB1,
+  input         TEST1A,
+  input         CLK2EN_1,
   input         RMA_b0,
   input         RMA_b1,
   input         RMA_b2,
   input         RMA_b3,
-  input  [ 1:0] WIDTH_SELECT1_0,
-  input         CS1_0,
-  input         FIFO_EN_0,
-  input         CONCAT_EN_1,
+  input         WEN1_0_b0,
+  input         WEN1_0_b1,
+  input         RMEA,
   input         DIR_0,
-  input         CLK2EN_1,
   input         P1_0,
-  input         FIFO_EN_1,
-  input         WEN1_1_b0,
-  input         WEN1_1_b1,
-  input         A1_0_b0,
-  input         A1_0_b1,
-  input         A1_0_b2,
-  input         A1_0_b3,
-  input         A1_0_b4,
-  input         A1_0_b5,
-  input         A1_0_b6,
-  input         A1_0_b7,
-  input         A1_0_b8,
-  input         A1_0_b9,
-  input         A1_0_b10,
+  input         PIPELINE_RD_1,
+  input  [ 1:0] WIDTH_SELECT2_1,
+  input         CONCAT_EN_0,
+  input         P2_1,
+  input         SD,
 
+  output        PUSH_FLAG_1_b0,
+  output        PUSH_FLAG_1_b1,
+  output        PUSH_FLAG_1_b2,
+  output        PUSH_FLAG_1_b3,
+  output        Almost_Empty_0,
+  output        Almost_Empty_1,
+  output        Almost_Full_1,
   output        RD_1_b0,
   output        RD_1_b1,
   output        RD_1_b2,
@@ -28275,25 +28345,15 @@ module RAM_CE1_FE1_D1_PR0_WSA1_WSB0_VPR (
   output        RD_1_b15,
   output        RD_1_b16,
   output        RD_1_b17,
-  output        Almost_Empty_0,
-  output        Almost_Full_1,
-  output        PUSH_FLAG_1_b0,
-  output        PUSH_FLAG_1_b1,
-  output        PUSH_FLAG_1_b2,
-  output        PUSH_FLAG_1_b3,
-  output        POP_FLAG_0_b0,
-  output        POP_FLAG_0_b1,
-  output        POP_FLAG_0_b2,
-  output        POP_FLAG_0_b3,
-  output        PUSH_FLAG_0_b0,
-  output        PUSH_FLAG_0_b1,
-  output        PUSH_FLAG_0_b2,
-  output        PUSH_FLAG_0_b3,
+  output        Almost_Full_0,
   output        POP_FLAG_1_b0,
   output        POP_FLAG_1_b1,
   output        POP_FLAG_1_b2,
   output        POP_FLAG_1_b3,
-  output        Almost_Full_0,
+  output        POP_FLAG_0_b0,
+  output        POP_FLAG_0_b1,
+  output        POP_FLAG_0_b2,
+  output        POP_FLAG_0_b3,
   output        RD_0_b0,
   output        RD_0_b1,
   output        RD_0_b2,
@@ -28312,14 +28372,14 @@ module RAM_CE1_FE1_D1_PR0_WSA1_WSB0_VPR (
   output        RD_0_b15,
   output        RD_0_b16,
   output        RD_0_b17,
-  output        Almost_Empty_1
+  output        PUSH_FLAG_0_b0,
+  output        PUSH_FLAG_0_b1,
+  output        PUSH_FLAG_0_b2,
+  output        PUSH_FLAG_0_b3
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
-      $setup(P1_1, posedge CLK1_1, "");
-      $hold(posedge CLK1_1, P1_1, "");
-      $setup(P2_1, posedge CLK2_1, "");
-      $hold(posedge CLK2_1, P2_1, "");
       $setup(WD_0_b0, posedge CLK2_0, "");
       $hold(posedge CLK2_0, WD_0_b0, "");
       $setup(WD_0_b1, posedge CLK2_0, "");
@@ -28356,8 +28416,6 @@ module RAM_CE1_FE1_D1_PR0_WSA1_WSB0_VPR (
       $hold(posedge CLK2_0, WD_0_b16, "");
       $setup(WD_0_b17, posedge CLK2_0, "");
       $hold(posedge CLK2_0, WD_0_b17, "");
-      $setup(P2_0, posedge CLK2_0, "");
-      $hold(posedge CLK2_0, P2_0, "");
       $setup(WD_1_b0, posedge CLK2_1, "");
       $hold(posedge CLK2_1, WD_1_b0, "");
       $setup(WD_1_b1, posedge CLK2_1, "");
@@ -28394,8 +28452,21 @@ module RAM_CE1_FE1_D1_PR0_WSA1_WSB0_VPR (
       $hold(posedge CLK2_1, WD_1_b16, "");
       $setup(WD_1_b17, posedge CLK2_1, "");
       $hold(posedge CLK2_1, WD_1_b17, "");
+      $setup(P2_0, posedge CLK2_0, "");
+      $hold(posedge CLK2_0, P2_0, "");
+      $setup(P1_1, posedge CLK1_1, "");
+      $hold(posedge CLK1_1, P1_1, "");
       $setup(P1_0, posedge CLK1_0, "");
       $hold(posedge CLK1_0, P1_0, "");
+      $setup(P2_1, posedge CLK2_1, "");
+      $hold(posedge CLK2_1, P2_1, "");
+      (CLK2_1*>PUSH_FLAG_1_b0)="";
+      (CLK2_1*>PUSH_FLAG_1_b1)="";
+      (CLK2_1*>PUSH_FLAG_1_b2)="";
+      (CLK2_1*>PUSH_FLAG_1_b3)="";
+      (CLK1_0*>Almost_Empty_0)="";
+      (CLK1_1*>Almost_Empty_1)="";
+      (CLK2_1*>Almost_Full_1)="";
       (CLK1_1*>RD_1_b0)="";
       (CLK1_1*>RD_1_b1)="";
       (CLK1_1*>RD_1_b2)="";
@@ -28414,25 +28485,15 @@ module RAM_CE1_FE1_D1_PR0_WSA1_WSB0_VPR (
       (CLK1_1*>RD_1_b15)="";
       (CLK1_1*>RD_1_b16)="";
       (CLK1_1*>RD_1_b17)="";
-      (CLK1_0*>Almost_Empty_0)="";
-      (CLK2_1*>Almost_Full_1)="";
-      (CLK2_1*>PUSH_FLAG_1_b0)="";
-      (CLK2_1*>PUSH_FLAG_1_b1)="";
-      (CLK2_1*>PUSH_FLAG_1_b2)="";
-      (CLK2_1*>PUSH_FLAG_1_b3)="";
-      (CLK1_0*>POP_FLAG_0_b0)="";
-      (CLK1_0*>POP_FLAG_0_b1)="";
-      (CLK1_0*>POP_FLAG_0_b2)="";
-      (CLK1_0*>POP_FLAG_0_b3)="";
-      (CLK2_0*>PUSH_FLAG_0_b0)="";
-      (CLK2_0*>PUSH_FLAG_0_b1)="";
-      (CLK2_0*>PUSH_FLAG_0_b2)="";
-      (CLK2_0*>PUSH_FLAG_0_b3)="";
+      (CLK2_0*>Almost_Full_0)="";
       (CLK1_1*>POP_FLAG_1_b0)="";
       (CLK1_1*>POP_FLAG_1_b1)="";
       (CLK1_1*>POP_FLAG_1_b2)="";
       (CLK1_1*>POP_FLAG_1_b3)="";
-      (CLK2_0*>Almost_Full_0)="";
+      (CLK1_0*>POP_FLAG_0_b0)="";
+      (CLK1_0*>POP_FLAG_0_b1)="";
+      (CLK1_0*>POP_FLAG_0_b2)="";
+      (CLK1_0*>POP_FLAG_0_b3)="";
       (CLK1_0*>RD_0_b0)="";
       (CLK1_0*>RD_0_b1)="";
       (CLK1_0*>RD_0_b2)="";
@@ -28451,26 +28512,41 @@ module RAM_CE1_FE1_D1_PR0_WSA1_WSB0_VPR (
       (CLK1_0*>RD_0_b15)="";
       (CLK1_0*>RD_0_b16)="";
       (CLK1_0*>RD_0_b17)="";
-      (CLK1_1*>Almost_Empty_1)="";
+      (CLK2_0*>PUSH_FLAG_0_b0)="";
+      (CLK2_0*>PUSH_FLAG_0_b1)="";
+      (CLK2_0*>PUSH_FLAG_0_b2)="";
+      (CLK2_0*>PUSH_FLAG_0_b3)="";
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
-      .CLK1_0(CLK1_0),
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
+      .CLK2_1(CLK2_1),
       .CLK1_1(CLK1_1),
       .CLK2_0(CLK2_0),
-      .CLK2_1(CLK2_1),
-      .WIDTH_SELECT2_0(WIDTH_SELECT2_0),
-      .P1_1(P1_1),
-      .WIDTH_SELECT2_1(WIDTH_SELECT2_1),
+      .CLK1_0(CLK1_0),
+      .CS1_1(CS1_1),
+      .A1_1_b0(A1_1_b0),
+      .A1_1_b1(A1_1_b1),
+      .A1_1_b2(A1_1_b2),
+      .A1_1_b3(A1_1_b3),
+      .A1_1_b4(A1_1_b4),
+      .A1_1_b5(A1_1_b5),
+      .A1_1_b6(A1_1_b6),
+      .A1_1_b7(A1_1_b7),
+      .A1_1_b8(A1_1_b8),
+      .A1_1_b9(A1_1_b9),
+      .A1_1_b10(A1_1_b10),
+      .FIFO_EN_0(FIFO_EN_0),
+      .CS1_0(CS1_0),
       .PIPELINE_RD_0(PIPELINE_RD_0),
+      .ASYNC_FLUSH_1(ASYNC_FLUSH_1),
       .DIR_1(DIR_1),
-      .CONCAT_EN_0(CONCAT_EN_0),
-      .CLK1EN_1(CLK1EN_1),
-      .P2_1(P2_1),
-      .WEN1_0_b0(WEN1_0_b0),
-      .WEN1_0_b1(WEN1_0_b1),
-      .PIPELINE_RD_1(PIPELINE_RD_1),
+      .CS2_1(CS2_1),
+      .CLK1EN_0(CLK1EN_0),
+      .WIDTH_SELECT1_0(WIDTH_SELECT1_0),
+      .ASYNC_FLUSH_0(ASYNC_FLUSH_0),
+      .SYNC_FIFO_0(SYNC_FIFO_0),
+      .SYNC_FIFO_1(SYNC_FIFO_1),
       .WD_0_b0(WD_0_b0),
       .WD_0_b1(WD_0_b1),
       .WD_0_b2(WD_0_b2),
@@ -28489,36 +28565,6 @@ module RAM_CE1_FE1_D1_PR0_WSA1_WSB0_VPR (
       .WD_0_b15(WD_0_b15),
       .WD_0_b16(WD_0_b16),
       .WD_0_b17(WD_0_b17),
-      .WIDTH_SELECT1_1(WIDTH_SELECT1_1),
-      .CS2_0(CS2_0),
-      .CLK1EN_0(CLK1EN_0),
-      .SYNC_FIFO_1(SYNC_FIFO_1),
-      .CLK2EN_0(CLK2EN_0),
-      .SYNC_FIFO_0(SYNC_FIFO_0),
-      .ASYNC_FLUSH_0(ASYNC_FLUSH_0),
-      .A2_1_b0(A2_1_b0),
-      .A2_1_b1(A2_1_b1),
-      .A2_1_b2(A2_1_b2),
-      .A2_1_b3(A2_1_b3),
-      .A2_1_b4(A2_1_b4),
-      .A2_1_b5(A2_1_b5),
-      .A2_1_b6(A2_1_b6),
-      .A2_1_b7(A2_1_b7),
-      .A2_1_b8(A2_1_b8),
-      .A2_1_b9(A2_1_b9),
-      .A2_1_b10(A2_1_b10),
-      .A1_1_b0(A1_1_b0),
-      .A1_1_b1(A1_1_b1),
-      .A1_1_b2(A1_1_b2),
-      .A1_1_b3(A1_1_b3),
-      .A1_1_b4(A1_1_b4),
-      .A1_1_b5(A1_1_b5),
-      .A1_1_b6(A1_1_b6),
-      .A1_1_b7(A1_1_b7),
-      .A1_1_b8(A1_1_b8),
-      .A1_1_b9(A1_1_b9),
-      .A1_1_b10(A1_1_b10),
-      .CS1_1(CS1_1),
       .A2_0_b0(A2_0_b0),
       .A2_0_b1(A2_0_b1),
       .A2_0_b2(A2_0_b2),
@@ -28530,7 +28576,34 @@ module RAM_CE1_FE1_D1_PR0_WSA1_WSB0_VPR (
       .A2_0_b8(A2_0_b8),
       .A2_0_b9(A2_0_b9),
       .A2_0_b10(A2_0_b10),
-      .P2_0(P2_0),
+      .A1_0_b0(A1_0_b0),
+      .A1_0_b1(A1_0_b1),
+      .A1_0_b2(A1_0_b2),
+      .A1_0_b3(A1_0_b3),
+      .A1_0_b4(A1_0_b4),
+      .A1_0_b5(A1_0_b5),
+      .A1_0_b6(A1_0_b6),
+      .A1_0_b7(A1_0_b7),
+      .A1_0_b8(A1_0_b8),
+      .A1_0_b9(A1_0_b9),
+      .A1_0_b10(A1_0_b10),
+      .WEN1_1_b0(WEN1_1_b0),
+      .WEN1_1_b1(WEN1_1_b1),
+      .FIFO_EN_1(FIFO_EN_1),
+      .CLK2EN_0(CLK2EN_0),
+      .CLK1EN_1(CLK1EN_1),
+      .WIDTH_SELECT2_0(WIDTH_SELECT2_0),
+      .A2_1_b0(A2_1_b0),
+      .A2_1_b1(A2_1_b1),
+      .A2_1_b2(A2_1_b2),
+      .A2_1_b3(A2_1_b3),
+      .A2_1_b4(A2_1_b4),
+      .A2_1_b5(A2_1_b5),
+      .A2_1_b6(A2_1_b6),
+      .A2_1_b7(A2_1_b7),
+      .A2_1_b8(A2_1_b8),
+      .A2_1_b9(A2_1_b9),
+      .A2_1_b10(A2_1_b10),
       .WD_1_b0(WD_1_b0),
       .WD_1_b1(WD_1_b1),
       .WD_1_b2(WD_1_b2),
@@ -28549,29 +28622,27 @@ module RAM_CE1_FE1_D1_PR0_WSA1_WSB0_VPR (
       .WD_1_b15(WD_1_b15),
       .WD_1_b16(WD_1_b16),
       .WD_1_b17(WD_1_b17),
-      .ASYNC_FLUSH_1(ASYNC_FLUSH_1),
-      .CS2_1(CS2_1),
-      .WIDTH_SELECT1_0(WIDTH_SELECT1_0),
-      .CS1_0(CS1_0),
-      .FIFO_EN_0(FIFO_EN_0),
+      .P2_0(P2_0),
+      .CS2_0(CS2_0),
+      .P1_1(P1_1),
       .CONCAT_EN_1(CONCAT_EN_1),
-      .DIR_0(DIR_0),
+      .WIDTH_SELECT1_1(WIDTH_SELECT1_1),
       .CLK2EN_1(CLK2EN_1),
+      .WEN1_0_b0(WEN1_0_b0),
+      .WEN1_0_b1(WEN1_0_b1),
+      .DIR_0(DIR_0),
       .P1_0(P1_0),
-      .FIFO_EN_1(FIFO_EN_1),
-      .WEN1_1_b0(WEN1_1_b0),
-      .WEN1_1_b1(WEN1_1_b1),
-      .A1_0_b0(A1_0_b0),
-      .A1_0_b1(A1_0_b1),
-      .A1_0_b2(A1_0_b2),
-      .A1_0_b3(A1_0_b3),
-      .A1_0_b4(A1_0_b4),
-      .A1_0_b5(A1_0_b5),
-      .A1_0_b6(A1_0_b6),
-      .A1_0_b7(A1_0_b7),
-      .A1_0_b8(A1_0_b8),
-      .A1_0_b9(A1_0_b9),
-      .A1_0_b10(A1_0_b10),
+      .PIPELINE_RD_1(PIPELINE_RD_1),
+      .WIDTH_SELECT2_1(WIDTH_SELECT2_1),
+      .CONCAT_EN_0(CONCAT_EN_0),
+      .P2_1(P2_1),
+      .PUSH_FLAG_1_b0(PUSH_FLAG_1_b0),
+      .PUSH_FLAG_1_b1(PUSH_FLAG_1_b1),
+      .PUSH_FLAG_1_b2(PUSH_FLAG_1_b2),
+      .PUSH_FLAG_1_b3(PUSH_FLAG_1_b3),
+      .Almost_Empty_0(Almost_Empty_0),
+      .Almost_Empty_1(Almost_Empty_1),
+      .Almost_Full_1(Almost_Full_1),
       .RD_1_b0(RD_1_b0),
       .RD_1_b1(RD_1_b1),
       .RD_1_b2(RD_1_b2),
@@ -28590,25 +28661,15 @@ module RAM_CE1_FE1_D1_PR0_WSA1_WSB0_VPR (
       .RD_1_b15(RD_1_b15),
       .RD_1_b16(RD_1_b16),
       .RD_1_b17(RD_1_b17),
-      .Almost_Empty_0(Almost_Empty_0),
-      .Almost_Full_1(Almost_Full_1),
-      .PUSH_FLAG_1_b0(PUSH_FLAG_1_b0),
-      .PUSH_FLAG_1_b1(PUSH_FLAG_1_b1),
-      .PUSH_FLAG_1_b2(PUSH_FLAG_1_b2),
-      .PUSH_FLAG_1_b3(PUSH_FLAG_1_b3),
-      .POP_FLAG_0_b0(POP_FLAG_0_b0),
-      .POP_FLAG_0_b1(POP_FLAG_0_b1),
-      .POP_FLAG_0_b2(POP_FLAG_0_b2),
-      .POP_FLAG_0_b3(POP_FLAG_0_b3),
-      .PUSH_FLAG_0_b0(PUSH_FLAG_0_b0),
-      .PUSH_FLAG_0_b1(PUSH_FLAG_0_b1),
-      .PUSH_FLAG_0_b2(PUSH_FLAG_0_b2),
-      .PUSH_FLAG_0_b3(PUSH_FLAG_0_b3),
+      .Almost_Full_0(Almost_Full_0),
       .POP_FLAG_1_b0(POP_FLAG_1_b0),
       .POP_FLAG_1_b1(POP_FLAG_1_b1),
       .POP_FLAG_1_b2(POP_FLAG_1_b2),
       .POP_FLAG_1_b3(POP_FLAG_1_b3),
-      .Almost_Full_0(Almost_Full_0),
+      .POP_FLAG_0_b0(POP_FLAG_0_b0),
+      .POP_FLAG_0_b1(POP_FLAG_0_b1),
+      .POP_FLAG_0_b2(POP_FLAG_0_b2),
+      .POP_FLAG_0_b3(POP_FLAG_0_b3),
       .RD_0_b0(RD_0_b0),
       .RD_0_b1(RD_0_b1),
       .RD_0_b2(RD_0_b2),
@@ -28627,7 +28688,10 @@ module RAM_CE1_FE1_D1_PR0_WSA1_WSB0_VPR (
       .RD_0_b15(RD_0_b15),
       .RD_0_b16(RD_0_b16),
       .RD_0_b17(RD_0_b17),
-      .Almost_Empty_1(Almost_Empty_1));
+      .PUSH_FLAG_0_b0(PUSH_FLAG_0_b0),
+      .PUSH_FLAG_0_b1(PUSH_FLAG_0_b1),
+      .PUSH_FLAG_0_b2(PUSH_FLAG_0_b2),
+      .PUSH_FLAG_0_b3(PUSH_FLAG_0_b3));
 
 endmodule
 
@@ -28635,26 +28699,41 @@ endmodule
 (* blackbox *)
 module RAM_CE1_FE1_D1_PR0_WSA1_WSB1_VPR (
 
-  input         CLK1_0,
+  input         CLK2_1,
   input         CLK1_1,
   input         CLK2_0,
-  input         CLK2_1,
+  input         CLK1_0,
 
-  input         TEST1A,
-  input         DS,
-  input  [ 1:0] WIDTH_SELECT2_0,
-  input         P1_1,
-  input  [ 1:0] WIDTH_SELECT2_1,
+  input         CS1_1,
+  input         A1_1_b0,
+  input         A1_1_b1,
+  input         A1_1_b2,
+  input         A1_1_b3,
+  input         A1_1_b4,
+  input         A1_1_b5,
+  input         A1_1_b6,
+  input         A1_1_b7,
+  input         A1_1_b8,
+  input         A1_1_b9,
+  input         A1_1_b10,
+  input         FIFO_EN_0,
+  input         DS_RB1,
+  input         CS1_0,
   input         PIPELINE_RD_0,
-  input         SD,
+  input         ASYNC_FLUSH_1,
   input         DIR_1,
-  input         CONCAT_EN_0,
-  input         LS,
-  input         CLK1EN_1,
-  input         P2_1,
-  input         WEN1_0_b0,
-  input         WEN1_0_b1,
-  input         PIPELINE_RD_1,
+  input         CS2_1,
+  input         CLK1EN_0,
+  input  [ 1:0] WIDTH_SELECT1_0,
+  input         RMB_b0,
+  input         RMB_b1,
+  input         RMB_b2,
+  input         RMB_b3,
+  input         ASYNC_FLUSH_0,
+  input         SYNC_FIFO_0,
+  input         SYNC_FIFO_1,
+  input         RMEB,
+  input         TEST1B,
   input         WD_0_b0,
   input         WD_0_b1,
   input         WD_0_b2,
@@ -28673,45 +28752,6 @@ module RAM_CE1_FE1_D1_PR0_WSA1_WSB1_VPR (
   input         WD_0_b15,
   input         WD_0_b16,
   input         WD_0_b17,
-  input  [ 1:0] WIDTH_SELECT1_1,
-  input         SD_RB1,
-  input         TEST1B,
-  input         RMEB,
-  input         RMB_b0,
-  input         RMB_b1,
-  input         RMB_b2,
-  input         RMB_b3,
-  input         DS_RB1,
-  input         CS2_0,
-  input         CLK1EN_0,
-  input         SYNC_FIFO_1,
-  input         CLK2EN_0,
-  input         SYNC_FIFO_0,
-  input         ASYNC_FLUSH_0,
-  input         A2_1_b0,
-  input         A2_1_b1,
-  input         A2_1_b2,
-  input         A2_1_b3,
-  input         A2_1_b4,
-  input         A2_1_b5,
-  input         A2_1_b6,
-  input         A2_1_b7,
-  input         A2_1_b8,
-  input         A2_1_b9,
-  input         A2_1_b10,
-  input         RMEA,
-  input         A1_1_b0,
-  input         A1_1_b1,
-  input         A1_1_b2,
-  input         A1_1_b3,
-  input         A1_1_b4,
-  input         A1_1_b5,
-  input         A1_1_b6,
-  input         A1_1_b7,
-  input         A1_1_b8,
-  input         A1_1_b9,
-  input         A1_1_b10,
-  input         CS1_1,
   input         A2_0_b0,
   input         A2_0_b1,
   input         A2_0_b2,
@@ -28723,7 +28763,36 @@ module RAM_CE1_FE1_D1_PR0_WSA1_WSB1_VPR (
   input         A2_0_b8,
   input         A2_0_b9,
   input         A2_0_b10,
-  input         P2_0,
+  input         A1_0_b0,
+  input         A1_0_b1,
+  input         A1_0_b2,
+  input         A1_0_b3,
+  input         A1_0_b4,
+  input         A1_0_b5,
+  input         A1_0_b6,
+  input         A1_0_b7,
+  input         A1_0_b8,
+  input         A1_0_b9,
+  input         A1_0_b10,
+  input         WEN1_1_b0,
+  input         WEN1_1_b1,
+  input         FIFO_EN_1,
+  input         CLK2EN_0,
+  input         DS,
+  input         LS_RB1,
+  input         CLK1EN_1,
+  input  [ 1:0] WIDTH_SELECT2_0,
+  input         A2_1_b0,
+  input         A2_1_b1,
+  input         A2_1_b2,
+  input         A2_1_b3,
+  input         A2_1_b4,
+  input         A2_1_b5,
+  input         A2_1_b6,
+  input         A2_1_b7,
+  input         A2_1_b8,
+  input         A2_1_b9,
+  input         A2_1_b10,
   input         WD_1_b0,
   input         WD_1_b1,
   input         WD_1_b2,
@@ -28742,35 +28811,37 @@ module RAM_CE1_FE1_D1_PR0_WSA1_WSB1_VPR (
   input         WD_1_b15,
   input         WD_1_b16,
   input         WD_1_b17,
-  input         ASYNC_FLUSH_1,
-  input         LS_RB1,
-  input         CS2_1,
+  input         P2_0,
+  input         CS2_0,
+  input         P1_1,
+  input         CONCAT_EN_1,
+  input         LS,
+  input  [ 1:0] WIDTH_SELECT1_1,
+  input         SD_RB1,
+  input         TEST1A,
+  input         CLK2EN_1,
   input         RMA_b0,
   input         RMA_b1,
   input         RMA_b2,
   input         RMA_b3,
-  input  [ 1:0] WIDTH_SELECT1_0,
-  input         CS1_0,
-  input         FIFO_EN_0,
-  input         CONCAT_EN_1,
+  input         WEN1_0_b0,
+  input         WEN1_0_b1,
+  input         RMEA,
   input         DIR_0,
-  input         CLK2EN_1,
   input         P1_0,
-  input         FIFO_EN_1,
-  input         WEN1_1_b0,
-  input         WEN1_1_b1,
-  input         A1_0_b0,
-  input         A1_0_b1,
-  input         A1_0_b2,
-  input         A1_0_b3,
-  input         A1_0_b4,
-  input         A1_0_b5,
-  input         A1_0_b6,
-  input         A1_0_b7,
-  input         A1_0_b8,
-  input         A1_0_b9,
-  input         A1_0_b10,
+  input         PIPELINE_RD_1,
+  input  [ 1:0] WIDTH_SELECT2_1,
+  input         CONCAT_EN_0,
+  input         P2_1,
+  input         SD,
 
+  output        PUSH_FLAG_1_b0,
+  output        PUSH_FLAG_1_b1,
+  output        PUSH_FLAG_1_b2,
+  output        PUSH_FLAG_1_b3,
+  output        Almost_Empty_0,
+  output        Almost_Empty_1,
+  output        Almost_Full_1,
   output        RD_1_b0,
   output        RD_1_b1,
   output        RD_1_b2,
@@ -28789,25 +28860,15 @@ module RAM_CE1_FE1_D1_PR0_WSA1_WSB1_VPR (
   output        RD_1_b15,
   output        RD_1_b16,
   output        RD_1_b17,
-  output        Almost_Empty_0,
-  output        Almost_Full_1,
-  output        PUSH_FLAG_1_b0,
-  output        PUSH_FLAG_1_b1,
-  output        PUSH_FLAG_1_b2,
-  output        PUSH_FLAG_1_b3,
-  output        POP_FLAG_0_b0,
-  output        POP_FLAG_0_b1,
-  output        POP_FLAG_0_b2,
-  output        POP_FLAG_0_b3,
-  output        PUSH_FLAG_0_b0,
-  output        PUSH_FLAG_0_b1,
-  output        PUSH_FLAG_0_b2,
-  output        PUSH_FLAG_0_b3,
+  output        Almost_Full_0,
   output        POP_FLAG_1_b0,
   output        POP_FLAG_1_b1,
   output        POP_FLAG_1_b2,
   output        POP_FLAG_1_b3,
-  output        Almost_Full_0,
+  output        POP_FLAG_0_b0,
+  output        POP_FLAG_0_b1,
+  output        POP_FLAG_0_b2,
+  output        POP_FLAG_0_b3,
   output        RD_0_b0,
   output        RD_0_b1,
   output        RD_0_b2,
@@ -28826,14 +28887,14 @@ module RAM_CE1_FE1_D1_PR0_WSA1_WSB1_VPR (
   output        RD_0_b15,
   output        RD_0_b16,
   output        RD_0_b17,
-  output        Almost_Empty_1
+  output        PUSH_FLAG_0_b0,
+  output        PUSH_FLAG_0_b1,
+  output        PUSH_FLAG_0_b2,
+  output        PUSH_FLAG_0_b3
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
-      $setup(P1_1, posedge CLK1_1, "");
-      $hold(posedge CLK1_1, P1_1, "");
-      $setup(P2_1, posedge CLK2_1, "");
-      $hold(posedge CLK2_1, P2_1, "");
       $setup(WD_0_b0, posedge CLK2_0, "");
       $hold(posedge CLK2_0, WD_0_b0, "");
       $setup(WD_0_b1, posedge CLK2_0, "");
@@ -28870,8 +28931,6 @@ module RAM_CE1_FE1_D1_PR0_WSA1_WSB1_VPR (
       $hold(posedge CLK2_0, WD_0_b16, "");
       $setup(WD_0_b17, posedge CLK2_0, "");
       $hold(posedge CLK2_0, WD_0_b17, "");
-      $setup(P2_0, posedge CLK2_0, "");
-      $hold(posedge CLK2_0, P2_0, "");
       $setup(WD_1_b0, posedge CLK2_1, "");
       $hold(posedge CLK2_1, WD_1_b0, "");
       $setup(WD_1_b1, posedge CLK2_1, "");
@@ -28908,8 +28967,21 @@ module RAM_CE1_FE1_D1_PR0_WSA1_WSB1_VPR (
       $hold(posedge CLK2_1, WD_1_b16, "");
       $setup(WD_1_b17, posedge CLK2_1, "");
       $hold(posedge CLK2_1, WD_1_b17, "");
+      $setup(P2_0, posedge CLK2_0, "");
+      $hold(posedge CLK2_0, P2_0, "");
+      $setup(P1_1, posedge CLK1_1, "");
+      $hold(posedge CLK1_1, P1_1, "");
       $setup(P1_0, posedge CLK1_0, "");
       $hold(posedge CLK1_0, P1_0, "");
+      $setup(P2_1, posedge CLK2_1, "");
+      $hold(posedge CLK2_1, P2_1, "");
+      (CLK2_1*>PUSH_FLAG_1_b0)="";
+      (CLK2_1*>PUSH_FLAG_1_b1)="";
+      (CLK2_1*>PUSH_FLAG_1_b2)="";
+      (CLK2_1*>PUSH_FLAG_1_b3)="";
+      (CLK1_0*>Almost_Empty_0)="";
+      (CLK1_1*>Almost_Empty_1)="";
+      (CLK2_1*>Almost_Full_1)="";
       (CLK1_1*>RD_1_b0)="";
       (CLK1_1*>RD_1_b1)="";
       (CLK1_1*>RD_1_b2)="";
@@ -28928,25 +29000,15 @@ module RAM_CE1_FE1_D1_PR0_WSA1_WSB1_VPR (
       (CLK1_1*>RD_1_b15)="";
       (CLK1_1*>RD_1_b16)="";
       (CLK1_1*>RD_1_b17)="";
-      (CLK1_0*>Almost_Empty_0)="";
-      (CLK2_1*>Almost_Full_1)="";
-      (CLK2_1*>PUSH_FLAG_1_b0)="";
-      (CLK2_1*>PUSH_FLAG_1_b1)="";
-      (CLK2_1*>PUSH_FLAG_1_b2)="";
-      (CLK2_1*>PUSH_FLAG_1_b3)="";
-      (CLK1_0*>POP_FLAG_0_b0)="";
-      (CLK1_0*>POP_FLAG_0_b1)="";
-      (CLK1_0*>POP_FLAG_0_b2)="";
-      (CLK1_0*>POP_FLAG_0_b3)="";
-      (CLK2_0*>PUSH_FLAG_0_b0)="";
-      (CLK2_0*>PUSH_FLAG_0_b1)="";
-      (CLK2_0*>PUSH_FLAG_0_b2)="";
-      (CLK2_0*>PUSH_FLAG_0_b3)="";
+      (CLK2_0*>Almost_Full_0)="";
       (CLK1_1*>POP_FLAG_1_b0)="";
       (CLK1_1*>POP_FLAG_1_b1)="";
       (CLK1_1*>POP_FLAG_1_b2)="";
       (CLK1_1*>POP_FLAG_1_b3)="";
-      (CLK2_0*>Almost_Full_0)="";
+      (CLK1_0*>POP_FLAG_0_b0)="";
+      (CLK1_0*>POP_FLAG_0_b1)="";
+      (CLK1_0*>POP_FLAG_0_b2)="";
+      (CLK1_0*>POP_FLAG_0_b3)="";
       (CLK1_0*>RD_0_b0)="";
       (CLK1_0*>RD_0_b1)="";
       (CLK1_0*>RD_0_b2)="";
@@ -28965,26 +29027,41 @@ module RAM_CE1_FE1_D1_PR0_WSA1_WSB1_VPR (
       (CLK1_0*>RD_0_b15)="";
       (CLK1_0*>RD_0_b16)="";
       (CLK1_0*>RD_0_b17)="";
-      (CLK1_1*>Almost_Empty_1)="";
+      (CLK2_0*>PUSH_FLAG_0_b0)="";
+      (CLK2_0*>PUSH_FLAG_0_b1)="";
+      (CLK2_0*>PUSH_FLAG_0_b2)="";
+      (CLK2_0*>PUSH_FLAG_0_b3)="";
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
-      .CLK1_0(CLK1_0),
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
+      .CLK2_1(CLK2_1),
       .CLK1_1(CLK1_1),
       .CLK2_0(CLK2_0),
-      .CLK2_1(CLK2_1),
-      .WIDTH_SELECT2_0(WIDTH_SELECT2_0),
-      .P1_1(P1_1),
-      .WIDTH_SELECT2_1(WIDTH_SELECT2_1),
+      .CLK1_0(CLK1_0),
+      .CS1_1(CS1_1),
+      .A1_1_b0(A1_1_b0),
+      .A1_1_b1(A1_1_b1),
+      .A1_1_b2(A1_1_b2),
+      .A1_1_b3(A1_1_b3),
+      .A1_1_b4(A1_1_b4),
+      .A1_1_b5(A1_1_b5),
+      .A1_1_b6(A1_1_b6),
+      .A1_1_b7(A1_1_b7),
+      .A1_1_b8(A1_1_b8),
+      .A1_1_b9(A1_1_b9),
+      .A1_1_b10(A1_1_b10),
+      .FIFO_EN_0(FIFO_EN_0),
+      .CS1_0(CS1_0),
       .PIPELINE_RD_0(PIPELINE_RD_0),
+      .ASYNC_FLUSH_1(ASYNC_FLUSH_1),
       .DIR_1(DIR_1),
-      .CONCAT_EN_0(CONCAT_EN_0),
-      .CLK1EN_1(CLK1EN_1),
-      .P2_1(P2_1),
-      .WEN1_0_b0(WEN1_0_b0),
-      .WEN1_0_b1(WEN1_0_b1),
-      .PIPELINE_RD_1(PIPELINE_RD_1),
+      .CS2_1(CS2_1),
+      .CLK1EN_0(CLK1EN_0),
+      .WIDTH_SELECT1_0(WIDTH_SELECT1_0),
+      .ASYNC_FLUSH_0(ASYNC_FLUSH_0),
+      .SYNC_FIFO_0(SYNC_FIFO_0),
+      .SYNC_FIFO_1(SYNC_FIFO_1),
       .WD_0_b0(WD_0_b0),
       .WD_0_b1(WD_0_b1),
       .WD_0_b2(WD_0_b2),
@@ -29003,36 +29080,6 @@ module RAM_CE1_FE1_D1_PR0_WSA1_WSB1_VPR (
       .WD_0_b15(WD_0_b15),
       .WD_0_b16(WD_0_b16),
       .WD_0_b17(WD_0_b17),
-      .WIDTH_SELECT1_1(WIDTH_SELECT1_1),
-      .CS2_0(CS2_0),
-      .CLK1EN_0(CLK1EN_0),
-      .SYNC_FIFO_1(SYNC_FIFO_1),
-      .CLK2EN_0(CLK2EN_0),
-      .SYNC_FIFO_0(SYNC_FIFO_0),
-      .ASYNC_FLUSH_0(ASYNC_FLUSH_0),
-      .A2_1_b0(A2_1_b0),
-      .A2_1_b1(A2_1_b1),
-      .A2_1_b2(A2_1_b2),
-      .A2_1_b3(A2_1_b3),
-      .A2_1_b4(A2_1_b4),
-      .A2_1_b5(A2_1_b5),
-      .A2_1_b6(A2_1_b6),
-      .A2_1_b7(A2_1_b7),
-      .A2_1_b8(A2_1_b8),
-      .A2_1_b9(A2_1_b9),
-      .A2_1_b10(A2_1_b10),
-      .A1_1_b0(A1_1_b0),
-      .A1_1_b1(A1_1_b1),
-      .A1_1_b2(A1_1_b2),
-      .A1_1_b3(A1_1_b3),
-      .A1_1_b4(A1_1_b4),
-      .A1_1_b5(A1_1_b5),
-      .A1_1_b6(A1_1_b6),
-      .A1_1_b7(A1_1_b7),
-      .A1_1_b8(A1_1_b8),
-      .A1_1_b9(A1_1_b9),
-      .A1_1_b10(A1_1_b10),
-      .CS1_1(CS1_1),
       .A2_0_b0(A2_0_b0),
       .A2_0_b1(A2_0_b1),
       .A2_0_b2(A2_0_b2),
@@ -29044,7 +29091,34 @@ module RAM_CE1_FE1_D1_PR0_WSA1_WSB1_VPR (
       .A2_0_b8(A2_0_b8),
       .A2_0_b9(A2_0_b9),
       .A2_0_b10(A2_0_b10),
-      .P2_0(P2_0),
+      .A1_0_b0(A1_0_b0),
+      .A1_0_b1(A1_0_b1),
+      .A1_0_b2(A1_0_b2),
+      .A1_0_b3(A1_0_b3),
+      .A1_0_b4(A1_0_b4),
+      .A1_0_b5(A1_0_b5),
+      .A1_0_b6(A1_0_b6),
+      .A1_0_b7(A1_0_b7),
+      .A1_0_b8(A1_0_b8),
+      .A1_0_b9(A1_0_b9),
+      .A1_0_b10(A1_0_b10),
+      .WEN1_1_b0(WEN1_1_b0),
+      .WEN1_1_b1(WEN1_1_b1),
+      .FIFO_EN_1(FIFO_EN_1),
+      .CLK2EN_0(CLK2EN_0),
+      .CLK1EN_1(CLK1EN_1),
+      .WIDTH_SELECT2_0(WIDTH_SELECT2_0),
+      .A2_1_b0(A2_1_b0),
+      .A2_1_b1(A2_1_b1),
+      .A2_1_b2(A2_1_b2),
+      .A2_1_b3(A2_1_b3),
+      .A2_1_b4(A2_1_b4),
+      .A2_1_b5(A2_1_b5),
+      .A2_1_b6(A2_1_b6),
+      .A2_1_b7(A2_1_b7),
+      .A2_1_b8(A2_1_b8),
+      .A2_1_b9(A2_1_b9),
+      .A2_1_b10(A2_1_b10),
       .WD_1_b0(WD_1_b0),
       .WD_1_b1(WD_1_b1),
       .WD_1_b2(WD_1_b2),
@@ -29063,29 +29137,27 @@ module RAM_CE1_FE1_D1_PR0_WSA1_WSB1_VPR (
       .WD_1_b15(WD_1_b15),
       .WD_1_b16(WD_1_b16),
       .WD_1_b17(WD_1_b17),
-      .ASYNC_FLUSH_1(ASYNC_FLUSH_1),
-      .CS2_1(CS2_1),
-      .WIDTH_SELECT1_0(WIDTH_SELECT1_0),
-      .CS1_0(CS1_0),
-      .FIFO_EN_0(FIFO_EN_0),
+      .P2_0(P2_0),
+      .CS2_0(CS2_0),
+      .P1_1(P1_1),
       .CONCAT_EN_1(CONCAT_EN_1),
-      .DIR_0(DIR_0),
+      .WIDTH_SELECT1_1(WIDTH_SELECT1_1),
       .CLK2EN_1(CLK2EN_1),
+      .WEN1_0_b0(WEN1_0_b0),
+      .WEN1_0_b1(WEN1_0_b1),
+      .DIR_0(DIR_0),
       .P1_0(P1_0),
-      .FIFO_EN_1(FIFO_EN_1),
-      .WEN1_1_b0(WEN1_1_b0),
-      .WEN1_1_b1(WEN1_1_b1),
-      .A1_0_b0(A1_0_b0),
-      .A1_0_b1(A1_0_b1),
-      .A1_0_b2(A1_0_b2),
-      .A1_0_b3(A1_0_b3),
-      .A1_0_b4(A1_0_b4),
-      .A1_0_b5(A1_0_b5),
-      .A1_0_b6(A1_0_b6),
-      .A1_0_b7(A1_0_b7),
-      .A1_0_b8(A1_0_b8),
-      .A1_0_b9(A1_0_b9),
-      .A1_0_b10(A1_0_b10),
+      .PIPELINE_RD_1(PIPELINE_RD_1),
+      .WIDTH_SELECT2_1(WIDTH_SELECT2_1),
+      .CONCAT_EN_0(CONCAT_EN_0),
+      .P2_1(P2_1),
+      .PUSH_FLAG_1_b0(PUSH_FLAG_1_b0),
+      .PUSH_FLAG_1_b1(PUSH_FLAG_1_b1),
+      .PUSH_FLAG_1_b2(PUSH_FLAG_1_b2),
+      .PUSH_FLAG_1_b3(PUSH_FLAG_1_b3),
+      .Almost_Empty_0(Almost_Empty_0),
+      .Almost_Empty_1(Almost_Empty_1),
+      .Almost_Full_1(Almost_Full_1),
       .RD_1_b0(RD_1_b0),
       .RD_1_b1(RD_1_b1),
       .RD_1_b2(RD_1_b2),
@@ -29104,25 +29176,15 @@ module RAM_CE1_FE1_D1_PR0_WSA1_WSB1_VPR (
       .RD_1_b15(RD_1_b15),
       .RD_1_b16(RD_1_b16),
       .RD_1_b17(RD_1_b17),
-      .Almost_Empty_0(Almost_Empty_0),
-      .Almost_Full_1(Almost_Full_1),
-      .PUSH_FLAG_1_b0(PUSH_FLAG_1_b0),
-      .PUSH_FLAG_1_b1(PUSH_FLAG_1_b1),
-      .PUSH_FLAG_1_b2(PUSH_FLAG_1_b2),
-      .PUSH_FLAG_1_b3(PUSH_FLAG_1_b3),
-      .POP_FLAG_0_b0(POP_FLAG_0_b0),
-      .POP_FLAG_0_b1(POP_FLAG_0_b1),
-      .POP_FLAG_0_b2(POP_FLAG_0_b2),
-      .POP_FLAG_0_b3(POP_FLAG_0_b3),
-      .PUSH_FLAG_0_b0(PUSH_FLAG_0_b0),
-      .PUSH_FLAG_0_b1(PUSH_FLAG_0_b1),
-      .PUSH_FLAG_0_b2(PUSH_FLAG_0_b2),
-      .PUSH_FLAG_0_b3(PUSH_FLAG_0_b3),
+      .Almost_Full_0(Almost_Full_0),
       .POP_FLAG_1_b0(POP_FLAG_1_b0),
       .POP_FLAG_1_b1(POP_FLAG_1_b1),
       .POP_FLAG_1_b2(POP_FLAG_1_b2),
       .POP_FLAG_1_b3(POP_FLAG_1_b3),
-      .Almost_Full_0(Almost_Full_0),
+      .POP_FLAG_0_b0(POP_FLAG_0_b0),
+      .POP_FLAG_0_b1(POP_FLAG_0_b1),
+      .POP_FLAG_0_b2(POP_FLAG_0_b2),
+      .POP_FLAG_0_b3(POP_FLAG_0_b3),
       .RD_0_b0(RD_0_b0),
       .RD_0_b1(RD_0_b1),
       .RD_0_b2(RD_0_b2),
@@ -29141,7 +29203,10 @@ module RAM_CE1_FE1_D1_PR0_WSA1_WSB1_VPR (
       .RD_0_b15(RD_0_b15),
       .RD_0_b16(RD_0_b16),
       .RD_0_b17(RD_0_b17),
-      .Almost_Empty_1(Almost_Empty_1));
+      .PUSH_FLAG_0_b0(PUSH_FLAG_0_b0),
+      .PUSH_FLAG_0_b1(PUSH_FLAG_0_b1),
+      .PUSH_FLAG_0_b2(PUSH_FLAG_0_b2),
+      .PUSH_FLAG_0_b3(PUSH_FLAG_0_b3));
 
 endmodule
 
@@ -29149,26 +29214,41 @@ endmodule
 (* blackbox *)
 module RAM_CE1_FE1_D1_PR0_WSA1_WSB2_VPR (
 
-  input         CLK1_0,
+  input         CLK2_1,
   input         CLK1_1,
   input         CLK2_0,
-  input         CLK2_1,
+  input         CLK1_0,
 
-  input         TEST1A,
-  input         DS,
-  input  [ 1:0] WIDTH_SELECT2_0,
-  input         P1_1,
-  input  [ 1:0] WIDTH_SELECT2_1,
+  input         CS1_1,
+  input         A1_1_b0,
+  input         A1_1_b1,
+  input         A1_1_b2,
+  input         A1_1_b3,
+  input         A1_1_b4,
+  input         A1_1_b5,
+  input         A1_1_b6,
+  input         A1_1_b7,
+  input         A1_1_b8,
+  input         A1_1_b9,
+  input         A1_1_b10,
+  input         FIFO_EN_0,
+  input         DS_RB1,
+  input         CS1_0,
   input         PIPELINE_RD_0,
-  input         SD,
+  input         ASYNC_FLUSH_1,
   input         DIR_1,
-  input         CONCAT_EN_0,
-  input         LS,
-  input         CLK1EN_1,
-  input         P2_1,
-  input         WEN1_0_b0,
-  input         WEN1_0_b1,
-  input         PIPELINE_RD_1,
+  input         CS2_1,
+  input         CLK1EN_0,
+  input  [ 1:0] WIDTH_SELECT1_0,
+  input         RMB_b0,
+  input         RMB_b1,
+  input         RMB_b2,
+  input         RMB_b3,
+  input         ASYNC_FLUSH_0,
+  input         SYNC_FIFO_0,
+  input         SYNC_FIFO_1,
+  input         RMEB,
+  input         TEST1B,
   input         WD_0_b0,
   input         WD_0_b1,
   input         WD_0_b2,
@@ -29187,45 +29267,6 @@ module RAM_CE1_FE1_D1_PR0_WSA1_WSB2_VPR (
   input         WD_0_b15,
   input         WD_0_b16,
   input         WD_0_b17,
-  input  [ 1:0] WIDTH_SELECT1_1,
-  input         SD_RB1,
-  input         TEST1B,
-  input         RMEB,
-  input         RMB_b0,
-  input         RMB_b1,
-  input         RMB_b2,
-  input         RMB_b3,
-  input         DS_RB1,
-  input         CS2_0,
-  input         CLK1EN_0,
-  input         SYNC_FIFO_1,
-  input         CLK2EN_0,
-  input         SYNC_FIFO_0,
-  input         ASYNC_FLUSH_0,
-  input         A2_1_b0,
-  input         A2_1_b1,
-  input         A2_1_b2,
-  input         A2_1_b3,
-  input         A2_1_b4,
-  input         A2_1_b5,
-  input         A2_1_b6,
-  input         A2_1_b7,
-  input         A2_1_b8,
-  input         A2_1_b9,
-  input         A2_1_b10,
-  input         RMEA,
-  input         A1_1_b0,
-  input         A1_1_b1,
-  input         A1_1_b2,
-  input         A1_1_b3,
-  input         A1_1_b4,
-  input         A1_1_b5,
-  input         A1_1_b6,
-  input         A1_1_b7,
-  input         A1_1_b8,
-  input         A1_1_b9,
-  input         A1_1_b10,
-  input         CS1_1,
   input         A2_0_b0,
   input         A2_0_b1,
   input         A2_0_b2,
@@ -29237,7 +29278,36 @@ module RAM_CE1_FE1_D1_PR0_WSA1_WSB2_VPR (
   input         A2_0_b8,
   input         A2_0_b9,
   input         A2_0_b10,
-  input         P2_0,
+  input         A1_0_b0,
+  input         A1_0_b1,
+  input         A1_0_b2,
+  input         A1_0_b3,
+  input         A1_0_b4,
+  input         A1_0_b5,
+  input         A1_0_b6,
+  input         A1_0_b7,
+  input         A1_0_b8,
+  input         A1_0_b9,
+  input         A1_0_b10,
+  input         WEN1_1_b0,
+  input         WEN1_1_b1,
+  input         FIFO_EN_1,
+  input         CLK2EN_0,
+  input         DS,
+  input         LS_RB1,
+  input         CLK1EN_1,
+  input  [ 1:0] WIDTH_SELECT2_0,
+  input         A2_1_b0,
+  input         A2_1_b1,
+  input         A2_1_b2,
+  input         A2_1_b3,
+  input         A2_1_b4,
+  input         A2_1_b5,
+  input         A2_1_b6,
+  input         A2_1_b7,
+  input         A2_1_b8,
+  input         A2_1_b9,
+  input         A2_1_b10,
   input         WD_1_b0,
   input         WD_1_b1,
   input         WD_1_b2,
@@ -29256,35 +29326,37 @@ module RAM_CE1_FE1_D1_PR0_WSA1_WSB2_VPR (
   input         WD_1_b15,
   input         WD_1_b16,
   input         WD_1_b17,
-  input         ASYNC_FLUSH_1,
-  input         LS_RB1,
-  input         CS2_1,
+  input         P2_0,
+  input         CS2_0,
+  input         P1_1,
+  input         CONCAT_EN_1,
+  input         LS,
+  input  [ 1:0] WIDTH_SELECT1_1,
+  input         SD_RB1,
+  input         TEST1A,
+  input         CLK2EN_1,
   input         RMA_b0,
   input         RMA_b1,
   input         RMA_b2,
   input         RMA_b3,
-  input  [ 1:0] WIDTH_SELECT1_0,
-  input         CS1_0,
-  input         FIFO_EN_0,
-  input         CONCAT_EN_1,
+  input         WEN1_0_b0,
+  input         WEN1_0_b1,
+  input         RMEA,
   input         DIR_0,
-  input         CLK2EN_1,
   input         P1_0,
-  input         FIFO_EN_1,
-  input         WEN1_1_b0,
-  input         WEN1_1_b1,
-  input         A1_0_b0,
-  input         A1_0_b1,
-  input         A1_0_b2,
-  input         A1_0_b3,
-  input         A1_0_b4,
-  input         A1_0_b5,
-  input         A1_0_b6,
-  input         A1_0_b7,
-  input         A1_0_b8,
-  input         A1_0_b9,
-  input         A1_0_b10,
+  input         PIPELINE_RD_1,
+  input  [ 1:0] WIDTH_SELECT2_1,
+  input         CONCAT_EN_0,
+  input         P2_1,
+  input         SD,
 
+  output        PUSH_FLAG_1_b0,
+  output        PUSH_FLAG_1_b1,
+  output        PUSH_FLAG_1_b2,
+  output        PUSH_FLAG_1_b3,
+  output        Almost_Empty_0,
+  output        Almost_Empty_1,
+  output        Almost_Full_1,
   output        RD_1_b0,
   output        RD_1_b1,
   output        RD_1_b2,
@@ -29303,25 +29375,15 @@ module RAM_CE1_FE1_D1_PR0_WSA1_WSB2_VPR (
   output        RD_1_b15,
   output        RD_1_b16,
   output        RD_1_b17,
-  output        Almost_Empty_0,
-  output        Almost_Full_1,
-  output        PUSH_FLAG_1_b0,
-  output        PUSH_FLAG_1_b1,
-  output        PUSH_FLAG_1_b2,
-  output        PUSH_FLAG_1_b3,
-  output        POP_FLAG_0_b0,
-  output        POP_FLAG_0_b1,
-  output        POP_FLAG_0_b2,
-  output        POP_FLAG_0_b3,
-  output        PUSH_FLAG_0_b0,
-  output        PUSH_FLAG_0_b1,
-  output        PUSH_FLAG_0_b2,
-  output        PUSH_FLAG_0_b3,
+  output        Almost_Full_0,
   output        POP_FLAG_1_b0,
   output        POP_FLAG_1_b1,
   output        POP_FLAG_1_b2,
   output        POP_FLAG_1_b3,
-  output        Almost_Full_0,
+  output        POP_FLAG_0_b0,
+  output        POP_FLAG_0_b1,
+  output        POP_FLAG_0_b2,
+  output        POP_FLAG_0_b3,
   output        RD_0_b0,
   output        RD_0_b1,
   output        RD_0_b2,
@@ -29340,14 +29402,14 @@ module RAM_CE1_FE1_D1_PR0_WSA1_WSB2_VPR (
   output        RD_0_b15,
   output        RD_0_b16,
   output        RD_0_b17,
-  output        Almost_Empty_1
+  output        PUSH_FLAG_0_b0,
+  output        PUSH_FLAG_0_b1,
+  output        PUSH_FLAG_0_b2,
+  output        PUSH_FLAG_0_b3
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
-      $setup(P1_1, posedge CLK1_1, "");
-      $hold(posedge CLK1_1, P1_1, "");
-      $setup(P2_1, posedge CLK2_1, "");
-      $hold(posedge CLK2_1, P2_1, "");
       $setup(WD_0_b0, posedge CLK2_0, "");
       $hold(posedge CLK2_0, WD_0_b0, "");
       $setup(WD_0_b1, posedge CLK2_0, "");
@@ -29384,8 +29446,6 @@ module RAM_CE1_FE1_D1_PR0_WSA1_WSB2_VPR (
       $hold(posedge CLK2_0, WD_0_b16, "");
       $setup(WD_0_b17, posedge CLK2_0, "");
       $hold(posedge CLK2_0, WD_0_b17, "");
-      $setup(P2_0, posedge CLK2_0, "");
-      $hold(posedge CLK2_0, P2_0, "");
       $setup(WD_1_b0, posedge CLK2_1, "");
       $hold(posedge CLK2_1, WD_1_b0, "");
       $setup(WD_1_b1, posedge CLK2_1, "");
@@ -29422,8 +29482,21 @@ module RAM_CE1_FE1_D1_PR0_WSA1_WSB2_VPR (
       $hold(posedge CLK2_1, WD_1_b16, "");
       $setup(WD_1_b17, posedge CLK2_1, "");
       $hold(posedge CLK2_1, WD_1_b17, "");
+      $setup(P2_0, posedge CLK2_0, "");
+      $hold(posedge CLK2_0, P2_0, "");
+      $setup(P1_1, posedge CLK1_1, "");
+      $hold(posedge CLK1_1, P1_1, "");
       $setup(P1_0, posedge CLK1_0, "");
       $hold(posedge CLK1_0, P1_0, "");
+      $setup(P2_1, posedge CLK2_1, "");
+      $hold(posedge CLK2_1, P2_1, "");
+      (CLK2_1*>PUSH_FLAG_1_b0)="";
+      (CLK2_1*>PUSH_FLAG_1_b1)="";
+      (CLK2_1*>PUSH_FLAG_1_b2)="";
+      (CLK2_1*>PUSH_FLAG_1_b3)="";
+      (CLK1_0*>Almost_Empty_0)="";
+      (CLK1_1*>Almost_Empty_1)="";
+      (CLK2_1*>Almost_Full_1)="";
       (CLK1_1*>RD_1_b0)="";
       (CLK1_1*>RD_1_b1)="";
       (CLK1_1*>RD_1_b2)="";
@@ -29442,25 +29515,15 @@ module RAM_CE1_FE1_D1_PR0_WSA1_WSB2_VPR (
       (CLK1_1*>RD_1_b15)="";
       (CLK1_1*>RD_1_b16)="";
       (CLK1_1*>RD_1_b17)="";
-      (CLK1_0*>Almost_Empty_0)="";
-      (CLK2_1*>Almost_Full_1)="";
-      (CLK2_1*>PUSH_FLAG_1_b0)="";
-      (CLK2_1*>PUSH_FLAG_1_b1)="";
-      (CLK2_1*>PUSH_FLAG_1_b2)="";
-      (CLK2_1*>PUSH_FLAG_1_b3)="";
-      (CLK1_0*>POP_FLAG_0_b0)="";
-      (CLK1_0*>POP_FLAG_0_b1)="";
-      (CLK1_0*>POP_FLAG_0_b2)="";
-      (CLK1_0*>POP_FLAG_0_b3)="";
-      (CLK2_0*>PUSH_FLAG_0_b0)="";
-      (CLK2_0*>PUSH_FLAG_0_b1)="";
-      (CLK2_0*>PUSH_FLAG_0_b2)="";
-      (CLK2_0*>PUSH_FLAG_0_b3)="";
+      (CLK2_0*>Almost_Full_0)="";
       (CLK1_1*>POP_FLAG_1_b0)="";
       (CLK1_1*>POP_FLAG_1_b1)="";
       (CLK1_1*>POP_FLAG_1_b2)="";
       (CLK1_1*>POP_FLAG_1_b3)="";
-      (CLK2_0*>Almost_Full_0)="";
+      (CLK1_0*>POP_FLAG_0_b0)="";
+      (CLK1_0*>POP_FLAG_0_b1)="";
+      (CLK1_0*>POP_FLAG_0_b2)="";
+      (CLK1_0*>POP_FLAG_0_b3)="";
       (CLK1_0*>RD_0_b0)="";
       (CLK1_0*>RD_0_b1)="";
       (CLK1_0*>RD_0_b2)="";
@@ -29479,26 +29542,41 @@ module RAM_CE1_FE1_D1_PR0_WSA1_WSB2_VPR (
       (CLK1_0*>RD_0_b15)="";
       (CLK1_0*>RD_0_b16)="";
       (CLK1_0*>RD_0_b17)="";
-      (CLK1_1*>Almost_Empty_1)="";
+      (CLK2_0*>PUSH_FLAG_0_b0)="";
+      (CLK2_0*>PUSH_FLAG_0_b1)="";
+      (CLK2_0*>PUSH_FLAG_0_b2)="";
+      (CLK2_0*>PUSH_FLAG_0_b3)="";
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
-      .CLK1_0(CLK1_0),
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
+      .CLK2_1(CLK2_1),
       .CLK1_1(CLK1_1),
       .CLK2_0(CLK2_0),
-      .CLK2_1(CLK2_1),
-      .WIDTH_SELECT2_0(WIDTH_SELECT2_0),
-      .P1_1(P1_1),
-      .WIDTH_SELECT2_1(WIDTH_SELECT2_1),
+      .CLK1_0(CLK1_0),
+      .CS1_1(CS1_1),
+      .A1_1_b0(A1_1_b0),
+      .A1_1_b1(A1_1_b1),
+      .A1_1_b2(A1_1_b2),
+      .A1_1_b3(A1_1_b3),
+      .A1_1_b4(A1_1_b4),
+      .A1_1_b5(A1_1_b5),
+      .A1_1_b6(A1_1_b6),
+      .A1_1_b7(A1_1_b7),
+      .A1_1_b8(A1_1_b8),
+      .A1_1_b9(A1_1_b9),
+      .A1_1_b10(A1_1_b10),
+      .FIFO_EN_0(FIFO_EN_0),
+      .CS1_0(CS1_0),
       .PIPELINE_RD_0(PIPELINE_RD_0),
+      .ASYNC_FLUSH_1(ASYNC_FLUSH_1),
       .DIR_1(DIR_1),
-      .CONCAT_EN_0(CONCAT_EN_0),
-      .CLK1EN_1(CLK1EN_1),
-      .P2_1(P2_1),
-      .WEN1_0_b0(WEN1_0_b0),
-      .WEN1_0_b1(WEN1_0_b1),
-      .PIPELINE_RD_1(PIPELINE_RD_1),
+      .CS2_1(CS2_1),
+      .CLK1EN_0(CLK1EN_0),
+      .WIDTH_SELECT1_0(WIDTH_SELECT1_0),
+      .ASYNC_FLUSH_0(ASYNC_FLUSH_0),
+      .SYNC_FIFO_0(SYNC_FIFO_0),
+      .SYNC_FIFO_1(SYNC_FIFO_1),
       .WD_0_b0(WD_0_b0),
       .WD_0_b1(WD_0_b1),
       .WD_0_b2(WD_0_b2),
@@ -29517,36 +29595,6 @@ module RAM_CE1_FE1_D1_PR0_WSA1_WSB2_VPR (
       .WD_0_b15(WD_0_b15),
       .WD_0_b16(WD_0_b16),
       .WD_0_b17(WD_0_b17),
-      .WIDTH_SELECT1_1(WIDTH_SELECT1_1),
-      .CS2_0(CS2_0),
-      .CLK1EN_0(CLK1EN_0),
-      .SYNC_FIFO_1(SYNC_FIFO_1),
-      .CLK2EN_0(CLK2EN_0),
-      .SYNC_FIFO_0(SYNC_FIFO_0),
-      .ASYNC_FLUSH_0(ASYNC_FLUSH_0),
-      .A2_1_b0(A2_1_b0),
-      .A2_1_b1(A2_1_b1),
-      .A2_1_b2(A2_1_b2),
-      .A2_1_b3(A2_1_b3),
-      .A2_1_b4(A2_1_b4),
-      .A2_1_b5(A2_1_b5),
-      .A2_1_b6(A2_1_b6),
-      .A2_1_b7(A2_1_b7),
-      .A2_1_b8(A2_1_b8),
-      .A2_1_b9(A2_1_b9),
-      .A2_1_b10(A2_1_b10),
-      .A1_1_b0(A1_1_b0),
-      .A1_1_b1(A1_1_b1),
-      .A1_1_b2(A1_1_b2),
-      .A1_1_b3(A1_1_b3),
-      .A1_1_b4(A1_1_b4),
-      .A1_1_b5(A1_1_b5),
-      .A1_1_b6(A1_1_b6),
-      .A1_1_b7(A1_1_b7),
-      .A1_1_b8(A1_1_b8),
-      .A1_1_b9(A1_1_b9),
-      .A1_1_b10(A1_1_b10),
-      .CS1_1(CS1_1),
       .A2_0_b0(A2_0_b0),
       .A2_0_b1(A2_0_b1),
       .A2_0_b2(A2_0_b2),
@@ -29558,7 +29606,34 @@ module RAM_CE1_FE1_D1_PR0_WSA1_WSB2_VPR (
       .A2_0_b8(A2_0_b8),
       .A2_0_b9(A2_0_b9),
       .A2_0_b10(A2_0_b10),
-      .P2_0(P2_0),
+      .A1_0_b0(A1_0_b0),
+      .A1_0_b1(A1_0_b1),
+      .A1_0_b2(A1_0_b2),
+      .A1_0_b3(A1_0_b3),
+      .A1_0_b4(A1_0_b4),
+      .A1_0_b5(A1_0_b5),
+      .A1_0_b6(A1_0_b6),
+      .A1_0_b7(A1_0_b7),
+      .A1_0_b8(A1_0_b8),
+      .A1_0_b9(A1_0_b9),
+      .A1_0_b10(A1_0_b10),
+      .WEN1_1_b0(WEN1_1_b0),
+      .WEN1_1_b1(WEN1_1_b1),
+      .FIFO_EN_1(FIFO_EN_1),
+      .CLK2EN_0(CLK2EN_0),
+      .CLK1EN_1(CLK1EN_1),
+      .WIDTH_SELECT2_0(WIDTH_SELECT2_0),
+      .A2_1_b0(A2_1_b0),
+      .A2_1_b1(A2_1_b1),
+      .A2_1_b2(A2_1_b2),
+      .A2_1_b3(A2_1_b3),
+      .A2_1_b4(A2_1_b4),
+      .A2_1_b5(A2_1_b5),
+      .A2_1_b6(A2_1_b6),
+      .A2_1_b7(A2_1_b7),
+      .A2_1_b8(A2_1_b8),
+      .A2_1_b9(A2_1_b9),
+      .A2_1_b10(A2_1_b10),
       .WD_1_b0(WD_1_b0),
       .WD_1_b1(WD_1_b1),
       .WD_1_b2(WD_1_b2),
@@ -29577,29 +29652,27 @@ module RAM_CE1_FE1_D1_PR0_WSA1_WSB2_VPR (
       .WD_1_b15(WD_1_b15),
       .WD_1_b16(WD_1_b16),
       .WD_1_b17(WD_1_b17),
-      .ASYNC_FLUSH_1(ASYNC_FLUSH_1),
-      .CS2_1(CS2_1),
-      .WIDTH_SELECT1_0(WIDTH_SELECT1_0),
-      .CS1_0(CS1_0),
-      .FIFO_EN_0(FIFO_EN_0),
+      .P2_0(P2_0),
+      .CS2_0(CS2_0),
+      .P1_1(P1_1),
       .CONCAT_EN_1(CONCAT_EN_1),
-      .DIR_0(DIR_0),
+      .WIDTH_SELECT1_1(WIDTH_SELECT1_1),
       .CLK2EN_1(CLK2EN_1),
+      .WEN1_0_b0(WEN1_0_b0),
+      .WEN1_0_b1(WEN1_0_b1),
+      .DIR_0(DIR_0),
       .P1_0(P1_0),
-      .FIFO_EN_1(FIFO_EN_1),
-      .WEN1_1_b0(WEN1_1_b0),
-      .WEN1_1_b1(WEN1_1_b1),
-      .A1_0_b0(A1_0_b0),
-      .A1_0_b1(A1_0_b1),
-      .A1_0_b2(A1_0_b2),
-      .A1_0_b3(A1_0_b3),
-      .A1_0_b4(A1_0_b4),
-      .A1_0_b5(A1_0_b5),
-      .A1_0_b6(A1_0_b6),
-      .A1_0_b7(A1_0_b7),
-      .A1_0_b8(A1_0_b8),
-      .A1_0_b9(A1_0_b9),
-      .A1_0_b10(A1_0_b10),
+      .PIPELINE_RD_1(PIPELINE_RD_1),
+      .WIDTH_SELECT2_1(WIDTH_SELECT2_1),
+      .CONCAT_EN_0(CONCAT_EN_0),
+      .P2_1(P2_1),
+      .PUSH_FLAG_1_b0(PUSH_FLAG_1_b0),
+      .PUSH_FLAG_1_b1(PUSH_FLAG_1_b1),
+      .PUSH_FLAG_1_b2(PUSH_FLAG_1_b2),
+      .PUSH_FLAG_1_b3(PUSH_FLAG_1_b3),
+      .Almost_Empty_0(Almost_Empty_0),
+      .Almost_Empty_1(Almost_Empty_1),
+      .Almost_Full_1(Almost_Full_1),
       .RD_1_b0(RD_1_b0),
       .RD_1_b1(RD_1_b1),
       .RD_1_b2(RD_1_b2),
@@ -29618,25 +29691,15 @@ module RAM_CE1_FE1_D1_PR0_WSA1_WSB2_VPR (
       .RD_1_b15(RD_1_b15),
       .RD_1_b16(RD_1_b16),
       .RD_1_b17(RD_1_b17),
-      .Almost_Empty_0(Almost_Empty_0),
-      .Almost_Full_1(Almost_Full_1),
-      .PUSH_FLAG_1_b0(PUSH_FLAG_1_b0),
-      .PUSH_FLAG_1_b1(PUSH_FLAG_1_b1),
-      .PUSH_FLAG_1_b2(PUSH_FLAG_1_b2),
-      .PUSH_FLAG_1_b3(PUSH_FLAG_1_b3),
-      .POP_FLAG_0_b0(POP_FLAG_0_b0),
-      .POP_FLAG_0_b1(POP_FLAG_0_b1),
-      .POP_FLAG_0_b2(POP_FLAG_0_b2),
-      .POP_FLAG_0_b3(POP_FLAG_0_b3),
-      .PUSH_FLAG_0_b0(PUSH_FLAG_0_b0),
-      .PUSH_FLAG_0_b1(PUSH_FLAG_0_b1),
-      .PUSH_FLAG_0_b2(PUSH_FLAG_0_b2),
-      .PUSH_FLAG_0_b3(PUSH_FLAG_0_b3),
+      .Almost_Full_0(Almost_Full_0),
       .POP_FLAG_1_b0(POP_FLAG_1_b0),
       .POP_FLAG_1_b1(POP_FLAG_1_b1),
       .POP_FLAG_1_b2(POP_FLAG_1_b2),
       .POP_FLAG_1_b3(POP_FLAG_1_b3),
-      .Almost_Full_0(Almost_Full_0),
+      .POP_FLAG_0_b0(POP_FLAG_0_b0),
+      .POP_FLAG_0_b1(POP_FLAG_0_b1),
+      .POP_FLAG_0_b2(POP_FLAG_0_b2),
+      .POP_FLAG_0_b3(POP_FLAG_0_b3),
       .RD_0_b0(RD_0_b0),
       .RD_0_b1(RD_0_b1),
       .RD_0_b2(RD_0_b2),
@@ -29655,7 +29718,10 @@ module RAM_CE1_FE1_D1_PR0_WSA1_WSB2_VPR (
       .RD_0_b15(RD_0_b15),
       .RD_0_b16(RD_0_b16),
       .RD_0_b17(RD_0_b17),
-      .Almost_Empty_1(Almost_Empty_1));
+      .PUSH_FLAG_0_b0(PUSH_FLAG_0_b0),
+      .PUSH_FLAG_0_b1(PUSH_FLAG_0_b1),
+      .PUSH_FLAG_0_b2(PUSH_FLAG_0_b2),
+      .PUSH_FLAG_0_b3(PUSH_FLAG_0_b3));
 
 endmodule
 
@@ -29663,26 +29729,41 @@ endmodule
 (* blackbox *)
 module RAM_CE1_FE1_D1_PR0_WSA2_WSB0_VPR (
 
-  input         CLK1_0,
+  input         CLK2_1,
   input         CLK1_1,
   input         CLK2_0,
-  input         CLK2_1,
+  input         CLK1_0,
 
-  input         TEST1A,
-  input         DS,
-  input  [ 1:0] WIDTH_SELECT2_0,
-  input         P1_1,
-  input  [ 1:0] WIDTH_SELECT2_1,
+  input         CS1_1,
+  input         A1_1_b0,
+  input         A1_1_b1,
+  input         A1_1_b2,
+  input         A1_1_b3,
+  input         A1_1_b4,
+  input         A1_1_b5,
+  input         A1_1_b6,
+  input         A1_1_b7,
+  input         A1_1_b8,
+  input         A1_1_b9,
+  input         A1_1_b10,
+  input         FIFO_EN_0,
+  input         DS_RB1,
+  input         CS1_0,
   input         PIPELINE_RD_0,
-  input         SD,
+  input         ASYNC_FLUSH_1,
   input         DIR_1,
-  input         CONCAT_EN_0,
-  input         LS,
-  input         CLK1EN_1,
-  input         P2_1,
-  input         WEN1_0_b0,
-  input         WEN1_0_b1,
-  input         PIPELINE_RD_1,
+  input         CS2_1,
+  input         CLK1EN_0,
+  input  [ 1:0] WIDTH_SELECT1_0,
+  input         RMB_b0,
+  input         RMB_b1,
+  input         RMB_b2,
+  input         RMB_b3,
+  input         ASYNC_FLUSH_0,
+  input         SYNC_FIFO_0,
+  input         SYNC_FIFO_1,
+  input         RMEB,
+  input         TEST1B,
   input         WD_0_b0,
   input         WD_0_b1,
   input         WD_0_b2,
@@ -29701,45 +29782,6 @@ module RAM_CE1_FE1_D1_PR0_WSA2_WSB0_VPR (
   input         WD_0_b15,
   input         WD_0_b16,
   input         WD_0_b17,
-  input  [ 1:0] WIDTH_SELECT1_1,
-  input         SD_RB1,
-  input         TEST1B,
-  input         RMEB,
-  input         RMB_b0,
-  input         RMB_b1,
-  input         RMB_b2,
-  input         RMB_b3,
-  input         DS_RB1,
-  input         CS2_0,
-  input         CLK1EN_0,
-  input         SYNC_FIFO_1,
-  input         CLK2EN_0,
-  input         SYNC_FIFO_0,
-  input         ASYNC_FLUSH_0,
-  input         A2_1_b0,
-  input         A2_1_b1,
-  input         A2_1_b2,
-  input         A2_1_b3,
-  input         A2_1_b4,
-  input         A2_1_b5,
-  input         A2_1_b6,
-  input         A2_1_b7,
-  input         A2_1_b8,
-  input         A2_1_b9,
-  input         A2_1_b10,
-  input         RMEA,
-  input         A1_1_b0,
-  input         A1_1_b1,
-  input         A1_1_b2,
-  input         A1_1_b3,
-  input         A1_1_b4,
-  input         A1_1_b5,
-  input         A1_1_b6,
-  input         A1_1_b7,
-  input         A1_1_b8,
-  input         A1_1_b9,
-  input         A1_1_b10,
-  input         CS1_1,
   input         A2_0_b0,
   input         A2_0_b1,
   input         A2_0_b2,
@@ -29751,7 +29793,36 @@ module RAM_CE1_FE1_D1_PR0_WSA2_WSB0_VPR (
   input         A2_0_b8,
   input         A2_0_b9,
   input         A2_0_b10,
-  input         P2_0,
+  input         A1_0_b0,
+  input         A1_0_b1,
+  input         A1_0_b2,
+  input         A1_0_b3,
+  input         A1_0_b4,
+  input         A1_0_b5,
+  input         A1_0_b6,
+  input         A1_0_b7,
+  input         A1_0_b8,
+  input         A1_0_b9,
+  input         A1_0_b10,
+  input         WEN1_1_b0,
+  input         WEN1_1_b1,
+  input         FIFO_EN_1,
+  input         CLK2EN_0,
+  input         DS,
+  input         LS_RB1,
+  input         CLK1EN_1,
+  input  [ 1:0] WIDTH_SELECT2_0,
+  input         A2_1_b0,
+  input         A2_1_b1,
+  input         A2_1_b2,
+  input         A2_1_b3,
+  input         A2_1_b4,
+  input         A2_1_b5,
+  input         A2_1_b6,
+  input         A2_1_b7,
+  input         A2_1_b8,
+  input         A2_1_b9,
+  input         A2_1_b10,
   input         WD_1_b0,
   input         WD_1_b1,
   input         WD_1_b2,
@@ -29770,35 +29841,37 @@ module RAM_CE1_FE1_D1_PR0_WSA2_WSB0_VPR (
   input         WD_1_b15,
   input         WD_1_b16,
   input         WD_1_b17,
-  input         ASYNC_FLUSH_1,
-  input         LS_RB1,
-  input         CS2_1,
+  input         P2_0,
+  input         CS2_0,
+  input         P1_1,
+  input         CONCAT_EN_1,
+  input         LS,
+  input  [ 1:0] WIDTH_SELECT1_1,
+  input         SD_RB1,
+  input         TEST1A,
+  input         CLK2EN_1,
   input         RMA_b0,
   input         RMA_b1,
   input         RMA_b2,
   input         RMA_b3,
-  input  [ 1:0] WIDTH_SELECT1_0,
-  input         CS1_0,
-  input         FIFO_EN_0,
-  input         CONCAT_EN_1,
+  input         WEN1_0_b0,
+  input         WEN1_0_b1,
+  input         RMEA,
   input         DIR_0,
-  input         CLK2EN_1,
   input         P1_0,
-  input         FIFO_EN_1,
-  input         WEN1_1_b0,
-  input         WEN1_1_b1,
-  input         A1_0_b0,
-  input         A1_0_b1,
-  input         A1_0_b2,
-  input         A1_0_b3,
-  input         A1_0_b4,
-  input         A1_0_b5,
-  input         A1_0_b6,
-  input         A1_0_b7,
-  input         A1_0_b8,
-  input         A1_0_b9,
-  input         A1_0_b10,
+  input         PIPELINE_RD_1,
+  input  [ 1:0] WIDTH_SELECT2_1,
+  input         CONCAT_EN_0,
+  input         P2_1,
+  input         SD,
 
+  output        PUSH_FLAG_1_b0,
+  output        PUSH_FLAG_1_b1,
+  output        PUSH_FLAG_1_b2,
+  output        PUSH_FLAG_1_b3,
+  output        Almost_Empty_0,
+  output        Almost_Empty_1,
+  output        Almost_Full_1,
   output        RD_1_b0,
   output        RD_1_b1,
   output        RD_1_b2,
@@ -29817,25 +29890,15 @@ module RAM_CE1_FE1_D1_PR0_WSA2_WSB0_VPR (
   output        RD_1_b15,
   output        RD_1_b16,
   output        RD_1_b17,
-  output        Almost_Empty_0,
-  output        Almost_Full_1,
-  output        PUSH_FLAG_1_b0,
-  output        PUSH_FLAG_1_b1,
-  output        PUSH_FLAG_1_b2,
-  output        PUSH_FLAG_1_b3,
-  output        POP_FLAG_0_b0,
-  output        POP_FLAG_0_b1,
-  output        POP_FLAG_0_b2,
-  output        POP_FLAG_0_b3,
-  output        PUSH_FLAG_0_b0,
-  output        PUSH_FLAG_0_b1,
-  output        PUSH_FLAG_0_b2,
-  output        PUSH_FLAG_0_b3,
+  output        Almost_Full_0,
   output        POP_FLAG_1_b0,
   output        POP_FLAG_1_b1,
   output        POP_FLAG_1_b2,
   output        POP_FLAG_1_b3,
-  output        Almost_Full_0,
+  output        POP_FLAG_0_b0,
+  output        POP_FLAG_0_b1,
+  output        POP_FLAG_0_b2,
+  output        POP_FLAG_0_b3,
   output        RD_0_b0,
   output        RD_0_b1,
   output        RD_0_b2,
@@ -29854,14 +29917,14 @@ module RAM_CE1_FE1_D1_PR0_WSA2_WSB0_VPR (
   output        RD_0_b15,
   output        RD_0_b16,
   output        RD_0_b17,
-  output        Almost_Empty_1
+  output        PUSH_FLAG_0_b0,
+  output        PUSH_FLAG_0_b1,
+  output        PUSH_FLAG_0_b2,
+  output        PUSH_FLAG_0_b3
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
-      $setup(P1_1, posedge CLK1_1, "");
-      $hold(posedge CLK1_1, P1_1, "");
-      $setup(P2_1, posedge CLK2_1, "");
-      $hold(posedge CLK2_1, P2_1, "");
       $setup(WD_0_b0, posedge CLK2_0, "");
       $hold(posedge CLK2_0, WD_0_b0, "");
       $setup(WD_0_b1, posedge CLK2_0, "");
@@ -29898,8 +29961,6 @@ module RAM_CE1_FE1_D1_PR0_WSA2_WSB0_VPR (
       $hold(posedge CLK2_0, WD_0_b16, "");
       $setup(WD_0_b17, posedge CLK2_0, "");
       $hold(posedge CLK2_0, WD_0_b17, "");
-      $setup(P2_0, posedge CLK2_0, "");
-      $hold(posedge CLK2_0, P2_0, "");
       $setup(WD_1_b0, posedge CLK2_1, "");
       $hold(posedge CLK2_1, WD_1_b0, "");
       $setup(WD_1_b1, posedge CLK2_1, "");
@@ -29936,8 +29997,21 @@ module RAM_CE1_FE1_D1_PR0_WSA2_WSB0_VPR (
       $hold(posedge CLK2_1, WD_1_b16, "");
       $setup(WD_1_b17, posedge CLK2_1, "");
       $hold(posedge CLK2_1, WD_1_b17, "");
+      $setup(P2_0, posedge CLK2_0, "");
+      $hold(posedge CLK2_0, P2_0, "");
+      $setup(P1_1, posedge CLK1_1, "");
+      $hold(posedge CLK1_1, P1_1, "");
       $setup(P1_0, posedge CLK1_0, "");
       $hold(posedge CLK1_0, P1_0, "");
+      $setup(P2_1, posedge CLK2_1, "");
+      $hold(posedge CLK2_1, P2_1, "");
+      (CLK2_1*>PUSH_FLAG_1_b0)="";
+      (CLK2_1*>PUSH_FLAG_1_b1)="";
+      (CLK2_1*>PUSH_FLAG_1_b2)="";
+      (CLK2_1*>PUSH_FLAG_1_b3)="";
+      (CLK1_0*>Almost_Empty_0)="";
+      (CLK1_1*>Almost_Empty_1)="";
+      (CLK2_1*>Almost_Full_1)="";
       (CLK1_1*>RD_1_b0)="";
       (CLK1_1*>RD_1_b1)="";
       (CLK1_1*>RD_1_b2)="";
@@ -29956,25 +30030,15 @@ module RAM_CE1_FE1_D1_PR0_WSA2_WSB0_VPR (
       (CLK1_1*>RD_1_b15)="";
       (CLK1_1*>RD_1_b16)="";
       (CLK1_1*>RD_1_b17)="";
-      (CLK1_0*>Almost_Empty_0)="";
-      (CLK2_1*>Almost_Full_1)="";
-      (CLK2_1*>PUSH_FLAG_1_b0)="";
-      (CLK2_1*>PUSH_FLAG_1_b1)="";
-      (CLK2_1*>PUSH_FLAG_1_b2)="";
-      (CLK2_1*>PUSH_FLAG_1_b3)="";
-      (CLK1_0*>POP_FLAG_0_b0)="";
-      (CLK1_0*>POP_FLAG_0_b1)="";
-      (CLK1_0*>POP_FLAG_0_b2)="";
-      (CLK1_0*>POP_FLAG_0_b3)="";
-      (CLK2_0*>PUSH_FLAG_0_b0)="";
-      (CLK2_0*>PUSH_FLAG_0_b1)="";
-      (CLK2_0*>PUSH_FLAG_0_b2)="";
-      (CLK2_0*>PUSH_FLAG_0_b3)="";
+      (CLK2_0*>Almost_Full_0)="";
       (CLK1_1*>POP_FLAG_1_b0)="";
       (CLK1_1*>POP_FLAG_1_b1)="";
       (CLK1_1*>POP_FLAG_1_b2)="";
       (CLK1_1*>POP_FLAG_1_b3)="";
-      (CLK2_0*>Almost_Full_0)="";
+      (CLK1_0*>POP_FLAG_0_b0)="";
+      (CLK1_0*>POP_FLAG_0_b1)="";
+      (CLK1_0*>POP_FLAG_0_b2)="";
+      (CLK1_0*>POP_FLAG_0_b3)="";
       (CLK1_0*>RD_0_b0)="";
       (CLK1_0*>RD_0_b1)="";
       (CLK1_0*>RD_0_b2)="";
@@ -29993,26 +30057,41 @@ module RAM_CE1_FE1_D1_PR0_WSA2_WSB0_VPR (
       (CLK1_0*>RD_0_b15)="";
       (CLK1_0*>RD_0_b16)="";
       (CLK1_0*>RD_0_b17)="";
-      (CLK1_1*>Almost_Empty_1)="";
+      (CLK2_0*>PUSH_FLAG_0_b0)="";
+      (CLK2_0*>PUSH_FLAG_0_b1)="";
+      (CLK2_0*>PUSH_FLAG_0_b2)="";
+      (CLK2_0*>PUSH_FLAG_0_b3)="";
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
-      .CLK1_0(CLK1_0),
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
+      .CLK2_1(CLK2_1),
       .CLK1_1(CLK1_1),
       .CLK2_0(CLK2_0),
-      .CLK2_1(CLK2_1),
-      .WIDTH_SELECT2_0(WIDTH_SELECT2_0),
-      .P1_1(P1_1),
-      .WIDTH_SELECT2_1(WIDTH_SELECT2_1),
+      .CLK1_0(CLK1_0),
+      .CS1_1(CS1_1),
+      .A1_1_b0(A1_1_b0),
+      .A1_1_b1(A1_1_b1),
+      .A1_1_b2(A1_1_b2),
+      .A1_1_b3(A1_1_b3),
+      .A1_1_b4(A1_1_b4),
+      .A1_1_b5(A1_1_b5),
+      .A1_1_b6(A1_1_b6),
+      .A1_1_b7(A1_1_b7),
+      .A1_1_b8(A1_1_b8),
+      .A1_1_b9(A1_1_b9),
+      .A1_1_b10(A1_1_b10),
+      .FIFO_EN_0(FIFO_EN_0),
+      .CS1_0(CS1_0),
       .PIPELINE_RD_0(PIPELINE_RD_0),
+      .ASYNC_FLUSH_1(ASYNC_FLUSH_1),
       .DIR_1(DIR_1),
-      .CONCAT_EN_0(CONCAT_EN_0),
-      .CLK1EN_1(CLK1EN_1),
-      .P2_1(P2_1),
-      .WEN1_0_b0(WEN1_0_b0),
-      .WEN1_0_b1(WEN1_0_b1),
-      .PIPELINE_RD_1(PIPELINE_RD_1),
+      .CS2_1(CS2_1),
+      .CLK1EN_0(CLK1EN_0),
+      .WIDTH_SELECT1_0(WIDTH_SELECT1_0),
+      .ASYNC_FLUSH_0(ASYNC_FLUSH_0),
+      .SYNC_FIFO_0(SYNC_FIFO_0),
+      .SYNC_FIFO_1(SYNC_FIFO_1),
       .WD_0_b0(WD_0_b0),
       .WD_0_b1(WD_0_b1),
       .WD_0_b2(WD_0_b2),
@@ -30031,36 +30110,6 @@ module RAM_CE1_FE1_D1_PR0_WSA2_WSB0_VPR (
       .WD_0_b15(WD_0_b15),
       .WD_0_b16(WD_0_b16),
       .WD_0_b17(WD_0_b17),
-      .WIDTH_SELECT1_1(WIDTH_SELECT1_1),
-      .CS2_0(CS2_0),
-      .CLK1EN_0(CLK1EN_0),
-      .SYNC_FIFO_1(SYNC_FIFO_1),
-      .CLK2EN_0(CLK2EN_0),
-      .SYNC_FIFO_0(SYNC_FIFO_0),
-      .ASYNC_FLUSH_0(ASYNC_FLUSH_0),
-      .A2_1_b0(A2_1_b0),
-      .A2_1_b1(A2_1_b1),
-      .A2_1_b2(A2_1_b2),
-      .A2_1_b3(A2_1_b3),
-      .A2_1_b4(A2_1_b4),
-      .A2_1_b5(A2_1_b5),
-      .A2_1_b6(A2_1_b6),
-      .A2_1_b7(A2_1_b7),
-      .A2_1_b8(A2_1_b8),
-      .A2_1_b9(A2_1_b9),
-      .A2_1_b10(A2_1_b10),
-      .A1_1_b0(A1_1_b0),
-      .A1_1_b1(A1_1_b1),
-      .A1_1_b2(A1_1_b2),
-      .A1_1_b3(A1_1_b3),
-      .A1_1_b4(A1_1_b4),
-      .A1_1_b5(A1_1_b5),
-      .A1_1_b6(A1_1_b6),
-      .A1_1_b7(A1_1_b7),
-      .A1_1_b8(A1_1_b8),
-      .A1_1_b9(A1_1_b9),
-      .A1_1_b10(A1_1_b10),
-      .CS1_1(CS1_1),
       .A2_0_b0(A2_0_b0),
       .A2_0_b1(A2_0_b1),
       .A2_0_b2(A2_0_b2),
@@ -30072,7 +30121,34 @@ module RAM_CE1_FE1_D1_PR0_WSA2_WSB0_VPR (
       .A2_0_b8(A2_0_b8),
       .A2_0_b9(A2_0_b9),
       .A2_0_b10(A2_0_b10),
-      .P2_0(P2_0),
+      .A1_0_b0(A1_0_b0),
+      .A1_0_b1(A1_0_b1),
+      .A1_0_b2(A1_0_b2),
+      .A1_0_b3(A1_0_b3),
+      .A1_0_b4(A1_0_b4),
+      .A1_0_b5(A1_0_b5),
+      .A1_0_b6(A1_0_b6),
+      .A1_0_b7(A1_0_b7),
+      .A1_0_b8(A1_0_b8),
+      .A1_0_b9(A1_0_b9),
+      .A1_0_b10(A1_0_b10),
+      .WEN1_1_b0(WEN1_1_b0),
+      .WEN1_1_b1(WEN1_1_b1),
+      .FIFO_EN_1(FIFO_EN_1),
+      .CLK2EN_0(CLK2EN_0),
+      .CLK1EN_1(CLK1EN_1),
+      .WIDTH_SELECT2_0(WIDTH_SELECT2_0),
+      .A2_1_b0(A2_1_b0),
+      .A2_1_b1(A2_1_b1),
+      .A2_1_b2(A2_1_b2),
+      .A2_1_b3(A2_1_b3),
+      .A2_1_b4(A2_1_b4),
+      .A2_1_b5(A2_1_b5),
+      .A2_1_b6(A2_1_b6),
+      .A2_1_b7(A2_1_b7),
+      .A2_1_b8(A2_1_b8),
+      .A2_1_b9(A2_1_b9),
+      .A2_1_b10(A2_1_b10),
       .WD_1_b0(WD_1_b0),
       .WD_1_b1(WD_1_b1),
       .WD_1_b2(WD_1_b2),
@@ -30091,29 +30167,27 @@ module RAM_CE1_FE1_D1_PR0_WSA2_WSB0_VPR (
       .WD_1_b15(WD_1_b15),
       .WD_1_b16(WD_1_b16),
       .WD_1_b17(WD_1_b17),
-      .ASYNC_FLUSH_1(ASYNC_FLUSH_1),
-      .CS2_1(CS2_1),
-      .WIDTH_SELECT1_0(WIDTH_SELECT1_0),
-      .CS1_0(CS1_0),
-      .FIFO_EN_0(FIFO_EN_0),
+      .P2_0(P2_0),
+      .CS2_0(CS2_0),
+      .P1_1(P1_1),
       .CONCAT_EN_1(CONCAT_EN_1),
-      .DIR_0(DIR_0),
+      .WIDTH_SELECT1_1(WIDTH_SELECT1_1),
       .CLK2EN_1(CLK2EN_1),
+      .WEN1_0_b0(WEN1_0_b0),
+      .WEN1_0_b1(WEN1_0_b1),
+      .DIR_0(DIR_0),
       .P1_0(P1_0),
-      .FIFO_EN_1(FIFO_EN_1),
-      .WEN1_1_b0(WEN1_1_b0),
-      .WEN1_1_b1(WEN1_1_b1),
-      .A1_0_b0(A1_0_b0),
-      .A1_0_b1(A1_0_b1),
-      .A1_0_b2(A1_0_b2),
-      .A1_0_b3(A1_0_b3),
-      .A1_0_b4(A1_0_b4),
-      .A1_0_b5(A1_0_b5),
-      .A1_0_b6(A1_0_b6),
-      .A1_0_b7(A1_0_b7),
-      .A1_0_b8(A1_0_b8),
-      .A1_0_b9(A1_0_b9),
-      .A1_0_b10(A1_0_b10),
+      .PIPELINE_RD_1(PIPELINE_RD_1),
+      .WIDTH_SELECT2_1(WIDTH_SELECT2_1),
+      .CONCAT_EN_0(CONCAT_EN_0),
+      .P2_1(P2_1),
+      .PUSH_FLAG_1_b0(PUSH_FLAG_1_b0),
+      .PUSH_FLAG_1_b1(PUSH_FLAG_1_b1),
+      .PUSH_FLAG_1_b2(PUSH_FLAG_1_b2),
+      .PUSH_FLAG_1_b3(PUSH_FLAG_1_b3),
+      .Almost_Empty_0(Almost_Empty_0),
+      .Almost_Empty_1(Almost_Empty_1),
+      .Almost_Full_1(Almost_Full_1),
       .RD_1_b0(RD_1_b0),
       .RD_1_b1(RD_1_b1),
       .RD_1_b2(RD_1_b2),
@@ -30132,25 +30206,15 @@ module RAM_CE1_FE1_D1_PR0_WSA2_WSB0_VPR (
       .RD_1_b15(RD_1_b15),
       .RD_1_b16(RD_1_b16),
       .RD_1_b17(RD_1_b17),
-      .Almost_Empty_0(Almost_Empty_0),
-      .Almost_Full_1(Almost_Full_1),
-      .PUSH_FLAG_1_b0(PUSH_FLAG_1_b0),
-      .PUSH_FLAG_1_b1(PUSH_FLAG_1_b1),
-      .PUSH_FLAG_1_b2(PUSH_FLAG_1_b2),
-      .PUSH_FLAG_1_b3(PUSH_FLAG_1_b3),
-      .POP_FLAG_0_b0(POP_FLAG_0_b0),
-      .POP_FLAG_0_b1(POP_FLAG_0_b1),
-      .POP_FLAG_0_b2(POP_FLAG_0_b2),
-      .POP_FLAG_0_b3(POP_FLAG_0_b3),
-      .PUSH_FLAG_0_b0(PUSH_FLAG_0_b0),
-      .PUSH_FLAG_0_b1(PUSH_FLAG_0_b1),
-      .PUSH_FLAG_0_b2(PUSH_FLAG_0_b2),
-      .PUSH_FLAG_0_b3(PUSH_FLAG_0_b3),
+      .Almost_Full_0(Almost_Full_0),
       .POP_FLAG_1_b0(POP_FLAG_1_b0),
       .POP_FLAG_1_b1(POP_FLAG_1_b1),
       .POP_FLAG_1_b2(POP_FLAG_1_b2),
       .POP_FLAG_1_b3(POP_FLAG_1_b3),
-      .Almost_Full_0(Almost_Full_0),
+      .POP_FLAG_0_b0(POP_FLAG_0_b0),
+      .POP_FLAG_0_b1(POP_FLAG_0_b1),
+      .POP_FLAG_0_b2(POP_FLAG_0_b2),
+      .POP_FLAG_0_b3(POP_FLAG_0_b3),
       .RD_0_b0(RD_0_b0),
       .RD_0_b1(RD_0_b1),
       .RD_0_b2(RD_0_b2),
@@ -30169,7 +30233,10 @@ module RAM_CE1_FE1_D1_PR0_WSA2_WSB0_VPR (
       .RD_0_b15(RD_0_b15),
       .RD_0_b16(RD_0_b16),
       .RD_0_b17(RD_0_b17),
-      .Almost_Empty_1(Almost_Empty_1));
+      .PUSH_FLAG_0_b0(PUSH_FLAG_0_b0),
+      .PUSH_FLAG_0_b1(PUSH_FLAG_0_b1),
+      .PUSH_FLAG_0_b2(PUSH_FLAG_0_b2),
+      .PUSH_FLAG_0_b3(PUSH_FLAG_0_b3));
 
 endmodule
 
@@ -30177,26 +30244,41 @@ endmodule
 (* blackbox *)
 module RAM_CE1_FE1_D1_PR0_WSA2_WSB1_VPR (
 
-  input         CLK1_0,
+  input         CLK2_1,
   input         CLK1_1,
   input         CLK2_0,
-  input         CLK2_1,
+  input         CLK1_0,
 
-  input         TEST1A,
-  input         DS,
-  input  [ 1:0] WIDTH_SELECT2_0,
-  input         P1_1,
-  input  [ 1:0] WIDTH_SELECT2_1,
+  input         CS1_1,
+  input         A1_1_b0,
+  input         A1_1_b1,
+  input         A1_1_b2,
+  input         A1_1_b3,
+  input         A1_1_b4,
+  input         A1_1_b5,
+  input         A1_1_b6,
+  input         A1_1_b7,
+  input         A1_1_b8,
+  input         A1_1_b9,
+  input         A1_1_b10,
+  input         FIFO_EN_0,
+  input         DS_RB1,
+  input         CS1_0,
   input         PIPELINE_RD_0,
-  input         SD,
+  input         ASYNC_FLUSH_1,
   input         DIR_1,
-  input         CONCAT_EN_0,
-  input         LS,
-  input         CLK1EN_1,
-  input         P2_1,
-  input         WEN1_0_b0,
-  input         WEN1_0_b1,
-  input         PIPELINE_RD_1,
+  input         CS2_1,
+  input         CLK1EN_0,
+  input  [ 1:0] WIDTH_SELECT1_0,
+  input         RMB_b0,
+  input         RMB_b1,
+  input         RMB_b2,
+  input         RMB_b3,
+  input         ASYNC_FLUSH_0,
+  input         SYNC_FIFO_0,
+  input         SYNC_FIFO_1,
+  input         RMEB,
+  input         TEST1B,
   input         WD_0_b0,
   input         WD_0_b1,
   input         WD_0_b2,
@@ -30215,45 +30297,6 @@ module RAM_CE1_FE1_D1_PR0_WSA2_WSB1_VPR (
   input         WD_0_b15,
   input         WD_0_b16,
   input         WD_0_b17,
-  input  [ 1:0] WIDTH_SELECT1_1,
-  input         SD_RB1,
-  input         TEST1B,
-  input         RMEB,
-  input         RMB_b0,
-  input         RMB_b1,
-  input         RMB_b2,
-  input         RMB_b3,
-  input         DS_RB1,
-  input         CS2_0,
-  input         CLK1EN_0,
-  input         SYNC_FIFO_1,
-  input         CLK2EN_0,
-  input         SYNC_FIFO_0,
-  input         ASYNC_FLUSH_0,
-  input         A2_1_b0,
-  input         A2_1_b1,
-  input         A2_1_b2,
-  input         A2_1_b3,
-  input         A2_1_b4,
-  input         A2_1_b5,
-  input         A2_1_b6,
-  input         A2_1_b7,
-  input         A2_1_b8,
-  input         A2_1_b9,
-  input         A2_1_b10,
-  input         RMEA,
-  input         A1_1_b0,
-  input         A1_1_b1,
-  input         A1_1_b2,
-  input         A1_1_b3,
-  input         A1_1_b4,
-  input         A1_1_b5,
-  input         A1_1_b6,
-  input         A1_1_b7,
-  input         A1_1_b8,
-  input         A1_1_b9,
-  input         A1_1_b10,
-  input         CS1_1,
   input         A2_0_b0,
   input         A2_0_b1,
   input         A2_0_b2,
@@ -30265,7 +30308,36 @@ module RAM_CE1_FE1_D1_PR0_WSA2_WSB1_VPR (
   input         A2_0_b8,
   input         A2_0_b9,
   input         A2_0_b10,
-  input         P2_0,
+  input         A1_0_b0,
+  input         A1_0_b1,
+  input         A1_0_b2,
+  input         A1_0_b3,
+  input         A1_0_b4,
+  input         A1_0_b5,
+  input         A1_0_b6,
+  input         A1_0_b7,
+  input         A1_0_b8,
+  input         A1_0_b9,
+  input         A1_0_b10,
+  input         WEN1_1_b0,
+  input         WEN1_1_b1,
+  input         FIFO_EN_1,
+  input         CLK2EN_0,
+  input         DS,
+  input         LS_RB1,
+  input         CLK1EN_1,
+  input  [ 1:0] WIDTH_SELECT2_0,
+  input         A2_1_b0,
+  input         A2_1_b1,
+  input         A2_1_b2,
+  input         A2_1_b3,
+  input         A2_1_b4,
+  input         A2_1_b5,
+  input         A2_1_b6,
+  input         A2_1_b7,
+  input         A2_1_b8,
+  input         A2_1_b9,
+  input         A2_1_b10,
   input         WD_1_b0,
   input         WD_1_b1,
   input         WD_1_b2,
@@ -30284,35 +30356,37 @@ module RAM_CE1_FE1_D1_PR0_WSA2_WSB1_VPR (
   input         WD_1_b15,
   input         WD_1_b16,
   input         WD_1_b17,
-  input         ASYNC_FLUSH_1,
-  input         LS_RB1,
-  input         CS2_1,
+  input         P2_0,
+  input         CS2_0,
+  input         P1_1,
+  input         CONCAT_EN_1,
+  input         LS,
+  input  [ 1:0] WIDTH_SELECT1_1,
+  input         SD_RB1,
+  input         TEST1A,
+  input         CLK2EN_1,
   input         RMA_b0,
   input         RMA_b1,
   input         RMA_b2,
   input         RMA_b3,
-  input  [ 1:0] WIDTH_SELECT1_0,
-  input         CS1_0,
-  input         FIFO_EN_0,
-  input         CONCAT_EN_1,
+  input         WEN1_0_b0,
+  input         WEN1_0_b1,
+  input         RMEA,
   input         DIR_0,
-  input         CLK2EN_1,
   input         P1_0,
-  input         FIFO_EN_1,
-  input         WEN1_1_b0,
-  input         WEN1_1_b1,
-  input         A1_0_b0,
-  input         A1_0_b1,
-  input         A1_0_b2,
-  input         A1_0_b3,
-  input         A1_0_b4,
-  input         A1_0_b5,
-  input         A1_0_b6,
-  input         A1_0_b7,
-  input         A1_0_b8,
-  input         A1_0_b9,
-  input         A1_0_b10,
+  input         PIPELINE_RD_1,
+  input  [ 1:0] WIDTH_SELECT2_1,
+  input         CONCAT_EN_0,
+  input         P2_1,
+  input         SD,
 
+  output        PUSH_FLAG_1_b0,
+  output        PUSH_FLAG_1_b1,
+  output        PUSH_FLAG_1_b2,
+  output        PUSH_FLAG_1_b3,
+  output        Almost_Empty_0,
+  output        Almost_Empty_1,
+  output        Almost_Full_1,
   output        RD_1_b0,
   output        RD_1_b1,
   output        RD_1_b2,
@@ -30331,25 +30405,15 @@ module RAM_CE1_FE1_D1_PR0_WSA2_WSB1_VPR (
   output        RD_1_b15,
   output        RD_1_b16,
   output        RD_1_b17,
-  output        Almost_Empty_0,
-  output        Almost_Full_1,
-  output        PUSH_FLAG_1_b0,
-  output        PUSH_FLAG_1_b1,
-  output        PUSH_FLAG_1_b2,
-  output        PUSH_FLAG_1_b3,
-  output        POP_FLAG_0_b0,
-  output        POP_FLAG_0_b1,
-  output        POP_FLAG_0_b2,
-  output        POP_FLAG_0_b3,
-  output        PUSH_FLAG_0_b0,
-  output        PUSH_FLAG_0_b1,
-  output        PUSH_FLAG_0_b2,
-  output        PUSH_FLAG_0_b3,
+  output        Almost_Full_0,
   output        POP_FLAG_1_b0,
   output        POP_FLAG_1_b1,
   output        POP_FLAG_1_b2,
   output        POP_FLAG_1_b3,
-  output        Almost_Full_0,
+  output        POP_FLAG_0_b0,
+  output        POP_FLAG_0_b1,
+  output        POP_FLAG_0_b2,
+  output        POP_FLAG_0_b3,
   output        RD_0_b0,
   output        RD_0_b1,
   output        RD_0_b2,
@@ -30368,14 +30432,14 @@ module RAM_CE1_FE1_D1_PR0_WSA2_WSB1_VPR (
   output        RD_0_b15,
   output        RD_0_b16,
   output        RD_0_b17,
-  output        Almost_Empty_1
+  output        PUSH_FLAG_0_b0,
+  output        PUSH_FLAG_0_b1,
+  output        PUSH_FLAG_0_b2,
+  output        PUSH_FLAG_0_b3
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
-      $setup(P1_1, posedge CLK1_1, "");
-      $hold(posedge CLK1_1, P1_1, "");
-      $setup(P2_1, posedge CLK2_1, "");
-      $hold(posedge CLK2_1, P2_1, "");
       $setup(WD_0_b0, posedge CLK2_0, "");
       $hold(posedge CLK2_0, WD_0_b0, "");
       $setup(WD_0_b1, posedge CLK2_0, "");
@@ -30412,8 +30476,6 @@ module RAM_CE1_FE1_D1_PR0_WSA2_WSB1_VPR (
       $hold(posedge CLK2_0, WD_0_b16, "");
       $setup(WD_0_b17, posedge CLK2_0, "");
       $hold(posedge CLK2_0, WD_0_b17, "");
-      $setup(P2_0, posedge CLK2_0, "");
-      $hold(posedge CLK2_0, P2_0, "");
       $setup(WD_1_b0, posedge CLK2_1, "");
       $hold(posedge CLK2_1, WD_1_b0, "");
       $setup(WD_1_b1, posedge CLK2_1, "");
@@ -30450,8 +30512,21 @@ module RAM_CE1_FE1_D1_PR0_WSA2_WSB1_VPR (
       $hold(posedge CLK2_1, WD_1_b16, "");
       $setup(WD_1_b17, posedge CLK2_1, "");
       $hold(posedge CLK2_1, WD_1_b17, "");
+      $setup(P2_0, posedge CLK2_0, "");
+      $hold(posedge CLK2_0, P2_0, "");
+      $setup(P1_1, posedge CLK1_1, "");
+      $hold(posedge CLK1_1, P1_1, "");
       $setup(P1_0, posedge CLK1_0, "");
       $hold(posedge CLK1_0, P1_0, "");
+      $setup(P2_1, posedge CLK2_1, "");
+      $hold(posedge CLK2_1, P2_1, "");
+      (CLK2_1*>PUSH_FLAG_1_b0)="";
+      (CLK2_1*>PUSH_FLAG_1_b1)="";
+      (CLK2_1*>PUSH_FLAG_1_b2)="";
+      (CLK2_1*>PUSH_FLAG_1_b3)="";
+      (CLK1_0*>Almost_Empty_0)="";
+      (CLK1_1*>Almost_Empty_1)="";
+      (CLK2_1*>Almost_Full_1)="";
       (CLK1_1*>RD_1_b0)="";
       (CLK1_1*>RD_1_b1)="";
       (CLK1_1*>RD_1_b2)="";
@@ -30470,25 +30545,15 @@ module RAM_CE1_FE1_D1_PR0_WSA2_WSB1_VPR (
       (CLK1_1*>RD_1_b15)="";
       (CLK1_1*>RD_1_b16)="";
       (CLK1_1*>RD_1_b17)="";
-      (CLK1_0*>Almost_Empty_0)="";
-      (CLK2_1*>Almost_Full_1)="";
-      (CLK2_1*>PUSH_FLAG_1_b0)="";
-      (CLK2_1*>PUSH_FLAG_1_b1)="";
-      (CLK2_1*>PUSH_FLAG_1_b2)="";
-      (CLK2_1*>PUSH_FLAG_1_b3)="";
-      (CLK1_0*>POP_FLAG_0_b0)="";
-      (CLK1_0*>POP_FLAG_0_b1)="";
-      (CLK1_0*>POP_FLAG_0_b2)="";
-      (CLK1_0*>POP_FLAG_0_b3)="";
-      (CLK2_0*>PUSH_FLAG_0_b0)="";
-      (CLK2_0*>PUSH_FLAG_0_b1)="";
-      (CLK2_0*>PUSH_FLAG_0_b2)="";
-      (CLK2_0*>PUSH_FLAG_0_b3)="";
+      (CLK2_0*>Almost_Full_0)="";
       (CLK1_1*>POP_FLAG_1_b0)="";
       (CLK1_1*>POP_FLAG_1_b1)="";
       (CLK1_1*>POP_FLAG_1_b2)="";
       (CLK1_1*>POP_FLAG_1_b3)="";
-      (CLK2_0*>Almost_Full_0)="";
+      (CLK1_0*>POP_FLAG_0_b0)="";
+      (CLK1_0*>POP_FLAG_0_b1)="";
+      (CLK1_0*>POP_FLAG_0_b2)="";
+      (CLK1_0*>POP_FLAG_0_b3)="";
       (CLK1_0*>RD_0_b0)="";
       (CLK1_0*>RD_0_b1)="";
       (CLK1_0*>RD_0_b2)="";
@@ -30507,26 +30572,41 @@ module RAM_CE1_FE1_D1_PR0_WSA2_WSB1_VPR (
       (CLK1_0*>RD_0_b15)="";
       (CLK1_0*>RD_0_b16)="";
       (CLK1_0*>RD_0_b17)="";
-      (CLK1_1*>Almost_Empty_1)="";
+      (CLK2_0*>PUSH_FLAG_0_b0)="";
+      (CLK2_0*>PUSH_FLAG_0_b1)="";
+      (CLK2_0*>PUSH_FLAG_0_b2)="";
+      (CLK2_0*>PUSH_FLAG_0_b3)="";
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
-      .CLK1_0(CLK1_0),
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
+      .CLK2_1(CLK2_1),
       .CLK1_1(CLK1_1),
       .CLK2_0(CLK2_0),
-      .CLK2_1(CLK2_1),
-      .WIDTH_SELECT2_0(WIDTH_SELECT2_0),
-      .P1_1(P1_1),
-      .WIDTH_SELECT2_1(WIDTH_SELECT2_1),
+      .CLK1_0(CLK1_0),
+      .CS1_1(CS1_1),
+      .A1_1_b0(A1_1_b0),
+      .A1_1_b1(A1_1_b1),
+      .A1_1_b2(A1_1_b2),
+      .A1_1_b3(A1_1_b3),
+      .A1_1_b4(A1_1_b4),
+      .A1_1_b5(A1_1_b5),
+      .A1_1_b6(A1_1_b6),
+      .A1_1_b7(A1_1_b7),
+      .A1_1_b8(A1_1_b8),
+      .A1_1_b9(A1_1_b9),
+      .A1_1_b10(A1_1_b10),
+      .FIFO_EN_0(FIFO_EN_0),
+      .CS1_0(CS1_0),
       .PIPELINE_RD_0(PIPELINE_RD_0),
+      .ASYNC_FLUSH_1(ASYNC_FLUSH_1),
       .DIR_1(DIR_1),
-      .CONCAT_EN_0(CONCAT_EN_0),
-      .CLK1EN_1(CLK1EN_1),
-      .P2_1(P2_1),
-      .WEN1_0_b0(WEN1_0_b0),
-      .WEN1_0_b1(WEN1_0_b1),
-      .PIPELINE_RD_1(PIPELINE_RD_1),
+      .CS2_1(CS2_1),
+      .CLK1EN_0(CLK1EN_0),
+      .WIDTH_SELECT1_0(WIDTH_SELECT1_0),
+      .ASYNC_FLUSH_0(ASYNC_FLUSH_0),
+      .SYNC_FIFO_0(SYNC_FIFO_0),
+      .SYNC_FIFO_1(SYNC_FIFO_1),
       .WD_0_b0(WD_0_b0),
       .WD_0_b1(WD_0_b1),
       .WD_0_b2(WD_0_b2),
@@ -30545,36 +30625,6 @@ module RAM_CE1_FE1_D1_PR0_WSA2_WSB1_VPR (
       .WD_0_b15(WD_0_b15),
       .WD_0_b16(WD_0_b16),
       .WD_0_b17(WD_0_b17),
-      .WIDTH_SELECT1_1(WIDTH_SELECT1_1),
-      .CS2_0(CS2_0),
-      .CLK1EN_0(CLK1EN_0),
-      .SYNC_FIFO_1(SYNC_FIFO_1),
-      .CLK2EN_0(CLK2EN_0),
-      .SYNC_FIFO_0(SYNC_FIFO_0),
-      .ASYNC_FLUSH_0(ASYNC_FLUSH_0),
-      .A2_1_b0(A2_1_b0),
-      .A2_1_b1(A2_1_b1),
-      .A2_1_b2(A2_1_b2),
-      .A2_1_b3(A2_1_b3),
-      .A2_1_b4(A2_1_b4),
-      .A2_1_b5(A2_1_b5),
-      .A2_1_b6(A2_1_b6),
-      .A2_1_b7(A2_1_b7),
-      .A2_1_b8(A2_1_b8),
-      .A2_1_b9(A2_1_b9),
-      .A2_1_b10(A2_1_b10),
-      .A1_1_b0(A1_1_b0),
-      .A1_1_b1(A1_1_b1),
-      .A1_1_b2(A1_1_b2),
-      .A1_1_b3(A1_1_b3),
-      .A1_1_b4(A1_1_b4),
-      .A1_1_b5(A1_1_b5),
-      .A1_1_b6(A1_1_b6),
-      .A1_1_b7(A1_1_b7),
-      .A1_1_b8(A1_1_b8),
-      .A1_1_b9(A1_1_b9),
-      .A1_1_b10(A1_1_b10),
-      .CS1_1(CS1_1),
       .A2_0_b0(A2_0_b0),
       .A2_0_b1(A2_0_b1),
       .A2_0_b2(A2_0_b2),
@@ -30586,7 +30636,34 @@ module RAM_CE1_FE1_D1_PR0_WSA2_WSB1_VPR (
       .A2_0_b8(A2_0_b8),
       .A2_0_b9(A2_0_b9),
       .A2_0_b10(A2_0_b10),
-      .P2_0(P2_0),
+      .A1_0_b0(A1_0_b0),
+      .A1_0_b1(A1_0_b1),
+      .A1_0_b2(A1_0_b2),
+      .A1_0_b3(A1_0_b3),
+      .A1_0_b4(A1_0_b4),
+      .A1_0_b5(A1_0_b5),
+      .A1_0_b6(A1_0_b6),
+      .A1_0_b7(A1_0_b7),
+      .A1_0_b8(A1_0_b8),
+      .A1_0_b9(A1_0_b9),
+      .A1_0_b10(A1_0_b10),
+      .WEN1_1_b0(WEN1_1_b0),
+      .WEN1_1_b1(WEN1_1_b1),
+      .FIFO_EN_1(FIFO_EN_1),
+      .CLK2EN_0(CLK2EN_0),
+      .CLK1EN_1(CLK1EN_1),
+      .WIDTH_SELECT2_0(WIDTH_SELECT2_0),
+      .A2_1_b0(A2_1_b0),
+      .A2_1_b1(A2_1_b1),
+      .A2_1_b2(A2_1_b2),
+      .A2_1_b3(A2_1_b3),
+      .A2_1_b4(A2_1_b4),
+      .A2_1_b5(A2_1_b5),
+      .A2_1_b6(A2_1_b6),
+      .A2_1_b7(A2_1_b7),
+      .A2_1_b8(A2_1_b8),
+      .A2_1_b9(A2_1_b9),
+      .A2_1_b10(A2_1_b10),
       .WD_1_b0(WD_1_b0),
       .WD_1_b1(WD_1_b1),
       .WD_1_b2(WD_1_b2),
@@ -30605,29 +30682,27 @@ module RAM_CE1_FE1_D1_PR0_WSA2_WSB1_VPR (
       .WD_1_b15(WD_1_b15),
       .WD_1_b16(WD_1_b16),
       .WD_1_b17(WD_1_b17),
-      .ASYNC_FLUSH_1(ASYNC_FLUSH_1),
-      .CS2_1(CS2_1),
-      .WIDTH_SELECT1_0(WIDTH_SELECT1_0),
-      .CS1_0(CS1_0),
-      .FIFO_EN_0(FIFO_EN_0),
+      .P2_0(P2_0),
+      .CS2_0(CS2_0),
+      .P1_1(P1_1),
       .CONCAT_EN_1(CONCAT_EN_1),
-      .DIR_0(DIR_0),
+      .WIDTH_SELECT1_1(WIDTH_SELECT1_1),
       .CLK2EN_1(CLK2EN_1),
+      .WEN1_0_b0(WEN1_0_b0),
+      .WEN1_0_b1(WEN1_0_b1),
+      .DIR_0(DIR_0),
       .P1_0(P1_0),
-      .FIFO_EN_1(FIFO_EN_1),
-      .WEN1_1_b0(WEN1_1_b0),
-      .WEN1_1_b1(WEN1_1_b1),
-      .A1_0_b0(A1_0_b0),
-      .A1_0_b1(A1_0_b1),
-      .A1_0_b2(A1_0_b2),
-      .A1_0_b3(A1_0_b3),
-      .A1_0_b4(A1_0_b4),
-      .A1_0_b5(A1_0_b5),
-      .A1_0_b6(A1_0_b6),
-      .A1_0_b7(A1_0_b7),
-      .A1_0_b8(A1_0_b8),
-      .A1_0_b9(A1_0_b9),
-      .A1_0_b10(A1_0_b10),
+      .PIPELINE_RD_1(PIPELINE_RD_1),
+      .WIDTH_SELECT2_1(WIDTH_SELECT2_1),
+      .CONCAT_EN_0(CONCAT_EN_0),
+      .P2_1(P2_1),
+      .PUSH_FLAG_1_b0(PUSH_FLAG_1_b0),
+      .PUSH_FLAG_1_b1(PUSH_FLAG_1_b1),
+      .PUSH_FLAG_1_b2(PUSH_FLAG_1_b2),
+      .PUSH_FLAG_1_b3(PUSH_FLAG_1_b3),
+      .Almost_Empty_0(Almost_Empty_0),
+      .Almost_Empty_1(Almost_Empty_1),
+      .Almost_Full_1(Almost_Full_1),
       .RD_1_b0(RD_1_b0),
       .RD_1_b1(RD_1_b1),
       .RD_1_b2(RD_1_b2),
@@ -30646,25 +30721,15 @@ module RAM_CE1_FE1_D1_PR0_WSA2_WSB1_VPR (
       .RD_1_b15(RD_1_b15),
       .RD_1_b16(RD_1_b16),
       .RD_1_b17(RD_1_b17),
-      .Almost_Empty_0(Almost_Empty_0),
-      .Almost_Full_1(Almost_Full_1),
-      .PUSH_FLAG_1_b0(PUSH_FLAG_1_b0),
-      .PUSH_FLAG_1_b1(PUSH_FLAG_1_b1),
-      .PUSH_FLAG_1_b2(PUSH_FLAG_1_b2),
-      .PUSH_FLAG_1_b3(PUSH_FLAG_1_b3),
-      .POP_FLAG_0_b0(POP_FLAG_0_b0),
-      .POP_FLAG_0_b1(POP_FLAG_0_b1),
-      .POP_FLAG_0_b2(POP_FLAG_0_b2),
-      .POP_FLAG_0_b3(POP_FLAG_0_b3),
-      .PUSH_FLAG_0_b0(PUSH_FLAG_0_b0),
-      .PUSH_FLAG_0_b1(PUSH_FLAG_0_b1),
-      .PUSH_FLAG_0_b2(PUSH_FLAG_0_b2),
-      .PUSH_FLAG_0_b3(PUSH_FLAG_0_b3),
+      .Almost_Full_0(Almost_Full_0),
       .POP_FLAG_1_b0(POP_FLAG_1_b0),
       .POP_FLAG_1_b1(POP_FLAG_1_b1),
       .POP_FLAG_1_b2(POP_FLAG_1_b2),
       .POP_FLAG_1_b3(POP_FLAG_1_b3),
-      .Almost_Full_0(Almost_Full_0),
+      .POP_FLAG_0_b0(POP_FLAG_0_b0),
+      .POP_FLAG_0_b1(POP_FLAG_0_b1),
+      .POP_FLAG_0_b2(POP_FLAG_0_b2),
+      .POP_FLAG_0_b3(POP_FLAG_0_b3),
       .RD_0_b0(RD_0_b0),
       .RD_0_b1(RD_0_b1),
       .RD_0_b2(RD_0_b2),
@@ -30683,7 +30748,10 @@ module RAM_CE1_FE1_D1_PR0_WSA2_WSB1_VPR (
       .RD_0_b15(RD_0_b15),
       .RD_0_b16(RD_0_b16),
       .RD_0_b17(RD_0_b17),
-      .Almost_Empty_1(Almost_Empty_1));
+      .PUSH_FLAG_0_b0(PUSH_FLAG_0_b0),
+      .PUSH_FLAG_0_b1(PUSH_FLAG_0_b1),
+      .PUSH_FLAG_0_b2(PUSH_FLAG_0_b2),
+      .PUSH_FLAG_0_b3(PUSH_FLAG_0_b3));
 
 endmodule
 
@@ -30691,26 +30759,41 @@ endmodule
 (* blackbox *)
 module RAM_CE1_FE1_D1_PR0_WSA2_WSB2_VPR (
 
-  input         CLK1_0,
+  input         CLK2_1,
   input         CLK1_1,
   input         CLK2_0,
-  input         CLK2_1,
+  input         CLK1_0,
 
-  input         TEST1A,
-  input         DS,
-  input  [ 1:0] WIDTH_SELECT2_0,
-  input         P1_1,
-  input  [ 1:0] WIDTH_SELECT2_1,
+  input         CS1_1,
+  input         A1_1_b0,
+  input         A1_1_b1,
+  input         A1_1_b2,
+  input         A1_1_b3,
+  input         A1_1_b4,
+  input         A1_1_b5,
+  input         A1_1_b6,
+  input         A1_1_b7,
+  input         A1_1_b8,
+  input         A1_1_b9,
+  input         A1_1_b10,
+  input         FIFO_EN_0,
+  input         DS_RB1,
+  input         CS1_0,
   input         PIPELINE_RD_0,
-  input         SD,
+  input         ASYNC_FLUSH_1,
   input         DIR_1,
-  input         CONCAT_EN_0,
-  input         LS,
-  input         CLK1EN_1,
-  input         P2_1,
-  input         WEN1_0_b0,
-  input         WEN1_0_b1,
-  input         PIPELINE_RD_1,
+  input         CS2_1,
+  input         CLK1EN_0,
+  input  [ 1:0] WIDTH_SELECT1_0,
+  input         RMB_b0,
+  input         RMB_b1,
+  input         RMB_b2,
+  input         RMB_b3,
+  input         ASYNC_FLUSH_0,
+  input         SYNC_FIFO_0,
+  input         SYNC_FIFO_1,
+  input         RMEB,
+  input         TEST1B,
   input         WD_0_b0,
   input         WD_0_b1,
   input         WD_0_b2,
@@ -30729,45 +30812,6 @@ module RAM_CE1_FE1_D1_PR0_WSA2_WSB2_VPR (
   input         WD_0_b15,
   input         WD_0_b16,
   input         WD_0_b17,
-  input  [ 1:0] WIDTH_SELECT1_1,
-  input         SD_RB1,
-  input         TEST1B,
-  input         RMEB,
-  input         RMB_b0,
-  input         RMB_b1,
-  input         RMB_b2,
-  input         RMB_b3,
-  input         DS_RB1,
-  input         CS2_0,
-  input         CLK1EN_0,
-  input         SYNC_FIFO_1,
-  input         CLK2EN_0,
-  input         SYNC_FIFO_0,
-  input         ASYNC_FLUSH_0,
-  input         A2_1_b0,
-  input         A2_1_b1,
-  input         A2_1_b2,
-  input         A2_1_b3,
-  input         A2_1_b4,
-  input         A2_1_b5,
-  input         A2_1_b6,
-  input         A2_1_b7,
-  input         A2_1_b8,
-  input         A2_1_b9,
-  input         A2_1_b10,
-  input         RMEA,
-  input         A1_1_b0,
-  input         A1_1_b1,
-  input         A1_1_b2,
-  input         A1_1_b3,
-  input         A1_1_b4,
-  input         A1_1_b5,
-  input         A1_1_b6,
-  input         A1_1_b7,
-  input         A1_1_b8,
-  input         A1_1_b9,
-  input         A1_1_b10,
-  input         CS1_1,
   input         A2_0_b0,
   input         A2_0_b1,
   input         A2_0_b2,
@@ -30779,7 +30823,36 @@ module RAM_CE1_FE1_D1_PR0_WSA2_WSB2_VPR (
   input         A2_0_b8,
   input         A2_0_b9,
   input         A2_0_b10,
-  input         P2_0,
+  input         A1_0_b0,
+  input         A1_0_b1,
+  input         A1_0_b2,
+  input         A1_0_b3,
+  input         A1_0_b4,
+  input         A1_0_b5,
+  input         A1_0_b6,
+  input         A1_0_b7,
+  input         A1_0_b8,
+  input         A1_0_b9,
+  input         A1_0_b10,
+  input         WEN1_1_b0,
+  input         WEN1_1_b1,
+  input         FIFO_EN_1,
+  input         CLK2EN_0,
+  input         DS,
+  input         LS_RB1,
+  input         CLK1EN_1,
+  input  [ 1:0] WIDTH_SELECT2_0,
+  input         A2_1_b0,
+  input         A2_1_b1,
+  input         A2_1_b2,
+  input         A2_1_b3,
+  input         A2_1_b4,
+  input         A2_1_b5,
+  input         A2_1_b6,
+  input         A2_1_b7,
+  input         A2_1_b8,
+  input         A2_1_b9,
+  input         A2_1_b10,
   input         WD_1_b0,
   input         WD_1_b1,
   input         WD_1_b2,
@@ -30798,35 +30871,37 @@ module RAM_CE1_FE1_D1_PR0_WSA2_WSB2_VPR (
   input         WD_1_b15,
   input         WD_1_b16,
   input         WD_1_b17,
-  input         ASYNC_FLUSH_1,
-  input         LS_RB1,
-  input         CS2_1,
+  input         P2_0,
+  input         CS2_0,
+  input         P1_1,
+  input         CONCAT_EN_1,
+  input         LS,
+  input  [ 1:0] WIDTH_SELECT1_1,
+  input         SD_RB1,
+  input         TEST1A,
+  input         CLK2EN_1,
   input         RMA_b0,
   input         RMA_b1,
   input         RMA_b2,
   input         RMA_b3,
-  input  [ 1:0] WIDTH_SELECT1_0,
-  input         CS1_0,
-  input         FIFO_EN_0,
-  input         CONCAT_EN_1,
+  input         WEN1_0_b0,
+  input         WEN1_0_b1,
+  input         RMEA,
   input         DIR_0,
-  input         CLK2EN_1,
   input         P1_0,
-  input         FIFO_EN_1,
-  input         WEN1_1_b0,
-  input         WEN1_1_b1,
-  input         A1_0_b0,
-  input         A1_0_b1,
-  input         A1_0_b2,
-  input         A1_0_b3,
-  input         A1_0_b4,
-  input         A1_0_b5,
-  input         A1_0_b6,
-  input         A1_0_b7,
-  input         A1_0_b8,
-  input         A1_0_b9,
-  input         A1_0_b10,
+  input         PIPELINE_RD_1,
+  input  [ 1:0] WIDTH_SELECT2_1,
+  input         CONCAT_EN_0,
+  input         P2_1,
+  input         SD,
 
+  output        PUSH_FLAG_1_b0,
+  output        PUSH_FLAG_1_b1,
+  output        PUSH_FLAG_1_b2,
+  output        PUSH_FLAG_1_b3,
+  output        Almost_Empty_0,
+  output        Almost_Empty_1,
+  output        Almost_Full_1,
   output        RD_1_b0,
   output        RD_1_b1,
   output        RD_1_b2,
@@ -30845,25 +30920,15 @@ module RAM_CE1_FE1_D1_PR0_WSA2_WSB2_VPR (
   output        RD_1_b15,
   output        RD_1_b16,
   output        RD_1_b17,
-  output        Almost_Empty_0,
-  output        Almost_Full_1,
-  output        PUSH_FLAG_1_b0,
-  output        PUSH_FLAG_1_b1,
-  output        PUSH_FLAG_1_b2,
-  output        PUSH_FLAG_1_b3,
-  output        POP_FLAG_0_b0,
-  output        POP_FLAG_0_b1,
-  output        POP_FLAG_0_b2,
-  output        POP_FLAG_0_b3,
-  output        PUSH_FLAG_0_b0,
-  output        PUSH_FLAG_0_b1,
-  output        PUSH_FLAG_0_b2,
-  output        PUSH_FLAG_0_b3,
+  output        Almost_Full_0,
   output        POP_FLAG_1_b0,
   output        POP_FLAG_1_b1,
   output        POP_FLAG_1_b2,
   output        POP_FLAG_1_b3,
-  output        Almost_Full_0,
+  output        POP_FLAG_0_b0,
+  output        POP_FLAG_0_b1,
+  output        POP_FLAG_0_b2,
+  output        POP_FLAG_0_b3,
   output        RD_0_b0,
   output        RD_0_b1,
   output        RD_0_b2,
@@ -30882,14 +30947,14 @@ module RAM_CE1_FE1_D1_PR0_WSA2_WSB2_VPR (
   output        RD_0_b15,
   output        RD_0_b16,
   output        RD_0_b17,
-  output        Almost_Empty_1
+  output        PUSH_FLAG_0_b0,
+  output        PUSH_FLAG_0_b1,
+  output        PUSH_FLAG_0_b2,
+  output        PUSH_FLAG_0_b3
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
-      $setup(P1_1, posedge CLK1_1, "");
-      $hold(posedge CLK1_1, P1_1, "");
-      $setup(P2_1, posedge CLK2_1, "");
-      $hold(posedge CLK2_1, P2_1, "");
       $setup(WD_0_b0, posedge CLK2_0, "");
       $hold(posedge CLK2_0, WD_0_b0, "");
       $setup(WD_0_b1, posedge CLK2_0, "");
@@ -30926,8 +30991,6 @@ module RAM_CE1_FE1_D1_PR0_WSA2_WSB2_VPR (
       $hold(posedge CLK2_0, WD_0_b16, "");
       $setup(WD_0_b17, posedge CLK2_0, "");
       $hold(posedge CLK2_0, WD_0_b17, "");
-      $setup(P2_0, posedge CLK2_0, "");
-      $hold(posedge CLK2_0, P2_0, "");
       $setup(WD_1_b0, posedge CLK2_1, "");
       $hold(posedge CLK2_1, WD_1_b0, "");
       $setup(WD_1_b1, posedge CLK2_1, "");
@@ -30964,8 +31027,21 @@ module RAM_CE1_FE1_D1_PR0_WSA2_WSB2_VPR (
       $hold(posedge CLK2_1, WD_1_b16, "");
       $setup(WD_1_b17, posedge CLK2_1, "");
       $hold(posedge CLK2_1, WD_1_b17, "");
+      $setup(P2_0, posedge CLK2_0, "");
+      $hold(posedge CLK2_0, P2_0, "");
+      $setup(P1_1, posedge CLK1_1, "");
+      $hold(posedge CLK1_1, P1_1, "");
       $setup(P1_0, posedge CLK1_0, "");
       $hold(posedge CLK1_0, P1_0, "");
+      $setup(P2_1, posedge CLK2_1, "");
+      $hold(posedge CLK2_1, P2_1, "");
+      (CLK2_1*>PUSH_FLAG_1_b0)="";
+      (CLK2_1*>PUSH_FLAG_1_b1)="";
+      (CLK2_1*>PUSH_FLAG_1_b2)="";
+      (CLK2_1*>PUSH_FLAG_1_b3)="";
+      (CLK1_0*>Almost_Empty_0)="";
+      (CLK1_1*>Almost_Empty_1)="";
+      (CLK2_1*>Almost_Full_1)="";
       (CLK1_1*>RD_1_b0)="";
       (CLK1_1*>RD_1_b1)="";
       (CLK1_1*>RD_1_b2)="";
@@ -30984,25 +31060,15 @@ module RAM_CE1_FE1_D1_PR0_WSA2_WSB2_VPR (
       (CLK1_1*>RD_1_b15)="";
       (CLK1_1*>RD_1_b16)="";
       (CLK1_1*>RD_1_b17)="";
-      (CLK1_0*>Almost_Empty_0)="";
-      (CLK2_1*>Almost_Full_1)="";
-      (CLK2_1*>PUSH_FLAG_1_b0)="";
-      (CLK2_1*>PUSH_FLAG_1_b1)="";
-      (CLK2_1*>PUSH_FLAG_1_b2)="";
-      (CLK2_1*>PUSH_FLAG_1_b3)="";
-      (CLK1_0*>POP_FLAG_0_b0)="";
-      (CLK1_0*>POP_FLAG_0_b1)="";
-      (CLK1_0*>POP_FLAG_0_b2)="";
-      (CLK1_0*>POP_FLAG_0_b3)="";
-      (CLK2_0*>PUSH_FLAG_0_b0)="";
-      (CLK2_0*>PUSH_FLAG_0_b1)="";
-      (CLK2_0*>PUSH_FLAG_0_b2)="";
-      (CLK2_0*>PUSH_FLAG_0_b3)="";
+      (CLK2_0*>Almost_Full_0)="";
       (CLK1_1*>POP_FLAG_1_b0)="";
       (CLK1_1*>POP_FLAG_1_b1)="";
       (CLK1_1*>POP_FLAG_1_b2)="";
       (CLK1_1*>POP_FLAG_1_b3)="";
-      (CLK2_0*>Almost_Full_0)="";
+      (CLK1_0*>POP_FLAG_0_b0)="";
+      (CLK1_0*>POP_FLAG_0_b1)="";
+      (CLK1_0*>POP_FLAG_0_b2)="";
+      (CLK1_0*>POP_FLAG_0_b3)="";
       (CLK1_0*>RD_0_b0)="";
       (CLK1_0*>RD_0_b1)="";
       (CLK1_0*>RD_0_b2)="";
@@ -31021,26 +31087,41 @@ module RAM_CE1_FE1_D1_PR0_WSA2_WSB2_VPR (
       (CLK1_0*>RD_0_b15)="";
       (CLK1_0*>RD_0_b16)="";
       (CLK1_0*>RD_0_b17)="";
-      (CLK1_1*>Almost_Empty_1)="";
+      (CLK2_0*>PUSH_FLAG_0_b0)="";
+      (CLK2_0*>PUSH_FLAG_0_b1)="";
+      (CLK2_0*>PUSH_FLAG_0_b2)="";
+      (CLK2_0*>PUSH_FLAG_0_b3)="";
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
-      .CLK1_0(CLK1_0),
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
+      .CLK2_1(CLK2_1),
       .CLK1_1(CLK1_1),
       .CLK2_0(CLK2_0),
-      .CLK2_1(CLK2_1),
-      .WIDTH_SELECT2_0(WIDTH_SELECT2_0),
-      .P1_1(P1_1),
-      .WIDTH_SELECT2_1(WIDTH_SELECT2_1),
+      .CLK1_0(CLK1_0),
+      .CS1_1(CS1_1),
+      .A1_1_b0(A1_1_b0),
+      .A1_1_b1(A1_1_b1),
+      .A1_1_b2(A1_1_b2),
+      .A1_1_b3(A1_1_b3),
+      .A1_1_b4(A1_1_b4),
+      .A1_1_b5(A1_1_b5),
+      .A1_1_b6(A1_1_b6),
+      .A1_1_b7(A1_1_b7),
+      .A1_1_b8(A1_1_b8),
+      .A1_1_b9(A1_1_b9),
+      .A1_1_b10(A1_1_b10),
+      .FIFO_EN_0(FIFO_EN_0),
+      .CS1_0(CS1_0),
       .PIPELINE_RD_0(PIPELINE_RD_0),
+      .ASYNC_FLUSH_1(ASYNC_FLUSH_1),
       .DIR_1(DIR_1),
-      .CONCAT_EN_0(CONCAT_EN_0),
-      .CLK1EN_1(CLK1EN_1),
-      .P2_1(P2_1),
-      .WEN1_0_b0(WEN1_0_b0),
-      .WEN1_0_b1(WEN1_0_b1),
-      .PIPELINE_RD_1(PIPELINE_RD_1),
+      .CS2_1(CS2_1),
+      .CLK1EN_0(CLK1EN_0),
+      .WIDTH_SELECT1_0(WIDTH_SELECT1_0),
+      .ASYNC_FLUSH_0(ASYNC_FLUSH_0),
+      .SYNC_FIFO_0(SYNC_FIFO_0),
+      .SYNC_FIFO_1(SYNC_FIFO_1),
       .WD_0_b0(WD_0_b0),
       .WD_0_b1(WD_0_b1),
       .WD_0_b2(WD_0_b2),
@@ -31059,36 +31140,6 @@ module RAM_CE1_FE1_D1_PR0_WSA2_WSB2_VPR (
       .WD_0_b15(WD_0_b15),
       .WD_0_b16(WD_0_b16),
       .WD_0_b17(WD_0_b17),
-      .WIDTH_SELECT1_1(WIDTH_SELECT1_1),
-      .CS2_0(CS2_0),
-      .CLK1EN_0(CLK1EN_0),
-      .SYNC_FIFO_1(SYNC_FIFO_1),
-      .CLK2EN_0(CLK2EN_0),
-      .SYNC_FIFO_0(SYNC_FIFO_0),
-      .ASYNC_FLUSH_0(ASYNC_FLUSH_0),
-      .A2_1_b0(A2_1_b0),
-      .A2_1_b1(A2_1_b1),
-      .A2_1_b2(A2_1_b2),
-      .A2_1_b3(A2_1_b3),
-      .A2_1_b4(A2_1_b4),
-      .A2_1_b5(A2_1_b5),
-      .A2_1_b6(A2_1_b6),
-      .A2_1_b7(A2_1_b7),
-      .A2_1_b8(A2_1_b8),
-      .A2_1_b9(A2_1_b9),
-      .A2_1_b10(A2_1_b10),
-      .A1_1_b0(A1_1_b0),
-      .A1_1_b1(A1_1_b1),
-      .A1_1_b2(A1_1_b2),
-      .A1_1_b3(A1_1_b3),
-      .A1_1_b4(A1_1_b4),
-      .A1_1_b5(A1_1_b5),
-      .A1_1_b6(A1_1_b6),
-      .A1_1_b7(A1_1_b7),
-      .A1_1_b8(A1_1_b8),
-      .A1_1_b9(A1_1_b9),
-      .A1_1_b10(A1_1_b10),
-      .CS1_1(CS1_1),
       .A2_0_b0(A2_0_b0),
       .A2_0_b1(A2_0_b1),
       .A2_0_b2(A2_0_b2),
@@ -31100,7 +31151,34 @@ module RAM_CE1_FE1_D1_PR0_WSA2_WSB2_VPR (
       .A2_0_b8(A2_0_b8),
       .A2_0_b9(A2_0_b9),
       .A2_0_b10(A2_0_b10),
-      .P2_0(P2_0),
+      .A1_0_b0(A1_0_b0),
+      .A1_0_b1(A1_0_b1),
+      .A1_0_b2(A1_0_b2),
+      .A1_0_b3(A1_0_b3),
+      .A1_0_b4(A1_0_b4),
+      .A1_0_b5(A1_0_b5),
+      .A1_0_b6(A1_0_b6),
+      .A1_0_b7(A1_0_b7),
+      .A1_0_b8(A1_0_b8),
+      .A1_0_b9(A1_0_b9),
+      .A1_0_b10(A1_0_b10),
+      .WEN1_1_b0(WEN1_1_b0),
+      .WEN1_1_b1(WEN1_1_b1),
+      .FIFO_EN_1(FIFO_EN_1),
+      .CLK2EN_0(CLK2EN_0),
+      .CLK1EN_1(CLK1EN_1),
+      .WIDTH_SELECT2_0(WIDTH_SELECT2_0),
+      .A2_1_b0(A2_1_b0),
+      .A2_1_b1(A2_1_b1),
+      .A2_1_b2(A2_1_b2),
+      .A2_1_b3(A2_1_b3),
+      .A2_1_b4(A2_1_b4),
+      .A2_1_b5(A2_1_b5),
+      .A2_1_b6(A2_1_b6),
+      .A2_1_b7(A2_1_b7),
+      .A2_1_b8(A2_1_b8),
+      .A2_1_b9(A2_1_b9),
+      .A2_1_b10(A2_1_b10),
       .WD_1_b0(WD_1_b0),
       .WD_1_b1(WD_1_b1),
       .WD_1_b2(WD_1_b2),
@@ -31119,29 +31197,27 @@ module RAM_CE1_FE1_D1_PR0_WSA2_WSB2_VPR (
       .WD_1_b15(WD_1_b15),
       .WD_1_b16(WD_1_b16),
       .WD_1_b17(WD_1_b17),
-      .ASYNC_FLUSH_1(ASYNC_FLUSH_1),
-      .CS2_1(CS2_1),
-      .WIDTH_SELECT1_0(WIDTH_SELECT1_0),
-      .CS1_0(CS1_0),
-      .FIFO_EN_0(FIFO_EN_0),
+      .P2_0(P2_0),
+      .CS2_0(CS2_0),
+      .P1_1(P1_1),
       .CONCAT_EN_1(CONCAT_EN_1),
-      .DIR_0(DIR_0),
+      .WIDTH_SELECT1_1(WIDTH_SELECT1_1),
       .CLK2EN_1(CLK2EN_1),
+      .WEN1_0_b0(WEN1_0_b0),
+      .WEN1_0_b1(WEN1_0_b1),
+      .DIR_0(DIR_0),
       .P1_0(P1_0),
-      .FIFO_EN_1(FIFO_EN_1),
-      .WEN1_1_b0(WEN1_1_b0),
-      .WEN1_1_b1(WEN1_1_b1),
-      .A1_0_b0(A1_0_b0),
-      .A1_0_b1(A1_0_b1),
-      .A1_0_b2(A1_0_b2),
-      .A1_0_b3(A1_0_b3),
-      .A1_0_b4(A1_0_b4),
-      .A1_0_b5(A1_0_b5),
-      .A1_0_b6(A1_0_b6),
-      .A1_0_b7(A1_0_b7),
-      .A1_0_b8(A1_0_b8),
-      .A1_0_b9(A1_0_b9),
-      .A1_0_b10(A1_0_b10),
+      .PIPELINE_RD_1(PIPELINE_RD_1),
+      .WIDTH_SELECT2_1(WIDTH_SELECT2_1),
+      .CONCAT_EN_0(CONCAT_EN_0),
+      .P2_1(P2_1),
+      .PUSH_FLAG_1_b0(PUSH_FLAG_1_b0),
+      .PUSH_FLAG_1_b1(PUSH_FLAG_1_b1),
+      .PUSH_FLAG_1_b2(PUSH_FLAG_1_b2),
+      .PUSH_FLAG_1_b3(PUSH_FLAG_1_b3),
+      .Almost_Empty_0(Almost_Empty_0),
+      .Almost_Empty_1(Almost_Empty_1),
+      .Almost_Full_1(Almost_Full_1),
       .RD_1_b0(RD_1_b0),
       .RD_1_b1(RD_1_b1),
       .RD_1_b2(RD_1_b2),
@@ -31160,25 +31236,15 @@ module RAM_CE1_FE1_D1_PR0_WSA2_WSB2_VPR (
       .RD_1_b15(RD_1_b15),
       .RD_1_b16(RD_1_b16),
       .RD_1_b17(RD_1_b17),
-      .Almost_Empty_0(Almost_Empty_0),
-      .Almost_Full_1(Almost_Full_1),
-      .PUSH_FLAG_1_b0(PUSH_FLAG_1_b0),
-      .PUSH_FLAG_1_b1(PUSH_FLAG_1_b1),
-      .PUSH_FLAG_1_b2(PUSH_FLAG_1_b2),
-      .PUSH_FLAG_1_b3(PUSH_FLAG_1_b3),
-      .POP_FLAG_0_b0(POP_FLAG_0_b0),
-      .POP_FLAG_0_b1(POP_FLAG_0_b1),
-      .POP_FLAG_0_b2(POP_FLAG_0_b2),
-      .POP_FLAG_0_b3(POP_FLAG_0_b3),
-      .PUSH_FLAG_0_b0(PUSH_FLAG_0_b0),
-      .PUSH_FLAG_0_b1(PUSH_FLAG_0_b1),
-      .PUSH_FLAG_0_b2(PUSH_FLAG_0_b2),
-      .PUSH_FLAG_0_b3(PUSH_FLAG_0_b3),
+      .Almost_Full_0(Almost_Full_0),
       .POP_FLAG_1_b0(POP_FLAG_1_b0),
       .POP_FLAG_1_b1(POP_FLAG_1_b1),
       .POP_FLAG_1_b2(POP_FLAG_1_b2),
       .POP_FLAG_1_b3(POP_FLAG_1_b3),
-      .Almost_Full_0(Almost_Full_0),
+      .POP_FLAG_0_b0(POP_FLAG_0_b0),
+      .POP_FLAG_0_b1(POP_FLAG_0_b1),
+      .POP_FLAG_0_b2(POP_FLAG_0_b2),
+      .POP_FLAG_0_b3(POP_FLAG_0_b3),
       .RD_0_b0(RD_0_b0),
       .RD_0_b1(RD_0_b1),
       .RD_0_b2(RD_0_b2),
@@ -31197,7 +31263,10 @@ module RAM_CE1_FE1_D1_PR0_WSA2_WSB2_VPR (
       .RD_0_b15(RD_0_b15),
       .RD_0_b16(RD_0_b16),
       .RD_0_b17(RD_0_b17),
-      .Almost_Empty_1(Almost_Empty_1));
+      .PUSH_FLAG_0_b0(PUSH_FLAG_0_b0),
+      .PUSH_FLAG_0_b1(PUSH_FLAG_0_b1),
+      .PUSH_FLAG_0_b2(PUSH_FLAG_0_b2),
+      .PUSH_FLAG_0_b3(PUSH_FLAG_0_b3));
 
 endmodule
 
@@ -31205,26 +31274,41 @@ endmodule
 (* blackbox *)
 module RAM_CE1_FE1_D1_PR1_WSA0_WSB0_VPR (
 
-  input         CLK1_0,
+  input         CLK2_1,
   input         CLK1_1,
   input         CLK2_0,
-  input         CLK2_1,
+  input         CLK1_0,
 
-  input         TEST1A,
-  input         DS,
-  input  [ 1:0] WIDTH_SELECT2_0,
-  input         P1_1,
-  input  [ 1:0] WIDTH_SELECT2_1,
+  input         CS1_1,
+  input         A1_1_b0,
+  input         A1_1_b1,
+  input         A1_1_b2,
+  input         A1_1_b3,
+  input         A1_1_b4,
+  input         A1_1_b5,
+  input         A1_1_b6,
+  input         A1_1_b7,
+  input         A1_1_b8,
+  input         A1_1_b9,
+  input         A1_1_b10,
+  input         FIFO_EN_0,
+  input         DS_RB1,
+  input         CS1_0,
   input         PIPELINE_RD_0,
-  input         SD,
+  input         ASYNC_FLUSH_1,
   input         DIR_1,
-  input         CONCAT_EN_0,
-  input         LS,
-  input         CLK1EN_1,
-  input         P2_1,
-  input         WEN1_0_b0,
-  input         WEN1_0_b1,
-  input         PIPELINE_RD_1,
+  input         CS2_1,
+  input         CLK1EN_0,
+  input  [ 1:0] WIDTH_SELECT1_0,
+  input         RMB_b0,
+  input         RMB_b1,
+  input         RMB_b2,
+  input         RMB_b3,
+  input         ASYNC_FLUSH_0,
+  input         SYNC_FIFO_0,
+  input         SYNC_FIFO_1,
+  input         RMEB,
+  input         TEST1B,
   input         WD_0_b0,
   input         WD_0_b1,
   input         WD_0_b2,
@@ -31243,45 +31327,6 @@ module RAM_CE1_FE1_D1_PR1_WSA0_WSB0_VPR (
   input         WD_0_b15,
   input         WD_0_b16,
   input         WD_0_b17,
-  input  [ 1:0] WIDTH_SELECT1_1,
-  input         SD_RB1,
-  input         TEST1B,
-  input         RMEB,
-  input         RMB_b0,
-  input         RMB_b1,
-  input         RMB_b2,
-  input         RMB_b3,
-  input         DS_RB1,
-  input         CS2_0,
-  input         CLK1EN_0,
-  input         SYNC_FIFO_1,
-  input         CLK2EN_0,
-  input         SYNC_FIFO_0,
-  input         ASYNC_FLUSH_0,
-  input         A2_1_b0,
-  input         A2_1_b1,
-  input         A2_1_b2,
-  input         A2_1_b3,
-  input         A2_1_b4,
-  input         A2_1_b5,
-  input         A2_1_b6,
-  input         A2_1_b7,
-  input         A2_1_b8,
-  input         A2_1_b9,
-  input         A2_1_b10,
-  input         RMEA,
-  input         A1_1_b0,
-  input         A1_1_b1,
-  input         A1_1_b2,
-  input         A1_1_b3,
-  input         A1_1_b4,
-  input         A1_1_b5,
-  input         A1_1_b6,
-  input         A1_1_b7,
-  input         A1_1_b8,
-  input         A1_1_b9,
-  input         A1_1_b10,
-  input         CS1_1,
   input         A2_0_b0,
   input         A2_0_b1,
   input         A2_0_b2,
@@ -31293,7 +31338,36 @@ module RAM_CE1_FE1_D1_PR1_WSA0_WSB0_VPR (
   input         A2_0_b8,
   input         A2_0_b9,
   input         A2_0_b10,
-  input         P2_0,
+  input         A1_0_b0,
+  input         A1_0_b1,
+  input         A1_0_b2,
+  input         A1_0_b3,
+  input         A1_0_b4,
+  input         A1_0_b5,
+  input         A1_0_b6,
+  input         A1_0_b7,
+  input         A1_0_b8,
+  input         A1_0_b9,
+  input         A1_0_b10,
+  input         WEN1_1_b0,
+  input         WEN1_1_b1,
+  input         FIFO_EN_1,
+  input         CLK2EN_0,
+  input         DS,
+  input         LS_RB1,
+  input         CLK1EN_1,
+  input  [ 1:0] WIDTH_SELECT2_0,
+  input         A2_1_b0,
+  input         A2_1_b1,
+  input         A2_1_b2,
+  input         A2_1_b3,
+  input         A2_1_b4,
+  input         A2_1_b5,
+  input         A2_1_b6,
+  input         A2_1_b7,
+  input         A2_1_b8,
+  input         A2_1_b9,
+  input         A2_1_b10,
   input         WD_1_b0,
   input         WD_1_b1,
   input         WD_1_b2,
@@ -31312,35 +31386,37 @@ module RAM_CE1_FE1_D1_PR1_WSA0_WSB0_VPR (
   input         WD_1_b15,
   input         WD_1_b16,
   input         WD_1_b17,
-  input         ASYNC_FLUSH_1,
-  input         LS_RB1,
-  input         CS2_1,
+  input         P2_0,
+  input         CS2_0,
+  input         P1_1,
+  input         CONCAT_EN_1,
+  input         LS,
+  input  [ 1:0] WIDTH_SELECT1_1,
+  input         SD_RB1,
+  input         TEST1A,
+  input         CLK2EN_1,
   input         RMA_b0,
   input         RMA_b1,
   input         RMA_b2,
   input         RMA_b3,
-  input  [ 1:0] WIDTH_SELECT1_0,
-  input         CS1_0,
-  input         FIFO_EN_0,
-  input         CONCAT_EN_1,
+  input         WEN1_0_b0,
+  input         WEN1_0_b1,
+  input         RMEA,
   input         DIR_0,
-  input         CLK2EN_1,
   input         P1_0,
-  input         FIFO_EN_1,
-  input         WEN1_1_b0,
-  input         WEN1_1_b1,
-  input         A1_0_b0,
-  input         A1_0_b1,
-  input         A1_0_b2,
-  input         A1_0_b3,
-  input         A1_0_b4,
-  input         A1_0_b5,
-  input         A1_0_b6,
-  input         A1_0_b7,
-  input         A1_0_b8,
-  input         A1_0_b9,
-  input         A1_0_b10,
+  input         PIPELINE_RD_1,
+  input  [ 1:0] WIDTH_SELECT2_1,
+  input         CONCAT_EN_0,
+  input         P2_1,
+  input         SD,
 
+  output        PUSH_FLAG_1_b0,
+  output        PUSH_FLAG_1_b1,
+  output        PUSH_FLAG_1_b2,
+  output        PUSH_FLAG_1_b3,
+  output        Almost_Empty_0,
+  output        Almost_Empty_1,
+  output        Almost_Full_1,
   output        RD_1_b0,
   output        RD_1_b1,
   output        RD_1_b2,
@@ -31359,25 +31435,15 @@ module RAM_CE1_FE1_D1_PR1_WSA0_WSB0_VPR (
   output        RD_1_b15,
   output        RD_1_b16,
   output        RD_1_b17,
-  output        Almost_Empty_0,
-  output        Almost_Full_1,
-  output        PUSH_FLAG_1_b0,
-  output        PUSH_FLAG_1_b1,
-  output        PUSH_FLAG_1_b2,
-  output        PUSH_FLAG_1_b3,
-  output        POP_FLAG_0_b0,
-  output        POP_FLAG_0_b1,
-  output        POP_FLAG_0_b2,
-  output        POP_FLAG_0_b3,
-  output        PUSH_FLAG_0_b0,
-  output        PUSH_FLAG_0_b1,
-  output        PUSH_FLAG_0_b2,
-  output        PUSH_FLAG_0_b3,
+  output        Almost_Full_0,
   output        POP_FLAG_1_b0,
   output        POP_FLAG_1_b1,
   output        POP_FLAG_1_b2,
   output        POP_FLAG_1_b3,
-  output        Almost_Full_0,
+  output        POP_FLAG_0_b0,
+  output        POP_FLAG_0_b1,
+  output        POP_FLAG_0_b2,
+  output        POP_FLAG_0_b3,
   output        RD_0_b0,
   output        RD_0_b1,
   output        RD_0_b2,
@@ -31396,14 +31462,14 @@ module RAM_CE1_FE1_D1_PR1_WSA0_WSB0_VPR (
   output        RD_0_b15,
   output        RD_0_b16,
   output        RD_0_b17,
-  output        Almost_Empty_1
+  output        PUSH_FLAG_0_b0,
+  output        PUSH_FLAG_0_b1,
+  output        PUSH_FLAG_0_b2,
+  output        PUSH_FLAG_0_b3
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
-      $setup(P1_1, posedge CLK1_1, "");
-      $hold(posedge CLK1_1, P1_1, "");
-      $setup(P2_1, posedge CLK2_1, "");
-      $hold(posedge CLK2_1, P2_1, "");
       $setup(WD_0_b0, posedge CLK2_0, "");
       $hold(posedge CLK2_0, WD_0_b0, "");
       $setup(WD_0_b1, posedge CLK2_0, "");
@@ -31440,8 +31506,6 @@ module RAM_CE1_FE1_D1_PR1_WSA0_WSB0_VPR (
       $hold(posedge CLK2_0, WD_0_b16, "");
       $setup(WD_0_b17, posedge CLK2_0, "");
       $hold(posedge CLK2_0, WD_0_b17, "");
-      $setup(P2_0, posedge CLK2_0, "");
-      $hold(posedge CLK2_0, P2_0, "");
       $setup(WD_1_b0, posedge CLK2_1, "");
       $hold(posedge CLK2_1, WD_1_b0, "");
       $setup(WD_1_b1, posedge CLK2_1, "");
@@ -31478,8 +31542,21 @@ module RAM_CE1_FE1_D1_PR1_WSA0_WSB0_VPR (
       $hold(posedge CLK2_1, WD_1_b16, "");
       $setup(WD_1_b17, posedge CLK2_1, "");
       $hold(posedge CLK2_1, WD_1_b17, "");
+      $setup(P2_0, posedge CLK2_0, "");
+      $hold(posedge CLK2_0, P2_0, "");
+      $setup(P1_1, posedge CLK1_1, "");
+      $hold(posedge CLK1_1, P1_1, "");
       $setup(P1_0, posedge CLK1_0, "");
       $hold(posedge CLK1_0, P1_0, "");
+      $setup(P2_1, posedge CLK2_1, "");
+      $hold(posedge CLK2_1, P2_1, "");
+      (CLK2_1*>PUSH_FLAG_1_b0)="";
+      (CLK2_1*>PUSH_FLAG_1_b1)="";
+      (CLK2_1*>PUSH_FLAG_1_b2)="";
+      (CLK2_1*>PUSH_FLAG_1_b3)="";
+      (CLK1_0*>Almost_Empty_0)="";
+      (CLK1_1*>Almost_Empty_1)="";
+      (CLK2_1*>Almost_Full_1)="";
       (CLK1_1*>RD_1_b0)="";
       (CLK1_1*>RD_1_b1)="";
       (CLK1_1*>RD_1_b2)="";
@@ -31498,25 +31575,15 @@ module RAM_CE1_FE1_D1_PR1_WSA0_WSB0_VPR (
       (CLK1_1*>RD_1_b15)="";
       (CLK1_1*>RD_1_b16)="";
       (CLK1_1*>RD_1_b17)="";
-      (CLK1_0*>Almost_Empty_0)="";
-      (CLK2_1*>Almost_Full_1)="";
-      (CLK2_1*>PUSH_FLAG_1_b0)="";
-      (CLK2_1*>PUSH_FLAG_1_b1)="";
-      (CLK2_1*>PUSH_FLAG_1_b2)="";
-      (CLK2_1*>PUSH_FLAG_1_b3)="";
-      (CLK1_0*>POP_FLAG_0_b0)="";
-      (CLK1_0*>POP_FLAG_0_b1)="";
-      (CLK1_0*>POP_FLAG_0_b2)="";
-      (CLK1_0*>POP_FLAG_0_b3)="";
-      (CLK2_0*>PUSH_FLAG_0_b0)="";
-      (CLK2_0*>PUSH_FLAG_0_b1)="";
-      (CLK2_0*>PUSH_FLAG_0_b2)="";
-      (CLK2_0*>PUSH_FLAG_0_b3)="";
+      (CLK2_0*>Almost_Full_0)="";
       (CLK1_1*>POP_FLAG_1_b0)="";
       (CLK1_1*>POP_FLAG_1_b1)="";
       (CLK1_1*>POP_FLAG_1_b2)="";
       (CLK1_1*>POP_FLAG_1_b3)="";
-      (CLK2_0*>Almost_Full_0)="";
+      (CLK1_0*>POP_FLAG_0_b0)="";
+      (CLK1_0*>POP_FLAG_0_b1)="";
+      (CLK1_0*>POP_FLAG_0_b2)="";
+      (CLK1_0*>POP_FLAG_0_b3)="";
       (CLK1_0*>RD_0_b0)="";
       (CLK1_0*>RD_0_b1)="";
       (CLK1_0*>RD_0_b2)="";
@@ -31535,26 +31602,41 @@ module RAM_CE1_FE1_D1_PR1_WSA0_WSB0_VPR (
       (CLK1_0*>RD_0_b15)="";
       (CLK1_0*>RD_0_b16)="";
       (CLK1_0*>RD_0_b17)="";
-      (CLK1_1*>Almost_Empty_1)="";
+      (CLK2_0*>PUSH_FLAG_0_b0)="";
+      (CLK2_0*>PUSH_FLAG_0_b1)="";
+      (CLK2_0*>PUSH_FLAG_0_b2)="";
+      (CLK2_0*>PUSH_FLAG_0_b3)="";
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
-      .CLK1_0(CLK1_0),
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
+      .CLK2_1(CLK2_1),
       .CLK1_1(CLK1_1),
       .CLK2_0(CLK2_0),
-      .CLK2_1(CLK2_1),
-      .WIDTH_SELECT2_0(WIDTH_SELECT2_0),
-      .P1_1(P1_1),
-      .WIDTH_SELECT2_1(WIDTH_SELECT2_1),
+      .CLK1_0(CLK1_0),
+      .CS1_1(CS1_1),
+      .A1_1_b0(A1_1_b0),
+      .A1_1_b1(A1_1_b1),
+      .A1_1_b2(A1_1_b2),
+      .A1_1_b3(A1_1_b3),
+      .A1_1_b4(A1_1_b4),
+      .A1_1_b5(A1_1_b5),
+      .A1_1_b6(A1_1_b6),
+      .A1_1_b7(A1_1_b7),
+      .A1_1_b8(A1_1_b8),
+      .A1_1_b9(A1_1_b9),
+      .A1_1_b10(A1_1_b10),
+      .FIFO_EN_0(FIFO_EN_0),
+      .CS1_0(CS1_0),
       .PIPELINE_RD_0(PIPELINE_RD_0),
+      .ASYNC_FLUSH_1(ASYNC_FLUSH_1),
       .DIR_1(DIR_1),
-      .CONCAT_EN_0(CONCAT_EN_0),
-      .CLK1EN_1(CLK1EN_1),
-      .P2_1(P2_1),
-      .WEN1_0_b0(WEN1_0_b0),
-      .WEN1_0_b1(WEN1_0_b1),
-      .PIPELINE_RD_1(PIPELINE_RD_1),
+      .CS2_1(CS2_1),
+      .CLK1EN_0(CLK1EN_0),
+      .WIDTH_SELECT1_0(WIDTH_SELECT1_0),
+      .ASYNC_FLUSH_0(ASYNC_FLUSH_0),
+      .SYNC_FIFO_0(SYNC_FIFO_0),
+      .SYNC_FIFO_1(SYNC_FIFO_1),
       .WD_0_b0(WD_0_b0),
       .WD_0_b1(WD_0_b1),
       .WD_0_b2(WD_0_b2),
@@ -31573,36 +31655,6 @@ module RAM_CE1_FE1_D1_PR1_WSA0_WSB0_VPR (
       .WD_0_b15(WD_0_b15),
       .WD_0_b16(WD_0_b16),
       .WD_0_b17(WD_0_b17),
-      .WIDTH_SELECT1_1(WIDTH_SELECT1_1),
-      .CS2_0(CS2_0),
-      .CLK1EN_0(CLK1EN_0),
-      .SYNC_FIFO_1(SYNC_FIFO_1),
-      .CLK2EN_0(CLK2EN_0),
-      .SYNC_FIFO_0(SYNC_FIFO_0),
-      .ASYNC_FLUSH_0(ASYNC_FLUSH_0),
-      .A2_1_b0(A2_1_b0),
-      .A2_1_b1(A2_1_b1),
-      .A2_1_b2(A2_1_b2),
-      .A2_1_b3(A2_1_b3),
-      .A2_1_b4(A2_1_b4),
-      .A2_1_b5(A2_1_b5),
-      .A2_1_b6(A2_1_b6),
-      .A2_1_b7(A2_1_b7),
-      .A2_1_b8(A2_1_b8),
-      .A2_1_b9(A2_1_b9),
-      .A2_1_b10(A2_1_b10),
-      .A1_1_b0(A1_1_b0),
-      .A1_1_b1(A1_1_b1),
-      .A1_1_b2(A1_1_b2),
-      .A1_1_b3(A1_1_b3),
-      .A1_1_b4(A1_1_b4),
-      .A1_1_b5(A1_1_b5),
-      .A1_1_b6(A1_1_b6),
-      .A1_1_b7(A1_1_b7),
-      .A1_1_b8(A1_1_b8),
-      .A1_1_b9(A1_1_b9),
-      .A1_1_b10(A1_1_b10),
-      .CS1_1(CS1_1),
       .A2_0_b0(A2_0_b0),
       .A2_0_b1(A2_0_b1),
       .A2_0_b2(A2_0_b2),
@@ -31614,7 +31666,34 @@ module RAM_CE1_FE1_D1_PR1_WSA0_WSB0_VPR (
       .A2_0_b8(A2_0_b8),
       .A2_0_b9(A2_0_b9),
       .A2_0_b10(A2_0_b10),
-      .P2_0(P2_0),
+      .A1_0_b0(A1_0_b0),
+      .A1_0_b1(A1_0_b1),
+      .A1_0_b2(A1_0_b2),
+      .A1_0_b3(A1_0_b3),
+      .A1_0_b4(A1_0_b4),
+      .A1_0_b5(A1_0_b5),
+      .A1_0_b6(A1_0_b6),
+      .A1_0_b7(A1_0_b7),
+      .A1_0_b8(A1_0_b8),
+      .A1_0_b9(A1_0_b9),
+      .A1_0_b10(A1_0_b10),
+      .WEN1_1_b0(WEN1_1_b0),
+      .WEN1_1_b1(WEN1_1_b1),
+      .FIFO_EN_1(FIFO_EN_1),
+      .CLK2EN_0(CLK2EN_0),
+      .CLK1EN_1(CLK1EN_1),
+      .WIDTH_SELECT2_0(WIDTH_SELECT2_0),
+      .A2_1_b0(A2_1_b0),
+      .A2_1_b1(A2_1_b1),
+      .A2_1_b2(A2_1_b2),
+      .A2_1_b3(A2_1_b3),
+      .A2_1_b4(A2_1_b4),
+      .A2_1_b5(A2_1_b5),
+      .A2_1_b6(A2_1_b6),
+      .A2_1_b7(A2_1_b7),
+      .A2_1_b8(A2_1_b8),
+      .A2_1_b9(A2_1_b9),
+      .A2_1_b10(A2_1_b10),
       .WD_1_b0(WD_1_b0),
       .WD_1_b1(WD_1_b1),
       .WD_1_b2(WD_1_b2),
@@ -31633,29 +31712,27 @@ module RAM_CE1_FE1_D1_PR1_WSA0_WSB0_VPR (
       .WD_1_b15(WD_1_b15),
       .WD_1_b16(WD_1_b16),
       .WD_1_b17(WD_1_b17),
-      .ASYNC_FLUSH_1(ASYNC_FLUSH_1),
-      .CS2_1(CS2_1),
-      .WIDTH_SELECT1_0(WIDTH_SELECT1_0),
-      .CS1_0(CS1_0),
-      .FIFO_EN_0(FIFO_EN_0),
+      .P2_0(P2_0),
+      .CS2_0(CS2_0),
+      .P1_1(P1_1),
       .CONCAT_EN_1(CONCAT_EN_1),
-      .DIR_0(DIR_0),
+      .WIDTH_SELECT1_1(WIDTH_SELECT1_1),
       .CLK2EN_1(CLK2EN_1),
+      .WEN1_0_b0(WEN1_0_b0),
+      .WEN1_0_b1(WEN1_0_b1),
+      .DIR_0(DIR_0),
       .P1_0(P1_0),
-      .FIFO_EN_1(FIFO_EN_1),
-      .WEN1_1_b0(WEN1_1_b0),
-      .WEN1_1_b1(WEN1_1_b1),
-      .A1_0_b0(A1_0_b0),
-      .A1_0_b1(A1_0_b1),
-      .A1_0_b2(A1_0_b2),
-      .A1_0_b3(A1_0_b3),
-      .A1_0_b4(A1_0_b4),
-      .A1_0_b5(A1_0_b5),
-      .A1_0_b6(A1_0_b6),
-      .A1_0_b7(A1_0_b7),
-      .A1_0_b8(A1_0_b8),
-      .A1_0_b9(A1_0_b9),
-      .A1_0_b10(A1_0_b10),
+      .PIPELINE_RD_1(PIPELINE_RD_1),
+      .WIDTH_SELECT2_1(WIDTH_SELECT2_1),
+      .CONCAT_EN_0(CONCAT_EN_0),
+      .P2_1(P2_1),
+      .PUSH_FLAG_1_b0(PUSH_FLAG_1_b0),
+      .PUSH_FLAG_1_b1(PUSH_FLAG_1_b1),
+      .PUSH_FLAG_1_b2(PUSH_FLAG_1_b2),
+      .PUSH_FLAG_1_b3(PUSH_FLAG_1_b3),
+      .Almost_Empty_0(Almost_Empty_0),
+      .Almost_Empty_1(Almost_Empty_1),
+      .Almost_Full_1(Almost_Full_1),
       .RD_1_b0(RD_1_b0),
       .RD_1_b1(RD_1_b1),
       .RD_1_b2(RD_1_b2),
@@ -31674,25 +31751,15 @@ module RAM_CE1_FE1_D1_PR1_WSA0_WSB0_VPR (
       .RD_1_b15(RD_1_b15),
       .RD_1_b16(RD_1_b16),
       .RD_1_b17(RD_1_b17),
-      .Almost_Empty_0(Almost_Empty_0),
-      .Almost_Full_1(Almost_Full_1),
-      .PUSH_FLAG_1_b0(PUSH_FLAG_1_b0),
-      .PUSH_FLAG_1_b1(PUSH_FLAG_1_b1),
-      .PUSH_FLAG_1_b2(PUSH_FLAG_1_b2),
-      .PUSH_FLAG_1_b3(PUSH_FLAG_1_b3),
-      .POP_FLAG_0_b0(POP_FLAG_0_b0),
-      .POP_FLAG_0_b1(POP_FLAG_0_b1),
-      .POP_FLAG_0_b2(POP_FLAG_0_b2),
-      .POP_FLAG_0_b3(POP_FLAG_0_b3),
-      .PUSH_FLAG_0_b0(PUSH_FLAG_0_b0),
-      .PUSH_FLAG_0_b1(PUSH_FLAG_0_b1),
-      .PUSH_FLAG_0_b2(PUSH_FLAG_0_b2),
-      .PUSH_FLAG_0_b3(PUSH_FLAG_0_b3),
+      .Almost_Full_0(Almost_Full_0),
       .POP_FLAG_1_b0(POP_FLAG_1_b0),
       .POP_FLAG_1_b1(POP_FLAG_1_b1),
       .POP_FLAG_1_b2(POP_FLAG_1_b2),
       .POP_FLAG_1_b3(POP_FLAG_1_b3),
-      .Almost_Full_0(Almost_Full_0),
+      .POP_FLAG_0_b0(POP_FLAG_0_b0),
+      .POP_FLAG_0_b1(POP_FLAG_0_b1),
+      .POP_FLAG_0_b2(POP_FLAG_0_b2),
+      .POP_FLAG_0_b3(POP_FLAG_0_b3),
       .RD_0_b0(RD_0_b0),
       .RD_0_b1(RD_0_b1),
       .RD_0_b2(RD_0_b2),
@@ -31711,7 +31778,10 @@ module RAM_CE1_FE1_D1_PR1_WSA0_WSB0_VPR (
       .RD_0_b15(RD_0_b15),
       .RD_0_b16(RD_0_b16),
       .RD_0_b17(RD_0_b17),
-      .Almost_Empty_1(Almost_Empty_1));
+      .PUSH_FLAG_0_b0(PUSH_FLAG_0_b0),
+      .PUSH_FLAG_0_b1(PUSH_FLAG_0_b1),
+      .PUSH_FLAG_0_b2(PUSH_FLAG_0_b2),
+      .PUSH_FLAG_0_b3(PUSH_FLAG_0_b3));
 
 endmodule
 
@@ -31719,26 +31789,41 @@ endmodule
 (* blackbox *)
 module RAM_CE1_FE1_D1_PR1_WSA0_WSB1_VPR (
 
-  input         CLK1_0,
+  input         CLK2_1,
   input         CLK1_1,
   input         CLK2_0,
-  input         CLK2_1,
+  input         CLK1_0,
 
-  input         TEST1A,
-  input         DS,
-  input  [ 1:0] WIDTH_SELECT2_0,
-  input         P1_1,
-  input  [ 1:0] WIDTH_SELECT2_1,
+  input         CS1_1,
+  input         A1_1_b0,
+  input         A1_1_b1,
+  input         A1_1_b2,
+  input         A1_1_b3,
+  input         A1_1_b4,
+  input         A1_1_b5,
+  input         A1_1_b6,
+  input         A1_1_b7,
+  input         A1_1_b8,
+  input         A1_1_b9,
+  input         A1_1_b10,
+  input         FIFO_EN_0,
+  input         DS_RB1,
+  input         CS1_0,
   input         PIPELINE_RD_0,
-  input         SD,
+  input         ASYNC_FLUSH_1,
   input         DIR_1,
-  input         CONCAT_EN_0,
-  input         LS,
-  input         CLK1EN_1,
-  input         P2_1,
-  input         WEN1_0_b0,
-  input         WEN1_0_b1,
-  input         PIPELINE_RD_1,
+  input         CS2_1,
+  input         CLK1EN_0,
+  input  [ 1:0] WIDTH_SELECT1_0,
+  input         RMB_b0,
+  input         RMB_b1,
+  input         RMB_b2,
+  input         RMB_b3,
+  input         ASYNC_FLUSH_0,
+  input         SYNC_FIFO_0,
+  input         SYNC_FIFO_1,
+  input         RMEB,
+  input         TEST1B,
   input         WD_0_b0,
   input         WD_0_b1,
   input         WD_0_b2,
@@ -31757,45 +31842,6 @@ module RAM_CE1_FE1_D1_PR1_WSA0_WSB1_VPR (
   input         WD_0_b15,
   input         WD_0_b16,
   input         WD_0_b17,
-  input  [ 1:0] WIDTH_SELECT1_1,
-  input         SD_RB1,
-  input         TEST1B,
-  input         RMEB,
-  input         RMB_b0,
-  input         RMB_b1,
-  input         RMB_b2,
-  input         RMB_b3,
-  input         DS_RB1,
-  input         CS2_0,
-  input         CLK1EN_0,
-  input         SYNC_FIFO_1,
-  input         CLK2EN_0,
-  input         SYNC_FIFO_0,
-  input         ASYNC_FLUSH_0,
-  input         A2_1_b0,
-  input         A2_1_b1,
-  input         A2_1_b2,
-  input         A2_1_b3,
-  input         A2_1_b4,
-  input         A2_1_b5,
-  input         A2_1_b6,
-  input         A2_1_b7,
-  input         A2_1_b8,
-  input         A2_1_b9,
-  input         A2_1_b10,
-  input         RMEA,
-  input         A1_1_b0,
-  input         A1_1_b1,
-  input         A1_1_b2,
-  input         A1_1_b3,
-  input         A1_1_b4,
-  input         A1_1_b5,
-  input         A1_1_b6,
-  input         A1_1_b7,
-  input         A1_1_b8,
-  input         A1_1_b9,
-  input         A1_1_b10,
-  input         CS1_1,
   input         A2_0_b0,
   input         A2_0_b1,
   input         A2_0_b2,
@@ -31807,7 +31853,36 @@ module RAM_CE1_FE1_D1_PR1_WSA0_WSB1_VPR (
   input         A2_0_b8,
   input         A2_0_b9,
   input         A2_0_b10,
-  input         P2_0,
+  input         A1_0_b0,
+  input         A1_0_b1,
+  input         A1_0_b2,
+  input         A1_0_b3,
+  input         A1_0_b4,
+  input         A1_0_b5,
+  input         A1_0_b6,
+  input         A1_0_b7,
+  input         A1_0_b8,
+  input         A1_0_b9,
+  input         A1_0_b10,
+  input         WEN1_1_b0,
+  input         WEN1_1_b1,
+  input         FIFO_EN_1,
+  input         CLK2EN_0,
+  input         DS,
+  input         LS_RB1,
+  input         CLK1EN_1,
+  input  [ 1:0] WIDTH_SELECT2_0,
+  input         A2_1_b0,
+  input         A2_1_b1,
+  input         A2_1_b2,
+  input         A2_1_b3,
+  input         A2_1_b4,
+  input         A2_1_b5,
+  input         A2_1_b6,
+  input         A2_1_b7,
+  input         A2_1_b8,
+  input         A2_1_b9,
+  input         A2_1_b10,
   input         WD_1_b0,
   input         WD_1_b1,
   input         WD_1_b2,
@@ -31826,35 +31901,37 @@ module RAM_CE1_FE1_D1_PR1_WSA0_WSB1_VPR (
   input         WD_1_b15,
   input         WD_1_b16,
   input         WD_1_b17,
-  input         ASYNC_FLUSH_1,
-  input         LS_RB1,
-  input         CS2_1,
+  input         P2_0,
+  input         CS2_0,
+  input         P1_1,
+  input         CONCAT_EN_1,
+  input         LS,
+  input  [ 1:0] WIDTH_SELECT1_1,
+  input         SD_RB1,
+  input         TEST1A,
+  input         CLK2EN_1,
   input         RMA_b0,
   input         RMA_b1,
   input         RMA_b2,
   input         RMA_b3,
-  input  [ 1:0] WIDTH_SELECT1_0,
-  input         CS1_0,
-  input         FIFO_EN_0,
-  input         CONCAT_EN_1,
+  input         WEN1_0_b0,
+  input         WEN1_0_b1,
+  input         RMEA,
   input         DIR_0,
-  input         CLK2EN_1,
   input         P1_0,
-  input         FIFO_EN_1,
-  input         WEN1_1_b0,
-  input         WEN1_1_b1,
-  input         A1_0_b0,
-  input         A1_0_b1,
-  input         A1_0_b2,
-  input         A1_0_b3,
-  input         A1_0_b4,
-  input         A1_0_b5,
-  input         A1_0_b6,
-  input         A1_0_b7,
-  input         A1_0_b8,
-  input         A1_0_b9,
-  input         A1_0_b10,
+  input         PIPELINE_RD_1,
+  input  [ 1:0] WIDTH_SELECT2_1,
+  input         CONCAT_EN_0,
+  input         P2_1,
+  input         SD,
 
+  output        PUSH_FLAG_1_b0,
+  output        PUSH_FLAG_1_b1,
+  output        PUSH_FLAG_1_b2,
+  output        PUSH_FLAG_1_b3,
+  output        Almost_Empty_0,
+  output        Almost_Empty_1,
+  output        Almost_Full_1,
   output        RD_1_b0,
   output        RD_1_b1,
   output        RD_1_b2,
@@ -31873,25 +31950,15 @@ module RAM_CE1_FE1_D1_PR1_WSA0_WSB1_VPR (
   output        RD_1_b15,
   output        RD_1_b16,
   output        RD_1_b17,
-  output        Almost_Empty_0,
-  output        Almost_Full_1,
-  output        PUSH_FLAG_1_b0,
-  output        PUSH_FLAG_1_b1,
-  output        PUSH_FLAG_1_b2,
-  output        PUSH_FLAG_1_b3,
-  output        POP_FLAG_0_b0,
-  output        POP_FLAG_0_b1,
-  output        POP_FLAG_0_b2,
-  output        POP_FLAG_0_b3,
-  output        PUSH_FLAG_0_b0,
-  output        PUSH_FLAG_0_b1,
-  output        PUSH_FLAG_0_b2,
-  output        PUSH_FLAG_0_b3,
+  output        Almost_Full_0,
   output        POP_FLAG_1_b0,
   output        POP_FLAG_1_b1,
   output        POP_FLAG_1_b2,
   output        POP_FLAG_1_b3,
-  output        Almost_Full_0,
+  output        POP_FLAG_0_b0,
+  output        POP_FLAG_0_b1,
+  output        POP_FLAG_0_b2,
+  output        POP_FLAG_0_b3,
   output        RD_0_b0,
   output        RD_0_b1,
   output        RD_0_b2,
@@ -31910,14 +31977,14 @@ module RAM_CE1_FE1_D1_PR1_WSA0_WSB1_VPR (
   output        RD_0_b15,
   output        RD_0_b16,
   output        RD_0_b17,
-  output        Almost_Empty_1
+  output        PUSH_FLAG_0_b0,
+  output        PUSH_FLAG_0_b1,
+  output        PUSH_FLAG_0_b2,
+  output        PUSH_FLAG_0_b3
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
-      $setup(P1_1, posedge CLK1_1, "");
-      $hold(posedge CLK1_1, P1_1, "");
-      $setup(P2_1, posedge CLK2_1, "");
-      $hold(posedge CLK2_1, P2_1, "");
       $setup(WD_0_b0, posedge CLK2_0, "");
       $hold(posedge CLK2_0, WD_0_b0, "");
       $setup(WD_0_b1, posedge CLK2_0, "");
@@ -31954,8 +32021,6 @@ module RAM_CE1_FE1_D1_PR1_WSA0_WSB1_VPR (
       $hold(posedge CLK2_0, WD_0_b16, "");
       $setup(WD_0_b17, posedge CLK2_0, "");
       $hold(posedge CLK2_0, WD_0_b17, "");
-      $setup(P2_0, posedge CLK2_0, "");
-      $hold(posedge CLK2_0, P2_0, "");
       $setup(WD_1_b0, posedge CLK2_1, "");
       $hold(posedge CLK2_1, WD_1_b0, "");
       $setup(WD_1_b1, posedge CLK2_1, "");
@@ -31992,8 +32057,21 @@ module RAM_CE1_FE1_D1_PR1_WSA0_WSB1_VPR (
       $hold(posedge CLK2_1, WD_1_b16, "");
       $setup(WD_1_b17, posedge CLK2_1, "");
       $hold(posedge CLK2_1, WD_1_b17, "");
+      $setup(P2_0, posedge CLK2_0, "");
+      $hold(posedge CLK2_0, P2_0, "");
+      $setup(P1_1, posedge CLK1_1, "");
+      $hold(posedge CLK1_1, P1_1, "");
       $setup(P1_0, posedge CLK1_0, "");
       $hold(posedge CLK1_0, P1_0, "");
+      $setup(P2_1, posedge CLK2_1, "");
+      $hold(posedge CLK2_1, P2_1, "");
+      (CLK2_1*>PUSH_FLAG_1_b0)="";
+      (CLK2_1*>PUSH_FLAG_1_b1)="";
+      (CLK2_1*>PUSH_FLAG_1_b2)="";
+      (CLK2_1*>PUSH_FLAG_1_b3)="";
+      (CLK1_0*>Almost_Empty_0)="";
+      (CLK1_1*>Almost_Empty_1)="";
+      (CLK2_1*>Almost_Full_1)="";
       (CLK1_1*>RD_1_b0)="";
       (CLK1_1*>RD_1_b1)="";
       (CLK1_1*>RD_1_b2)="";
@@ -32012,25 +32090,15 @@ module RAM_CE1_FE1_D1_PR1_WSA0_WSB1_VPR (
       (CLK1_1*>RD_1_b15)="";
       (CLK1_1*>RD_1_b16)="";
       (CLK1_1*>RD_1_b17)="";
-      (CLK1_0*>Almost_Empty_0)="";
-      (CLK2_1*>Almost_Full_1)="";
-      (CLK2_1*>PUSH_FLAG_1_b0)="";
-      (CLK2_1*>PUSH_FLAG_1_b1)="";
-      (CLK2_1*>PUSH_FLAG_1_b2)="";
-      (CLK2_1*>PUSH_FLAG_1_b3)="";
-      (CLK1_0*>POP_FLAG_0_b0)="";
-      (CLK1_0*>POP_FLAG_0_b1)="";
-      (CLK1_0*>POP_FLAG_0_b2)="";
-      (CLK1_0*>POP_FLAG_0_b3)="";
-      (CLK2_0*>PUSH_FLAG_0_b0)="";
-      (CLK2_0*>PUSH_FLAG_0_b1)="";
-      (CLK2_0*>PUSH_FLAG_0_b2)="";
-      (CLK2_0*>PUSH_FLAG_0_b3)="";
+      (CLK2_0*>Almost_Full_0)="";
       (CLK1_1*>POP_FLAG_1_b0)="";
       (CLK1_1*>POP_FLAG_1_b1)="";
       (CLK1_1*>POP_FLAG_1_b2)="";
       (CLK1_1*>POP_FLAG_1_b3)="";
-      (CLK2_0*>Almost_Full_0)="";
+      (CLK1_0*>POP_FLAG_0_b0)="";
+      (CLK1_0*>POP_FLAG_0_b1)="";
+      (CLK1_0*>POP_FLAG_0_b2)="";
+      (CLK1_0*>POP_FLAG_0_b3)="";
       (CLK1_0*>RD_0_b0)="";
       (CLK1_0*>RD_0_b1)="";
       (CLK1_0*>RD_0_b2)="";
@@ -32049,26 +32117,41 @@ module RAM_CE1_FE1_D1_PR1_WSA0_WSB1_VPR (
       (CLK1_0*>RD_0_b15)="";
       (CLK1_0*>RD_0_b16)="";
       (CLK1_0*>RD_0_b17)="";
-      (CLK1_1*>Almost_Empty_1)="";
+      (CLK2_0*>PUSH_FLAG_0_b0)="";
+      (CLK2_0*>PUSH_FLAG_0_b1)="";
+      (CLK2_0*>PUSH_FLAG_0_b2)="";
+      (CLK2_0*>PUSH_FLAG_0_b3)="";
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
-      .CLK1_0(CLK1_0),
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
+      .CLK2_1(CLK2_1),
       .CLK1_1(CLK1_1),
       .CLK2_0(CLK2_0),
-      .CLK2_1(CLK2_1),
-      .WIDTH_SELECT2_0(WIDTH_SELECT2_0),
-      .P1_1(P1_1),
-      .WIDTH_SELECT2_1(WIDTH_SELECT2_1),
+      .CLK1_0(CLK1_0),
+      .CS1_1(CS1_1),
+      .A1_1_b0(A1_1_b0),
+      .A1_1_b1(A1_1_b1),
+      .A1_1_b2(A1_1_b2),
+      .A1_1_b3(A1_1_b3),
+      .A1_1_b4(A1_1_b4),
+      .A1_1_b5(A1_1_b5),
+      .A1_1_b6(A1_1_b6),
+      .A1_1_b7(A1_1_b7),
+      .A1_1_b8(A1_1_b8),
+      .A1_1_b9(A1_1_b9),
+      .A1_1_b10(A1_1_b10),
+      .FIFO_EN_0(FIFO_EN_0),
+      .CS1_0(CS1_0),
       .PIPELINE_RD_0(PIPELINE_RD_0),
+      .ASYNC_FLUSH_1(ASYNC_FLUSH_1),
       .DIR_1(DIR_1),
-      .CONCAT_EN_0(CONCAT_EN_0),
-      .CLK1EN_1(CLK1EN_1),
-      .P2_1(P2_1),
-      .WEN1_0_b0(WEN1_0_b0),
-      .WEN1_0_b1(WEN1_0_b1),
-      .PIPELINE_RD_1(PIPELINE_RD_1),
+      .CS2_1(CS2_1),
+      .CLK1EN_0(CLK1EN_0),
+      .WIDTH_SELECT1_0(WIDTH_SELECT1_0),
+      .ASYNC_FLUSH_0(ASYNC_FLUSH_0),
+      .SYNC_FIFO_0(SYNC_FIFO_0),
+      .SYNC_FIFO_1(SYNC_FIFO_1),
       .WD_0_b0(WD_0_b0),
       .WD_0_b1(WD_0_b1),
       .WD_0_b2(WD_0_b2),
@@ -32087,36 +32170,6 @@ module RAM_CE1_FE1_D1_PR1_WSA0_WSB1_VPR (
       .WD_0_b15(WD_0_b15),
       .WD_0_b16(WD_0_b16),
       .WD_0_b17(WD_0_b17),
-      .WIDTH_SELECT1_1(WIDTH_SELECT1_1),
-      .CS2_0(CS2_0),
-      .CLK1EN_0(CLK1EN_0),
-      .SYNC_FIFO_1(SYNC_FIFO_1),
-      .CLK2EN_0(CLK2EN_0),
-      .SYNC_FIFO_0(SYNC_FIFO_0),
-      .ASYNC_FLUSH_0(ASYNC_FLUSH_0),
-      .A2_1_b0(A2_1_b0),
-      .A2_1_b1(A2_1_b1),
-      .A2_1_b2(A2_1_b2),
-      .A2_1_b3(A2_1_b3),
-      .A2_1_b4(A2_1_b4),
-      .A2_1_b5(A2_1_b5),
-      .A2_1_b6(A2_1_b6),
-      .A2_1_b7(A2_1_b7),
-      .A2_1_b8(A2_1_b8),
-      .A2_1_b9(A2_1_b9),
-      .A2_1_b10(A2_1_b10),
-      .A1_1_b0(A1_1_b0),
-      .A1_1_b1(A1_1_b1),
-      .A1_1_b2(A1_1_b2),
-      .A1_1_b3(A1_1_b3),
-      .A1_1_b4(A1_1_b4),
-      .A1_1_b5(A1_1_b5),
-      .A1_1_b6(A1_1_b6),
-      .A1_1_b7(A1_1_b7),
-      .A1_1_b8(A1_1_b8),
-      .A1_1_b9(A1_1_b9),
-      .A1_1_b10(A1_1_b10),
-      .CS1_1(CS1_1),
       .A2_0_b0(A2_0_b0),
       .A2_0_b1(A2_0_b1),
       .A2_0_b2(A2_0_b2),
@@ -32128,7 +32181,34 @@ module RAM_CE1_FE1_D1_PR1_WSA0_WSB1_VPR (
       .A2_0_b8(A2_0_b8),
       .A2_0_b9(A2_0_b9),
       .A2_0_b10(A2_0_b10),
-      .P2_0(P2_0),
+      .A1_0_b0(A1_0_b0),
+      .A1_0_b1(A1_0_b1),
+      .A1_0_b2(A1_0_b2),
+      .A1_0_b3(A1_0_b3),
+      .A1_0_b4(A1_0_b4),
+      .A1_0_b5(A1_0_b5),
+      .A1_0_b6(A1_0_b6),
+      .A1_0_b7(A1_0_b7),
+      .A1_0_b8(A1_0_b8),
+      .A1_0_b9(A1_0_b9),
+      .A1_0_b10(A1_0_b10),
+      .WEN1_1_b0(WEN1_1_b0),
+      .WEN1_1_b1(WEN1_1_b1),
+      .FIFO_EN_1(FIFO_EN_1),
+      .CLK2EN_0(CLK2EN_0),
+      .CLK1EN_1(CLK1EN_1),
+      .WIDTH_SELECT2_0(WIDTH_SELECT2_0),
+      .A2_1_b0(A2_1_b0),
+      .A2_1_b1(A2_1_b1),
+      .A2_1_b2(A2_1_b2),
+      .A2_1_b3(A2_1_b3),
+      .A2_1_b4(A2_1_b4),
+      .A2_1_b5(A2_1_b5),
+      .A2_1_b6(A2_1_b6),
+      .A2_1_b7(A2_1_b7),
+      .A2_1_b8(A2_1_b8),
+      .A2_1_b9(A2_1_b9),
+      .A2_1_b10(A2_1_b10),
       .WD_1_b0(WD_1_b0),
       .WD_1_b1(WD_1_b1),
       .WD_1_b2(WD_1_b2),
@@ -32147,29 +32227,27 @@ module RAM_CE1_FE1_D1_PR1_WSA0_WSB1_VPR (
       .WD_1_b15(WD_1_b15),
       .WD_1_b16(WD_1_b16),
       .WD_1_b17(WD_1_b17),
-      .ASYNC_FLUSH_1(ASYNC_FLUSH_1),
-      .CS2_1(CS2_1),
-      .WIDTH_SELECT1_0(WIDTH_SELECT1_0),
-      .CS1_0(CS1_0),
-      .FIFO_EN_0(FIFO_EN_0),
+      .P2_0(P2_0),
+      .CS2_0(CS2_0),
+      .P1_1(P1_1),
       .CONCAT_EN_1(CONCAT_EN_1),
-      .DIR_0(DIR_0),
+      .WIDTH_SELECT1_1(WIDTH_SELECT1_1),
       .CLK2EN_1(CLK2EN_1),
+      .WEN1_0_b0(WEN1_0_b0),
+      .WEN1_0_b1(WEN1_0_b1),
+      .DIR_0(DIR_0),
       .P1_0(P1_0),
-      .FIFO_EN_1(FIFO_EN_1),
-      .WEN1_1_b0(WEN1_1_b0),
-      .WEN1_1_b1(WEN1_1_b1),
-      .A1_0_b0(A1_0_b0),
-      .A1_0_b1(A1_0_b1),
-      .A1_0_b2(A1_0_b2),
-      .A1_0_b3(A1_0_b3),
-      .A1_0_b4(A1_0_b4),
-      .A1_0_b5(A1_0_b5),
-      .A1_0_b6(A1_0_b6),
-      .A1_0_b7(A1_0_b7),
-      .A1_0_b8(A1_0_b8),
-      .A1_0_b9(A1_0_b9),
-      .A1_0_b10(A1_0_b10),
+      .PIPELINE_RD_1(PIPELINE_RD_1),
+      .WIDTH_SELECT2_1(WIDTH_SELECT2_1),
+      .CONCAT_EN_0(CONCAT_EN_0),
+      .P2_1(P2_1),
+      .PUSH_FLAG_1_b0(PUSH_FLAG_1_b0),
+      .PUSH_FLAG_1_b1(PUSH_FLAG_1_b1),
+      .PUSH_FLAG_1_b2(PUSH_FLAG_1_b2),
+      .PUSH_FLAG_1_b3(PUSH_FLAG_1_b3),
+      .Almost_Empty_0(Almost_Empty_0),
+      .Almost_Empty_1(Almost_Empty_1),
+      .Almost_Full_1(Almost_Full_1),
       .RD_1_b0(RD_1_b0),
       .RD_1_b1(RD_1_b1),
       .RD_1_b2(RD_1_b2),
@@ -32188,25 +32266,15 @@ module RAM_CE1_FE1_D1_PR1_WSA0_WSB1_VPR (
       .RD_1_b15(RD_1_b15),
       .RD_1_b16(RD_1_b16),
       .RD_1_b17(RD_1_b17),
-      .Almost_Empty_0(Almost_Empty_0),
-      .Almost_Full_1(Almost_Full_1),
-      .PUSH_FLAG_1_b0(PUSH_FLAG_1_b0),
-      .PUSH_FLAG_1_b1(PUSH_FLAG_1_b1),
-      .PUSH_FLAG_1_b2(PUSH_FLAG_1_b2),
-      .PUSH_FLAG_1_b3(PUSH_FLAG_1_b3),
-      .POP_FLAG_0_b0(POP_FLAG_0_b0),
-      .POP_FLAG_0_b1(POP_FLAG_0_b1),
-      .POP_FLAG_0_b2(POP_FLAG_0_b2),
-      .POP_FLAG_0_b3(POP_FLAG_0_b3),
-      .PUSH_FLAG_0_b0(PUSH_FLAG_0_b0),
-      .PUSH_FLAG_0_b1(PUSH_FLAG_0_b1),
-      .PUSH_FLAG_0_b2(PUSH_FLAG_0_b2),
-      .PUSH_FLAG_0_b3(PUSH_FLAG_0_b3),
+      .Almost_Full_0(Almost_Full_0),
       .POP_FLAG_1_b0(POP_FLAG_1_b0),
       .POP_FLAG_1_b1(POP_FLAG_1_b1),
       .POP_FLAG_1_b2(POP_FLAG_1_b2),
       .POP_FLAG_1_b3(POP_FLAG_1_b3),
-      .Almost_Full_0(Almost_Full_0),
+      .POP_FLAG_0_b0(POP_FLAG_0_b0),
+      .POP_FLAG_0_b1(POP_FLAG_0_b1),
+      .POP_FLAG_0_b2(POP_FLAG_0_b2),
+      .POP_FLAG_0_b3(POP_FLAG_0_b3),
       .RD_0_b0(RD_0_b0),
       .RD_0_b1(RD_0_b1),
       .RD_0_b2(RD_0_b2),
@@ -32225,7 +32293,10 @@ module RAM_CE1_FE1_D1_PR1_WSA0_WSB1_VPR (
       .RD_0_b15(RD_0_b15),
       .RD_0_b16(RD_0_b16),
       .RD_0_b17(RD_0_b17),
-      .Almost_Empty_1(Almost_Empty_1));
+      .PUSH_FLAG_0_b0(PUSH_FLAG_0_b0),
+      .PUSH_FLAG_0_b1(PUSH_FLAG_0_b1),
+      .PUSH_FLAG_0_b2(PUSH_FLAG_0_b2),
+      .PUSH_FLAG_0_b3(PUSH_FLAG_0_b3));
 
 endmodule
 
@@ -32233,26 +32304,41 @@ endmodule
 (* blackbox *)
 module RAM_CE1_FE1_D1_PR1_WSA0_WSB2_VPR (
 
-  input         CLK1_0,
+  input         CLK2_1,
   input         CLK1_1,
   input         CLK2_0,
-  input         CLK2_1,
+  input         CLK1_0,
 
-  input         TEST1A,
-  input         DS,
-  input  [ 1:0] WIDTH_SELECT2_0,
-  input         P1_1,
-  input  [ 1:0] WIDTH_SELECT2_1,
+  input         CS1_1,
+  input         A1_1_b0,
+  input         A1_1_b1,
+  input         A1_1_b2,
+  input         A1_1_b3,
+  input         A1_1_b4,
+  input         A1_1_b5,
+  input         A1_1_b6,
+  input         A1_1_b7,
+  input         A1_1_b8,
+  input         A1_1_b9,
+  input         A1_1_b10,
+  input         FIFO_EN_0,
+  input         DS_RB1,
+  input         CS1_0,
   input         PIPELINE_RD_0,
-  input         SD,
+  input         ASYNC_FLUSH_1,
   input         DIR_1,
-  input         CONCAT_EN_0,
-  input         LS,
-  input         CLK1EN_1,
-  input         P2_1,
-  input         WEN1_0_b0,
-  input         WEN1_0_b1,
-  input         PIPELINE_RD_1,
+  input         CS2_1,
+  input         CLK1EN_0,
+  input  [ 1:0] WIDTH_SELECT1_0,
+  input         RMB_b0,
+  input         RMB_b1,
+  input         RMB_b2,
+  input         RMB_b3,
+  input         ASYNC_FLUSH_0,
+  input         SYNC_FIFO_0,
+  input         SYNC_FIFO_1,
+  input         RMEB,
+  input         TEST1B,
   input         WD_0_b0,
   input         WD_0_b1,
   input         WD_0_b2,
@@ -32271,45 +32357,6 @@ module RAM_CE1_FE1_D1_PR1_WSA0_WSB2_VPR (
   input         WD_0_b15,
   input         WD_0_b16,
   input         WD_0_b17,
-  input  [ 1:0] WIDTH_SELECT1_1,
-  input         SD_RB1,
-  input         TEST1B,
-  input         RMEB,
-  input         RMB_b0,
-  input         RMB_b1,
-  input         RMB_b2,
-  input         RMB_b3,
-  input         DS_RB1,
-  input         CS2_0,
-  input         CLK1EN_0,
-  input         SYNC_FIFO_1,
-  input         CLK2EN_0,
-  input         SYNC_FIFO_0,
-  input         ASYNC_FLUSH_0,
-  input         A2_1_b0,
-  input         A2_1_b1,
-  input         A2_1_b2,
-  input         A2_1_b3,
-  input         A2_1_b4,
-  input         A2_1_b5,
-  input         A2_1_b6,
-  input         A2_1_b7,
-  input         A2_1_b8,
-  input         A2_1_b9,
-  input         A2_1_b10,
-  input         RMEA,
-  input         A1_1_b0,
-  input         A1_1_b1,
-  input         A1_1_b2,
-  input         A1_1_b3,
-  input         A1_1_b4,
-  input         A1_1_b5,
-  input         A1_1_b6,
-  input         A1_1_b7,
-  input         A1_1_b8,
-  input         A1_1_b9,
-  input         A1_1_b10,
-  input         CS1_1,
   input         A2_0_b0,
   input         A2_0_b1,
   input         A2_0_b2,
@@ -32321,7 +32368,36 @@ module RAM_CE1_FE1_D1_PR1_WSA0_WSB2_VPR (
   input         A2_0_b8,
   input         A2_0_b9,
   input         A2_0_b10,
-  input         P2_0,
+  input         A1_0_b0,
+  input         A1_0_b1,
+  input         A1_0_b2,
+  input         A1_0_b3,
+  input         A1_0_b4,
+  input         A1_0_b5,
+  input         A1_0_b6,
+  input         A1_0_b7,
+  input         A1_0_b8,
+  input         A1_0_b9,
+  input         A1_0_b10,
+  input         WEN1_1_b0,
+  input         WEN1_1_b1,
+  input         FIFO_EN_1,
+  input         CLK2EN_0,
+  input         DS,
+  input         LS_RB1,
+  input         CLK1EN_1,
+  input  [ 1:0] WIDTH_SELECT2_0,
+  input         A2_1_b0,
+  input         A2_1_b1,
+  input         A2_1_b2,
+  input         A2_1_b3,
+  input         A2_1_b4,
+  input         A2_1_b5,
+  input         A2_1_b6,
+  input         A2_1_b7,
+  input         A2_1_b8,
+  input         A2_1_b9,
+  input         A2_1_b10,
   input         WD_1_b0,
   input         WD_1_b1,
   input         WD_1_b2,
@@ -32340,35 +32416,37 @@ module RAM_CE1_FE1_D1_PR1_WSA0_WSB2_VPR (
   input         WD_1_b15,
   input         WD_1_b16,
   input         WD_1_b17,
-  input         ASYNC_FLUSH_1,
-  input         LS_RB1,
-  input         CS2_1,
+  input         P2_0,
+  input         CS2_0,
+  input         P1_1,
+  input         CONCAT_EN_1,
+  input         LS,
+  input  [ 1:0] WIDTH_SELECT1_1,
+  input         SD_RB1,
+  input         TEST1A,
+  input         CLK2EN_1,
   input         RMA_b0,
   input         RMA_b1,
   input         RMA_b2,
   input         RMA_b3,
-  input  [ 1:0] WIDTH_SELECT1_0,
-  input         CS1_0,
-  input         FIFO_EN_0,
-  input         CONCAT_EN_1,
+  input         WEN1_0_b0,
+  input         WEN1_0_b1,
+  input         RMEA,
   input         DIR_0,
-  input         CLK2EN_1,
   input         P1_0,
-  input         FIFO_EN_1,
-  input         WEN1_1_b0,
-  input         WEN1_1_b1,
-  input         A1_0_b0,
-  input         A1_0_b1,
-  input         A1_0_b2,
-  input         A1_0_b3,
-  input         A1_0_b4,
-  input         A1_0_b5,
-  input         A1_0_b6,
-  input         A1_0_b7,
-  input         A1_0_b8,
-  input         A1_0_b9,
-  input         A1_0_b10,
+  input         PIPELINE_RD_1,
+  input  [ 1:0] WIDTH_SELECT2_1,
+  input         CONCAT_EN_0,
+  input         P2_1,
+  input         SD,
 
+  output        PUSH_FLAG_1_b0,
+  output        PUSH_FLAG_1_b1,
+  output        PUSH_FLAG_1_b2,
+  output        PUSH_FLAG_1_b3,
+  output        Almost_Empty_0,
+  output        Almost_Empty_1,
+  output        Almost_Full_1,
   output        RD_1_b0,
   output        RD_1_b1,
   output        RD_1_b2,
@@ -32387,25 +32465,15 @@ module RAM_CE1_FE1_D1_PR1_WSA0_WSB2_VPR (
   output        RD_1_b15,
   output        RD_1_b16,
   output        RD_1_b17,
-  output        Almost_Empty_0,
-  output        Almost_Full_1,
-  output        PUSH_FLAG_1_b0,
-  output        PUSH_FLAG_1_b1,
-  output        PUSH_FLAG_1_b2,
-  output        PUSH_FLAG_1_b3,
-  output        POP_FLAG_0_b0,
-  output        POP_FLAG_0_b1,
-  output        POP_FLAG_0_b2,
-  output        POP_FLAG_0_b3,
-  output        PUSH_FLAG_0_b0,
-  output        PUSH_FLAG_0_b1,
-  output        PUSH_FLAG_0_b2,
-  output        PUSH_FLAG_0_b3,
+  output        Almost_Full_0,
   output        POP_FLAG_1_b0,
   output        POP_FLAG_1_b1,
   output        POP_FLAG_1_b2,
   output        POP_FLAG_1_b3,
-  output        Almost_Full_0,
+  output        POP_FLAG_0_b0,
+  output        POP_FLAG_0_b1,
+  output        POP_FLAG_0_b2,
+  output        POP_FLAG_0_b3,
   output        RD_0_b0,
   output        RD_0_b1,
   output        RD_0_b2,
@@ -32424,14 +32492,14 @@ module RAM_CE1_FE1_D1_PR1_WSA0_WSB2_VPR (
   output        RD_0_b15,
   output        RD_0_b16,
   output        RD_0_b17,
-  output        Almost_Empty_1
+  output        PUSH_FLAG_0_b0,
+  output        PUSH_FLAG_0_b1,
+  output        PUSH_FLAG_0_b2,
+  output        PUSH_FLAG_0_b3
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
-      $setup(P1_1, posedge CLK1_1, "");
-      $hold(posedge CLK1_1, P1_1, "");
-      $setup(P2_1, posedge CLK2_1, "");
-      $hold(posedge CLK2_1, P2_1, "");
       $setup(WD_0_b0, posedge CLK2_0, "");
       $hold(posedge CLK2_0, WD_0_b0, "");
       $setup(WD_0_b1, posedge CLK2_0, "");
@@ -32468,8 +32536,6 @@ module RAM_CE1_FE1_D1_PR1_WSA0_WSB2_VPR (
       $hold(posedge CLK2_0, WD_0_b16, "");
       $setup(WD_0_b17, posedge CLK2_0, "");
       $hold(posedge CLK2_0, WD_0_b17, "");
-      $setup(P2_0, posedge CLK2_0, "");
-      $hold(posedge CLK2_0, P2_0, "");
       $setup(WD_1_b0, posedge CLK2_1, "");
       $hold(posedge CLK2_1, WD_1_b0, "");
       $setup(WD_1_b1, posedge CLK2_1, "");
@@ -32506,8 +32572,21 @@ module RAM_CE1_FE1_D1_PR1_WSA0_WSB2_VPR (
       $hold(posedge CLK2_1, WD_1_b16, "");
       $setup(WD_1_b17, posedge CLK2_1, "");
       $hold(posedge CLK2_1, WD_1_b17, "");
+      $setup(P2_0, posedge CLK2_0, "");
+      $hold(posedge CLK2_0, P2_0, "");
+      $setup(P1_1, posedge CLK1_1, "");
+      $hold(posedge CLK1_1, P1_1, "");
       $setup(P1_0, posedge CLK1_0, "");
       $hold(posedge CLK1_0, P1_0, "");
+      $setup(P2_1, posedge CLK2_1, "");
+      $hold(posedge CLK2_1, P2_1, "");
+      (CLK2_1*>PUSH_FLAG_1_b0)="";
+      (CLK2_1*>PUSH_FLAG_1_b1)="";
+      (CLK2_1*>PUSH_FLAG_1_b2)="";
+      (CLK2_1*>PUSH_FLAG_1_b3)="";
+      (CLK1_0*>Almost_Empty_0)="";
+      (CLK1_1*>Almost_Empty_1)="";
+      (CLK2_1*>Almost_Full_1)="";
       (CLK1_1*>RD_1_b0)="";
       (CLK1_1*>RD_1_b1)="";
       (CLK1_1*>RD_1_b2)="";
@@ -32526,25 +32605,15 @@ module RAM_CE1_FE1_D1_PR1_WSA0_WSB2_VPR (
       (CLK1_1*>RD_1_b15)="";
       (CLK1_1*>RD_1_b16)="";
       (CLK1_1*>RD_1_b17)="";
-      (CLK1_0*>Almost_Empty_0)="";
-      (CLK2_1*>Almost_Full_1)="";
-      (CLK2_1*>PUSH_FLAG_1_b0)="";
-      (CLK2_1*>PUSH_FLAG_1_b1)="";
-      (CLK2_1*>PUSH_FLAG_1_b2)="";
-      (CLK2_1*>PUSH_FLAG_1_b3)="";
-      (CLK1_0*>POP_FLAG_0_b0)="";
-      (CLK1_0*>POP_FLAG_0_b1)="";
-      (CLK1_0*>POP_FLAG_0_b2)="";
-      (CLK1_0*>POP_FLAG_0_b3)="";
-      (CLK2_0*>PUSH_FLAG_0_b0)="";
-      (CLK2_0*>PUSH_FLAG_0_b1)="";
-      (CLK2_0*>PUSH_FLAG_0_b2)="";
-      (CLK2_0*>PUSH_FLAG_0_b3)="";
+      (CLK2_0*>Almost_Full_0)="";
       (CLK1_1*>POP_FLAG_1_b0)="";
       (CLK1_1*>POP_FLAG_1_b1)="";
       (CLK1_1*>POP_FLAG_1_b2)="";
       (CLK1_1*>POP_FLAG_1_b3)="";
-      (CLK2_0*>Almost_Full_0)="";
+      (CLK1_0*>POP_FLAG_0_b0)="";
+      (CLK1_0*>POP_FLAG_0_b1)="";
+      (CLK1_0*>POP_FLAG_0_b2)="";
+      (CLK1_0*>POP_FLAG_0_b3)="";
       (CLK1_0*>RD_0_b0)="";
       (CLK1_0*>RD_0_b1)="";
       (CLK1_0*>RD_0_b2)="";
@@ -32563,26 +32632,41 @@ module RAM_CE1_FE1_D1_PR1_WSA0_WSB2_VPR (
       (CLK1_0*>RD_0_b15)="";
       (CLK1_0*>RD_0_b16)="";
       (CLK1_0*>RD_0_b17)="";
-      (CLK1_1*>Almost_Empty_1)="";
+      (CLK2_0*>PUSH_FLAG_0_b0)="";
+      (CLK2_0*>PUSH_FLAG_0_b1)="";
+      (CLK2_0*>PUSH_FLAG_0_b2)="";
+      (CLK2_0*>PUSH_FLAG_0_b3)="";
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
-      .CLK1_0(CLK1_0),
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
+      .CLK2_1(CLK2_1),
       .CLK1_1(CLK1_1),
       .CLK2_0(CLK2_0),
-      .CLK2_1(CLK2_1),
-      .WIDTH_SELECT2_0(WIDTH_SELECT2_0),
-      .P1_1(P1_1),
-      .WIDTH_SELECT2_1(WIDTH_SELECT2_1),
+      .CLK1_0(CLK1_0),
+      .CS1_1(CS1_1),
+      .A1_1_b0(A1_1_b0),
+      .A1_1_b1(A1_1_b1),
+      .A1_1_b2(A1_1_b2),
+      .A1_1_b3(A1_1_b3),
+      .A1_1_b4(A1_1_b4),
+      .A1_1_b5(A1_1_b5),
+      .A1_1_b6(A1_1_b6),
+      .A1_1_b7(A1_1_b7),
+      .A1_1_b8(A1_1_b8),
+      .A1_1_b9(A1_1_b9),
+      .A1_1_b10(A1_1_b10),
+      .FIFO_EN_0(FIFO_EN_0),
+      .CS1_0(CS1_0),
       .PIPELINE_RD_0(PIPELINE_RD_0),
+      .ASYNC_FLUSH_1(ASYNC_FLUSH_1),
       .DIR_1(DIR_1),
-      .CONCAT_EN_0(CONCAT_EN_0),
-      .CLK1EN_1(CLK1EN_1),
-      .P2_1(P2_1),
-      .WEN1_0_b0(WEN1_0_b0),
-      .WEN1_0_b1(WEN1_0_b1),
-      .PIPELINE_RD_1(PIPELINE_RD_1),
+      .CS2_1(CS2_1),
+      .CLK1EN_0(CLK1EN_0),
+      .WIDTH_SELECT1_0(WIDTH_SELECT1_0),
+      .ASYNC_FLUSH_0(ASYNC_FLUSH_0),
+      .SYNC_FIFO_0(SYNC_FIFO_0),
+      .SYNC_FIFO_1(SYNC_FIFO_1),
       .WD_0_b0(WD_0_b0),
       .WD_0_b1(WD_0_b1),
       .WD_0_b2(WD_0_b2),
@@ -32601,36 +32685,6 @@ module RAM_CE1_FE1_D1_PR1_WSA0_WSB2_VPR (
       .WD_0_b15(WD_0_b15),
       .WD_0_b16(WD_0_b16),
       .WD_0_b17(WD_0_b17),
-      .WIDTH_SELECT1_1(WIDTH_SELECT1_1),
-      .CS2_0(CS2_0),
-      .CLK1EN_0(CLK1EN_0),
-      .SYNC_FIFO_1(SYNC_FIFO_1),
-      .CLK2EN_0(CLK2EN_0),
-      .SYNC_FIFO_0(SYNC_FIFO_0),
-      .ASYNC_FLUSH_0(ASYNC_FLUSH_0),
-      .A2_1_b0(A2_1_b0),
-      .A2_1_b1(A2_1_b1),
-      .A2_1_b2(A2_1_b2),
-      .A2_1_b3(A2_1_b3),
-      .A2_1_b4(A2_1_b4),
-      .A2_1_b5(A2_1_b5),
-      .A2_1_b6(A2_1_b6),
-      .A2_1_b7(A2_1_b7),
-      .A2_1_b8(A2_1_b8),
-      .A2_1_b9(A2_1_b9),
-      .A2_1_b10(A2_1_b10),
-      .A1_1_b0(A1_1_b0),
-      .A1_1_b1(A1_1_b1),
-      .A1_1_b2(A1_1_b2),
-      .A1_1_b3(A1_1_b3),
-      .A1_1_b4(A1_1_b4),
-      .A1_1_b5(A1_1_b5),
-      .A1_1_b6(A1_1_b6),
-      .A1_1_b7(A1_1_b7),
-      .A1_1_b8(A1_1_b8),
-      .A1_1_b9(A1_1_b9),
-      .A1_1_b10(A1_1_b10),
-      .CS1_1(CS1_1),
       .A2_0_b0(A2_0_b0),
       .A2_0_b1(A2_0_b1),
       .A2_0_b2(A2_0_b2),
@@ -32642,7 +32696,34 @@ module RAM_CE1_FE1_D1_PR1_WSA0_WSB2_VPR (
       .A2_0_b8(A2_0_b8),
       .A2_0_b9(A2_0_b9),
       .A2_0_b10(A2_0_b10),
-      .P2_0(P2_0),
+      .A1_0_b0(A1_0_b0),
+      .A1_0_b1(A1_0_b1),
+      .A1_0_b2(A1_0_b2),
+      .A1_0_b3(A1_0_b3),
+      .A1_0_b4(A1_0_b4),
+      .A1_0_b5(A1_0_b5),
+      .A1_0_b6(A1_0_b6),
+      .A1_0_b7(A1_0_b7),
+      .A1_0_b8(A1_0_b8),
+      .A1_0_b9(A1_0_b9),
+      .A1_0_b10(A1_0_b10),
+      .WEN1_1_b0(WEN1_1_b0),
+      .WEN1_1_b1(WEN1_1_b1),
+      .FIFO_EN_1(FIFO_EN_1),
+      .CLK2EN_0(CLK2EN_0),
+      .CLK1EN_1(CLK1EN_1),
+      .WIDTH_SELECT2_0(WIDTH_SELECT2_0),
+      .A2_1_b0(A2_1_b0),
+      .A2_1_b1(A2_1_b1),
+      .A2_1_b2(A2_1_b2),
+      .A2_1_b3(A2_1_b3),
+      .A2_1_b4(A2_1_b4),
+      .A2_1_b5(A2_1_b5),
+      .A2_1_b6(A2_1_b6),
+      .A2_1_b7(A2_1_b7),
+      .A2_1_b8(A2_1_b8),
+      .A2_1_b9(A2_1_b9),
+      .A2_1_b10(A2_1_b10),
       .WD_1_b0(WD_1_b0),
       .WD_1_b1(WD_1_b1),
       .WD_1_b2(WD_1_b2),
@@ -32661,29 +32742,27 @@ module RAM_CE1_FE1_D1_PR1_WSA0_WSB2_VPR (
       .WD_1_b15(WD_1_b15),
       .WD_1_b16(WD_1_b16),
       .WD_1_b17(WD_1_b17),
-      .ASYNC_FLUSH_1(ASYNC_FLUSH_1),
-      .CS2_1(CS2_1),
-      .WIDTH_SELECT1_0(WIDTH_SELECT1_0),
-      .CS1_0(CS1_0),
-      .FIFO_EN_0(FIFO_EN_0),
+      .P2_0(P2_0),
+      .CS2_0(CS2_0),
+      .P1_1(P1_1),
       .CONCAT_EN_1(CONCAT_EN_1),
-      .DIR_0(DIR_0),
+      .WIDTH_SELECT1_1(WIDTH_SELECT1_1),
       .CLK2EN_1(CLK2EN_1),
+      .WEN1_0_b0(WEN1_0_b0),
+      .WEN1_0_b1(WEN1_0_b1),
+      .DIR_0(DIR_0),
       .P1_0(P1_0),
-      .FIFO_EN_1(FIFO_EN_1),
-      .WEN1_1_b0(WEN1_1_b0),
-      .WEN1_1_b1(WEN1_1_b1),
-      .A1_0_b0(A1_0_b0),
-      .A1_0_b1(A1_0_b1),
-      .A1_0_b2(A1_0_b2),
-      .A1_0_b3(A1_0_b3),
-      .A1_0_b4(A1_0_b4),
-      .A1_0_b5(A1_0_b5),
-      .A1_0_b6(A1_0_b6),
-      .A1_0_b7(A1_0_b7),
-      .A1_0_b8(A1_0_b8),
-      .A1_0_b9(A1_0_b9),
-      .A1_0_b10(A1_0_b10),
+      .PIPELINE_RD_1(PIPELINE_RD_1),
+      .WIDTH_SELECT2_1(WIDTH_SELECT2_1),
+      .CONCAT_EN_0(CONCAT_EN_0),
+      .P2_1(P2_1),
+      .PUSH_FLAG_1_b0(PUSH_FLAG_1_b0),
+      .PUSH_FLAG_1_b1(PUSH_FLAG_1_b1),
+      .PUSH_FLAG_1_b2(PUSH_FLAG_1_b2),
+      .PUSH_FLAG_1_b3(PUSH_FLAG_1_b3),
+      .Almost_Empty_0(Almost_Empty_0),
+      .Almost_Empty_1(Almost_Empty_1),
+      .Almost_Full_1(Almost_Full_1),
       .RD_1_b0(RD_1_b0),
       .RD_1_b1(RD_1_b1),
       .RD_1_b2(RD_1_b2),
@@ -32702,25 +32781,15 @@ module RAM_CE1_FE1_D1_PR1_WSA0_WSB2_VPR (
       .RD_1_b15(RD_1_b15),
       .RD_1_b16(RD_1_b16),
       .RD_1_b17(RD_1_b17),
-      .Almost_Empty_0(Almost_Empty_0),
-      .Almost_Full_1(Almost_Full_1),
-      .PUSH_FLAG_1_b0(PUSH_FLAG_1_b0),
-      .PUSH_FLAG_1_b1(PUSH_FLAG_1_b1),
-      .PUSH_FLAG_1_b2(PUSH_FLAG_1_b2),
-      .PUSH_FLAG_1_b3(PUSH_FLAG_1_b3),
-      .POP_FLAG_0_b0(POP_FLAG_0_b0),
-      .POP_FLAG_0_b1(POP_FLAG_0_b1),
-      .POP_FLAG_0_b2(POP_FLAG_0_b2),
-      .POP_FLAG_0_b3(POP_FLAG_0_b3),
-      .PUSH_FLAG_0_b0(PUSH_FLAG_0_b0),
-      .PUSH_FLAG_0_b1(PUSH_FLAG_0_b1),
-      .PUSH_FLAG_0_b2(PUSH_FLAG_0_b2),
-      .PUSH_FLAG_0_b3(PUSH_FLAG_0_b3),
+      .Almost_Full_0(Almost_Full_0),
       .POP_FLAG_1_b0(POP_FLAG_1_b0),
       .POP_FLAG_1_b1(POP_FLAG_1_b1),
       .POP_FLAG_1_b2(POP_FLAG_1_b2),
       .POP_FLAG_1_b3(POP_FLAG_1_b3),
-      .Almost_Full_0(Almost_Full_0),
+      .POP_FLAG_0_b0(POP_FLAG_0_b0),
+      .POP_FLAG_0_b1(POP_FLAG_0_b1),
+      .POP_FLAG_0_b2(POP_FLAG_0_b2),
+      .POP_FLAG_0_b3(POP_FLAG_0_b3),
       .RD_0_b0(RD_0_b0),
       .RD_0_b1(RD_0_b1),
       .RD_0_b2(RD_0_b2),
@@ -32739,7 +32808,10 @@ module RAM_CE1_FE1_D1_PR1_WSA0_WSB2_VPR (
       .RD_0_b15(RD_0_b15),
       .RD_0_b16(RD_0_b16),
       .RD_0_b17(RD_0_b17),
-      .Almost_Empty_1(Almost_Empty_1));
+      .PUSH_FLAG_0_b0(PUSH_FLAG_0_b0),
+      .PUSH_FLAG_0_b1(PUSH_FLAG_0_b1),
+      .PUSH_FLAG_0_b2(PUSH_FLAG_0_b2),
+      .PUSH_FLAG_0_b3(PUSH_FLAG_0_b3));
 
 endmodule
 
@@ -32747,26 +32819,41 @@ endmodule
 (* blackbox *)
 module RAM_CE1_FE1_D1_PR1_WSA1_WSB0_VPR (
 
-  input         CLK1_0,
+  input         CLK2_1,
   input         CLK1_1,
   input         CLK2_0,
-  input         CLK2_1,
+  input         CLK1_0,
 
-  input         TEST1A,
-  input         DS,
-  input  [ 1:0] WIDTH_SELECT2_0,
-  input         P1_1,
-  input  [ 1:0] WIDTH_SELECT2_1,
+  input         CS1_1,
+  input         A1_1_b0,
+  input         A1_1_b1,
+  input         A1_1_b2,
+  input         A1_1_b3,
+  input         A1_1_b4,
+  input         A1_1_b5,
+  input         A1_1_b6,
+  input         A1_1_b7,
+  input         A1_1_b8,
+  input         A1_1_b9,
+  input         A1_1_b10,
+  input         FIFO_EN_0,
+  input         DS_RB1,
+  input         CS1_0,
   input         PIPELINE_RD_0,
-  input         SD,
+  input         ASYNC_FLUSH_1,
   input         DIR_1,
-  input         CONCAT_EN_0,
-  input         LS,
-  input         CLK1EN_1,
-  input         P2_1,
-  input         WEN1_0_b0,
-  input         WEN1_0_b1,
-  input         PIPELINE_RD_1,
+  input         CS2_1,
+  input         CLK1EN_0,
+  input  [ 1:0] WIDTH_SELECT1_0,
+  input         RMB_b0,
+  input         RMB_b1,
+  input         RMB_b2,
+  input         RMB_b3,
+  input         ASYNC_FLUSH_0,
+  input         SYNC_FIFO_0,
+  input         SYNC_FIFO_1,
+  input         RMEB,
+  input         TEST1B,
   input         WD_0_b0,
   input         WD_0_b1,
   input         WD_0_b2,
@@ -32785,45 +32872,6 @@ module RAM_CE1_FE1_D1_PR1_WSA1_WSB0_VPR (
   input         WD_0_b15,
   input         WD_0_b16,
   input         WD_0_b17,
-  input  [ 1:0] WIDTH_SELECT1_1,
-  input         SD_RB1,
-  input         TEST1B,
-  input         RMEB,
-  input         RMB_b0,
-  input         RMB_b1,
-  input         RMB_b2,
-  input         RMB_b3,
-  input         DS_RB1,
-  input         CS2_0,
-  input         CLK1EN_0,
-  input         SYNC_FIFO_1,
-  input         CLK2EN_0,
-  input         SYNC_FIFO_0,
-  input         ASYNC_FLUSH_0,
-  input         A2_1_b0,
-  input         A2_1_b1,
-  input         A2_1_b2,
-  input         A2_1_b3,
-  input         A2_1_b4,
-  input         A2_1_b5,
-  input         A2_1_b6,
-  input         A2_1_b7,
-  input         A2_1_b8,
-  input         A2_1_b9,
-  input         A2_1_b10,
-  input         RMEA,
-  input         A1_1_b0,
-  input         A1_1_b1,
-  input         A1_1_b2,
-  input         A1_1_b3,
-  input         A1_1_b4,
-  input         A1_1_b5,
-  input         A1_1_b6,
-  input         A1_1_b7,
-  input         A1_1_b8,
-  input         A1_1_b9,
-  input         A1_1_b10,
-  input         CS1_1,
   input         A2_0_b0,
   input         A2_0_b1,
   input         A2_0_b2,
@@ -32835,7 +32883,36 @@ module RAM_CE1_FE1_D1_PR1_WSA1_WSB0_VPR (
   input         A2_0_b8,
   input         A2_0_b9,
   input         A2_0_b10,
-  input         P2_0,
+  input         A1_0_b0,
+  input         A1_0_b1,
+  input         A1_0_b2,
+  input         A1_0_b3,
+  input         A1_0_b4,
+  input         A1_0_b5,
+  input         A1_0_b6,
+  input         A1_0_b7,
+  input         A1_0_b8,
+  input         A1_0_b9,
+  input         A1_0_b10,
+  input         WEN1_1_b0,
+  input         WEN1_1_b1,
+  input         FIFO_EN_1,
+  input         CLK2EN_0,
+  input         DS,
+  input         LS_RB1,
+  input         CLK1EN_1,
+  input  [ 1:0] WIDTH_SELECT2_0,
+  input         A2_1_b0,
+  input         A2_1_b1,
+  input         A2_1_b2,
+  input         A2_1_b3,
+  input         A2_1_b4,
+  input         A2_1_b5,
+  input         A2_1_b6,
+  input         A2_1_b7,
+  input         A2_1_b8,
+  input         A2_1_b9,
+  input         A2_1_b10,
   input         WD_1_b0,
   input         WD_1_b1,
   input         WD_1_b2,
@@ -32854,35 +32931,37 @@ module RAM_CE1_FE1_D1_PR1_WSA1_WSB0_VPR (
   input         WD_1_b15,
   input         WD_1_b16,
   input         WD_1_b17,
-  input         ASYNC_FLUSH_1,
-  input         LS_RB1,
-  input         CS2_1,
+  input         P2_0,
+  input         CS2_0,
+  input         P1_1,
+  input         CONCAT_EN_1,
+  input         LS,
+  input  [ 1:0] WIDTH_SELECT1_1,
+  input         SD_RB1,
+  input         TEST1A,
+  input         CLK2EN_1,
   input         RMA_b0,
   input         RMA_b1,
   input         RMA_b2,
   input         RMA_b3,
-  input  [ 1:0] WIDTH_SELECT1_0,
-  input         CS1_0,
-  input         FIFO_EN_0,
-  input         CONCAT_EN_1,
+  input         WEN1_0_b0,
+  input         WEN1_0_b1,
+  input         RMEA,
   input         DIR_0,
-  input         CLK2EN_1,
   input         P1_0,
-  input         FIFO_EN_1,
-  input         WEN1_1_b0,
-  input         WEN1_1_b1,
-  input         A1_0_b0,
-  input         A1_0_b1,
-  input         A1_0_b2,
-  input         A1_0_b3,
-  input         A1_0_b4,
-  input         A1_0_b5,
-  input         A1_0_b6,
-  input         A1_0_b7,
-  input         A1_0_b8,
-  input         A1_0_b9,
-  input         A1_0_b10,
+  input         PIPELINE_RD_1,
+  input  [ 1:0] WIDTH_SELECT2_1,
+  input         CONCAT_EN_0,
+  input         P2_1,
+  input         SD,
 
+  output        PUSH_FLAG_1_b0,
+  output        PUSH_FLAG_1_b1,
+  output        PUSH_FLAG_1_b2,
+  output        PUSH_FLAG_1_b3,
+  output        Almost_Empty_0,
+  output        Almost_Empty_1,
+  output        Almost_Full_1,
   output        RD_1_b0,
   output        RD_1_b1,
   output        RD_1_b2,
@@ -32901,25 +32980,15 @@ module RAM_CE1_FE1_D1_PR1_WSA1_WSB0_VPR (
   output        RD_1_b15,
   output        RD_1_b16,
   output        RD_1_b17,
-  output        Almost_Empty_0,
-  output        Almost_Full_1,
-  output        PUSH_FLAG_1_b0,
-  output        PUSH_FLAG_1_b1,
-  output        PUSH_FLAG_1_b2,
-  output        PUSH_FLAG_1_b3,
-  output        POP_FLAG_0_b0,
-  output        POP_FLAG_0_b1,
-  output        POP_FLAG_0_b2,
-  output        POP_FLAG_0_b3,
-  output        PUSH_FLAG_0_b0,
-  output        PUSH_FLAG_0_b1,
-  output        PUSH_FLAG_0_b2,
-  output        PUSH_FLAG_0_b3,
+  output        Almost_Full_0,
   output        POP_FLAG_1_b0,
   output        POP_FLAG_1_b1,
   output        POP_FLAG_1_b2,
   output        POP_FLAG_1_b3,
-  output        Almost_Full_0,
+  output        POP_FLAG_0_b0,
+  output        POP_FLAG_0_b1,
+  output        POP_FLAG_0_b2,
+  output        POP_FLAG_0_b3,
   output        RD_0_b0,
   output        RD_0_b1,
   output        RD_0_b2,
@@ -32938,14 +33007,14 @@ module RAM_CE1_FE1_D1_PR1_WSA1_WSB0_VPR (
   output        RD_0_b15,
   output        RD_0_b16,
   output        RD_0_b17,
-  output        Almost_Empty_1
+  output        PUSH_FLAG_0_b0,
+  output        PUSH_FLAG_0_b1,
+  output        PUSH_FLAG_0_b2,
+  output        PUSH_FLAG_0_b3
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
-      $setup(P1_1, posedge CLK1_1, "");
-      $hold(posedge CLK1_1, P1_1, "");
-      $setup(P2_1, posedge CLK2_1, "");
-      $hold(posedge CLK2_1, P2_1, "");
       $setup(WD_0_b0, posedge CLK2_0, "");
       $hold(posedge CLK2_0, WD_0_b0, "");
       $setup(WD_0_b1, posedge CLK2_0, "");
@@ -32982,8 +33051,6 @@ module RAM_CE1_FE1_D1_PR1_WSA1_WSB0_VPR (
       $hold(posedge CLK2_0, WD_0_b16, "");
       $setup(WD_0_b17, posedge CLK2_0, "");
       $hold(posedge CLK2_0, WD_0_b17, "");
-      $setup(P2_0, posedge CLK2_0, "");
-      $hold(posedge CLK2_0, P2_0, "");
       $setup(WD_1_b0, posedge CLK2_1, "");
       $hold(posedge CLK2_1, WD_1_b0, "");
       $setup(WD_1_b1, posedge CLK2_1, "");
@@ -33020,8 +33087,21 @@ module RAM_CE1_FE1_D1_PR1_WSA1_WSB0_VPR (
       $hold(posedge CLK2_1, WD_1_b16, "");
       $setup(WD_1_b17, posedge CLK2_1, "");
       $hold(posedge CLK2_1, WD_1_b17, "");
+      $setup(P2_0, posedge CLK2_0, "");
+      $hold(posedge CLK2_0, P2_0, "");
+      $setup(P1_1, posedge CLK1_1, "");
+      $hold(posedge CLK1_1, P1_1, "");
       $setup(P1_0, posedge CLK1_0, "");
       $hold(posedge CLK1_0, P1_0, "");
+      $setup(P2_1, posedge CLK2_1, "");
+      $hold(posedge CLK2_1, P2_1, "");
+      (CLK2_1*>PUSH_FLAG_1_b0)="";
+      (CLK2_1*>PUSH_FLAG_1_b1)="";
+      (CLK2_1*>PUSH_FLAG_1_b2)="";
+      (CLK2_1*>PUSH_FLAG_1_b3)="";
+      (CLK1_0*>Almost_Empty_0)="";
+      (CLK1_1*>Almost_Empty_1)="";
+      (CLK2_1*>Almost_Full_1)="";
       (CLK1_1*>RD_1_b0)="";
       (CLK1_1*>RD_1_b1)="";
       (CLK1_1*>RD_1_b2)="";
@@ -33040,25 +33120,15 @@ module RAM_CE1_FE1_D1_PR1_WSA1_WSB0_VPR (
       (CLK1_1*>RD_1_b15)="";
       (CLK1_1*>RD_1_b16)="";
       (CLK1_1*>RD_1_b17)="";
-      (CLK1_0*>Almost_Empty_0)="";
-      (CLK2_1*>Almost_Full_1)="";
-      (CLK2_1*>PUSH_FLAG_1_b0)="";
-      (CLK2_1*>PUSH_FLAG_1_b1)="";
-      (CLK2_1*>PUSH_FLAG_1_b2)="";
-      (CLK2_1*>PUSH_FLAG_1_b3)="";
-      (CLK1_0*>POP_FLAG_0_b0)="";
-      (CLK1_0*>POP_FLAG_0_b1)="";
-      (CLK1_0*>POP_FLAG_0_b2)="";
-      (CLK1_0*>POP_FLAG_0_b3)="";
-      (CLK2_0*>PUSH_FLAG_0_b0)="";
-      (CLK2_0*>PUSH_FLAG_0_b1)="";
-      (CLK2_0*>PUSH_FLAG_0_b2)="";
-      (CLK2_0*>PUSH_FLAG_0_b3)="";
+      (CLK2_0*>Almost_Full_0)="";
       (CLK1_1*>POP_FLAG_1_b0)="";
       (CLK1_1*>POP_FLAG_1_b1)="";
       (CLK1_1*>POP_FLAG_1_b2)="";
       (CLK1_1*>POP_FLAG_1_b3)="";
-      (CLK2_0*>Almost_Full_0)="";
+      (CLK1_0*>POP_FLAG_0_b0)="";
+      (CLK1_0*>POP_FLAG_0_b1)="";
+      (CLK1_0*>POP_FLAG_0_b2)="";
+      (CLK1_0*>POP_FLAG_0_b3)="";
       (CLK1_0*>RD_0_b0)="";
       (CLK1_0*>RD_0_b1)="";
       (CLK1_0*>RD_0_b2)="";
@@ -33077,26 +33147,41 @@ module RAM_CE1_FE1_D1_PR1_WSA1_WSB0_VPR (
       (CLK1_0*>RD_0_b15)="";
       (CLK1_0*>RD_0_b16)="";
       (CLK1_0*>RD_0_b17)="";
-      (CLK1_1*>Almost_Empty_1)="";
+      (CLK2_0*>PUSH_FLAG_0_b0)="";
+      (CLK2_0*>PUSH_FLAG_0_b1)="";
+      (CLK2_0*>PUSH_FLAG_0_b2)="";
+      (CLK2_0*>PUSH_FLAG_0_b3)="";
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
-      .CLK1_0(CLK1_0),
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
+      .CLK2_1(CLK2_1),
       .CLK1_1(CLK1_1),
       .CLK2_0(CLK2_0),
-      .CLK2_1(CLK2_1),
-      .WIDTH_SELECT2_0(WIDTH_SELECT2_0),
-      .P1_1(P1_1),
-      .WIDTH_SELECT2_1(WIDTH_SELECT2_1),
+      .CLK1_0(CLK1_0),
+      .CS1_1(CS1_1),
+      .A1_1_b0(A1_1_b0),
+      .A1_1_b1(A1_1_b1),
+      .A1_1_b2(A1_1_b2),
+      .A1_1_b3(A1_1_b3),
+      .A1_1_b4(A1_1_b4),
+      .A1_1_b5(A1_1_b5),
+      .A1_1_b6(A1_1_b6),
+      .A1_1_b7(A1_1_b7),
+      .A1_1_b8(A1_1_b8),
+      .A1_1_b9(A1_1_b9),
+      .A1_1_b10(A1_1_b10),
+      .FIFO_EN_0(FIFO_EN_0),
+      .CS1_0(CS1_0),
       .PIPELINE_RD_0(PIPELINE_RD_0),
+      .ASYNC_FLUSH_1(ASYNC_FLUSH_1),
       .DIR_1(DIR_1),
-      .CONCAT_EN_0(CONCAT_EN_0),
-      .CLK1EN_1(CLK1EN_1),
-      .P2_1(P2_1),
-      .WEN1_0_b0(WEN1_0_b0),
-      .WEN1_0_b1(WEN1_0_b1),
-      .PIPELINE_RD_1(PIPELINE_RD_1),
+      .CS2_1(CS2_1),
+      .CLK1EN_0(CLK1EN_0),
+      .WIDTH_SELECT1_0(WIDTH_SELECT1_0),
+      .ASYNC_FLUSH_0(ASYNC_FLUSH_0),
+      .SYNC_FIFO_0(SYNC_FIFO_0),
+      .SYNC_FIFO_1(SYNC_FIFO_1),
       .WD_0_b0(WD_0_b0),
       .WD_0_b1(WD_0_b1),
       .WD_0_b2(WD_0_b2),
@@ -33115,36 +33200,6 @@ module RAM_CE1_FE1_D1_PR1_WSA1_WSB0_VPR (
       .WD_0_b15(WD_0_b15),
       .WD_0_b16(WD_0_b16),
       .WD_0_b17(WD_0_b17),
-      .WIDTH_SELECT1_1(WIDTH_SELECT1_1),
-      .CS2_0(CS2_0),
-      .CLK1EN_0(CLK1EN_0),
-      .SYNC_FIFO_1(SYNC_FIFO_1),
-      .CLK2EN_0(CLK2EN_0),
-      .SYNC_FIFO_0(SYNC_FIFO_0),
-      .ASYNC_FLUSH_0(ASYNC_FLUSH_0),
-      .A2_1_b0(A2_1_b0),
-      .A2_1_b1(A2_1_b1),
-      .A2_1_b2(A2_1_b2),
-      .A2_1_b3(A2_1_b3),
-      .A2_1_b4(A2_1_b4),
-      .A2_1_b5(A2_1_b5),
-      .A2_1_b6(A2_1_b6),
-      .A2_1_b7(A2_1_b7),
-      .A2_1_b8(A2_1_b8),
-      .A2_1_b9(A2_1_b9),
-      .A2_1_b10(A2_1_b10),
-      .A1_1_b0(A1_1_b0),
-      .A1_1_b1(A1_1_b1),
-      .A1_1_b2(A1_1_b2),
-      .A1_1_b3(A1_1_b3),
-      .A1_1_b4(A1_1_b4),
-      .A1_1_b5(A1_1_b5),
-      .A1_1_b6(A1_1_b6),
-      .A1_1_b7(A1_1_b7),
-      .A1_1_b8(A1_1_b8),
-      .A1_1_b9(A1_1_b9),
-      .A1_1_b10(A1_1_b10),
-      .CS1_1(CS1_1),
       .A2_0_b0(A2_0_b0),
       .A2_0_b1(A2_0_b1),
       .A2_0_b2(A2_0_b2),
@@ -33156,7 +33211,34 @@ module RAM_CE1_FE1_D1_PR1_WSA1_WSB0_VPR (
       .A2_0_b8(A2_0_b8),
       .A2_0_b9(A2_0_b9),
       .A2_0_b10(A2_0_b10),
-      .P2_0(P2_0),
+      .A1_0_b0(A1_0_b0),
+      .A1_0_b1(A1_0_b1),
+      .A1_0_b2(A1_0_b2),
+      .A1_0_b3(A1_0_b3),
+      .A1_0_b4(A1_0_b4),
+      .A1_0_b5(A1_0_b5),
+      .A1_0_b6(A1_0_b6),
+      .A1_0_b7(A1_0_b7),
+      .A1_0_b8(A1_0_b8),
+      .A1_0_b9(A1_0_b9),
+      .A1_0_b10(A1_0_b10),
+      .WEN1_1_b0(WEN1_1_b0),
+      .WEN1_1_b1(WEN1_1_b1),
+      .FIFO_EN_1(FIFO_EN_1),
+      .CLK2EN_0(CLK2EN_0),
+      .CLK1EN_1(CLK1EN_1),
+      .WIDTH_SELECT2_0(WIDTH_SELECT2_0),
+      .A2_1_b0(A2_1_b0),
+      .A2_1_b1(A2_1_b1),
+      .A2_1_b2(A2_1_b2),
+      .A2_1_b3(A2_1_b3),
+      .A2_1_b4(A2_1_b4),
+      .A2_1_b5(A2_1_b5),
+      .A2_1_b6(A2_1_b6),
+      .A2_1_b7(A2_1_b7),
+      .A2_1_b8(A2_1_b8),
+      .A2_1_b9(A2_1_b9),
+      .A2_1_b10(A2_1_b10),
       .WD_1_b0(WD_1_b0),
       .WD_1_b1(WD_1_b1),
       .WD_1_b2(WD_1_b2),
@@ -33175,29 +33257,27 @@ module RAM_CE1_FE1_D1_PR1_WSA1_WSB0_VPR (
       .WD_1_b15(WD_1_b15),
       .WD_1_b16(WD_1_b16),
       .WD_1_b17(WD_1_b17),
-      .ASYNC_FLUSH_1(ASYNC_FLUSH_1),
-      .CS2_1(CS2_1),
-      .WIDTH_SELECT1_0(WIDTH_SELECT1_0),
-      .CS1_0(CS1_0),
-      .FIFO_EN_0(FIFO_EN_0),
+      .P2_0(P2_0),
+      .CS2_0(CS2_0),
+      .P1_1(P1_1),
       .CONCAT_EN_1(CONCAT_EN_1),
-      .DIR_0(DIR_0),
+      .WIDTH_SELECT1_1(WIDTH_SELECT1_1),
       .CLK2EN_1(CLK2EN_1),
+      .WEN1_0_b0(WEN1_0_b0),
+      .WEN1_0_b1(WEN1_0_b1),
+      .DIR_0(DIR_0),
       .P1_0(P1_0),
-      .FIFO_EN_1(FIFO_EN_1),
-      .WEN1_1_b0(WEN1_1_b0),
-      .WEN1_1_b1(WEN1_1_b1),
-      .A1_0_b0(A1_0_b0),
-      .A1_0_b1(A1_0_b1),
-      .A1_0_b2(A1_0_b2),
-      .A1_0_b3(A1_0_b3),
-      .A1_0_b4(A1_0_b4),
-      .A1_0_b5(A1_0_b5),
-      .A1_0_b6(A1_0_b6),
-      .A1_0_b7(A1_0_b7),
-      .A1_0_b8(A1_0_b8),
-      .A1_0_b9(A1_0_b9),
-      .A1_0_b10(A1_0_b10),
+      .PIPELINE_RD_1(PIPELINE_RD_1),
+      .WIDTH_SELECT2_1(WIDTH_SELECT2_1),
+      .CONCAT_EN_0(CONCAT_EN_0),
+      .P2_1(P2_1),
+      .PUSH_FLAG_1_b0(PUSH_FLAG_1_b0),
+      .PUSH_FLAG_1_b1(PUSH_FLAG_1_b1),
+      .PUSH_FLAG_1_b2(PUSH_FLAG_1_b2),
+      .PUSH_FLAG_1_b3(PUSH_FLAG_1_b3),
+      .Almost_Empty_0(Almost_Empty_0),
+      .Almost_Empty_1(Almost_Empty_1),
+      .Almost_Full_1(Almost_Full_1),
       .RD_1_b0(RD_1_b0),
       .RD_1_b1(RD_1_b1),
       .RD_1_b2(RD_1_b2),
@@ -33216,25 +33296,15 @@ module RAM_CE1_FE1_D1_PR1_WSA1_WSB0_VPR (
       .RD_1_b15(RD_1_b15),
       .RD_1_b16(RD_1_b16),
       .RD_1_b17(RD_1_b17),
-      .Almost_Empty_0(Almost_Empty_0),
-      .Almost_Full_1(Almost_Full_1),
-      .PUSH_FLAG_1_b0(PUSH_FLAG_1_b0),
-      .PUSH_FLAG_1_b1(PUSH_FLAG_1_b1),
-      .PUSH_FLAG_1_b2(PUSH_FLAG_1_b2),
-      .PUSH_FLAG_1_b3(PUSH_FLAG_1_b3),
-      .POP_FLAG_0_b0(POP_FLAG_0_b0),
-      .POP_FLAG_0_b1(POP_FLAG_0_b1),
-      .POP_FLAG_0_b2(POP_FLAG_0_b2),
-      .POP_FLAG_0_b3(POP_FLAG_0_b3),
-      .PUSH_FLAG_0_b0(PUSH_FLAG_0_b0),
-      .PUSH_FLAG_0_b1(PUSH_FLAG_0_b1),
-      .PUSH_FLAG_0_b2(PUSH_FLAG_0_b2),
-      .PUSH_FLAG_0_b3(PUSH_FLAG_0_b3),
+      .Almost_Full_0(Almost_Full_0),
       .POP_FLAG_1_b0(POP_FLAG_1_b0),
       .POP_FLAG_1_b1(POP_FLAG_1_b1),
       .POP_FLAG_1_b2(POP_FLAG_1_b2),
       .POP_FLAG_1_b3(POP_FLAG_1_b3),
-      .Almost_Full_0(Almost_Full_0),
+      .POP_FLAG_0_b0(POP_FLAG_0_b0),
+      .POP_FLAG_0_b1(POP_FLAG_0_b1),
+      .POP_FLAG_0_b2(POP_FLAG_0_b2),
+      .POP_FLAG_0_b3(POP_FLAG_0_b3),
       .RD_0_b0(RD_0_b0),
       .RD_0_b1(RD_0_b1),
       .RD_0_b2(RD_0_b2),
@@ -33253,7 +33323,10 @@ module RAM_CE1_FE1_D1_PR1_WSA1_WSB0_VPR (
       .RD_0_b15(RD_0_b15),
       .RD_0_b16(RD_0_b16),
       .RD_0_b17(RD_0_b17),
-      .Almost_Empty_1(Almost_Empty_1));
+      .PUSH_FLAG_0_b0(PUSH_FLAG_0_b0),
+      .PUSH_FLAG_0_b1(PUSH_FLAG_0_b1),
+      .PUSH_FLAG_0_b2(PUSH_FLAG_0_b2),
+      .PUSH_FLAG_0_b3(PUSH_FLAG_0_b3));
 
 endmodule
 
@@ -33261,26 +33334,41 @@ endmodule
 (* blackbox *)
 module RAM_CE1_FE1_D1_PR1_WSA1_WSB1_VPR (
 
-  input         CLK1_0,
+  input         CLK2_1,
   input         CLK1_1,
   input         CLK2_0,
-  input         CLK2_1,
+  input         CLK1_0,
 
-  input         TEST1A,
-  input         DS,
-  input  [ 1:0] WIDTH_SELECT2_0,
-  input         P1_1,
-  input  [ 1:0] WIDTH_SELECT2_1,
+  input         CS1_1,
+  input         A1_1_b0,
+  input         A1_1_b1,
+  input         A1_1_b2,
+  input         A1_1_b3,
+  input         A1_1_b4,
+  input         A1_1_b5,
+  input         A1_1_b6,
+  input         A1_1_b7,
+  input         A1_1_b8,
+  input         A1_1_b9,
+  input         A1_1_b10,
+  input         FIFO_EN_0,
+  input         DS_RB1,
+  input         CS1_0,
   input         PIPELINE_RD_0,
-  input         SD,
+  input         ASYNC_FLUSH_1,
   input         DIR_1,
-  input         CONCAT_EN_0,
-  input         LS,
-  input         CLK1EN_1,
-  input         P2_1,
-  input         WEN1_0_b0,
-  input         WEN1_0_b1,
-  input         PIPELINE_RD_1,
+  input         CS2_1,
+  input         CLK1EN_0,
+  input  [ 1:0] WIDTH_SELECT1_0,
+  input         RMB_b0,
+  input         RMB_b1,
+  input         RMB_b2,
+  input         RMB_b3,
+  input         ASYNC_FLUSH_0,
+  input         SYNC_FIFO_0,
+  input         SYNC_FIFO_1,
+  input         RMEB,
+  input         TEST1B,
   input         WD_0_b0,
   input         WD_0_b1,
   input         WD_0_b2,
@@ -33299,45 +33387,6 @@ module RAM_CE1_FE1_D1_PR1_WSA1_WSB1_VPR (
   input         WD_0_b15,
   input         WD_0_b16,
   input         WD_0_b17,
-  input  [ 1:0] WIDTH_SELECT1_1,
-  input         SD_RB1,
-  input         TEST1B,
-  input         RMEB,
-  input         RMB_b0,
-  input         RMB_b1,
-  input         RMB_b2,
-  input         RMB_b3,
-  input         DS_RB1,
-  input         CS2_0,
-  input         CLK1EN_0,
-  input         SYNC_FIFO_1,
-  input         CLK2EN_0,
-  input         SYNC_FIFO_0,
-  input         ASYNC_FLUSH_0,
-  input         A2_1_b0,
-  input         A2_1_b1,
-  input         A2_1_b2,
-  input         A2_1_b3,
-  input         A2_1_b4,
-  input         A2_1_b5,
-  input         A2_1_b6,
-  input         A2_1_b7,
-  input         A2_1_b8,
-  input         A2_1_b9,
-  input         A2_1_b10,
-  input         RMEA,
-  input         A1_1_b0,
-  input         A1_1_b1,
-  input         A1_1_b2,
-  input         A1_1_b3,
-  input         A1_1_b4,
-  input         A1_1_b5,
-  input         A1_1_b6,
-  input         A1_1_b7,
-  input         A1_1_b8,
-  input         A1_1_b9,
-  input         A1_1_b10,
-  input         CS1_1,
   input         A2_0_b0,
   input         A2_0_b1,
   input         A2_0_b2,
@@ -33349,7 +33398,36 @@ module RAM_CE1_FE1_D1_PR1_WSA1_WSB1_VPR (
   input         A2_0_b8,
   input         A2_0_b9,
   input         A2_0_b10,
-  input         P2_0,
+  input         A1_0_b0,
+  input         A1_0_b1,
+  input         A1_0_b2,
+  input         A1_0_b3,
+  input         A1_0_b4,
+  input         A1_0_b5,
+  input         A1_0_b6,
+  input         A1_0_b7,
+  input         A1_0_b8,
+  input         A1_0_b9,
+  input         A1_0_b10,
+  input         WEN1_1_b0,
+  input         WEN1_1_b1,
+  input         FIFO_EN_1,
+  input         CLK2EN_0,
+  input         DS,
+  input         LS_RB1,
+  input         CLK1EN_1,
+  input  [ 1:0] WIDTH_SELECT2_0,
+  input         A2_1_b0,
+  input         A2_1_b1,
+  input         A2_1_b2,
+  input         A2_1_b3,
+  input         A2_1_b4,
+  input         A2_1_b5,
+  input         A2_1_b6,
+  input         A2_1_b7,
+  input         A2_1_b8,
+  input         A2_1_b9,
+  input         A2_1_b10,
   input         WD_1_b0,
   input         WD_1_b1,
   input         WD_1_b2,
@@ -33368,35 +33446,37 @@ module RAM_CE1_FE1_D1_PR1_WSA1_WSB1_VPR (
   input         WD_1_b15,
   input         WD_1_b16,
   input         WD_1_b17,
-  input         ASYNC_FLUSH_1,
-  input         LS_RB1,
-  input         CS2_1,
+  input         P2_0,
+  input         CS2_0,
+  input         P1_1,
+  input         CONCAT_EN_1,
+  input         LS,
+  input  [ 1:0] WIDTH_SELECT1_1,
+  input         SD_RB1,
+  input         TEST1A,
+  input         CLK2EN_1,
   input         RMA_b0,
   input         RMA_b1,
   input         RMA_b2,
   input         RMA_b3,
-  input  [ 1:0] WIDTH_SELECT1_0,
-  input         CS1_0,
-  input         FIFO_EN_0,
-  input         CONCAT_EN_1,
+  input         WEN1_0_b0,
+  input         WEN1_0_b1,
+  input         RMEA,
   input         DIR_0,
-  input         CLK2EN_1,
   input         P1_0,
-  input         FIFO_EN_1,
-  input         WEN1_1_b0,
-  input         WEN1_1_b1,
-  input         A1_0_b0,
-  input         A1_0_b1,
-  input         A1_0_b2,
-  input         A1_0_b3,
-  input         A1_0_b4,
-  input         A1_0_b5,
-  input         A1_0_b6,
-  input         A1_0_b7,
-  input         A1_0_b8,
-  input         A1_0_b9,
-  input         A1_0_b10,
+  input         PIPELINE_RD_1,
+  input  [ 1:0] WIDTH_SELECT2_1,
+  input         CONCAT_EN_0,
+  input         P2_1,
+  input         SD,
 
+  output        PUSH_FLAG_1_b0,
+  output        PUSH_FLAG_1_b1,
+  output        PUSH_FLAG_1_b2,
+  output        PUSH_FLAG_1_b3,
+  output        Almost_Empty_0,
+  output        Almost_Empty_1,
+  output        Almost_Full_1,
   output        RD_1_b0,
   output        RD_1_b1,
   output        RD_1_b2,
@@ -33415,25 +33495,15 @@ module RAM_CE1_FE1_D1_PR1_WSA1_WSB1_VPR (
   output        RD_1_b15,
   output        RD_1_b16,
   output        RD_1_b17,
-  output        Almost_Empty_0,
-  output        Almost_Full_1,
-  output        PUSH_FLAG_1_b0,
-  output        PUSH_FLAG_1_b1,
-  output        PUSH_FLAG_1_b2,
-  output        PUSH_FLAG_1_b3,
-  output        POP_FLAG_0_b0,
-  output        POP_FLAG_0_b1,
-  output        POP_FLAG_0_b2,
-  output        POP_FLAG_0_b3,
-  output        PUSH_FLAG_0_b0,
-  output        PUSH_FLAG_0_b1,
-  output        PUSH_FLAG_0_b2,
-  output        PUSH_FLAG_0_b3,
+  output        Almost_Full_0,
   output        POP_FLAG_1_b0,
   output        POP_FLAG_1_b1,
   output        POP_FLAG_1_b2,
   output        POP_FLAG_1_b3,
-  output        Almost_Full_0,
+  output        POP_FLAG_0_b0,
+  output        POP_FLAG_0_b1,
+  output        POP_FLAG_0_b2,
+  output        POP_FLAG_0_b3,
   output        RD_0_b0,
   output        RD_0_b1,
   output        RD_0_b2,
@@ -33452,14 +33522,14 @@ module RAM_CE1_FE1_D1_PR1_WSA1_WSB1_VPR (
   output        RD_0_b15,
   output        RD_0_b16,
   output        RD_0_b17,
-  output        Almost_Empty_1
+  output        PUSH_FLAG_0_b0,
+  output        PUSH_FLAG_0_b1,
+  output        PUSH_FLAG_0_b2,
+  output        PUSH_FLAG_0_b3
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
-      $setup(P1_1, posedge CLK1_1, "");
-      $hold(posedge CLK1_1, P1_1, "");
-      $setup(P2_1, posedge CLK2_1, "");
-      $hold(posedge CLK2_1, P2_1, "");
       $setup(WD_0_b0, posedge CLK2_0, "");
       $hold(posedge CLK2_0, WD_0_b0, "");
       $setup(WD_0_b1, posedge CLK2_0, "");
@@ -33496,8 +33566,6 @@ module RAM_CE1_FE1_D1_PR1_WSA1_WSB1_VPR (
       $hold(posedge CLK2_0, WD_0_b16, "");
       $setup(WD_0_b17, posedge CLK2_0, "");
       $hold(posedge CLK2_0, WD_0_b17, "");
-      $setup(P2_0, posedge CLK2_0, "");
-      $hold(posedge CLK2_0, P2_0, "");
       $setup(WD_1_b0, posedge CLK2_1, "");
       $hold(posedge CLK2_1, WD_1_b0, "");
       $setup(WD_1_b1, posedge CLK2_1, "");
@@ -33534,8 +33602,21 @@ module RAM_CE1_FE1_D1_PR1_WSA1_WSB1_VPR (
       $hold(posedge CLK2_1, WD_1_b16, "");
       $setup(WD_1_b17, posedge CLK2_1, "");
       $hold(posedge CLK2_1, WD_1_b17, "");
+      $setup(P2_0, posedge CLK2_0, "");
+      $hold(posedge CLK2_0, P2_0, "");
+      $setup(P1_1, posedge CLK1_1, "");
+      $hold(posedge CLK1_1, P1_1, "");
       $setup(P1_0, posedge CLK1_0, "");
       $hold(posedge CLK1_0, P1_0, "");
+      $setup(P2_1, posedge CLK2_1, "");
+      $hold(posedge CLK2_1, P2_1, "");
+      (CLK2_1*>PUSH_FLAG_1_b0)="";
+      (CLK2_1*>PUSH_FLAG_1_b1)="";
+      (CLK2_1*>PUSH_FLAG_1_b2)="";
+      (CLK2_1*>PUSH_FLAG_1_b3)="";
+      (CLK1_0*>Almost_Empty_0)="";
+      (CLK1_1*>Almost_Empty_1)="";
+      (CLK2_1*>Almost_Full_1)="";
       (CLK1_1*>RD_1_b0)="";
       (CLK1_1*>RD_1_b1)="";
       (CLK1_1*>RD_1_b2)="";
@@ -33554,25 +33635,15 @@ module RAM_CE1_FE1_D1_PR1_WSA1_WSB1_VPR (
       (CLK1_1*>RD_1_b15)="";
       (CLK1_1*>RD_1_b16)="";
       (CLK1_1*>RD_1_b17)="";
-      (CLK1_0*>Almost_Empty_0)="";
-      (CLK2_1*>Almost_Full_1)="";
-      (CLK2_1*>PUSH_FLAG_1_b0)="";
-      (CLK2_1*>PUSH_FLAG_1_b1)="";
-      (CLK2_1*>PUSH_FLAG_1_b2)="";
-      (CLK2_1*>PUSH_FLAG_1_b3)="";
-      (CLK1_0*>POP_FLAG_0_b0)="";
-      (CLK1_0*>POP_FLAG_0_b1)="";
-      (CLK1_0*>POP_FLAG_0_b2)="";
-      (CLK1_0*>POP_FLAG_0_b3)="";
-      (CLK2_0*>PUSH_FLAG_0_b0)="";
-      (CLK2_0*>PUSH_FLAG_0_b1)="";
-      (CLK2_0*>PUSH_FLAG_0_b2)="";
-      (CLK2_0*>PUSH_FLAG_0_b3)="";
+      (CLK2_0*>Almost_Full_0)="";
       (CLK1_1*>POP_FLAG_1_b0)="";
       (CLK1_1*>POP_FLAG_1_b1)="";
       (CLK1_1*>POP_FLAG_1_b2)="";
       (CLK1_1*>POP_FLAG_1_b3)="";
-      (CLK2_0*>Almost_Full_0)="";
+      (CLK1_0*>POP_FLAG_0_b0)="";
+      (CLK1_0*>POP_FLAG_0_b1)="";
+      (CLK1_0*>POP_FLAG_0_b2)="";
+      (CLK1_0*>POP_FLAG_0_b3)="";
       (CLK1_0*>RD_0_b0)="";
       (CLK1_0*>RD_0_b1)="";
       (CLK1_0*>RD_0_b2)="";
@@ -33591,26 +33662,41 @@ module RAM_CE1_FE1_D1_PR1_WSA1_WSB1_VPR (
       (CLK1_0*>RD_0_b15)="";
       (CLK1_0*>RD_0_b16)="";
       (CLK1_0*>RD_0_b17)="";
-      (CLK1_1*>Almost_Empty_1)="";
+      (CLK2_0*>PUSH_FLAG_0_b0)="";
+      (CLK2_0*>PUSH_FLAG_0_b1)="";
+      (CLK2_0*>PUSH_FLAG_0_b2)="";
+      (CLK2_0*>PUSH_FLAG_0_b3)="";
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
-      .CLK1_0(CLK1_0),
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
+      .CLK2_1(CLK2_1),
       .CLK1_1(CLK1_1),
       .CLK2_0(CLK2_0),
-      .CLK2_1(CLK2_1),
-      .WIDTH_SELECT2_0(WIDTH_SELECT2_0),
-      .P1_1(P1_1),
-      .WIDTH_SELECT2_1(WIDTH_SELECT2_1),
+      .CLK1_0(CLK1_0),
+      .CS1_1(CS1_1),
+      .A1_1_b0(A1_1_b0),
+      .A1_1_b1(A1_1_b1),
+      .A1_1_b2(A1_1_b2),
+      .A1_1_b3(A1_1_b3),
+      .A1_1_b4(A1_1_b4),
+      .A1_1_b5(A1_1_b5),
+      .A1_1_b6(A1_1_b6),
+      .A1_1_b7(A1_1_b7),
+      .A1_1_b8(A1_1_b8),
+      .A1_1_b9(A1_1_b9),
+      .A1_1_b10(A1_1_b10),
+      .FIFO_EN_0(FIFO_EN_0),
+      .CS1_0(CS1_0),
       .PIPELINE_RD_0(PIPELINE_RD_0),
+      .ASYNC_FLUSH_1(ASYNC_FLUSH_1),
       .DIR_1(DIR_1),
-      .CONCAT_EN_0(CONCAT_EN_0),
-      .CLK1EN_1(CLK1EN_1),
-      .P2_1(P2_1),
-      .WEN1_0_b0(WEN1_0_b0),
-      .WEN1_0_b1(WEN1_0_b1),
-      .PIPELINE_RD_1(PIPELINE_RD_1),
+      .CS2_1(CS2_1),
+      .CLK1EN_0(CLK1EN_0),
+      .WIDTH_SELECT1_0(WIDTH_SELECT1_0),
+      .ASYNC_FLUSH_0(ASYNC_FLUSH_0),
+      .SYNC_FIFO_0(SYNC_FIFO_0),
+      .SYNC_FIFO_1(SYNC_FIFO_1),
       .WD_0_b0(WD_0_b0),
       .WD_0_b1(WD_0_b1),
       .WD_0_b2(WD_0_b2),
@@ -33629,36 +33715,6 @@ module RAM_CE1_FE1_D1_PR1_WSA1_WSB1_VPR (
       .WD_0_b15(WD_0_b15),
       .WD_0_b16(WD_0_b16),
       .WD_0_b17(WD_0_b17),
-      .WIDTH_SELECT1_1(WIDTH_SELECT1_1),
-      .CS2_0(CS2_0),
-      .CLK1EN_0(CLK1EN_0),
-      .SYNC_FIFO_1(SYNC_FIFO_1),
-      .CLK2EN_0(CLK2EN_0),
-      .SYNC_FIFO_0(SYNC_FIFO_0),
-      .ASYNC_FLUSH_0(ASYNC_FLUSH_0),
-      .A2_1_b0(A2_1_b0),
-      .A2_1_b1(A2_1_b1),
-      .A2_1_b2(A2_1_b2),
-      .A2_1_b3(A2_1_b3),
-      .A2_1_b4(A2_1_b4),
-      .A2_1_b5(A2_1_b5),
-      .A2_1_b6(A2_1_b6),
-      .A2_1_b7(A2_1_b7),
-      .A2_1_b8(A2_1_b8),
-      .A2_1_b9(A2_1_b9),
-      .A2_1_b10(A2_1_b10),
-      .A1_1_b0(A1_1_b0),
-      .A1_1_b1(A1_1_b1),
-      .A1_1_b2(A1_1_b2),
-      .A1_1_b3(A1_1_b3),
-      .A1_1_b4(A1_1_b4),
-      .A1_1_b5(A1_1_b5),
-      .A1_1_b6(A1_1_b6),
-      .A1_1_b7(A1_1_b7),
-      .A1_1_b8(A1_1_b8),
-      .A1_1_b9(A1_1_b9),
-      .A1_1_b10(A1_1_b10),
-      .CS1_1(CS1_1),
       .A2_0_b0(A2_0_b0),
       .A2_0_b1(A2_0_b1),
       .A2_0_b2(A2_0_b2),
@@ -33670,7 +33726,34 @@ module RAM_CE1_FE1_D1_PR1_WSA1_WSB1_VPR (
       .A2_0_b8(A2_0_b8),
       .A2_0_b9(A2_0_b9),
       .A2_0_b10(A2_0_b10),
-      .P2_0(P2_0),
+      .A1_0_b0(A1_0_b0),
+      .A1_0_b1(A1_0_b1),
+      .A1_0_b2(A1_0_b2),
+      .A1_0_b3(A1_0_b3),
+      .A1_0_b4(A1_0_b4),
+      .A1_0_b5(A1_0_b5),
+      .A1_0_b6(A1_0_b6),
+      .A1_0_b7(A1_0_b7),
+      .A1_0_b8(A1_0_b8),
+      .A1_0_b9(A1_0_b9),
+      .A1_0_b10(A1_0_b10),
+      .WEN1_1_b0(WEN1_1_b0),
+      .WEN1_1_b1(WEN1_1_b1),
+      .FIFO_EN_1(FIFO_EN_1),
+      .CLK2EN_0(CLK2EN_0),
+      .CLK1EN_1(CLK1EN_1),
+      .WIDTH_SELECT2_0(WIDTH_SELECT2_0),
+      .A2_1_b0(A2_1_b0),
+      .A2_1_b1(A2_1_b1),
+      .A2_1_b2(A2_1_b2),
+      .A2_1_b3(A2_1_b3),
+      .A2_1_b4(A2_1_b4),
+      .A2_1_b5(A2_1_b5),
+      .A2_1_b6(A2_1_b6),
+      .A2_1_b7(A2_1_b7),
+      .A2_1_b8(A2_1_b8),
+      .A2_1_b9(A2_1_b9),
+      .A2_1_b10(A2_1_b10),
       .WD_1_b0(WD_1_b0),
       .WD_1_b1(WD_1_b1),
       .WD_1_b2(WD_1_b2),
@@ -33689,29 +33772,27 @@ module RAM_CE1_FE1_D1_PR1_WSA1_WSB1_VPR (
       .WD_1_b15(WD_1_b15),
       .WD_1_b16(WD_1_b16),
       .WD_1_b17(WD_1_b17),
-      .ASYNC_FLUSH_1(ASYNC_FLUSH_1),
-      .CS2_1(CS2_1),
-      .WIDTH_SELECT1_0(WIDTH_SELECT1_0),
-      .CS1_0(CS1_0),
-      .FIFO_EN_0(FIFO_EN_0),
+      .P2_0(P2_0),
+      .CS2_0(CS2_0),
+      .P1_1(P1_1),
       .CONCAT_EN_1(CONCAT_EN_1),
-      .DIR_0(DIR_0),
+      .WIDTH_SELECT1_1(WIDTH_SELECT1_1),
       .CLK2EN_1(CLK2EN_1),
+      .WEN1_0_b0(WEN1_0_b0),
+      .WEN1_0_b1(WEN1_0_b1),
+      .DIR_0(DIR_0),
       .P1_0(P1_0),
-      .FIFO_EN_1(FIFO_EN_1),
-      .WEN1_1_b0(WEN1_1_b0),
-      .WEN1_1_b1(WEN1_1_b1),
-      .A1_0_b0(A1_0_b0),
-      .A1_0_b1(A1_0_b1),
-      .A1_0_b2(A1_0_b2),
-      .A1_0_b3(A1_0_b3),
-      .A1_0_b4(A1_0_b4),
-      .A1_0_b5(A1_0_b5),
-      .A1_0_b6(A1_0_b6),
-      .A1_0_b7(A1_0_b7),
-      .A1_0_b8(A1_0_b8),
-      .A1_0_b9(A1_0_b9),
-      .A1_0_b10(A1_0_b10),
+      .PIPELINE_RD_1(PIPELINE_RD_1),
+      .WIDTH_SELECT2_1(WIDTH_SELECT2_1),
+      .CONCAT_EN_0(CONCAT_EN_0),
+      .P2_1(P2_1),
+      .PUSH_FLAG_1_b0(PUSH_FLAG_1_b0),
+      .PUSH_FLAG_1_b1(PUSH_FLAG_1_b1),
+      .PUSH_FLAG_1_b2(PUSH_FLAG_1_b2),
+      .PUSH_FLAG_1_b3(PUSH_FLAG_1_b3),
+      .Almost_Empty_0(Almost_Empty_0),
+      .Almost_Empty_1(Almost_Empty_1),
+      .Almost_Full_1(Almost_Full_1),
       .RD_1_b0(RD_1_b0),
       .RD_1_b1(RD_1_b1),
       .RD_1_b2(RD_1_b2),
@@ -33730,25 +33811,15 @@ module RAM_CE1_FE1_D1_PR1_WSA1_WSB1_VPR (
       .RD_1_b15(RD_1_b15),
       .RD_1_b16(RD_1_b16),
       .RD_1_b17(RD_1_b17),
-      .Almost_Empty_0(Almost_Empty_0),
-      .Almost_Full_1(Almost_Full_1),
-      .PUSH_FLAG_1_b0(PUSH_FLAG_1_b0),
-      .PUSH_FLAG_1_b1(PUSH_FLAG_1_b1),
-      .PUSH_FLAG_1_b2(PUSH_FLAG_1_b2),
-      .PUSH_FLAG_1_b3(PUSH_FLAG_1_b3),
-      .POP_FLAG_0_b0(POP_FLAG_0_b0),
-      .POP_FLAG_0_b1(POP_FLAG_0_b1),
-      .POP_FLAG_0_b2(POP_FLAG_0_b2),
-      .POP_FLAG_0_b3(POP_FLAG_0_b3),
-      .PUSH_FLAG_0_b0(PUSH_FLAG_0_b0),
-      .PUSH_FLAG_0_b1(PUSH_FLAG_0_b1),
-      .PUSH_FLAG_0_b2(PUSH_FLAG_0_b2),
-      .PUSH_FLAG_0_b3(PUSH_FLAG_0_b3),
+      .Almost_Full_0(Almost_Full_0),
       .POP_FLAG_1_b0(POP_FLAG_1_b0),
       .POP_FLAG_1_b1(POP_FLAG_1_b1),
       .POP_FLAG_1_b2(POP_FLAG_1_b2),
       .POP_FLAG_1_b3(POP_FLAG_1_b3),
-      .Almost_Full_0(Almost_Full_0),
+      .POP_FLAG_0_b0(POP_FLAG_0_b0),
+      .POP_FLAG_0_b1(POP_FLAG_0_b1),
+      .POP_FLAG_0_b2(POP_FLAG_0_b2),
+      .POP_FLAG_0_b3(POP_FLAG_0_b3),
       .RD_0_b0(RD_0_b0),
       .RD_0_b1(RD_0_b1),
       .RD_0_b2(RD_0_b2),
@@ -33767,7 +33838,10 @@ module RAM_CE1_FE1_D1_PR1_WSA1_WSB1_VPR (
       .RD_0_b15(RD_0_b15),
       .RD_0_b16(RD_0_b16),
       .RD_0_b17(RD_0_b17),
-      .Almost_Empty_1(Almost_Empty_1));
+      .PUSH_FLAG_0_b0(PUSH_FLAG_0_b0),
+      .PUSH_FLAG_0_b1(PUSH_FLAG_0_b1),
+      .PUSH_FLAG_0_b2(PUSH_FLAG_0_b2),
+      .PUSH_FLAG_0_b3(PUSH_FLAG_0_b3));
 
 endmodule
 
@@ -33775,26 +33849,41 @@ endmodule
 (* blackbox *)
 module RAM_CE1_FE1_D1_PR1_WSA1_WSB2_VPR (
 
-  input         CLK1_0,
+  input         CLK2_1,
   input         CLK1_1,
   input         CLK2_0,
-  input         CLK2_1,
+  input         CLK1_0,
 
-  input         TEST1A,
-  input         DS,
-  input  [ 1:0] WIDTH_SELECT2_0,
-  input         P1_1,
-  input  [ 1:0] WIDTH_SELECT2_1,
+  input         CS1_1,
+  input         A1_1_b0,
+  input         A1_1_b1,
+  input         A1_1_b2,
+  input         A1_1_b3,
+  input         A1_1_b4,
+  input         A1_1_b5,
+  input         A1_1_b6,
+  input         A1_1_b7,
+  input         A1_1_b8,
+  input         A1_1_b9,
+  input         A1_1_b10,
+  input         FIFO_EN_0,
+  input         DS_RB1,
+  input         CS1_0,
   input         PIPELINE_RD_0,
-  input         SD,
+  input         ASYNC_FLUSH_1,
   input         DIR_1,
-  input         CONCAT_EN_0,
-  input         LS,
-  input         CLK1EN_1,
-  input         P2_1,
-  input         WEN1_0_b0,
-  input         WEN1_0_b1,
-  input         PIPELINE_RD_1,
+  input         CS2_1,
+  input         CLK1EN_0,
+  input  [ 1:0] WIDTH_SELECT1_0,
+  input         RMB_b0,
+  input         RMB_b1,
+  input         RMB_b2,
+  input         RMB_b3,
+  input         ASYNC_FLUSH_0,
+  input         SYNC_FIFO_0,
+  input         SYNC_FIFO_1,
+  input         RMEB,
+  input         TEST1B,
   input         WD_0_b0,
   input         WD_0_b1,
   input         WD_0_b2,
@@ -33813,45 +33902,6 @@ module RAM_CE1_FE1_D1_PR1_WSA1_WSB2_VPR (
   input         WD_0_b15,
   input         WD_0_b16,
   input         WD_0_b17,
-  input  [ 1:0] WIDTH_SELECT1_1,
-  input         SD_RB1,
-  input         TEST1B,
-  input         RMEB,
-  input         RMB_b0,
-  input         RMB_b1,
-  input         RMB_b2,
-  input         RMB_b3,
-  input         DS_RB1,
-  input         CS2_0,
-  input         CLK1EN_0,
-  input         SYNC_FIFO_1,
-  input         CLK2EN_0,
-  input         SYNC_FIFO_0,
-  input         ASYNC_FLUSH_0,
-  input         A2_1_b0,
-  input         A2_1_b1,
-  input         A2_1_b2,
-  input         A2_1_b3,
-  input         A2_1_b4,
-  input         A2_1_b5,
-  input         A2_1_b6,
-  input         A2_1_b7,
-  input         A2_1_b8,
-  input         A2_1_b9,
-  input         A2_1_b10,
-  input         RMEA,
-  input         A1_1_b0,
-  input         A1_1_b1,
-  input         A1_1_b2,
-  input         A1_1_b3,
-  input         A1_1_b4,
-  input         A1_1_b5,
-  input         A1_1_b6,
-  input         A1_1_b7,
-  input         A1_1_b8,
-  input         A1_1_b9,
-  input         A1_1_b10,
-  input         CS1_1,
   input         A2_0_b0,
   input         A2_0_b1,
   input         A2_0_b2,
@@ -33863,7 +33913,36 @@ module RAM_CE1_FE1_D1_PR1_WSA1_WSB2_VPR (
   input         A2_0_b8,
   input         A2_0_b9,
   input         A2_0_b10,
-  input         P2_0,
+  input         A1_0_b0,
+  input         A1_0_b1,
+  input         A1_0_b2,
+  input         A1_0_b3,
+  input         A1_0_b4,
+  input         A1_0_b5,
+  input         A1_0_b6,
+  input         A1_0_b7,
+  input         A1_0_b8,
+  input         A1_0_b9,
+  input         A1_0_b10,
+  input         WEN1_1_b0,
+  input         WEN1_1_b1,
+  input         FIFO_EN_1,
+  input         CLK2EN_0,
+  input         DS,
+  input         LS_RB1,
+  input         CLK1EN_1,
+  input  [ 1:0] WIDTH_SELECT2_0,
+  input         A2_1_b0,
+  input         A2_1_b1,
+  input         A2_1_b2,
+  input         A2_1_b3,
+  input         A2_1_b4,
+  input         A2_1_b5,
+  input         A2_1_b6,
+  input         A2_1_b7,
+  input         A2_1_b8,
+  input         A2_1_b9,
+  input         A2_1_b10,
   input         WD_1_b0,
   input         WD_1_b1,
   input         WD_1_b2,
@@ -33882,35 +33961,37 @@ module RAM_CE1_FE1_D1_PR1_WSA1_WSB2_VPR (
   input         WD_1_b15,
   input         WD_1_b16,
   input         WD_1_b17,
-  input         ASYNC_FLUSH_1,
-  input         LS_RB1,
-  input         CS2_1,
+  input         P2_0,
+  input         CS2_0,
+  input         P1_1,
+  input         CONCAT_EN_1,
+  input         LS,
+  input  [ 1:0] WIDTH_SELECT1_1,
+  input         SD_RB1,
+  input         TEST1A,
+  input         CLK2EN_1,
   input         RMA_b0,
   input         RMA_b1,
   input         RMA_b2,
   input         RMA_b3,
-  input  [ 1:0] WIDTH_SELECT1_0,
-  input         CS1_0,
-  input         FIFO_EN_0,
-  input         CONCAT_EN_1,
+  input         WEN1_0_b0,
+  input         WEN1_0_b1,
+  input         RMEA,
   input         DIR_0,
-  input         CLK2EN_1,
   input         P1_0,
-  input         FIFO_EN_1,
-  input         WEN1_1_b0,
-  input         WEN1_1_b1,
-  input         A1_0_b0,
-  input         A1_0_b1,
-  input         A1_0_b2,
-  input         A1_0_b3,
-  input         A1_0_b4,
-  input         A1_0_b5,
-  input         A1_0_b6,
-  input         A1_0_b7,
-  input         A1_0_b8,
-  input         A1_0_b9,
-  input         A1_0_b10,
+  input         PIPELINE_RD_1,
+  input  [ 1:0] WIDTH_SELECT2_1,
+  input         CONCAT_EN_0,
+  input         P2_1,
+  input         SD,
 
+  output        PUSH_FLAG_1_b0,
+  output        PUSH_FLAG_1_b1,
+  output        PUSH_FLAG_1_b2,
+  output        PUSH_FLAG_1_b3,
+  output        Almost_Empty_0,
+  output        Almost_Empty_1,
+  output        Almost_Full_1,
   output        RD_1_b0,
   output        RD_1_b1,
   output        RD_1_b2,
@@ -33929,25 +34010,15 @@ module RAM_CE1_FE1_D1_PR1_WSA1_WSB2_VPR (
   output        RD_1_b15,
   output        RD_1_b16,
   output        RD_1_b17,
-  output        Almost_Empty_0,
-  output        Almost_Full_1,
-  output        PUSH_FLAG_1_b0,
-  output        PUSH_FLAG_1_b1,
-  output        PUSH_FLAG_1_b2,
-  output        PUSH_FLAG_1_b3,
-  output        POP_FLAG_0_b0,
-  output        POP_FLAG_0_b1,
-  output        POP_FLAG_0_b2,
-  output        POP_FLAG_0_b3,
-  output        PUSH_FLAG_0_b0,
-  output        PUSH_FLAG_0_b1,
-  output        PUSH_FLAG_0_b2,
-  output        PUSH_FLAG_0_b3,
+  output        Almost_Full_0,
   output        POP_FLAG_1_b0,
   output        POP_FLAG_1_b1,
   output        POP_FLAG_1_b2,
   output        POP_FLAG_1_b3,
-  output        Almost_Full_0,
+  output        POP_FLAG_0_b0,
+  output        POP_FLAG_0_b1,
+  output        POP_FLAG_0_b2,
+  output        POP_FLAG_0_b3,
   output        RD_0_b0,
   output        RD_0_b1,
   output        RD_0_b2,
@@ -33966,14 +34037,14 @@ module RAM_CE1_FE1_D1_PR1_WSA1_WSB2_VPR (
   output        RD_0_b15,
   output        RD_0_b16,
   output        RD_0_b17,
-  output        Almost_Empty_1
+  output        PUSH_FLAG_0_b0,
+  output        PUSH_FLAG_0_b1,
+  output        PUSH_FLAG_0_b2,
+  output        PUSH_FLAG_0_b3
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
-      $setup(P1_1, posedge CLK1_1, "");
-      $hold(posedge CLK1_1, P1_1, "");
-      $setup(P2_1, posedge CLK2_1, "");
-      $hold(posedge CLK2_1, P2_1, "");
       $setup(WD_0_b0, posedge CLK2_0, "");
       $hold(posedge CLK2_0, WD_0_b0, "");
       $setup(WD_0_b1, posedge CLK2_0, "");
@@ -34010,8 +34081,6 @@ module RAM_CE1_FE1_D1_PR1_WSA1_WSB2_VPR (
       $hold(posedge CLK2_0, WD_0_b16, "");
       $setup(WD_0_b17, posedge CLK2_0, "");
       $hold(posedge CLK2_0, WD_0_b17, "");
-      $setup(P2_0, posedge CLK2_0, "");
-      $hold(posedge CLK2_0, P2_0, "");
       $setup(WD_1_b0, posedge CLK2_1, "");
       $hold(posedge CLK2_1, WD_1_b0, "");
       $setup(WD_1_b1, posedge CLK2_1, "");
@@ -34048,8 +34117,21 @@ module RAM_CE1_FE1_D1_PR1_WSA1_WSB2_VPR (
       $hold(posedge CLK2_1, WD_1_b16, "");
       $setup(WD_1_b17, posedge CLK2_1, "");
       $hold(posedge CLK2_1, WD_1_b17, "");
+      $setup(P2_0, posedge CLK2_0, "");
+      $hold(posedge CLK2_0, P2_0, "");
+      $setup(P1_1, posedge CLK1_1, "");
+      $hold(posedge CLK1_1, P1_1, "");
       $setup(P1_0, posedge CLK1_0, "");
       $hold(posedge CLK1_0, P1_0, "");
+      $setup(P2_1, posedge CLK2_1, "");
+      $hold(posedge CLK2_1, P2_1, "");
+      (CLK2_1*>PUSH_FLAG_1_b0)="";
+      (CLK2_1*>PUSH_FLAG_1_b1)="";
+      (CLK2_1*>PUSH_FLAG_1_b2)="";
+      (CLK2_1*>PUSH_FLAG_1_b3)="";
+      (CLK1_0*>Almost_Empty_0)="";
+      (CLK1_1*>Almost_Empty_1)="";
+      (CLK2_1*>Almost_Full_1)="";
       (CLK1_1*>RD_1_b0)="";
       (CLK1_1*>RD_1_b1)="";
       (CLK1_1*>RD_1_b2)="";
@@ -34068,25 +34150,15 @@ module RAM_CE1_FE1_D1_PR1_WSA1_WSB2_VPR (
       (CLK1_1*>RD_1_b15)="";
       (CLK1_1*>RD_1_b16)="";
       (CLK1_1*>RD_1_b17)="";
-      (CLK1_0*>Almost_Empty_0)="";
-      (CLK2_1*>Almost_Full_1)="";
-      (CLK2_1*>PUSH_FLAG_1_b0)="";
-      (CLK2_1*>PUSH_FLAG_1_b1)="";
-      (CLK2_1*>PUSH_FLAG_1_b2)="";
-      (CLK2_1*>PUSH_FLAG_1_b3)="";
-      (CLK1_0*>POP_FLAG_0_b0)="";
-      (CLK1_0*>POP_FLAG_0_b1)="";
-      (CLK1_0*>POP_FLAG_0_b2)="";
-      (CLK1_0*>POP_FLAG_0_b3)="";
-      (CLK2_0*>PUSH_FLAG_0_b0)="";
-      (CLK2_0*>PUSH_FLAG_0_b1)="";
-      (CLK2_0*>PUSH_FLAG_0_b2)="";
-      (CLK2_0*>PUSH_FLAG_0_b3)="";
+      (CLK2_0*>Almost_Full_0)="";
       (CLK1_1*>POP_FLAG_1_b0)="";
       (CLK1_1*>POP_FLAG_1_b1)="";
       (CLK1_1*>POP_FLAG_1_b2)="";
       (CLK1_1*>POP_FLAG_1_b3)="";
-      (CLK2_0*>Almost_Full_0)="";
+      (CLK1_0*>POP_FLAG_0_b0)="";
+      (CLK1_0*>POP_FLAG_0_b1)="";
+      (CLK1_0*>POP_FLAG_0_b2)="";
+      (CLK1_0*>POP_FLAG_0_b3)="";
       (CLK1_0*>RD_0_b0)="";
       (CLK1_0*>RD_0_b1)="";
       (CLK1_0*>RD_0_b2)="";
@@ -34105,26 +34177,41 @@ module RAM_CE1_FE1_D1_PR1_WSA1_WSB2_VPR (
       (CLK1_0*>RD_0_b15)="";
       (CLK1_0*>RD_0_b16)="";
       (CLK1_0*>RD_0_b17)="";
-      (CLK1_1*>Almost_Empty_1)="";
+      (CLK2_0*>PUSH_FLAG_0_b0)="";
+      (CLK2_0*>PUSH_FLAG_0_b1)="";
+      (CLK2_0*>PUSH_FLAG_0_b2)="";
+      (CLK2_0*>PUSH_FLAG_0_b3)="";
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
-      .CLK1_0(CLK1_0),
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
+      .CLK2_1(CLK2_1),
       .CLK1_1(CLK1_1),
       .CLK2_0(CLK2_0),
-      .CLK2_1(CLK2_1),
-      .WIDTH_SELECT2_0(WIDTH_SELECT2_0),
-      .P1_1(P1_1),
-      .WIDTH_SELECT2_1(WIDTH_SELECT2_1),
+      .CLK1_0(CLK1_0),
+      .CS1_1(CS1_1),
+      .A1_1_b0(A1_1_b0),
+      .A1_1_b1(A1_1_b1),
+      .A1_1_b2(A1_1_b2),
+      .A1_1_b3(A1_1_b3),
+      .A1_1_b4(A1_1_b4),
+      .A1_1_b5(A1_1_b5),
+      .A1_1_b6(A1_1_b6),
+      .A1_1_b7(A1_1_b7),
+      .A1_1_b8(A1_1_b8),
+      .A1_1_b9(A1_1_b9),
+      .A1_1_b10(A1_1_b10),
+      .FIFO_EN_0(FIFO_EN_0),
+      .CS1_0(CS1_0),
       .PIPELINE_RD_0(PIPELINE_RD_0),
+      .ASYNC_FLUSH_1(ASYNC_FLUSH_1),
       .DIR_1(DIR_1),
-      .CONCAT_EN_0(CONCAT_EN_0),
-      .CLK1EN_1(CLK1EN_1),
-      .P2_1(P2_1),
-      .WEN1_0_b0(WEN1_0_b0),
-      .WEN1_0_b1(WEN1_0_b1),
-      .PIPELINE_RD_1(PIPELINE_RD_1),
+      .CS2_1(CS2_1),
+      .CLK1EN_0(CLK1EN_0),
+      .WIDTH_SELECT1_0(WIDTH_SELECT1_0),
+      .ASYNC_FLUSH_0(ASYNC_FLUSH_0),
+      .SYNC_FIFO_0(SYNC_FIFO_0),
+      .SYNC_FIFO_1(SYNC_FIFO_1),
       .WD_0_b0(WD_0_b0),
       .WD_0_b1(WD_0_b1),
       .WD_0_b2(WD_0_b2),
@@ -34143,36 +34230,6 @@ module RAM_CE1_FE1_D1_PR1_WSA1_WSB2_VPR (
       .WD_0_b15(WD_0_b15),
       .WD_0_b16(WD_0_b16),
       .WD_0_b17(WD_0_b17),
-      .WIDTH_SELECT1_1(WIDTH_SELECT1_1),
-      .CS2_0(CS2_0),
-      .CLK1EN_0(CLK1EN_0),
-      .SYNC_FIFO_1(SYNC_FIFO_1),
-      .CLK2EN_0(CLK2EN_0),
-      .SYNC_FIFO_0(SYNC_FIFO_0),
-      .ASYNC_FLUSH_0(ASYNC_FLUSH_0),
-      .A2_1_b0(A2_1_b0),
-      .A2_1_b1(A2_1_b1),
-      .A2_1_b2(A2_1_b2),
-      .A2_1_b3(A2_1_b3),
-      .A2_1_b4(A2_1_b4),
-      .A2_1_b5(A2_1_b5),
-      .A2_1_b6(A2_1_b6),
-      .A2_1_b7(A2_1_b7),
-      .A2_1_b8(A2_1_b8),
-      .A2_1_b9(A2_1_b9),
-      .A2_1_b10(A2_1_b10),
-      .A1_1_b0(A1_1_b0),
-      .A1_1_b1(A1_1_b1),
-      .A1_1_b2(A1_1_b2),
-      .A1_1_b3(A1_1_b3),
-      .A1_1_b4(A1_1_b4),
-      .A1_1_b5(A1_1_b5),
-      .A1_1_b6(A1_1_b6),
-      .A1_1_b7(A1_1_b7),
-      .A1_1_b8(A1_1_b8),
-      .A1_1_b9(A1_1_b9),
-      .A1_1_b10(A1_1_b10),
-      .CS1_1(CS1_1),
       .A2_0_b0(A2_0_b0),
       .A2_0_b1(A2_0_b1),
       .A2_0_b2(A2_0_b2),
@@ -34184,7 +34241,34 @@ module RAM_CE1_FE1_D1_PR1_WSA1_WSB2_VPR (
       .A2_0_b8(A2_0_b8),
       .A2_0_b9(A2_0_b9),
       .A2_0_b10(A2_0_b10),
-      .P2_0(P2_0),
+      .A1_0_b0(A1_0_b0),
+      .A1_0_b1(A1_0_b1),
+      .A1_0_b2(A1_0_b2),
+      .A1_0_b3(A1_0_b3),
+      .A1_0_b4(A1_0_b4),
+      .A1_0_b5(A1_0_b5),
+      .A1_0_b6(A1_0_b6),
+      .A1_0_b7(A1_0_b7),
+      .A1_0_b8(A1_0_b8),
+      .A1_0_b9(A1_0_b9),
+      .A1_0_b10(A1_0_b10),
+      .WEN1_1_b0(WEN1_1_b0),
+      .WEN1_1_b1(WEN1_1_b1),
+      .FIFO_EN_1(FIFO_EN_1),
+      .CLK2EN_0(CLK2EN_0),
+      .CLK1EN_1(CLK1EN_1),
+      .WIDTH_SELECT2_0(WIDTH_SELECT2_0),
+      .A2_1_b0(A2_1_b0),
+      .A2_1_b1(A2_1_b1),
+      .A2_1_b2(A2_1_b2),
+      .A2_1_b3(A2_1_b3),
+      .A2_1_b4(A2_1_b4),
+      .A2_1_b5(A2_1_b5),
+      .A2_1_b6(A2_1_b6),
+      .A2_1_b7(A2_1_b7),
+      .A2_1_b8(A2_1_b8),
+      .A2_1_b9(A2_1_b9),
+      .A2_1_b10(A2_1_b10),
       .WD_1_b0(WD_1_b0),
       .WD_1_b1(WD_1_b1),
       .WD_1_b2(WD_1_b2),
@@ -34203,29 +34287,27 @@ module RAM_CE1_FE1_D1_PR1_WSA1_WSB2_VPR (
       .WD_1_b15(WD_1_b15),
       .WD_1_b16(WD_1_b16),
       .WD_1_b17(WD_1_b17),
-      .ASYNC_FLUSH_1(ASYNC_FLUSH_1),
-      .CS2_1(CS2_1),
-      .WIDTH_SELECT1_0(WIDTH_SELECT1_0),
-      .CS1_0(CS1_0),
-      .FIFO_EN_0(FIFO_EN_0),
+      .P2_0(P2_0),
+      .CS2_0(CS2_0),
+      .P1_1(P1_1),
       .CONCAT_EN_1(CONCAT_EN_1),
-      .DIR_0(DIR_0),
+      .WIDTH_SELECT1_1(WIDTH_SELECT1_1),
       .CLK2EN_1(CLK2EN_1),
+      .WEN1_0_b0(WEN1_0_b0),
+      .WEN1_0_b1(WEN1_0_b1),
+      .DIR_0(DIR_0),
       .P1_0(P1_0),
-      .FIFO_EN_1(FIFO_EN_1),
-      .WEN1_1_b0(WEN1_1_b0),
-      .WEN1_1_b1(WEN1_1_b1),
-      .A1_0_b0(A1_0_b0),
-      .A1_0_b1(A1_0_b1),
-      .A1_0_b2(A1_0_b2),
-      .A1_0_b3(A1_0_b3),
-      .A1_0_b4(A1_0_b4),
-      .A1_0_b5(A1_0_b5),
-      .A1_0_b6(A1_0_b6),
-      .A1_0_b7(A1_0_b7),
-      .A1_0_b8(A1_0_b8),
-      .A1_0_b9(A1_0_b9),
-      .A1_0_b10(A1_0_b10),
+      .PIPELINE_RD_1(PIPELINE_RD_1),
+      .WIDTH_SELECT2_1(WIDTH_SELECT2_1),
+      .CONCAT_EN_0(CONCAT_EN_0),
+      .P2_1(P2_1),
+      .PUSH_FLAG_1_b0(PUSH_FLAG_1_b0),
+      .PUSH_FLAG_1_b1(PUSH_FLAG_1_b1),
+      .PUSH_FLAG_1_b2(PUSH_FLAG_1_b2),
+      .PUSH_FLAG_1_b3(PUSH_FLAG_1_b3),
+      .Almost_Empty_0(Almost_Empty_0),
+      .Almost_Empty_1(Almost_Empty_1),
+      .Almost_Full_1(Almost_Full_1),
       .RD_1_b0(RD_1_b0),
       .RD_1_b1(RD_1_b1),
       .RD_1_b2(RD_1_b2),
@@ -34244,25 +34326,15 @@ module RAM_CE1_FE1_D1_PR1_WSA1_WSB2_VPR (
       .RD_1_b15(RD_1_b15),
       .RD_1_b16(RD_1_b16),
       .RD_1_b17(RD_1_b17),
-      .Almost_Empty_0(Almost_Empty_0),
-      .Almost_Full_1(Almost_Full_1),
-      .PUSH_FLAG_1_b0(PUSH_FLAG_1_b0),
-      .PUSH_FLAG_1_b1(PUSH_FLAG_1_b1),
-      .PUSH_FLAG_1_b2(PUSH_FLAG_1_b2),
-      .PUSH_FLAG_1_b3(PUSH_FLAG_1_b3),
-      .POP_FLAG_0_b0(POP_FLAG_0_b0),
-      .POP_FLAG_0_b1(POP_FLAG_0_b1),
-      .POP_FLAG_0_b2(POP_FLAG_0_b2),
-      .POP_FLAG_0_b3(POP_FLAG_0_b3),
-      .PUSH_FLAG_0_b0(PUSH_FLAG_0_b0),
-      .PUSH_FLAG_0_b1(PUSH_FLAG_0_b1),
-      .PUSH_FLAG_0_b2(PUSH_FLAG_0_b2),
-      .PUSH_FLAG_0_b3(PUSH_FLAG_0_b3),
+      .Almost_Full_0(Almost_Full_0),
       .POP_FLAG_1_b0(POP_FLAG_1_b0),
       .POP_FLAG_1_b1(POP_FLAG_1_b1),
       .POP_FLAG_1_b2(POP_FLAG_1_b2),
       .POP_FLAG_1_b3(POP_FLAG_1_b3),
-      .Almost_Full_0(Almost_Full_0),
+      .POP_FLAG_0_b0(POP_FLAG_0_b0),
+      .POP_FLAG_0_b1(POP_FLAG_0_b1),
+      .POP_FLAG_0_b2(POP_FLAG_0_b2),
+      .POP_FLAG_0_b3(POP_FLAG_0_b3),
       .RD_0_b0(RD_0_b0),
       .RD_0_b1(RD_0_b1),
       .RD_0_b2(RD_0_b2),
@@ -34281,7 +34353,10 @@ module RAM_CE1_FE1_D1_PR1_WSA1_WSB2_VPR (
       .RD_0_b15(RD_0_b15),
       .RD_0_b16(RD_0_b16),
       .RD_0_b17(RD_0_b17),
-      .Almost_Empty_1(Almost_Empty_1));
+      .PUSH_FLAG_0_b0(PUSH_FLAG_0_b0),
+      .PUSH_FLAG_0_b1(PUSH_FLAG_0_b1),
+      .PUSH_FLAG_0_b2(PUSH_FLAG_0_b2),
+      .PUSH_FLAG_0_b3(PUSH_FLAG_0_b3));
 
 endmodule
 
@@ -34289,26 +34364,41 @@ endmodule
 (* blackbox *)
 module RAM_CE1_FE1_D1_PR1_WSA2_WSB0_VPR (
 
-  input         CLK1_0,
+  input         CLK2_1,
   input         CLK1_1,
   input         CLK2_0,
-  input         CLK2_1,
+  input         CLK1_0,
 
-  input         TEST1A,
-  input         DS,
-  input  [ 1:0] WIDTH_SELECT2_0,
-  input         P1_1,
-  input  [ 1:0] WIDTH_SELECT2_1,
+  input         CS1_1,
+  input         A1_1_b0,
+  input         A1_1_b1,
+  input         A1_1_b2,
+  input         A1_1_b3,
+  input         A1_1_b4,
+  input         A1_1_b5,
+  input         A1_1_b6,
+  input         A1_1_b7,
+  input         A1_1_b8,
+  input         A1_1_b9,
+  input         A1_1_b10,
+  input         FIFO_EN_0,
+  input         DS_RB1,
+  input         CS1_0,
   input         PIPELINE_RD_0,
-  input         SD,
+  input         ASYNC_FLUSH_1,
   input         DIR_1,
-  input         CONCAT_EN_0,
-  input         LS,
-  input         CLK1EN_1,
-  input         P2_1,
-  input         WEN1_0_b0,
-  input         WEN1_0_b1,
-  input         PIPELINE_RD_1,
+  input         CS2_1,
+  input         CLK1EN_0,
+  input  [ 1:0] WIDTH_SELECT1_0,
+  input         RMB_b0,
+  input         RMB_b1,
+  input         RMB_b2,
+  input         RMB_b3,
+  input         ASYNC_FLUSH_0,
+  input         SYNC_FIFO_0,
+  input         SYNC_FIFO_1,
+  input         RMEB,
+  input         TEST1B,
   input         WD_0_b0,
   input         WD_0_b1,
   input         WD_0_b2,
@@ -34327,45 +34417,6 @@ module RAM_CE1_FE1_D1_PR1_WSA2_WSB0_VPR (
   input         WD_0_b15,
   input         WD_0_b16,
   input         WD_0_b17,
-  input  [ 1:0] WIDTH_SELECT1_1,
-  input         SD_RB1,
-  input         TEST1B,
-  input         RMEB,
-  input         RMB_b0,
-  input         RMB_b1,
-  input         RMB_b2,
-  input         RMB_b3,
-  input         DS_RB1,
-  input         CS2_0,
-  input         CLK1EN_0,
-  input         SYNC_FIFO_1,
-  input         CLK2EN_0,
-  input         SYNC_FIFO_0,
-  input         ASYNC_FLUSH_0,
-  input         A2_1_b0,
-  input         A2_1_b1,
-  input         A2_1_b2,
-  input         A2_1_b3,
-  input         A2_1_b4,
-  input         A2_1_b5,
-  input         A2_1_b6,
-  input         A2_1_b7,
-  input         A2_1_b8,
-  input         A2_1_b9,
-  input         A2_1_b10,
-  input         RMEA,
-  input         A1_1_b0,
-  input         A1_1_b1,
-  input         A1_1_b2,
-  input         A1_1_b3,
-  input         A1_1_b4,
-  input         A1_1_b5,
-  input         A1_1_b6,
-  input         A1_1_b7,
-  input         A1_1_b8,
-  input         A1_1_b9,
-  input         A1_1_b10,
-  input         CS1_1,
   input         A2_0_b0,
   input         A2_0_b1,
   input         A2_0_b2,
@@ -34377,7 +34428,36 @@ module RAM_CE1_FE1_D1_PR1_WSA2_WSB0_VPR (
   input         A2_0_b8,
   input         A2_0_b9,
   input         A2_0_b10,
-  input         P2_0,
+  input         A1_0_b0,
+  input         A1_0_b1,
+  input         A1_0_b2,
+  input         A1_0_b3,
+  input         A1_0_b4,
+  input         A1_0_b5,
+  input         A1_0_b6,
+  input         A1_0_b7,
+  input         A1_0_b8,
+  input         A1_0_b9,
+  input         A1_0_b10,
+  input         WEN1_1_b0,
+  input         WEN1_1_b1,
+  input         FIFO_EN_1,
+  input         CLK2EN_0,
+  input         DS,
+  input         LS_RB1,
+  input         CLK1EN_1,
+  input  [ 1:0] WIDTH_SELECT2_0,
+  input         A2_1_b0,
+  input         A2_1_b1,
+  input         A2_1_b2,
+  input         A2_1_b3,
+  input         A2_1_b4,
+  input         A2_1_b5,
+  input         A2_1_b6,
+  input         A2_1_b7,
+  input         A2_1_b8,
+  input         A2_1_b9,
+  input         A2_1_b10,
   input         WD_1_b0,
   input         WD_1_b1,
   input         WD_1_b2,
@@ -34396,35 +34476,37 @@ module RAM_CE1_FE1_D1_PR1_WSA2_WSB0_VPR (
   input         WD_1_b15,
   input         WD_1_b16,
   input         WD_1_b17,
-  input         ASYNC_FLUSH_1,
-  input         LS_RB1,
-  input         CS2_1,
+  input         P2_0,
+  input         CS2_0,
+  input         P1_1,
+  input         CONCAT_EN_1,
+  input         LS,
+  input  [ 1:0] WIDTH_SELECT1_1,
+  input         SD_RB1,
+  input         TEST1A,
+  input         CLK2EN_1,
   input         RMA_b0,
   input         RMA_b1,
   input         RMA_b2,
   input         RMA_b3,
-  input  [ 1:0] WIDTH_SELECT1_0,
-  input         CS1_0,
-  input         FIFO_EN_0,
-  input         CONCAT_EN_1,
+  input         WEN1_0_b0,
+  input         WEN1_0_b1,
+  input         RMEA,
   input         DIR_0,
-  input         CLK2EN_1,
   input         P1_0,
-  input         FIFO_EN_1,
-  input         WEN1_1_b0,
-  input         WEN1_1_b1,
-  input         A1_0_b0,
-  input         A1_0_b1,
-  input         A1_0_b2,
-  input         A1_0_b3,
-  input         A1_0_b4,
-  input         A1_0_b5,
-  input         A1_0_b6,
-  input         A1_0_b7,
-  input         A1_0_b8,
-  input         A1_0_b9,
-  input         A1_0_b10,
+  input         PIPELINE_RD_1,
+  input  [ 1:0] WIDTH_SELECT2_1,
+  input         CONCAT_EN_0,
+  input         P2_1,
+  input         SD,
 
+  output        PUSH_FLAG_1_b0,
+  output        PUSH_FLAG_1_b1,
+  output        PUSH_FLAG_1_b2,
+  output        PUSH_FLAG_1_b3,
+  output        Almost_Empty_0,
+  output        Almost_Empty_1,
+  output        Almost_Full_1,
   output        RD_1_b0,
   output        RD_1_b1,
   output        RD_1_b2,
@@ -34443,25 +34525,15 @@ module RAM_CE1_FE1_D1_PR1_WSA2_WSB0_VPR (
   output        RD_1_b15,
   output        RD_1_b16,
   output        RD_1_b17,
-  output        Almost_Empty_0,
-  output        Almost_Full_1,
-  output        PUSH_FLAG_1_b0,
-  output        PUSH_FLAG_1_b1,
-  output        PUSH_FLAG_1_b2,
-  output        PUSH_FLAG_1_b3,
-  output        POP_FLAG_0_b0,
-  output        POP_FLAG_0_b1,
-  output        POP_FLAG_0_b2,
-  output        POP_FLAG_0_b3,
-  output        PUSH_FLAG_0_b0,
-  output        PUSH_FLAG_0_b1,
-  output        PUSH_FLAG_0_b2,
-  output        PUSH_FLAG_0_b3,
+  output        Almost_Full_0,
   output        POP_FLAG_1_b0,
   output        POP_FLAG_1_b1,
   output        POP_FLAG_1_b2,
   output        POP_FLAG_1_b3,
-  output        Almost_Full_0,
+  output        POP_FLAG_0_b0,
+  output        POP_FLAG_0_b1,
+  output        POP_FLAG_0_b2,
+  output        POP_FLAG_0_b3,
   output        RD_0_b0,
   output        RD_0_b1,
   output        RD_0_b2,
@@ -34480,14 +34552,14 @@ module RAM_CE1_FE1_D1_PR1_WSA2_WSB0_VPR (
   output        RD_0_b15,
   output        RD_0_b16,
   output        RD_0_b17,
-  output        Almost_Empty_1
+  output        PUSH_FLAG_0_b0,
+  output        PUSH_FLAG_0_b1,
+  output        PUSH_FLAG_0_b2,
+  output        PUSH_FLAG_0_b3
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
-      $setup(P1_1, posedge CLK1_1, "");
-      $hold(posedge CLK1_1, P1_1, "");
-      $setup(P2_1, posedge CLK2_1, "");
-      $hold(posedge CLK2_1, P2_1, "");
       $setup(WD_0_b0, posedge CLK2_0, "");
       $hold(posedge CLK2_0, WD_0_b0, "");
       $setup(WD_0_b1, posedge CLK2_0, "");
@@ -34524,8 +34596,6 @@ module RAM_CE1_FE1_D1_PR1_WSA2_WSB0_VPR (
       $hold(posedge CLK2_0, WD_0_b16, "");
       $setup(WD_0_b17, posedge CLK2_0, "");
       $hold(posedge CLK2_0, WD_0_b17, "");
-      $setup(P2_0, posedge CLK2_0, "");
-      $hold(posedge CLK2_0, P2_0, "");
       $setup(WD_1_b0, posedge CLK2_1, "");
       $hold(posedge CLK2_1, WD_1_b0, "");
       $setup(WD_1_b1, posedge CLK2_1, "");
@@ -34562,8 +34632,21 @@ module RAM_CE1_FE1_D1_PR1_WSA2_WSB0_VPR (
       $hold(posedge CLK2_1, WD_1_b16, "");
       $setup(WD_1_b17, posedge CLK2_1, "");
       $hold(posedge CLK2_1, WD_1_b17, "");
+      $setup(P2_0, posedge CLK2_0, "");
+      $hold(posedge CLK2_0, P2_0, "");
+      $setup(P1_1, posedge CLK1_1, "");
+      $hold(posedge CLK1_1, P1_1, "");
       $setup(P1_0, posedge CLK1_0, "");
       $hold(posedge CLK1_0, P1_0, "");
+      $setup(P2_1, posedge CLK2_1, "");
+      $hold(posedge CLK2_1, P2_1, "");
+      (CLK2_1*>PUSH_FLAG_1_b0)="";
+      (CLK2_1*>PUSH_FLAG_1_b1)="";
+      (CLK2_1*>PUSH_FLAG_1_b2)="";
+      (CLK2_1*>PUSH_FLAG_1_b3)="";
+      (CLK1_0*>Almost_Empty_0)="";
+      (CLK1_1*>Almost_Empty_1)="";
+      (CLK2_1*>Almost_Full_1)="";
       (CLK1_1*>RD_1_b0)="";
       (CLK1_1*>RD_1_b1)="";
       (CLK1_1*>RD_1_b2)="";
@@ -34582,25 +34665,15 @@ module RAM_CE1_FE1_D1_PR1_WSA2_WSB0_VPR (
       (CLK1_1*>RD_1_b15)="";
       (CLK1_1*>RD_1_b16)="";
       (CLK1_1*>RD_1_b17)="";
-      (CLK1_0*>Almost_Empty_0)="";
-      (CLK2_1*>Almost_Full_1)="";
-      (CLK2_1*>PUSH_FLAG_1_b0)="";
-      (CLK2_1*>PUSH_FLAG_1_b1)="";
-      (CLK2_1*>PUSH_FLAG_1_b2)="";
-      (CLK2_1*>PUSH_FLAG_1_b3)="";
-      (CLK1_0*>POP_FLAG_0_b0)="";
-      (CLK1_0*>POP_FLAG_0_b1)="";
-      (CLK1_0*>POP_FLAG_0_b2)="";
-      (CLK1_0*>POP_FLAG_0_b3)="";
-      (CLK2_0*>PUSH_FLAG_0_b0)="";
-      (CLK2_0*>PUSH_FLAG_0_b1)="";
-      (CLK2_0*>PUSH_FLAG_0_b2)="";
-      (CLK2_0*>PUSH_FLAG_0_b3)="";
+      (CLK2_0*>Almost_Full_0)="";
       (CLK1_1*>POP_FLAG_1_b0)="";
       (CLK1_1*>POP_FLAG_1_b1)="";
       (CLK1_1*>POP_FLAG_1_b2)="";
       (CLK1_1*>POP_FLAG_1_b3)="";
-      (CLK2_0*>Almost_Full_0)="";
+      (CLK1_0*>POP_FLAG_0_b0)="";
+      (CLK1_0*>POP_FLAG_0_b1)="";
+      (CLK1_0*>POP_FLAG_0_b2)="";
+      (CLK1_0*>POP_FLAG_0_b3)="";
       (CLK1_0*>RD_0_b0)="";
       (CLK1_0*>RD_0_b1)="";
       (CLK1_0*>RD_0_b2)="";
@@ -34619,26 +34692,41 @@ module RAM_CE1_FE1_D1_PR1_WSA2_WSB0_VPR (
       (CLK1_0*>RD_0_b15)="";
       (CLK1_0*>RD_0_b16)="";
       (CLK1_0*>RD_0_b17)="";
-      (CLK1_1*>Almost_Empty_1)="";
+      (CLK2_0*>PUSH_FLAG_0_b0)="";
+      (CLK2_0*>PUSH_FLAG_0_b1)="";
+      (CLK2_0*>PUSH_FLAG_0_b2)="";
+      (CLK2_0*>PUSH_FLAG_0_b3)="";
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
-      .CLK1_0(CLK1_0),
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
+      .CLK2_1(CLK2_1),
       .CLK1_1(CLK1_1),
       .CLK2_0(CLK2_0),
-      .CLK2_1(CLK2_1),
-      .WIDTH_SELECT2_0(WIDTH_SELECT2_0),
-      .P1_1(P1_1),
-      .WIDTH_SELECT2_1(WIDTH_SELECT2_1),
+      .CLK1_0(CLK1_0),
+      .CS1_1(CS1_1),
+      .A1_1_b0(A1_1_b0),
+      .A1_1_b1(A1_1_b1),
+      .A1_1_b2(A1_1_b2),
+      .A1_1_b3(A1_1_b3),
+      .A1_1_b4(A1_1_b4),
+      .A1_1_b5(A1_1_b5),
+      .A1_1_b6(A1_1_b6),
+      .A1_1_b7(A1_1_b7),
+      .A1_1_b8(A1_1_b8),
+      .A1_1_b9(A1_1_b9),
+      .A1_1_b10(A1_1_b10),
+      .FIFO_EN_0(FIFO_EN_0),
+      .CS1_0(CS1_0),
       .PIPELINE_RD_0(PIPELINE_RD_0),
+      .ASYNC_FLUSH_1(ASYNC_FLUSH_1),
       .DIR_1(DIR_1),
-      .CONCAT_EN_0(CONCAT_EN_0),
-      .CLK1EN_1(CLK1EN_1),
-      .P2_1(P2_1),
-      .WEN1_0_b0(WEN1_0_b0),
-      .WEN1_0_b1(WEN1_0_b1),
-      .PIPELINE_RD_1(PIPELINE_RD_1),
+      .CS2_1(CS2_1),
+      .CLK1EN_0(CLK1EN_0),
+      .WIDTH_SELECT1_0(WIDTH_SELECT1_0),
+      .ASYNC_FLUSH_0(ASYNC_FLUSH_0),
+      .SYNC_FIFO_0(SYNC_FIFO_0),
+      .SYNC_FIFO_1(SYNC_FIFO_1),
       .WD_0_b0(WD_0_b0),
       .WD_0_b1(WD_0_b1),
       .WD_0_b2(WD_0_b2),
@@ -34657,36 +34745,6 @@ module RAM_CE1_FE1_D1_PR1_WSA2_WSB0_VPR (
       .WD_0_b15(WD_0_b15),
       .WD_0_b16(WD_0_b16),
       .WD_0_b17(WD_0_b17),
-      .WIDTH_SELECT1_1(WIDTH_SELECT1_1),
-      .CS2_0(CS2_0),
-      .CLK1EN_0(CLK1EN_0),
-      .SYNC_FIFO_1(SYNC_FIFO_1),
-      .CLK2EN_0(CLK2EN_0),
-      .SYNC_FIFO_0(SYNC_FIFO_0),
-      .ASYNC_FLUSH_0(ASYNC_FLUSH_0),
-      .A2_1_b0(A2_1_b0),
-      .A2_1_b1(A2_1_b1),
-      .A2_1_b2(A2_1_b2),
-      .A2_1_b3(A2_1_b3),
-      .A2_1_b4(A2_1_b4),
-      .A2_1_b5(A2_1_b5),
-      .A2_1_b6(A2_1_b6),
-      .A2_1_b7(A2_1_b7),
-      .A2_1_b8(A2_1_b8),
-      .A2_1_b9(A2_1_b9),
-      .A2_1_b10(A2_1_b10),
-      .A1_1_b0(A1_1_b0),
-      .A1_1_b1(A1_1_b1),
-      .A1_1_b2(A1_1_b2),
-      .A1_1_b3(A1_1_b3),
-      .A1_1_b4(A1_1_b4),
-      .A1_1_b5(A1_1_b5),
-      .A1_1_b6(A1_1_b6),
-      .A1_1_b7(A1_1_b7),
-      .A1_1_b8(A1_1_b8),
-      .A1_1_b9(A1_1_b9),
-      .A1_1_b10(A1_1_b10),
-      .CS1_1(CS1_1),
       .A2_0_b0(A2_0_b0),
       .A2_0_b1(A2_0_b1),
       .A2_0_b2(A2_0_b2),
@@ -34698,7 +34756,34 @@ module RAM_CE1_FE1_D1_PR1_WSA2_WSB0_VPR (
       .A2_0_b8(A2_0_b8),
       .A2_0_b9(A2_0_b9),
       .A2_0_b10(A2_0_b10),
-      .P2_0(P2_0),
+      .A1_0_b0(A1_0_b0),
+      .A1_0_b1(A1_0_b1),
+      .A1_0_b2(A1_0_b2),
+      .A1_0_b3(A1_0_b3),
+      .A1_0_b4(A1_0_b4),
+      .A1_0_b5(A1_0_b5),
+      .A1_0_b6(A1_0_b6),
+      .A1_0_b7(A1_0_b7),
+      .A1_0_b8(A1_0_b8),
+      .A1_0_b9(A1_0_b9),
+      .A1_0_b10(A1_0_b10),
+      .WEN1_1_b0(WEN1_1_b0),
+      .WEN1_1_b1(WEN1_1_b1),
+      .FIFO_EN_1(FIFO_EN_1),
+      .CLK2EN_0(CLK2EN_0),
+      .CLK1EN_1(CLK1EN_1),
+      .WIDTH_SELECT2_0(WIDTH_SELECT2_0),
+      .A2_1_b0(A2_1_b0),
+      .A2_1_b1(A2_1_b1),
+      .A2_1_b2(A2_1_b2),
+      .A2_1_b3(A2_1_b3),
+      .A2_1_b4(A2_1_b4),
+      .A2_1_b5(A2_1_b5),
+      .A2_1_b6(A2_1_b6),
+      .A2_1_b7(A2_1_b7),
+      .A2_1_b8(A2_1_b8),
+      .A2_1_b9(A2_1_b9),
+      .A2_1_b10(A2_1_b10),
       .WD_1_b0(WD_1_b0),
       .WD_1_b1(WD_1_b1),
       .WD_1_b2(WD_1_b2),
@@ -34717,29 +34802,27 @@ module RAM_CE1_FE1_D1_PR1_WSA2_WSB0_VPR (
       .WD_1_b15(WD_1_b15),
       .WD_1_b16(WD_1_b16),
       .WD_1_b17(WD_1_b17),
-      .ASYNC_FLUSH_1(ASYNC_FLUSH_1),
-      .CS2_1(CS2_1),
-      .WIDTH_SELECT1_0(WIDTH_SELECT1_0),
-      .CS1_0(CS1_0),
-      .FIFO_EN_0(FIFO_EN_0),
+      .P2_0(P2_0),
+      .CS2_0(CS2_0),
+      .P1_1(P1_1),
       .CONCAT_EN_1(CONCAT_EN_1),
-      .DIR_0(DIR_0),
+      .WIDTH_SELECT1_1(WIDTH_SELECT1_1),
       .CLK2EN_1(CLK2EN_1),
+      .WEN1_0_b0(WEN1_0_b0),
+      .WEN1_0_b1(WEN1_0_b1),
+      .DIR_0(DIR_0),
       .P1_0(P1_0),
-      .FIFO_EN_1(FIFO_EN_1),
-      .WEN1_1_b0(WEN1_1_b0),
-      .WEN1_1_b1(WEN1_1_b1),
-      .A1_0_b0(A1_0_b0),
-      .A1_0_b1(A1_0_b1),
-      .A1_0_b2(A1_0_b2),
-      .A1_0_b3(A1_0_b3),
-      .A1_0_b4(A1_0_b4),
-      .A1_0_b5(A1_0_b5),
-      .A1_0_b6(A1_0_b6),
-      .A1_0_b7(A1_0_b7),
-      .A1_0_b8(A1_0_b8),
-      .A1_0_b9(A1_0_b9),
-      .A1_0_b10(A1_0_b10),
+      .PIPELINE_RD_1(PIPELINE_RD_1),
+      .WIDTH_SELECT2_1(WIDTH_SELECT2_1),
+      .CONCAT_EN_0(CONCAT_EN_0),
+      .P2_1(P2_1),
+      .PUSH_FLAG_1_b0(PUSH_FLAG_1_b0),
+      .PUSH_FLAG_1_b1(PUSH_FLAG_1_b1),
+      .PUSH_FLAG_1_b2(PUSH_FLAG_1_b2),
+      .PUSH_FLAG_1_b3(PUSH_FLAG_1_b3),
+      .Almost_Empty_0(Almost_Empty_0),
+      .Almost_Empty_1(Almost_Empty_1),
+      .Almost_Full_1(Almost_Full_1),
       .RD_1_b0(RD_1_b0),
       .RD_1_b1(RD_1_b1),
       .RD_1_b2(RD_1_b2),
@@ -34758,25 +34841,15 @@ module RAM_CE1_FE1_D1_PR1_WSA2_WSB0_VPR (
       .RD_1_b15(RD_1_b15),
       .RD_1_b16(RD_1_b16),
       .RD_1_b17(RD_1_b17),
-      .Almost_Empty_0(Almost_Empty_0),
-      .Almost_Full_1(Almost_Full_1),
-      .PUSH_FLAG_1_b0(PUSH_FLAG_1_b0),
-      .PUSH_FLAG_1_b1(PUSH_FLAG_1_b1),
-      .PUSH_FLAG_1_b2(PUSH_FLAG_1_b2),
-      .PUSH_FLAG_1_b3(PUSH_FLAG_1_b3),
-      .POP_FLAG_0_b0(POP_FLAG_0_b0),
-      .POP_FLAG_0_b1(POP_FLAG_0_b1),
-      .POP_FLAG_0_b2(POP_FLAG_0_b2),
-      .POP_FLAG_0_b3(POP_FLAG_0_b3),
-      .PUSH_FLAG_0_b0(PUSH_FLAG_0_b0),
-      .PUSH_FLAG_0_b1(PUSH_FLAG_0_b1),
-      .PUSH_FLAG_0_b2(PUSH_FLAG_0_b2),
-      .PUSH_FLAG_0_b3(PUSH_FLAG_0_b3),
+      .Almost_Full_0(Almost_Full_0),
       .POP_FLAG_1_b0(POP_FLAG_1_b0),
       .POP_FLAG_1_b1(POP_FLAG_1_b1),
       .POP_FLAG_1_b2(POP_FLAG_1_b2),
       .POP_FLAG_1_b3(POP_FLAG_1_b3),
-      .Almost_Full_0(Almost_Full_0),
+      .POP_FLAG_0_b0(POP_FLAG_0_b0),
+      .POP_FLAG_0_b1(POP_FLAG_0_b1),
+      .POP_FLAG_0_b2(POP_FLAG_0_b2),
+      .POP_FLAG_0_b3(POP_FLAG_0_b3),
       .RD_0_b0(RD_0_b0),
       .RD_0_b1(RD_0_b1),
       .RD_0_b2(RD_0_b2),
@@ -34795,7 +34868,10 @@ module RAM_CE1_FE1_D1_PR1_WSA2_WSB0_VPR (
       .RD_0_b15(RD_0_b15),
       .RD_0_b16(RD_0_b16),
       .RD_0_b17(RD_0_b17),
-      .Almost_Empty_1(Almost_Empty_1));
+      .PUSH_FLAG_0_b0(PUSH_FLAG_0_b0),
+      .PUSH_FLAG_0_b1(PUSH_FLAG_0_b1),
+      .PUSH_FLAG_0_b2(PUSH_FLAG_0_b2),
+      .PUSH_FLAG_0_b3(PUSH_FLAG_0_b3));
 
 endmodule
 
@@ -34803,26 +34879,41 @@ endmodule
 (* blackbox *)
 module RAM_CE1_FE1_D1_PR1_WSA2_WSB1_VPR (
 
-  input         CLK1_0,
+  input         CLK2_1,
   input         CLK1_1,
   input         CLK2_0,
-  input         CLK2_1,
+  input         CLK1_0,
 
-  input         TEST1A,
-  input         DS,
-  input  [ 1:0] WIDTH_SELECT2_0,
-  input         P1_1,
-  input  [ 1:0] WIDTH_SELECT2_1,
+  input         CS1_1,
+  input         A1_1_b0,
+  input         A1_1_b1,
+  input         A1_1_b2,
+  input         A1_1_b3,
+  input         A1_1_b4,
+  input         A1_1_b5,
+  input         A1_1_b6,
+  input         A1_1_b7,
+  input         A1_1_b8,
+  input         A1_1_b9,
+  input         A1_1_b10,
+  input         FIFO_EN_0,
+  input         DS_RB1,
+  input         CS1_0,
   input         PIPELINE_RD_0,
-  input         SD,
+  input         ASYNC_FLUSH_1,
   input         DIR_1,
-  input         CONCAT_EN_0,
-  input         LS,
-  input         CLK1EN_1,
-  input         P2_1,
-  input         WEN1_0_b0,
-  input         WEN1_0_b1,
-  input         PIPELINE_RD_1,
+  input         CS2_1,
+  input         CLK1EN_0,
+  input  [ 1:0] WIDTH_SELECT1_0,
+  input         RMB_b0,
+  input         RMB_b1,
+  input         RMB_b2,
+  input         RMB_b3,
+  input         ASYNC_FLUSH_0,
+  input         SYNC_FIFO_0,
+  input         SYNC_FIFO_1,
+  input         RMEB,
+  input         TEST1B,
   input         WD_0_b0,
   input         WD_0_b1,
   input         WD_0_b2,
@@ -34841,45 +34932,6 @@ module RAM_CE1_FE1_D1_PR1_WSA2_WSB1_VPR (
   input         WD_0_b15,
   input         WD_0_b16,
   input         WD_0_b17,
-  input  [ 1:0] WIDTH_SELECT1_1,
-  input         SD_RB1,
-  input         TEST1B,
-  input         RMEB,
-  input         RMB_b0,
-  input         RMB_b1,
-  input         RMB_b2,
-  input         RMB_b3,
-  input         DS_RB1,
-  input         CS2_0,
-  input         CLK1EN_0,
-  input         SYNC_FIFO_1,
-  input         CLK2EN_0,
-  input         SYNC_FIFO_0,
-  input         ASYNC_FLUSH_0,
-  input         A2_1_b0,
-  input         A2_1_b1,
-  input         A2_1_b2,
-  input         A2_1_b3,
-  input         A2_1_b4,
-  input         A2_1_b5,
-  input         A2_1_b6,
-  input         A2_1_b7,
-  input         A2_1_b8,
-  input         A2_1_b9,
-  input         A2_1_b10,
-  input         RMEA,
-  input         A1_1_b0,
-  input         A1_1_b1,
-  input         A1_1_b2,
-  input         A1_1_b3,
-  input         A1_1_b4,
-  input         A1_1_b5,
-  input         A1_1_b6,
-  input         A1_1_b7,
-  input         A1_1_b8,
-  input         A1_1_b9,
-  input         A1_1_b10,
-  input         CS1_1,
   input         A2_0_b0,
   input         A2_0_b1,
   input         A2_0_b2,
@@ -34891,7 +34943,36 @@ module RAM_CE1_FE1_D1_PR1_WSA2_WSB1_VPR (
   input         A2_0_b8,
   input         A2_0_b9,
   input         A2_0_b10,
-  input         P2_0,
+  input         A1_0_b0,
+  input         A1_0_b1,
+  input         A1_0_b2,
+  input         A1_0_b3,
+  input         A1_0_b4,
+  input         A1_0_b5,
+  input         A1_0_b6,
+  input         A1_0_b7,
+  input         A1_0_b8,
+  input         A1_0_b9,
+  input         A1_0_b10,
+  input         WEN1_1_b0,
+  input         WEN1_1_b1,
+  input         FIFO_EN_1,
+  input         CLK2EN_0,
+  input         DS,
+  input         LS_RB1,
+  input         CLK1EN_1,
+  input  [ 1:0] WIDTH_SELECT2_0,
+  input         A2_1_b0,
+  input         A2_1_b1,
+  input         A2_1_b2,
+  input         A2_1_b3,
+  input         A2_1_b4,
+  input         A2_1_b5,
+  input         A2_1_b6,
+  input         A2_1_b7,
+  input         A2_1_b8,
+  input         A2_1_b9,
+  input         A2_1_b10,
   input         WD_1_b0,
   input         WD_1_b1,
   input         WD_1_b2,
@@ -34910,35 +34991,37 @@ module RAM_CE1_FE1_D1_PR1_WSA2_WSB1_VPR (
   input         WD_1_b15,
   input         WD_1_b16,
   input         WD_1_b17,
-  input         ASYNC_FLUSH_1,
-  input         LS_RB1,
-  input         CS2_1,
+  input         P2_0,
+  input         CS2_0,
+  input         P1_1,
+  input         CONCAT_EN_1,
+  input         LS,
+  input  [ 1:0] WIDTH_SELECT1_1,
+  input         SD_RB1,
+  input         TEST1A,
+  input         CLK2EN_1,
   input         RMA_b0,
   input         RMA_b1,
   input         RMA_b2,
   input         RMA_b3,
-  input  [ 1:0] WIDTH_SELECT1_0,
-  input         CS1_0,
-  input         FIFO_EN_0,
-  input         CONCAT_EN_1,
+  input         WEN1_0_b0,
+  input         WEN1_0_b1,
+  input         RMEA,
   input         DIR_0,
-  input         CLK2EN_1,
   input         P1_0,
-  input         FIFO_EN_1,
-  input         WEN1_1_b0,
-  input         WEN1_1_b1,
-  input         A1_0_b0,
-  input         A1_0_b1,
-  input         A1_0_b2,
-  input         A1_0_b3,
-  input         A1_0_b4,
-  input         A1_0_b5,
-  input         A1_0_b6,
-  input         A1_0_b7,
-  input         A1_0_b8,
-  input         A1_0_b9,
-  input         A1_0_b10,
+  input         PIPELINE_RD_1,
+  input  [ 1:0] WIDTH_SELECT2_1,
+  input         CONCAT_EN_0,
+  input         P2_1,
+  input         SD,
 
+  output        PUSH_FLAG_1_b0,
+  output        PUSH_FLAG_1_b1,
+  output        PUSH_FLAG_1_b2,
+  output        PUSH_FLAG_1_b3,
+  output        Almost_Empty_0,
+  output        Almost_Empty_1,
+  output        Almost_Full_1,
   output        RD_1_b0,
   output        RD_1_b1,
   output        RD_1_b2,
@@ -34957,25 +35040,15 @@ module RAM_CE1_FE1_D1_PR1_WSA2_WSB1_VPR (
   output        RD_1_b15,
   output        RD_1_b16,
   output        RD_1_b17,
-  output        Almost_Empty_0,
-  output        Almost_Full_1,
-  output        PUSH_FLAG_1_b0,
-  output        PUSH_FLAG_1_b1,
-  output        PUSH_FLAG_1_b2,
-  output        PUSH_FLAG_1_b3,
-  output        POP_FLAG_0_b0,
-  output        POP_FLAG_0_b1,
-  output        POP_FLAG_0_b2,
-  output        POP_FLAG_0_b3,
-  output        PUSH_FLAG_0_b0,
-  output        PUSH_FLAG_0_b1,
-  output        PUSH_FLAG_0_b2,
-  output        PUSH_FLAG_0_b3,
+  output        Almost_Full_0,
   output        POP_FLAG_1_b0,
   output        POP_FLAG_1_b1,
   output        POP_FLAG_1_b2,
   output        POP_FLAG_1_b3,
-  output        Almost_Full_0,
+  output        POP_FLAG_0_b0,
+  output        POP_FLAG_0_b1,
+  output        POP_FLAG_0_b2,
+  output        POP_FLAG_0_b3,
   output        RD_0_b0,
   output        RD_0_b1,
   output        RD_0_b2,
@@ -34994,14 +35067,14 @@ module RAM_CE1_FE1_D1_PR1_WSA2_WSB1_VPR (
   output        RD_0_b15,
   output        RD_0_b16,
   output        RD_0_b17,
-  output        Almost_Empty_1
+  output        PUSH_FLAG_0_b0,
+  output        PUSH_FLAG_0_b1,
+  output        PUSH_FLAG_0_b2,
+  output        PUSH_FLAG_0_b3
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
-      $setup(P1_1, posedge CLK1_1, "");
-      $hold(posedge CLK1_1, P1_1, "");
-      $setup(P2_1, posedge CLK2_1, "");
-      $hold(posedge CLK2_1, P2_1, "");
       $setup(WD_0_b0, posedge CLK2_0, "");
       $hold(posedge CLK2_0, WD_0_b0, "");
       $setup(WD_0_b1, posedge CLK2_0, "");
@@ -35038,8 +35111,6 @@ module RAM_CE1_FE1_D1_PR1_WSA2_WSB1_VPR (
       $hold(posedge CLK2_0, WD_0_b16, "");
       $setup(WD_0_b17, posedge CLK2_0, "");
       $hold(posedge CLK2_0, WD_0_b17, "");
-      $setup(P2_0, posedge CLK2_0, "");
-      $hold(posedge CLK2_0, P2_0, "");
       $setup(WD_1_b0, posedge CLK2_1, "");
       $hold(posedge CLK2_1, WD_1_b0, "");
       $setup(WD_1_b1, posedge CLK2_1, "");
@@ -35076,8 +35147,21 @@ module RAM_CE1_FE1_D1_PR1_WSA2_WSB1_VPR (
       $hold(posedge CLK2_1, WD_1_b16, "");
       $setup(WD_1_b17, posedge CLK2_1, "");
       $hold(posedge CLK2_1, WD_1_b17, "");
+      $setup(P2_0, posedge CLK2_0, "");
+      $hold(posedge CLK2_0, P2_0, "");
+      $setup(P1_1, posedge CLK1_1, "");
+      $hold(posedge CLK1_1, P1_1, "");
       $setup(P1_0, posedge CLK1_0, "");
       $hold(posedge CLK1_0, P1_0, "");
+      $setup(P2_1, posedge CLK2_1, "");
+      $hold(posedge CLK2_1, P2_1, "");
+      (CLK2_1*>PUSH_FLAG_1_b0)="";
+      (CLK2_1*>PUSH_FLAG_1_b1)="";
+      (CLK2_1*>PUSH_FLAG_1_b2)="";
+      (CLK2_1*>PUSH_FLAG_1_b3)="";
+      (CLK1_0*>Almost_Empty_0)="";
+      (CLK1_1*>Almost_Empty_1)="";
+      (CLK2_1*>Almost_Full_1)="";
       (CLK1_1*>RD_1_b0)="";
       (CLK1_1*>RD_1_b1)="";
       (CLK1_1*>RD_1_b2)="";
@@ -35096,25 +35180,15 @@ module RAM_CE1_FE1_D1_PR1_WSA2_WSB1_VPR (
       (CLK1_1*>RD_1_b15)="";
       (CLK1_1*>RD_1_b16)="";
       (CLK1_1*>RD_1_b17)="";
-      (CLK1_0*>Almost_Empty_0)="";
-      (CLK2_1*>Almost_Full_1)="";
-      (CLK2_1*>PUSH_FLAG_1_b0)="";
-      (CLK2_1*>PUSH_FLAG_1_b1)="";
-      (CLK2_1*>PUSH_FLAG_1_b2)="";
-      (CLK2_1*>PUSH_FLAG_1_b3)="";
-      (CLK1_0*>POP_FLAG_0_b0)="";
-      (CLK1_0*>POP_FLAG_0_b1)="";
-      (CLK1_0*>POP_FLAG_0_b2)="";
-      (CLK1_0*>POP_FLAG_0_b3)="";
-      (CLK2_0*>PUSH_FLAG_0_b0)="";
-      (CLK2_0*>PUSH_FLAG_0_b1)="";
-      (CLK2_0*>PUSH_FLAG_0_b2)="";
-      (CLK2_0*>PUSH_FLAG_0_b3)="";
+      (CLK2_0*>Almost_Full_0)="";
       (CLK1_1*>POP_FLAG_1_b0)="";
       (CLK1_1*>POP_FLAG_1_b1)="";
       (CLK1_1*>POP_FLAG_1_b2)="";
       (CLK1_1*>POP_FLAG_1_b3)="";
-      (CLK2_0*>Almost_Full_0)="";
+      (CLK1_0*>POP_FLAG_0_b0)="";
+      (CLK1_0*>POP_FLAG_0_b1)="";
+      (CLK1_0*>POP_FLAG_0_b2)="";
+      (CLK1_0*>POP_FLAG_0_b3)="";
       (CLK1_0*>RD_0_b0)="";
       (CLK1_0*>RD_0_b1)="";
       (CLK1_0*>RD_0_b2)="";
@@ -35133,26 +35207,41 @@ module RAM_CE1_FE1_D1_PR1_WSA2_WSB1_VPR (
       (CLK1_0*>RD_0_b15)="";
       (CLK1_0*>RD_0_b16)="";
       (CLK1_0*>RD_0_b17)="";
-      (CLK1_1*>Almost_Empty_1)="";
+      (CLK2_0*>PUSH_FLAG_0_b0)="";
+      (CLK2_0*>PUSH_FLAG_0_b1)="";
+      (CLK2_0*>PUSH_FLAG_0_b2)="";
+      (CLK2_0*>PUSH_FLAG_0_b3)="";
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
-      .CLK1_0(CLK1_0),
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
+      .CLK2_1(CLK2_1),
       .CLK1_1(CLK1_1),
       .CLK2_0(CLK2_0),
-      .CLK2_1(CLK2_1),
-      .WIDTH_SELECT2_0(WIDTH_SELECT2_0),
-      .P1_1(P1_1),
-      .WIDTH_SELECT2_1(WIDTH_SELECT2_1),
+      .CLK1_0(CLK1_0),
+      .CS1_1(CS1_1),
+      .A1_1_b0(A1_1_b0),
+      .A1_1_b1(A1_1_b1),
+      .A1_1_b2(A1_1_b2),
+      .A1_1_b3(A1_1_b3),
+      .A1_1_b4(A1_1_b4),
+      .A1_1_b5(A1_1_b5),
+      .A1_1_b6(A1_1_b6),
+      .A1_1_b7(A1_1_b7),
+      .A1_1_b8(A1_1_b8),
+      .A1_1_b9(A1_1_b9),
+      .A1_1_b10(A1_1_b10),
+      .FIFO_EN_0(FIFO_EN_0),
+      .CS1_0(CS1_0),
       .PIPELINE_RD_0(PIPELINE_RD_0),
+      .ASYNC_FLUSH_1(ASYNC_FLUSH_1),
       .DIR_1(DIR_1),
-      .CONCAT_EN_0(CONCAT_EN_0),
-      .CLK1EN_1(CLK1EN_1),
-      .P2_1(P2_1),
-      .WEN1_0_b0(WEN1_0_b0),
-      .WEN1_0_b1(WEN1_0_b1),
-      .PIPELINE_RD_1(PIPELINE_RD_1),
+      .CS2_1(CS2_1),
+      .CLK1EN_0(CLK1EN_0),
+      .WIDTH_SELECT1_0(WIDTH_SELECT1_0),
+      .ASYNC_FLUSH_0(ASYNC_FLUSH_0),
+      .SYNC_FIFO_0(SYNC_FIFO_0),
+      .SYNC_FIFO_1(SYNC_FIFO_1),
       .WD_0_b0(WD_0_b0),
       .WD_0_b1(WD_0_b1),
       .WD_0_b2(WD_0_b2),
@@ -35171,36 +35260,6 @@ module RAM_CE1_FE1_D1_PR1_WSA2_WSB1_VPR (
       .WD_0_b15(WD_0_b15),
       .WD_0_b16(WD_0_b16),
       .WD_0_b17(WD_0_b17),
-      .WIDTH_SELECT1_1(WIDTH_SELECT1_1),
-      .CS2_0(CS2_0),
-      .CLK1EN_0(CLK1EN_0),
-      .SYNC_FIFO_1(SYNC_FIFO_1),
-      .CLK2EN_0(CLK2EN_0),
-      .SYNC_FIFO_0(SYNC_FIFO_0),
-      .ASYNC_FLUSH_0(ASYNC_FLUSH_0),
-      .A2_1_b0(A2_1_b0),
-      .A2_1_b1(A2_1_b1),
-      .A2_1_b2(A2_1_b2),
-      .A2_1_b3(A2_1_b3),
-      .A2_1_b4(A2_1_b4),
-      .A2_1_b5(A2_1_b5),
-      .A2_1_b6(A2_1_b6),
-      .A2_1_b7(A2_1_b7),
-      .A2_1_b8(A2_1_b8),
-      .A2_1_b9(A2_1_b9),
-      .A2_1_b10(A2_1_b10),
-      .A1_1_b0(A1_1_b0),
-      .A1_1_b1(A1_1_b1),
-      .A1_1_b2(A1_1_b2),
-      .A1_1_b3(A1_1_b3),
-      .A1_1_b4(A1_1_b4),
-      .A1_1_b5(A1_1_b5),
-      .A1_1_b6(A1_1_b6),
-      .A1_1_b7(A1_1_b7),
-      .A1_1_b8(A1_1_b8),
-      .A1_1_b9(A1_1_b9),
-      .A1_1_b10(A1_1_b10),
-      .CS1_1(CS1_1),
       .A2_0_b0(A2_0_b0),
       .A2_0_b1(A2_0_b1),
       .A2_0_b2(A2_0_b2),
@@ -35212,7 +35271,34 @@ module RAM_CE1_FE1_D1_PR1_WSA2_WSB1_VPR (
       .A2_0_b8(A2_0_b8),
       .A2_0_b9(A2_0_b9),
       .A2_0_b10(A2_0_b10),
-      .P2_0(P2_0),
+      .A1_0_b0(A1_0_b0),
+      .A1_0_b1(A1_0_b1),
+      .A1_0_b2(A1_0_b2),
+      .A1_0_b3(A1_0_b3),
+      .A1_0_b4(A1_0_b4),
+      .A1_0_b5(A1_0_b5),
+      .A1_0_b6(A1_0_b6),
+      .A1_0_b7(A1_0_b7),
+      .A1_0_b8(A1_0_b8),
+      .A1_0_b9(A1_0_b9),
+      .A1_0_b10(A1_0_b10),
+      .WEN1_1_b0(WEN1_1_b0),
+      .WEN1_1_b1(WEN1_1_b1),
+      .FIFO_EN_1(FIFO_EN_1),
+      .CLK2EN_0(CLK2EN_0),
+      .CLK1EN_1(CLK1EN_1),
+      .WIDTH_SELECT2_0(WIDTH_SELECT2_0),
+      .A2_1_b0(A2_1_b0),
+      .A2_1_b1(A2_1_b1),
+      .A2_1_b2(A2_1_b2),
+      .A2_1_b3(A2_1_b3),
+      .A2_1_b4(A2_1_b4),
+      .A2_1_b5(A2_1_b5),
+      .A2_1_b6(A2_1_b6),
+      .A2_1_b7(A2_1_b7),
+      .A2_1_b8(A2_1_b8),
+      .A2_1_b9(A2_1_b9),
+      .A2_1_b10(A2_1_b10),
       .WD_1_b0(WD_1_b0),
       .WD_1_b1(WD_1_b1),
       .WD_1_b2(WD_1_b2),
@@ -35231,29 +35317,27 @@ module RAM_CE1_FE1_D1_PR1_WSA2_WSB1_VPR (
       .WD_1_b15(WD_1_b15),
       .WD_1_b16(WD_1_b16),
       .WD_1_b17(WD_1_b17),
-      .ASYNC_FLUSH_1(ASYNC_FLUSH_1),
-      .CS2_1(CS2_1),
-      .WIDTH_SELECT1_0(WIDTH_SELECT1_0),
-      .CS1_0(CS1_0),
-      .FIFO_EN_0(FIFO_EN_0),
+      .P2_0(P2_0),
+      .CS2_0(CS2_0),
+      .P1_1(P1_1),
       .CONCAT_EN_1(CONCAT_EN_1),
-      .DIR_0(DIR_0),
+      .WIDTH_SELECT1_1(WIDTH_SELECT1_1),
       .CLK2EN_1(CLK2EN_1),
+      .WEN1_0_b0(WEN1_0_b0),
+      .WEN1_0_b1(WEN1_0_b1),
+      .DIR_0(DIR_0),
       .P1_0(P1_0),
-      .FIFO_EN_1(FIFO_EN_1),
-      .WEN1_1_b0(WEN1_1_b0),
-      .WEN1_1_b1(WEN1_1_b1),
-      .A1_0_b0(A1_0_b0),
-      .A1_0_b1(A1_0_b1),
-      .A1_0_b2(A1_0_b2),
-      .A1_0_b3(A1_0_b3),
-      .A1_0_b4(A1_0_b4),
-      .A1_0_b5(A1_0_b5),
-      .A1_0_b6(A1_0_b6),
-      .A1_0_b7(A1_0_b7),
-      .A1_0_b8(A1_0_b8),
-      .A1_0_b9(A1_0_b9),
-      .A1_0_b10(A1_0_b10),
+      .PIPELINE_RD_1(PIPELINE_RD_1),
+      .WIDTH_SELECT2_1(WIDTH_SELECT2_1),
+      .CONCAT_EN_0(CONCAT_EN_0),
+      .P2_1(P2_1),
+      .PUSH_FLAG_1_b0(PUSH_FLAG_1_b0),
+      .PUSH_FLAG_1_b1(PUSH_FLAG_1_b1),
+      .PUSH_FLAG_1_b2(PUSH_FLAG_1_b2),
+      .PUSH_FLAG_1_b3(PUSH_FLAG_1_b3),
+      .Almost_Empty_0(Almost_Empty_0),
+      .Almost_Empty_1(Almost_Empty_1),
+      .Almost_Full_1(Almost_Full_1),
       .RD_1_b0(RD_1_b0),
       .RD_1_b1(RD_1_b1),
       .RD_1_b2(RD_1_b2),
@@ -35272,25 +35356,15 @@ module RAM_CE1_FE1_D1_PR1_WSA2_WSB1_VPR (
       .RD_1_b15(RD_1_b15),
       .RD_1_b16(RD_1_b16),
       .RD_1_b17(RD_1_b17),
-      .Almost_Empty_0(Almost_Empty_0),
-      .Almost_Full_1(Almost_Full_1),
-      .PUSH_FLAG_1_b0(PUSH_FLAG_1_b0),
-      .PUSH_FLAG_1_b1(PUSH_FLAG_1_b1),
-      .PUSH_FLAG_1_b2(PUSH_FLAG_1_b2),
-      .PUSH_FLAG_1_b3(PUSH_FLAG_1_b3),
-      .POP_FLAG_0_b0(POP_FLAG_0_b0),
-      .POP_FLAG_0_b1(POP_FLAG_0_b1),
-      .POP_FLAG_0_b2(POP_FLAG_0_b2),
-      .POP_FLAG_0_b3(POP_FLAG_0_b3),
-      .PUSH_FLAG_0_b0(PUSH_FLAG_0_b0),
-      .PUSH_FLAG_0_b1(PUSH_FLAG_0_b1),
-      .PUSH_FLAG_0_b2(PUSH_FLAG_0_b2),
-      .PUSH_FLAG_0_b3(PUSH_FLAG_0_b3),
+      .Almost_Full_0(Almost_Full_0),
       .POP_FLAG_1_b0(POP_FLAG_1_b0),
       .POP_FLAG_1_b1(POP_FLAG_1_b1),
       .POP_FLAG_1_b2(POP_FLAG_1_b2),
       .POP_FLAG_1_b3(POP_FLAG_1_b3),
-      .Almost_Full_0(Almost_Full_0),
+      .POP_FLAG_0_b0(POP_FLAG_0_b0),
+      .POP_FLAG_0_b1(POP_FLAG_0_b1),
+      .POP_FLAG_0_b2(POP_FLAG_0_b2),
+      .POP_FLAG_0_b3(POP_FLAG_0_b3),
       .RD_0_b0(RD_0_b0),
       .RD_0_b1(RD_0_b1),
       .RD_0_b2(RD_0_b2),
@@ -35309,7 +35383,10 @@ module RAM_CE1_FE1_D1_PR1_WSA2_WSB1_VPR (
       .RD_0_b15(RD_0_b15),
       .RD_0_b16(RD_0_b16),
       .RD_0_b17(RD_0_b17),
-      .Almost_Empty_1(Almost_Empty_1));
+      .PUSH_FLAG_0_b0(PUSH_FLAG_0_b0),
+      .PUSH_FLAG_0_b1(PUSH_FLAG_0_b1),
+      .PUSH_FLAG_0_b2(PUSH_FLAG_0_b2),
+      .PUSH_FLAG_0_b3(PUSH_FLAG_0_b3));
 
 endmodule
 
@@ -35317,26 +35394,41 @@ endmodule
 (* blackbox *)
 module RAM_CE1_FE1_D1_PR1_WSA2_WSB2_VPR (
 
-  input         CLK1_0,
+  input         CLK2_1,
   input         CLK1_1,
   input         CLK2_0,
-  input         CLK2_1,
+  input         CLK1_0,
 
-  input         TEST1A,
-  input         DS,
-  input  [ 1:0] WIDTH_SELECT2_0,
-  input         P1_1,
-  input  [ 1:0] WIDTH_SELECT2_1,
+  input         CS1_1,
+  input         A1_1_b0,
+  input         A1_1_b1,
+  input         A1_1_b2,
+  input         A1_1_b3,
+  input         A1_1_b4,
+  input         A1_1_b5,
+  input         A1_1_b6,
+  input         A1_1_b7,
+  input         A1_1_b8,
+  input         A1_1_b9,
+  input         A1_1_b10,
+  input         FIFO_EN_0,
+  input         DS_RB1,
+  input         CS1_0,
   input         PIPELINE_RD_0,
-  input         SD,
+  input         ASYNC_FLUSH_1,
   input         DIR_1,
-  input         CONCAT_EN_0,
-  input         LS,
-  input         CLK1EN_1,
-  input         P2_1,
-  input         WEN1_0_b0,
-  input         WEN1_0_b1,
-  input         PIPELINE_RD_1,
+  input         CS2_1,
+  input         CLK1EN_0,
+  input  [ 1:0] WIDTH_SELECT1_0,
+  input         RMB_b0,
+  input         RMB_b1,
+  input         RMB_b2,
+  input         RMB_b3,
+  input         ASYNC_FLUSH_0,
+  input         SYNC_FIFO_0,
+  input         SYNC_FIFO_1,
+  input         RMEB,
+  input         TEST1B,
   input         WD_0_b0,
   input         WD_0_b1,
   input         WD_0_b2,
@@ -35355,45 +35447,6 @@ module RAM_CE1_FE1_D1_PR1_WSA2_WSB2_VPR (
   input         WD_0_b15,
   input         WD_0_b16,
   input         WD_0_b17,
-  input  [ 1:0] WIDTH_SELECT1_1,
-  input         SD_RB1,
-  input         TEST1B,
-  input         RMEB,
-  input         RMB_b0,
-  input         RMB_b1,
-  input         RMB_b2,
-  input         RMB_b3,
-  input         DS_RB1,
-  input         CS2_0,
-  input         CLK1EN_0,
-  input         SYNC_FIFO_1,
-  input         CLK2EN_0,
-  input         SYNC_FIFO_0,
-  input         ASYNC_FLUSH_0,
-  input         A2_1_b0,
-  input         A2_1_b1,
-  input         A2_1_b2,
-  input         A2_1_b3,
-  input         A2_1_b4,
-  input         A2_1_b5,
-  input         A2_1_b6,
-  input         A2_1_b7,
-  input         A2_1_b8,
-  input         A2_1_b9,
-  input         A2_1_b10,
-  input         RMEA,
-  input         A1_1_b0,
-  input         A1_1_b1,
-  input         A1_1_b2,
-  input         A1_1_b3,
-  input         A1_1_b4,
-  input         A1_1_b5,
-  input         A1_1_b6,
-  input         A1_1_b7,
-  input         A1_1_b8,
-  input         A1_1_b9,
-  input         A1_1_b10,
-  input         CS1_1,
   input         A2_0_b0,
   input         A2_0_b1,
   input         A2_0_b2,
@@ -35405,7 +35458,36 @@ module RAM_CE1_FE1_D1_PR1_WSA2_WSB2_VPR (
   input         A2_0_b8,
   input         A2_0_b9,
   input         A2_0_b10,
-  input         P2_0,
+  input         A1_0_b0,
+  input         A1_0_b1,
+  input         A1_0_b2,
+  input         A1_0_b3,
+  input         A1_0_b4,
+  input         A1_0_b5,
+  input         A1_0_b6,
+  input         A1_0_b7,
+  input         A1_0_b8,
+  input         A1_0_b9,
+  input         A1_0_b10,
+  input         WEN1_1_b0,
+  input         WEN1_1_b1,
+  input         FIFO_EN_1,
+  input         CLK2EN_0,
+  input         DS,
+  input         LS_RB1,
+  input         CLK1EN_1,
+  input  [ 1:0] WIDTH_SELECT2_0,
+  input         A2_1_b0,
+  input         A2_1_b1,
+  input         A2_1_b2,
+  input         A2_1_b3,
+  input         A2_1_b4,
+  input         A2_1_b5,
+  input         A2_1_b6,
+  input         A2_1_b7,
+  input         A2_1_b8,
+  input         A2_1_b9,
+  input         A2_1_b10,
   input         WD_1_b0,
   input         WD_1_b1,
   input         WD_1_b2,
@@ -35424,35 +35506,37 @@ module RAM_CE1_FE1_D1_PR1_WSA2_WSB2_VPR (
   input         WD_1_b15,
   input         WD_1_b16,
   input         WD_1_b17,
-  input         ASYNC_FLUSH_1,
-  input         LS_RB1,
-  input         CS2_1,
+  input         P2_0,
+  input         CS2_0,
+  input         P1_1,
+  input         CONCAT_EN_1,
+  input         LS,
+  input  [ 1:0] WIDTH_SELECT1_1,
+  input         SD_RB1,
+  input         TEST1A,
+  input         CLK2EN_1,
   input         RMA_b0,
   input         RMA_b1,
   input         RMA_b2,
   input         RMA_b3,
-  input  [ 1:0] WIDTH_SELECT1_0,
-  input         CS1_0,
-  input         FIFO_EN_0,
-  input         CONCAT_EN_1,
+  input         WEN1_0_b0,
+  input         WEN1_0_b1,
+  input         RMEA,
   input         DIR_0,
-  input         CLK2EN_1,
   input         P1_0,
-  input         FIFO_EN_1,
-  input         WEN1_1_b0,
-  input         WEN1_1_b1,
-  input         A1_0_b0,
-  input         A1_0_b1,
-  input         A1_0_b2,
-  input         A1_0_b3,
-  input         A1_0_b4,
-  input         A1_0_b5,
-  input         A1_0_b6,
-  input         A1_0_b7,
-  input         A1_0_b8,
-  input         A1_0_b9,
-  input         A1_0_b10,
+  input         PIPELINE_RD_1,
+  input  [ 1:0] WIDTH_SELECT2_1,
+  input         CONCAT_EN_0,
+  input         P2_1,
+  input         SD,
 
+  output        PUSH_FLAG_1_b0,
+  output        PUSH_FLAG_1_b1,
+  output        PUSH_FLAG_1_b2,
+  output        PUSH_FLAG_1_b3,
+  output        Almost_Empty_0,
+  output        Almost_Empty_1,
+  output        Almost_Full_1,
   output        RD_1_b0,
   output        RD_1_b1,
   output        RD_1_b2,
@@ -35471,25 +35555,15 @@ module RAM_CE1_FE1_D1_PR1_WSA2_WSB2_VPR (
   output        RD_1_b15,
   output        RD_1_b16,
   output        RD_1_b17,
-  output        Almost_Empty_0,
-  output        Almost_Full_1,
-  output        PUSH_FLAG_1_b0,
-  output        PUSH_FLAG_1_b1,
-  output        PUSH_FLAG_1_b2,
-  output        PUSH_FLAG_1_b3,
-  output        POP_FLAG_0_b0,
-  output        POP_FLAG_0_b1,
-  output        POP_FLAG_0_b2,
-  output        POP_FLAG_0_b3,
-  output        PUSH_FLAG_0_b0,
-  output        PUSH_FLAG_0_b1,
-  output        PUSH_FLAG_0_b2,
-  output        PUSH_FLAG_0_b3,
+  output        Almost_Full_0,
   output        POP_FLAG_1_b0,
   output        POP_FLAG_1_b1,
   output        POP_FLAG_1_b2,
   output        POP_FLAG_1_b3,
-  output        Almost_Full_0,
+  output        POP_FLAG_0_b0,
+  output        POP_FLAG_0_b1,
+  output        POP_FLAG_0_b2,
+  output        POP_FLAG_0_b3,
   output        RD_0_b0,
   output        RD_0_b1,
   output        RD_0_b2,
@@ -35508,14 +35582,14 @@ module RAM_CE1_FE1_D1_PR1_WSA2_WSB2_VPR (
   output        RD_0_b15,
   output        RD_0_b16,
   output        RD_0_b17,
-  output        Almost_Empty_1
+  output        PUSH_FLAG_0_b0,
+  output        PUSH_FLAG_0_b1,
+  output        PUSH_FLAG_0_b2,
+  output        PUSH_FLAG_0_b3
 );
+  parameter [18431:0] INIT = 18432'bx;
 
   specify
-      $setup(P1_1, posedge CLK1_1, "");
-      $hold(posedge CLK1_1, P1_1, "");
-      $setup(P2_1, posedge CLK2_1, "");
-      $hold(posedge CLK2_1, P2_1, "");
       $setup(WD_0_b0, posedge CLK2_0, "");
       $hold(posedge CLK2_0, WD_0_b0, "");
       $setup(WD_0_b1, posedge CLK2_0, "");
@@ -35552,8 +35626,6 @@ module RAM_CE1_FE1_D1_PR1_WSA2_WSB2_VPR (
       $hold(posedge CLK2_0, WD_0_b16, "");
       $setup(WD_0_b17, posedge CLK2_0, "");
       $hold(posedge CLK2_0, WD_0_b17, "");
-      $setup(P2_0, posedge CLK2_0, "");
-      $hold(posedge CLK2_0, P2_0, "");
       $setup(WD_1_b0, posedge CLK2_1, "");
       $hold(posedge CLK2_1, WD_1_b0, "");
       $setup(WD_1_b1, posedge CLK2_1, "");
@@ -35590,8 +35662,21 @@ module RAM_CE1_FE1_D1_PR1_WSA2_WSB2_VPR (
       $hold(posedge CLK2_1, WD_1_b16, "");
       $setup(WD_1_b17, posedge CLK2_1, "");
       $hold(posedge CLK2_1, WD_1_b17, "");
+      $setup(P2_0, posedge CLK2_0, "");
+      $hold(posedge CLK2_0, P2_0, "");
+      $setup(P1_1, posedge CLK1_1, "");
+      $hold(posedge CLK1_1, P1_1, "");
       $setup(P1_0, posedge CLK1_0, "");
       $hold(posedge CLK1_0, P1_0, "");
+      $setup(P2_1, posedge CLK2_1, "");
+      $hold(posedge CLK2_1, P2_1, "");
+      (CLK2_1*>PUSH_FLAG_1_b0)="";
+      (CLK2_1*>PUSH_FLAG_1_b1)="";
+      (CLK2_1*>PUSH_FLAG_1_b2)="";
+      (CLK2_1*>PUSH_FLAG_1_b3)="";
+      (CLK1_0*>Almost_Empty_0)="";
+      (CLK1_1*>Almost_Empty_1)="";
+      (CLK2_1*>Almost_Full_1)="";
       (CLK1_1*>RD_1_b0)="";
       (CLK1_1*>RD_1_b1)="";
       (CLK1_1*>RD_1_b2)="";
@@ -35610,25 +35695,15 @@ module RAM_CE1_FE1_D1_PR1_WSA2_WSB2_VPR (
       (CLK1_1*>RD_1_b15)="";
       (CLK1_1*>RD_1_b16)="";
       (CLK1_1*>RD_1_b17)="";
-      (CLK1_0*>Almost_Empty_0)="";
-      (CLK2_1*>Almost_Full_1)="";
-      (CLK2_1*>PUSH_FLAG_1_b0)="";
-      (CLK2_1*>PUSH_FLAG_1_b1)="";
-      (CLK2_1*>PUSH_FLAG_1_b2)="";
-      (CLK2_1*>PUSH_FLAG_1_b3)="";
-      (CLK1_0*>POP_FLAG_0_b0)="";
-      (CLK1_0*>POP_FLAG_0_b1)="";
-      (CLK1_0*>POP_FLAG_0_b2)="";
-      (CLK1_0*>POP_FLAG_0_b3)="";
-      (CLK2_0*>PUSH_FLAG_0_b0)="";
-      (CLK2_0*>PUSH_FLAG_0_b1)="";
-      (CLK2_0*>PUSH_FLAG_0_b2)="";
-      (CLK2_0*>PUSH_FLAG_0_b3)="";
+      (CLK2_0*>Almost_Full_0)="";
       (CLK1_1*>POP_FLAG_1_b0)="";
       (CLK1_1*>POP_FLAG_1_b1)="";
       (CLK1_1*>POP_FLAG_1_b2)="";
       (CLK1_1*>POP_FLAG_1_b3)="";
-      (CLK2_0*>Almost_Full_0)="";
+      (CLK1_0*>POP_FLAG_0_b0)="";
+      (CLK1_0*>POP_FLAG_0_b1)="";
+      (CLK1_0*>POP_FLAG_0_b2)="";
+      (CLK1_0*>POP_FLAG_0_b3)="";
       (CLK1_0*>RD_0_b0)="";
       (CLK1_0*>RD_0_b1)="";
       (CLK1_0*>RD_0_b2)="";
@@ -35647,26 +35722,41 @@ module RAM_CE1_FE1_D1_PR1_WSA2_WSB2_VPR (
       (CLK1_0*>RD_0_b15)="";
       (CLK1_0*>RD_0_b16)="";
       (CLK1_0*>RD_0_b17)="";
-      (CLK1_1*>Almost_Empty_1)="";
+      (CLK2_0*>PUSH_FLAG_0_b0)="";
+      (CLK2_0*>PUSH_FLAG_0_b1)="";
+      (CLK2_0*>PUSH_FLAG_0_b2)="";
+      (CLK2_0*>PUSH_FLAG_0_b3)="";
   endspecify
 
 
-   ram8k_2x1_cell I1 ( 
-      .CLK1_0(CLK1_0),
+   ram8k_2x1_cell # (.INIT(INIT)) I1 ( 
+      .CLK2_1(CLK2_1),
       .CLK1_1(CLK1_1),
       .CLK2_0(CLK2_0),
-      .CLK2_1(CLK2_1),
-      .WIDTH_SELECT2_0(WIDTH_SELECT2_0),
-      .P1_1(P1_1),
-      .WIDTH_SELECT2_1(WIDTH_SELECT2_1),
+      .CLK1_0(CLK1_0),
+      .CS1_1(CS1_1),
+      .A1_1_b0(A1_1_b0),
+      .A1_1_b1(A1_1_b1),
+      .A1_1_b2(A1_1_b2),
+      .A1_1_b3(A1_1_b3),
+      .A1_1_b4(A1_1_b4),
+      .A1_1_b5(A1_1_b5),
+      .A1_1_b6(A1_1_b6),
+      .A1_1_b7(A1_1_b7),
+      .A1_1_b8(A1_1_b8),
+      .A1_1_b9(A1_1_b9),
+      .A1_1_b10(A1_1_b10),
+      .FIFO_EN_0(FIFO_EN_0),
+      .CS1_0(CS1_0),
       .PIPELINE_RD_0(PIPELINE_RD_0),
+      .ASYNC_FLUSH_1(ASYNC_FLUSH_1),
       .DIR_1(DIR_1),
-      .CONCAT_EN_0(CONCAT_EN_0),
-      .CLK1EN_1(CLK1EN_1),
-      .P2_1(P2_1),
-      .WEN1_0_b0(WEN1_0_b0),
-      .WEN1_0_b1(WEN1_0_b1),
-      .PIPELINE_RD_1(PIPELINE_RD_1),
+      .CS2_1(CS2_1),
+      .CLK1EN_0(CLK1EN_0),
+      .WIDTH_SELECT1_0(WIDTH_SELECT1_0),
+      .ASYNC_FLUSH_0(ASYNC_FLUSH_0),
+      .SYNC_FIFO_0(SYNC_FIFO_0),
+      .SYNC_FIFO_1(SYNC_FIFO_1),
       .WD_0_b0(WD_0_b0),
       .WD_0_b1(WD_0_b1),
       .WD_0_b2(WD_0_b2),
@@ -35685,36 +35775,6 @@ module RAM_CE1_FE1_D1_PR1_WSA2_WSB2_VPR (
       .WD_0_b15(WD_0_b15),
       .WD_0_b16(WD_0_b16),
       .WD_0_b17(WD_0_b17),
-      .WIDTH_SELECT1_1(WIDTH_SELECT1_1),
-      .CS2_0(CS2_0),
-      .CLK1EN_0(CLK1EN_0),
-      .SYNC_FIFO_1(SYNC_FIFO_1),
-      .CLK2EN_0(CLK2EN_0),
-      .SYNC_FIFO_0(SYNC_FIFO_0),
-      .ASYNC_FLUSH_0(ASYNC_FLUSH_0),
-      .A2_1_b0(A2_1_b0),
-      .A2_1_b1(A2_1_b1),
-      .A2_1_b2(A2_1_b2),
-      .A2_1_b3(A2_1_b3),
-      .A2_1_b4(A2_1_b4),
-      .A2_1_b5(A2_1_b5),
-      .A2_1_b6(A2_1_b6),
-      .A2_1_b7(A2_1_b7),
-      .A2_1_b8(A2_1_b8),
-      .A2_1_b9(A2_1_b9),
-      .A2_1_b10(A2_1_b10),
-      .A1_1_b0(A1_1_b0),
-      .A1_1_b1(A1_1_b1),
-      .A1_1_b2(A1_1_b2),
-      .A1_1_b3(A1_1_b3),
-      .A1_1_b4(A1_1_b4),
-      .A1_1_b5(A1_1_b5),
-      .A1_1_b6(A1_1_b6),
-      .A1_1_b7(A1_1_b7),
-      .A1_1_b8(A1_1_b8),
-      .A1_1_b9(A1_1_b9),
-      .A1_1_b10(A1_1_b10),
-      .CS1_1(CS1_1),
       .A2_0_b0(A2_0_b0),
       .A2_0_b1(A2_0_b1),
       .A2_0_b2(A2_0_b2),
@@ -35726,7 +35786,34 @@ module RAM_CE1_FE1_D1_PR1_WSA2_WSB2_VPR (
       .A2_0_b8(A2_0_b8),
       .A2_0_b9(A2_0_b9),
       .A2_0_b10(A2_0_b10),
-      .P2_0(P2_0),
+      .A1_0_b0(A1_0_b0),
+      .A1_0_b1(A1_0_b1),
+      .A1_0_b2(A1_0_b2),
+      .A1_0_b3(A1_0_b3),
+      .A1_0_b4(A1_0_b4),
+      .A1_0_b5(A1_0_b5),
+      .A1_0_b6(A1_0_b6),
+      .A1_0_b7(A1_0_b7),
+      .A1_0_b8(A1_0_b8),
+      .A1_0_b9(A1_0_b9),
+      .A1_0_b10(A1_0_b10),
+      .WEN1_1_b0(WEN1_1_b0),
+      .WEN1_1_b1(WEN1_1_b1),
+      .FIFO_EN_1(FIFO_EN_1),
+      .CLK2EN_0(CLK2EN_0),
+      .CLK1EN_1(CLK1EN_1),
+      .WIDTH_SELECT2_0(WIDTH_SELECT2_0),
+      .A2_1_b0(A2_1_b0),
+      .A2_1_b1(A2_1_b1),
+      .A2_1_b2(A2_1_b2),
+      .A2_1_b3(A2_1_b3),
+      .A2_1_b4(A2_1_b4),
+      .A2_1_b5(A2_1_b5),
+      .A2_1_b6(A2_1_b6),
+      .A2_1_b7(A2_1_b7),
+      .A2_1_b8(A2_1_b8),
+      .A2_1_b9(A2_1_b9),
+      .A2_1_b10(A2_1_b10),
       .WD_1_b0(WD_1_b0),
       .WD_1_b1(WD_1_b1),
       .WD_1_b2(WD_1_b2),
@@ -35745,29 +35832,27 @@ module RAM_CE1_FE1_D1_PR1_WSA2_WSB2_VPR (
       .WD_1_b15(WD_1_b15),
       .WD_1_b16(WD_1_b16),
       .WD_1_b17(WD_1_b17),
-      .ASYNC_FLUSH_1(ASYNC_FLUSH_1),
-      .CS2_1(CS2_1),
-      .WIDTH_SELECT1_0(WIDTH_SELECT1_0),
-      .CS1_0(CS1_0),
-      .FIFO_EN_0(FIFO_EN_0),
+      .P2_0(P2_0),
+      .CS2_0(CS2_0),
+      .P1_1(P1_1),
       .CONCAT_EN_1(CONCAT_EN_1),
-      .DIR_0(DIR_0),
+      .WIDTH_SELECT1_1(WIDTH_SELECT1_1),
       .CLK2EN_1(CLK2EN_1),
+      .WEN1_0_b0(WEN1_0_b0),
+      .WEN1_0_b1(WEN1_0_b1),
+      .DIR_0(DIR_0),
       .P1_0(P1_0),
-      .FIFO_EN_1(FIFO_EN_1),
-      .WEN1_1_b0(WEN1_1_b0),
-      .WEN1_1_b1(WEN1_1_b1),
-      .A1_0_b0(A1_0_b0),
-      .A1_0_b1(A1_0_b1),
-      .A1_0_b2(A1_0_b2),
-      .A1_0_b3(A1_0_b3),
-      .A1_0_b4(A1_0_b4),
-      .A1_0_b5(A1_0_b5),
-      .A1_0_b6(A1_0_b6),
-      .A1_0_b7(A1_0_b7),
-      .A1_0_b8(A1_0_b8),
-      .A1_0_b9(A1_0_b9),
-      .A1_0_b10(A1_0_b10),
+      .PIPELINE_RD_1(PIPELINE_RD_1),
+      .WIDTH_SELECT2_1(WIDTH_SELECT2_1),
+      .CONCAT_EN_0(CONCAT_EN_0),
+      .P2_1(P2_1),
+      .PUSH_FLAG_1_b0(PUSH_FLAG_1_b0),
+      .PUSH_FLAG_1_b1(PUSH_FLAG_1_b1),
+      .PUSH_FLAG_1_b2(PUSH_FLAG_1_b2),
+      .PUSH_FLAG_1_b3(PUSH_FLAG_1_b3),
+      .Almost_Empty_0(Almost_Empty_0),
+      .Almost_Empty_1(Almost_Empty_1),
+      .Almost_Full_1(Almost_Full_1),
       .RD_1_b0(RD_1_b0),
       .RD_1_b1(RD_1_b1),
       .RD_1_b2(RD_1_b2),
@@ -35786,25 +35871,15 @@ module RAM_CE1_FE1_D1_PR1_WSA2_WSB2_VPR (
       .RD_1_b15(RD_1_b15),
       .RD_1_b16(RD_1_b16),
       .RD_1_b17(RD_1_b17),
-      .Almost_Empty_0(Almost_Empty_0),
-      .Almost_Full_1(Almost_Full_1),
-      .PUSH_FLAG_1_b0(PUSH_FLAG_1_b0),
-      .PUSH_FLAG_1_b1(PUSH_FLAG_1_b1),
-      .PUSH_FLAG_1_b2(PUSH_FLAG_1_b2),
-      .PUSH_FLAG_1_b3(PUSH_FLAG_1_b3),
-      .POP_FLAG_0_b0(POP_FLAG_0_b0),
-      .POP_FLAG_0_b1(POP_FLAG_0_b1),
-      .POP_FLAG_0_b2(POP_FLAG_0_b2),
-      .POP_FLAG_0_b3(POP_FLAG_0_b3),
-      .PUSH_FLAG_0_b0(PUSH_FLAG_0_b0),
-      .PUSH_FLAG_0_b1(PUSH_FLAG_0_b1),
-      .PUSH_FLAG_0_b2(PUSH_FLAG_0_b2),
-      .PUSH_FLAG_0_b3(PUSH_FLAG_0_b3),
+      .Almost_Full_0(Almost_Full_0),
       .POP_FLAG_1_b0(POP_FLAG_1_b0),
       .POP_FLAG_1_b1(POP_FLAG_1_b1),
       .POP_FLAG_1_b2(POP_FLAG_1_b2),
       .POP_FLAG_1_b3(POP_FLAG_1_b3),
-      .Almost_Full_0(Almost_Full_0),
+      .POP_FLAG_0_b0(POP_FLAG_0_b0),
+      .POP_FLAG_0_b1(POP_FLAG_0_b1),
+      .POP_FLAG_0_b2(POP_FLAG_0_b2),
+      .POP_FLAG_0_b3(POP_FLAG_0_b3),
       .RD_0_b0(RD_0_b0),
       .RD_0_b1(RD_0_b1),
       .RD_0_b2(RD_0_b2),
@@ -35823,6 +35898,9 @@ module RAM_CE1_FE1_D1_PR1_WSA2_WSB2_VPR (
       .RD_0_b15(RD_0_b15),
       .RD_0_b16(RD_0_b16),
       .RD_0_b17(RD_0_b17),
-      .Almost_Empty_1(Almost_Empty_1));
+      .PUSH_FLAG_0_b0(PUSH_FLAG_0_b0),
+      .PUSH_FLAG_0_b1(PUSH_FLAG_0_b1),
+      .PUSH_FLAG_0_b2(PUSH_FLAG_0_b2),
+      .PUSH_FLAG_0_b3(PUSH_FLAG_0_b3));
 
 endmodule
