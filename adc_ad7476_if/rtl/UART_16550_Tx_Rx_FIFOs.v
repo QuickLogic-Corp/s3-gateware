@@ -185,7 +185,7 @@ reg                      Tx_FIFO_Empty_o_nxt;
 reg               [8:0]  Tx_FIFO_Level_o;
 reg               [8:0]  Tx_FIFO_Level_o_nxt;
 
-wire              [8:0]  Tx_DAT_Out;
+wire              [7:0]  Tx_DAT_Out;
 
 wire                     Tx_FIFO_Flush;
 
@@ -202,7 +202,7 @@ wire                     Tx_FIFO_Flush;
 
 // Transmitter Bus Matching
 //
-wire             [17:0]  Rx_DAT_Out;
+wire             [15:0]  Rx_DAT_Out;
 
 // Local Flush Signal
 //
@@ -424,41 +424,42 @@ assign Tx_FIFO_DAT_o     = Tx_FIFO_Empty_o ? 8'h0 : Tx_DAT_Out[7:0];
 
 // Transmit FIFO - Base on AL4S3B 512x9 FIFo
 //
-f512x18_512x18_f512x9_512x9 u_Rx_Tx_fifo    (
-		.DIN0                ({7'b0                   , 
-                              Rx_Parity_Error_i      ,
-                              Rx_Framing_Error_i     ,
-                              Rx_Break_Interrupt_i   ,
-                              Rx_FIFO_DAT_i        }),
-		.Fifo_Push_Flush0   ( Rx_FIFO_Flush         ),
-		.Fifo_Pop_Flush0    ( Rx_FIFO_Flush         ),
-		.PUSH0              ( Rx_FIFO_Push_i        ),
-		.POP0               ( Rx_FIFO_Pop_i         ),
-		.Clk0               ( WBs_CLK_i             ),
-        .Clk0_En            ( 1'b1                  ),
-	    .Fifo0_Dir          ( 1'b0                  ),
-	    .Async_Flush0       ( Rx_FIFO_Flush         ),
-        .Almost_Full0       (                       ),
-	    .Almost_Empty0      (                       ),
-	    .PUSH_FLAG0         (                       ),
-	    .POP_FLAG0          (                       ),
-	    .DOUT0              ( Rx_DAT_Out            ), 
-		
-		
-		.DIN1               ( {1'b0, WBs_DAT_i}     ),
-		.Fifo_Push_Flush1   ( Tx_FIFO_Flush         ),
-		.Fifo_Pop_Flush1    ( Tx_FIFO_Flush         ),
-		.PUSH1              ( Tx_FIFO_Push_i        ),
-		.POP1               ( Tx_FIFO_Pop_i         ),
-		.Clk1               ( WBs_CLK_i             ),
-		.Clk1_En            ( 1'b1                  ),
-		.Fifo1_Dir          ( 1'b0                  ),
-		.Async_Flush1       ( Tx_FIFO_Flush         ),
-		.Almost_Full1       (                       ),
-		.Almost_Empty1      (                       ),
-		.PUSH_FLAG1         (                       ),
-		.POP_FLAG1          (                       ),
-		.DOUT1              ( Tx_DAT_Out            ) 
-        );
+f512x8_512x8 u_Tx_fifo  (
+		.DIN                ( WBs_DAT_i             ),
+		.Fifo_Push_Flush    ( Tx_FIFO_Flush         ),
+		.Fifo_Pop_Flush     ( Tx_FIFO_Flush         ),
+		.PUSH               ( Tx_FIFO_Push_i        ),
+		.POP                ( Tx_FIFO_Pop_i         ),
+		.Clk                ( WBs_CLK_i             ),
+		.Clk_En             ( 1'b1                  ),
+		.Fifo_Dir           ( 1'b0                  ),
+		.Async_Flush        ( Tx_FIFO_Flush         ),
+		.Almost_Full        (                       ),
+		.Almost_Empty       (                       ),
+		.PUSH_FLAG          (                       ),
+		.POP_FLAG           (                       ),
+		.DOUT               ( Tx_DAT_Out            ) 
+    );
+
+f512x16_512x16 u_Rx_fifo(
+		.DIN                ({5'b0                  , 
+                          Rx_Parity_Error_i     ,
+                          Rx_Framing_Error_i    ,
+                          Rx_Break_Interrupt_i  ,
+                          Rx_FIFO_DAT_i        }),
+		.Fifo_Push_Flush    ( Rx_FIFO_Flush         ),
+		.Fifo_Pop_Flush     ( Rx_FIFO_Flush         ),
+		.PUSH               ( Rx_FIFO_Push_i        ),
+		.POP                ( Rx_FIFO_Pop_i         ),
+		.Clk                ( WBs_CLK_i             ),
+    .Clk_En             ( 1'b1                  ),
+	  .Fifo_Dir           ( 1'b0                  ),
+	  .Async_Flush        ( Rx_FIFO_Flush         ),
+    .Almost_Full        (                       ),
+	  .Almost_Empty       (                       ),
+	  .PUSH_FLAG          (                       ),
+	  .POP_FLAG           (                       ),
+	  .DOUT               ( Rx_DAT_Out            ) 
+    );
 
 endmodule
