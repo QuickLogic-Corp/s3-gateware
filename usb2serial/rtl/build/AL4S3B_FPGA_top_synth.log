@@ -1,0 +1,546 @@
+
+ /----------------------------------------------------------------------------\
+ |                                                                            |
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |                                                                            |
+ |  Copyright (C) 2012 - 2020  Claire Wolf <claire@symbioticeda.com>          |
+ |                                                                            |
+ |  Permission to use, copy, modify, and/or distribute this software for any  |
+ |  purpose with or without fee is hereby granted, provided that the above    |
+ |  copyright notice and this permission notice appear in all copies.         |
+ |                                                                            |
+ |  THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES  |
+ |  WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF          |
+ |  MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR   |
+ |  ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES    |
+ |  WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN     |
+ |  ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF   |
+ |  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.            |
+ |                                                                            |
+ \----------------------------------------------------------------------------/
+
+ Yosys 0.9+2406 (git sha1 4045d484, x86_64-conda_cos6-linux-gnu-gcc 1.23.0.449-a04d0 -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -fdebug-prefix-map=/tmp/really-long-path/conda/conda-bld/yosys_1598893160086/work=/usr/local/src/conda/yosys-0.5_7972_g4045d484 -fdebug-prefix-map=/mnt/c/work/github/QuickLogic-Corp/quicklogic-fpga-toolchain-ubuntu/qlsym1.2/conda=/usr/local/src/conda-prefix -fPIC -Os)
+
+
+-- Parsing `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/AL4S3B_FPGA_IP.v' using frontend `verilog' --
+
+1. Executing Verilog-2005 frontend: /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/AL4S3B_FPGA_IP.v
+Parsing Verilog input from `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/AL4S3B_FPGA_IP.v' to AST representation.
+Generating RTLIL representation for module `\AL4S3B_FPGA_IP'.
+Note: Assuming pure combinatorial block at /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/AL4S3B_FPGA_IP.v:242.1-254.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Successfully finished Verilog frontend.
+
+-- Parsing `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/AL4S3B_FPGA_QL_Reserved.v' using frontend `verilog' --
+
+2. Executing Verilog-2005 frontend: /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/AL4S3B_FPGA_QL_Reserved.v
+Parsing Verilog input from `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/AL4S3B_FPGA_QL_Reserved.v' to AST representation.
+Generating RTLIL representation for module `\AL4S3B_FPGA_QL_Reserved'.
+Note: Assuming pure combinatorial block at /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/AL4S3B_FPGA_QL_Reserved.v:165.1-204.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Note: Assuming pure combinatorial block at /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/AL4S3B_FPGA_QL_Reserved.v:214.1-223.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Successfully finished Verilog frontend.
+
+-- Parsing `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/AL4S3B_FPGA_Registers.v' using frontend `verilog' --
+
+3. Executing Verilog-2005 frontend: /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/AL4S3B_FPGA_Registers.v
+Parsing Verilog input from `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/AL4S3B_FPGA_Registers.v' to AST representation.
+Generating RTLIL representation for module `\AL4S3B_FPGA_Registers'.
+Successfully finished Verilog frontend.
+
+-- Parsing `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/AL4S3B_FPGA_Top.v' using frontend `verilog' --
+
+4. Executing Verilog-2005 frontend: /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/AL4S3B_FPGA_Top.v
+Parsing Verilog input from `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/AL4S3B_FPGA_Top.v' to AST representation.
+Generating RTLIL representation for module `\AL4S3B_FPGA_top'.
+Successfully finished Verilog frontend.
+
+-- Parsing `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/FPGA_FIFO.v' using frontend `verilog' --
+
+5. Executing Verilog-2005 frontend: /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/FPGA_FIFO.v
+Parsing Verilog input from `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/FPGA_FIFO.v' to AST representation.
+Generating RTLIL representation for module `\FPGA_FIFO'.
+Successfully finished Verilog frontend.
+
+-- Parsing `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/clk_mux.v' using frontend `verilog' --
+
+6. Executing Verilog-2005 frontend: /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/clk_mux.v
+Parsing Verilog input from `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/clk_mux.v' to AST representation.
+Generating RTLIL representation for module `\clk_switch'.
+Successfully finished Verilog frontend.
+
+-- Parsing `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/edge_detect.v' using frontend `verilog' --
+
+7. Executing Verilog-2005 frontend: /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/edge_detect.v
+Parsing Verilog input from `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/edge_detect.v' to AST representation.
+Generating RTLIL representation for module `\rising_edge_detector'.
+Generating RTLIL representation for module `\falling_edge_detector'.
+Successfully finished Verilog frontend.
+
+-- Parsing `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/f512x8_512x8.v' using frontend `verilog' --
+
+8. Executing Verilog-2005 frontend: /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/f512x8_512x8.v
+Parsing Verilog input from `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/f512x8_512x8.v' to AST representation.
+Generating RTLIL representation for module `\f512x8_512x8'.
+Successfully finished Verilog frontend.
+
+-- Parsing `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/r512x8_512x8.v' using frontend `verilog' --
+
+9. Executing Verilog-2005 frontend: /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/r512x8_512x8.v
+Parsing Verilog input from `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/r512x8_512x8.v' to AST representation.
+Generating RTLIL representation for module `\r512x8_512x8'.
+Successfully finished Verilog frontend.
+
+-- Parsing `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/serial.v' using frontend `verilog' --
+
+10. Executing Verilog-2005 frontend: /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/serial.v
+Parsing Verilog input from `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/serial.v' to AST representation.
+Generating RTLIL representation for module `\width_adapter'.
+Successfully finished Verilog frontend.
+
+-- Parsing `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/strobe.v' using frontend `verilog' --
+
+11. Executing Verilog-2005 frontend: /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/strobe.v
+Parsing Verilog input from `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/strobe.v' to AST representation.
+Generating RTLIL representation for module `\strobe'.
+Successfully finished Verilog frontend.
+
+-- Parsing `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/strobe_out4.v' using frontend `verilog' --
+
+12. Executing Verilog-2005 frontend: /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/strobe_out4.v
+Parsing Verilog input from `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/strobe_out4.v' to AST representation.
+Generating RTLIL representation for module `\strobe_out4'.
+Successfully finished Verilog frontend.
+
+-- Parsing `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/tinyfpga_bootloader.v' using frontend `verilog' --
+
+13. Executing Verilog-2005 frontend: /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/tinyfpga_bootloader.v
+Parsing Verilog input from `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/tinyfpga_bootloader.v' to AST representation.
+Generating RTLIL representation for module `\tinyfpga_bootloader'.
+Successfully finished Verilog frontend.
+
+-- Parsing `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb2m4_serial.v' using frontend `verilog' --
+
+14. Executing Verilog-2005 frontend: /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb2m4_serial.v
+Parsing Verilog input from `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb2m4_serial.v' to AST representation.
+Generating RTLIL representation for module `\usb2m4_serial'.
+/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb2m4_serial.v:81: Warning: Identifier `\led' is implicitly declared.
+/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb2m4_serial.v:138: Warning: Identifier `\boot' is implicitly declared.
+Successfully finished Verilog frontend.
+
+-- Parsing `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_fs_in_arb.v' using frontend `verilog' --
+
+15. Executing Verilog-2005 frontend: /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_fs_in_arb.v
+Parsing Verilog input from `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_fs_in_arb.v' to AST representation.
+Generating RTLIL representation for module `\usb_fs_in_arb'.
+Successfully finished Verilog frontend.
+
+-- Parsing `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_fs_in_pe.v' using frontend `verilog' --
+
+16. Executing Verilog-2005 frontend: /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_fs_in_pe.v
+Parsing Verilog input from `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_fs_in_pe.v' to AST representation.
+Generating RTLIL representation for module `\usb_fs_in_pe'.
+Warning: Replacing memory \ep_state_next with list of registers. See /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_fs_in_pe.v:169
+Warning: Replacing memory \ep_state with list of registers. See /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_fs_in_pe.v:226, /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_fs_in_pe.v:105
+Warning: Replacing memory \ep_put_addr with list of registers. See /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_fs_in_pe.v:233, /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_fs_in_pe.v:103
+Successfully finished Verilog frontend.
+
+-- Parsing `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_fs_out_arb.v' using frontend `verilog' --
+
+17. Executing Verilog-2005 frontend: /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_fs_out_arb.v
+Parsing Verilog input from `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_fs_out_arb.v' to AST representation.
+Generating RTLIL representation for module `\usb_fs_out_arb'.
+Successfully finished Verilog frontend.
+
+-- Parsing `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_fs_out_pe.v' using frontend `verilog' --
+
+18. Executing Verilog-2005 frontend: /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_fs_out_pe.v
+Parsing Verilog input from `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_fs_out_pe.v' to AST representation.
+Generating RTLIL representation for module `\usb_fs_out_pe'.
+Warning: Replacing memory \ep_get_addr with list of registers. See /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_fs_out_pe.v:232, /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_fs_out_pe.v:159
+Warning: Replacing memory \ep_get_addr_next with list of registers. See /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_fs_out_pe.v:217, /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_fs_out_pe.v:158
+Warning: Replacing memory \ep_state with list of registers. See /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_fs_out_pe.v:227, /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_fs_out_pe.v:157
+Warning: Replacing memory \ep_state_next with list of registers. See /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_fs_out_pe.v:216, /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_fs_out_pe.v:163, /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_fs_out_pe.v:156
+Successfully finished Verilog frontend.
+
+-- Parsing `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_fs_pe.v' using frontend `verilog' --
+
+19. Executing Verilog-2005 frontend: /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_fs_pe.v
+Parsing Verilog input from `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_fs_pe.v' to AST representation.
+Generating RTLIL representation for module `\usb_fs_pe'.
+Successfully finished Verilog frontend.
+
+-- Parsing `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_fs_rx.v' using frontend `verilog' --
+
+20. Executing Verilog-2005 frontend: /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_fs_rx.v
+Parsing Verilog input from `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_fs_rx.v' to AST representation.
+Generating RTLIL representation for module `\usb_fs_rx'.
+Successfully finished Verilog frontend.
+
+-- Parsing `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_fs_tx.v' using frontend `verilog' --
+
+21. Executing Verilog-2005 frontend: /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_fs_tx.v
+Parsing Verilog input from `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_fs_tx.v' to AST representation.
+Generating RTLIL representation for module `\usb_fs_tx'.
+Successfully finished Verilog frontend.
+
+-- Parsing `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_m4_bridge_ep.v' using frontend `verilog' --
+
+22. Executing Verilog-2005 frontend: /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_m4_bridge_ep.v
+Parsing Verilog input from `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_m4_bridge_ep.v' to AST representation.
+Generating RTLIL representation for module `\usb_m4_bridge_ep'.
+Successfully finished Verilog frontend.
+
+-- Parsing `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_reset_det.v' using frontend `verilog' --
+
+23. Executing Verilog-2005 frontend: /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_reset_det.v
+Parsing Verilog input from `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_reset_det.v' to AST representation.
+Generating RTLIL representation for module `\usb_reset_det'.
+Successfully finished Verilog frontend.
+
+-- Parsing `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_serial_ctrl_ep.v' using frontend `verilog' --
+
+24. Executing Verilog-2005 frontend: /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_serial_ctrl_ep.v
+Parsing Verilog input from `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_serial_ctrl_ep.v' to AST representation.
+Generating RTLIL representation for module `\usb_serial_ctrl_ep'.
+Warning: Replacing memory \raw_setup_data with list of registers. See /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_serial_ctrl_ep.v:242
+Successfully finished Verilog frontend.
+
+-- Parsing `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_spi_bridge_ep.v' using frontend `verilog' --
+
+25. Executing Verilog-2005 frontend: /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_spi_bridge_ep.v
+Parsing Verilog input from `/mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/usb_spi_bridge_ep.v' to AST representation.
+Generating RTLIL representation for module `\usb_spi_bridge_ep'.
+Successfully finished Verilog frontend.
+
+-- Running command `tcl /mnt/c/Work/github/QuickLogic-Corp/quicklogic-fpga-toolchain-ubuntu/qlsym1.2/install/share/quicklogic/synth.tcl' --
+[TCL: yosys -import] Command name collision: found pre-existing command `cd' -> skip.
+[TCL: yosys -import] Command name collision: found pre-existing command `eval' -> skip.
+[TCL: yosys -import] Command name collision: found pre-existing command `exec' -> skip.
+[TCL: yosys -import] Command name collision: found pre-existing command `read' -> skip.
+[TCL: yosys -import] Command name collision: found pre-existing command `trace' -> skip.
+
+26. Executing Verilog-2005 frontend: /mnt/c/Work/github/QuickLogic-Corp/quicklogic-fpga-toolchain-ubuntu/qlsym1.2/install/share/techmaps/quicklogic/pp3/techmap/cells_sim.v
+Parsing Verilog input from `/mnt/c/Work/github/QuickLogic-Corp/quicklogic-fpga-toolchain-ubuntu/qlsym1.2/install/share/techmaps/quicklogic/pp3/techmap/cells_sim.v' to AST representation.
+Generating RTLIL representation for module `\VCC'.
+Generating RTLIL representation for module `\GND'.
+Generating RTLIL representation for module `\fpga_interconnect'.
+Generating RTLIL representation for module `\CLOCK_CELL'.
+Generating RTLIL representation for module `\BIDIR_CELL'.
+Generating RTLIL representation for module `\SDIOMUX_CELL'.
+Generating RTLIL representation for module `\T_FRAG'.
+Generating RTLIL representation for module `\B_FRAG'.
+Generating RTLIL representation for module `\Q_FRAG'.
+Generating RTLIL representation for module `\F_FRAG'.
+Generating RTLIL representation for module `\C_FRAG'.
+Generating RTLIL representation for module `\ASSP'.
+Generating RTLIL representation for module `\MULT'.
+Generating RTLIL representation for module `\GMUX_IP'.
+Generating RTLIL representation for module `\GMUX_IC'.
+Successfully finished Verilog frontend.
+
+27. Executing Verilog-2005 frontend: /mnt/c/Work/github/QuickLogic-Corp/quicklogic-fpga-toolchain-ubuntu/qlsym1.2/install/bin/../share/arch/ql-eos-s3_wlcsp/cells/ram_sim.v
+Parsing Verilog input from `/mnt/c/Work/github/QuickLogic-Corp/quicklogic-fpga-toolchain-ubuntu/qlsym1.2/install/bin/../share/arch/ql-eos-s3_wlcsp/cells/ram_sim.v' to AST representation.
+Generating RTLIL representation for module `\RAM_CE0_FE0_PR0_WSA0_WSB0_VPR'.
+Generating RTLIL representation for module `\RAM_CE0_FE0_PR0_WSA0_WSB1_VPR'.
+Generating RTLIL representation for module `\RAM_CE0_FE0_PR0_WSA1_WSB0_VPR'.
+Generating RTLIL representation for module `\RAM_CE0_FE0_PR0_WSA1_WSB1_VPR'.
+Generating RTLIL representation for module `\RAM_CE0_FE0_PR1_WSA0_WSB0_VPR'.
+Generating RTLIL representation for module `\RAM_CE0_FE0_PR1_WSA0_WSB1_VPR'.
+Generating RTLIL representation for module `\RAM_CE0_FE0_PR1_WSA1_WSB0_VPR'.
+Generating RTLIL representation for module `\RAM_CE0_FE0_PR1_WSA1_WSB1_VPR'.
+Generating RTLIL representation for module `\RAM_CE0_FE1_D0_PR0_WSA0_WSB0_VPR'.
+Generating RTLIL representation for module `\RAM_CE0_FE1_D0_PR0_WSA0_WSB1_VPR'.
+Generating RTLIL representation for module `\RAM_CE0_FE1_D0_PR0_WSA1_WSB0_VPR'.
+Generating RTLIL representation for module `\RAM_CE0_FE1_D0_PR0_WSA1_WSB1_VPR'.
+Generating RTLIL representation for module `\RAM_CE0_FE1_D0_PR1_WSA0_WSB0_VPR'.
+Generating RTLIL representation for module `\RAM_CE0_FE1_D0_PR1_WSA0_WSB1_VPR'.
+Generating RTLIL representation for module `\RAM_CE0_FE1_D0_PR1_WSA1_WSB0_VPR'.
+Generating RTLIL representation for module `\RAM_CE0_FE1_D0_PR1_WSA1_WSB1_VPR'.
+Generating RTLIL representation for module `\RAM_CE0_FE1_D1_PR0_WSA0_WSB0_VPR'.
+Generating RTLIL representation for module `\RAM_CE0_FE1_D1_PR0_WSA0_WSB1_VPR'.
+Generating RTLIL representation for module `\RAM_CE0_FE1_D1_PR0_WSA1_WSB0_VPR'.
+Generating RTLIL representation for module `\RAM_CE0_FE1_D1_PR0_WSA1_WSB1_VPR'.
+Generating RTLIL representation for module `\RAM_CE0_FE1_D1_PR1_WSA0_WSB0_VPR'.
+Generating RTLIL representation for module `\RAM_CE0_FE1_D1_PR1_WSA0_WSB1_VPR'.
+Generating RTLIL representation for module `\RAM_CE0_FE1_D1_PR1_WSA1_WSB0_VPR'.
+Generating RTLIL representation for module `\RAM_CE0_FE1_D1_PR1_WSA1_WSB1_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE0_PR0_WSA0_WSB0_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE0_PR0_WSA0_WSB1_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE0_PR0_WSA0_WSB2_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE0_PR0_WSA1_WSB0_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE0_PR0_WSA1_WSB1_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE0_PR0_WSA1_WSB2_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE0_PR0_WSA2_WSB0_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE0_PR0_WSA2_WSB1_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE0_PR0_WSA2_WSB2_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE0_PR1_WSA0_WSB0_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE0_PR1_WSA0_WSB1_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE0_PR1_WSA0_WSB2_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE0_PR1_WSA1_WSB0_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE0_PR1_WSA1_WSB1_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE0_PR1_WSA1_WSB2_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE0_PR1_WSA2_WSB0_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE0_PR1_WSA2_WSB1_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE0_PR1_WSA2_WSB2_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE1_D0_PR0_WSA0_WSB0_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE1_D0_PR0_WSA0_WSB1_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE1_D0_PR0_WSA0_WSB2_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE1_D0_PR0_WSA1_WSB0_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE1_D0_PR0_WSA1_WSB1_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE1_D0_PR0_WSA1_WSB2_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE1_D0_PR0_WSA2_WSB0_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE1_D0_PR0_WSA2_WSB1_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE1_D0_PR0_WSA2_WSB2_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE1_D0_PR1_WSA0_WSB0_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE1_D0_PR1_WSA0_WSB1_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE1_D0_PR1_WSA0_WSB2_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE1_D0_PR1_WSA1_WSB0_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE1_D0_PR1_WSA1_WSB1_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE1_D0_PR1_WSA1_WSB2_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE1_D0_PR1_WSA2_WSB0_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE1_D0_PR1_WSA2_WSB1_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE1_D0_PR1_WSA2_WSB2_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE1_D1_PR0_WSA0_WSB0_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE1_D1_PR0_WSA0_WSB1_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE1_D1_PR0_WSA0_WSB2_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE1_D1_PR0_WSA1_WSB0_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE1_D1_PR0_WSA1_WSB1_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE1_D1_PR0_WSA1_WSB2_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE1_D1_PR0_WSA2_WSB0_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE1_D1_PR0_WSA2_WSB1_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE1_D1_PR0_WSA2_WSB2_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE1_D1_PR1_WSA0_WSB0_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE1_D1_PR1_WSA0_WSB1_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE1_D1_PR1_WSA0_WSB2_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE1_D1_PR1_WSA1_WSB0_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE1_D1_PR1_WSA1_WSB1_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE1_D1_PR1_WSA1_WSB2_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE1_D1_PR1_WSA2_WSB0_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE1_D1_PR1_WSA2_WSB1_VPR'.
+Generating RTLIL representation for module `\RAM_CE1_FE1_D1_PR1_WSA2_WSB2_VPR'.
+Successfully finished Verilog frontend.
+
+28. Executing SYNTH_QUICKLOGIC pass.
+
+28.1. Executing Verilog-2005 frontend: /mnt/c/work/github/QuickLogic-Corp/quicklogic-fpga-toolchain-ubuntu/qlsym1.2/conda/bin/../share/yosys/quicklogic/cells_sim.v
+Parsing Verilog input from `/mnt/c/work/github/QuickLogic-Corp/quicklogic-fpga-toolchain-ubuntu/qlsym1.2/conda/bin/../share/yosys/quicklogic/cells_sim.v' to AST representation.
+Generating RTLIL representation for module `\inv'.
+Generating RTLIL representation for module `\buff'.
+Generating RTLIL representation for module `\logic_0'.
+Generating RTLIL representation for module `\logic_1'.
+Generating RTLIL representation for module `\gclkbuff'.
+Successfully finished Verilog frontend.
+
+28.2. Executing Verilog-2005 frontend: /mnt/c/work/github/QuickLogic-Corp/quicklogic-fpga-toolchain-ubuntu/qlsym1.2/conda/bin/../share/yosys/quicklogic/pp3_cells_sim.v
+Parsing Verilog input from `/mnt/c/work/github/QuickLogic-Corp/quicklogic-fpga-toolchain-ubuntu/qlsym1.2/conda/bin/../share/yosys/quicklogic/pp3_cells_sim.v' to AST representation.
+Generating RTLIL representation for module `\LUT1'.
+Generating RTLIL representation for module `\LUT2'.
+Generating RTLIL representation for module `\LUT3'.
+Generating RTLIL representation for module `\LUT4'.
+Generating RTLIL representation for module `\inpad'.
+Generating RTLIL representation for module `\outpad'.
+Generating RTLIL representation for module `\ckpad'.
+Generating RTLIL representation for module `\bipad'.
+Generating RTLIL representation for module `\dff'.
+Generating RTLIL representation for module `\dffc'.
+Generating RTLIL representation for module `\dffp'.
+Generating RTLIL representation for module `\dffpc'.
+Generating RTLIL representation for module `\dffe'.
+Generating RTLIL representation for module `\dffec'.
+Generating RTLIL representation for module `\dffepc'.
+Generating RTLIL representation for module `\AND2I0'.
+Generating RTLIL representation for module `\mux2x0'.
+Generating RTLIL representation for module `\mux2x1'.
+Generating RTLIL representation for module `\mux4x0'.
+Generating RTLIL representation for module `\mux8x0'.
+Generating RTLIL representation for module `\logic_cell_macro'.
+Generating RTLIL representation for module `\ahb_gen_bfm'.
+Generating RTLIL representation for module `\oscillator_s1'.
+Generating RTLIL representation for module `\sdma_bfm'.
+Generating RTLIL representation for module `\ahb2fb_asynbrig_if'.
+Generating RTLIL representation for module `\fb2ahb_asynbrig_if'.
+Generating RTLIL representation for module `\ahb2fb_asynbrig'.
+Generating RTLIL representation for module `\qlal4s3b_cell_macro_bfm'.
+Generating RTLIL representation for module `\qlal4s3b_cell_macro'.
+Generating RTLIL representation for module `\fifo_controller_model'.
+Generating RTLIL representation for module `\ram'.
+Warning: Replacing memory \ram with list of registers. See /mnt/c/work/github/QuickLogic-Corp/quicklogic-fpga-toolchain-ubuntu/qlsym1.2/conda/bin/../share/yosys/quicklogic/pp3_cells_sim.v:3671, /mnt/c/work/github/QuickLogic-Corp/quicklogic-fpga-toolchain-ubuntu/qlsym1.2/conda/bin/../share/yosys/quicklogic/pp3_cells_sim.v:3585, /mnt/c/work/github/QuickLogic-Corp/quicklogic-fpga-toolchain-ubuntu/qlsym1.2/conda/bin/../share/yosys/quicklogic/pp3_cells_sim.v:3560
+Generating RTLIL representation for module `\x2_model'.
+Generating RTLIL representation for module `\ram_block_8K'.
+Generating RTLIL representation for module `\sw_mux'.
+Generating RTLIL representation for module `\ram8k_2x1_cell'.
+Generating RTLIL representation for module `\ram8k_2x1_cell_macro'.
+Generating RTLIL representation for module `\gpio_cell_macro'.
+Generating RTLIL representation for module `\qlal4s3_mult_32x32_cell'.
+Generating RTLIL representation for module `\qlal4s3_mult_16x16_cell'.
+Generating RTLIL representation for module `\signed_mult'.
+Generating RTLIL representation for module `\qlal4s3_mult_cell_macro'.
+Generating RTLIL representation for module `\RAM_8K_BLK'.
+Generating RTLIL representation for module `\RAM_16K_BLK'.
+Generating RTLIL representation for module `\FIFO_8K_BLK'.
+Generating RTLIL representation for module `\FIFO_16K_BLK'.
+Successfully finished Verilog frontend.
+
+28.3. Executing HIERARCHY pass (managing design hierarchy).
+
+28.3.1. Finding top of design hierarchy..
+root of   0 design levels: usb_spi_bridge_ep   
+root of   1 design levels: usb_serial_ctrl_ep  
+root of   0 design levels: usb_reset_det       
+root of   0 design levels: usb_m4_bridge_ep    
+root of   1 design levels: usb_fs_tx           
+root of   1 design levels: usb_fs_rx           
+root of   2 design levels: usb_fs_pe           
+root of   1 design levels: usb_fs_out_pe       
+root of   0 design levels: usb_fs_out_arb      
+root of   1 design levels: usb_fs_in_pe        
+root of   0 design levels: usb_fs_in_arb       
+root of   3 design levels: usb2m4_serial       
+root of   3 design levels: tinyfpga_bootloader 
+root of   0 design levels: strobe_out4         
+root of   0 design levels: strobe              
+root of   0 design levels: width_adapter       
+root of   0 design levels: r512x8_512x8        
+root of   1 design levels: f512x8_512x8        
+root of   0 design levels: falling_edge_detector
+root of   0 design levels: rising_edge_detector
+root of   0 design levels: clk_switch          
+root of   2 design levels: FPGA_FIFO           
+root of   5 design levels: AL4S3B_FPGA_top     
+root of   0 design levels: AL4S3B_FPGA_Registers
+root of   0 design levels: AL4S3B_FPGA_QL_Reserved
+root of   4 design levels: AL4S3B_FPGA_IP      
+Automatically selected AL4S3B_FPGA_top as design top module.
+
+28.3.2. Analyzing design hierarchy..
+Top module:  \AL4S3B_FPGA_top
+Used module:     \AL4S3B_FPGA_IP
+Used module:         \AL4S3B_FPGA_QL_Reserved
+Used module:         \AL4S3B_FPGA_Registers
+Used module:         \FPGA_FIFO
+Used module:             \f512x8_512x8
+Used module:         \usb2m4_serial
+Used module:             \usb_fs_pe
+Used module:                 \usb_fs_tx
+Used module:                     \strobe
+Used module:                     \strobe_out4
+Used module:                 \usb_fs_rx
+Used module:                 \usb_fs_out_pe
+Used module:                     \r512x8_512x8
+Used module:                 \usb_fs_in_pe
+Used module:                 \usb_fs_out_arb
+Used module:                 \usb_fs_in_arb
+Used module:             \usb_m4_bridge_ep
+Used module:             \usb_serial_ctrl_ep
+Used module:                 \rising_edge_detector
+Used module:                 \falling_edge_detector
+Used module:     \clk_switch
+Parameter \ADDRWIDTH = 7
+Parameter \DATAWIDTH = 32
+Parameter \QL_RESERVED_CUST_PROD_ADR = 7'1111110
+Parameter \QL_RESERVED_REVISIONS_ADR = 7'1111111
+Parameter \QL_RESERVED_CUSTOMER_ID = 8'00000001
+Parameter \QL_RESERVED_PRODUCT_ID = 8'00000000
+Parameter \QL_RESERVED_MAJOR_REV = 16'0000000000000001
+Parameter \QL_RESERVED_MINOR_REV = 16'0000000000000000
+Parameter \QL_RESERVED_DEF_REG_VALUE = 32'11011110111111111010101110101100
+Parameter \DEFAULT_CNTR_WIDTH = 3
+Parameter \DEFAULT_CNTR_TIMEOUT = 7
+
+28.3.3. Executing AST frontend in derive mode using pre-parsed AST for module `\AL4S3B_FPGA_QL_Reserved'.
+Parameter \ADDRWIDTH = 7
+Parameter \DATAWIDTH = 32
+Parameter \QL_RESERVED_CUST_PROD_ADR = 7'1111110
+Parameter \QL_RESERVED_REVISIONS_ADR = 7'1111111
+Parameter \QL_RESERVED_CUSTOMER_ID = 8'00000001
+Parameter \QL_RESERVED_PRODUCT_ID = 8'00000000
+Parameter \QL_RESERVED_MAJOR_REV = 16'0000000000000001
+Parameter \QL_RESERVED_MINOR_REV = 16'0000000000000000
+Parameter \QL_RESERVED_DEF_REG_VALUE = 32'11011110111111111010101110101100
+Parameter \DEFAULT_CNTR_WIDTH = 3
+Parameter \DEFAULT_CNTR_TIMEOUT = 7
+Generating RTLIL representation for module `$paramod$973bcf0fcbf91c46414d940fc3b7244bd98db237\AL4S3B_FPGA_QL_Reserved'.
+Note: Assuming pure combinatorial block at /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/AL4S3B_FPGA_QL_Reserved.v:165.1-204.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Note: Assuming pure combinatorial block at /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/AL4S3B_FPGA_QL_Reserved.v:214.1-223.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Parameter \ADDRWIDTH = 7
+Parameter \DATAWIDTH = 32
+Parameter \FPGA_REG_ID_VALUE_ADR = 7'0000000
+Parameter \FPGA_REV_NUM_ADR = 7'0000001
+Parameter \FPGA_SCRATCH_REG_ADR = 7'0000010
+Parameter \AL4S3B_DEF_REG_VALUE = 32'11111010101111011110111110101100
+
+28.3.4. Executing AST frontend in derive mode using pre-parsed AST for module `\AL4S3B_FPGA_Registers'.
+Parameter \ADDRWIDTH = 7
+Parameter \DATAWIDTH = 32
+Parameter \FPGA_REG_ID_VALUE_ADR = 7'0000000
+Parameter \FPGA_REV_NUM_ADR = 7'0000001
+Parameter \FPGA_SCRATCH_REG_ADR = 7'0000010
+Parameter \AL4S3B_DEF_REG_VALUE = 32'11111010101111011110111110101100
+Generating RTLIL representation for module `$paramod$40cc9970d94124814236290e84b5dc2f466c6eff\AL4S3B_FPGA_Registers'.
+Parameter \NUM_OUT_EPS = 5'00010
+Parameter \NUM_IN_EPS = 5'00011
+
+28.3.5. Executing AST frontend in derive mode using pre-parsed AST for module `\usb_fs_pe'.
+Parameter \NUM_OUT_EPS = 5'00010
+Parameter \NUM_IN_EPS = 5'00011
+Generating RTLIL representation for module `$paramod\usb_fs_pe\NUM_OUT_EPS=5'00010\NUM_IN_EPS=5'00011'.
+Parameter \APERWIDTH = 17
+Parameter \APERSIZE = 9
+Parameter \FPGA_REG_BASE_ADDRESS = 17'00000000000000000
+Parameter \QL_RESERVED_BASE_ADDRESS = 17'00000100000000000
+Parameter \ADDRWIDTH_FAB_REG = 7
+Parameter \DATAWIDTH_FAB_REG = 32
+Parameter \FPGA_REG_ID_VALUE_ADR = 7'0000000
+Parameter \FPGA_REV_NUM_ADR = 7'0000001
+Parameter \FPGA_SCRATCH_REG_ADR = 7'0000010
+Parameter \AL4S3B_DEF_REG_VALUE = 32'11111010101111011110111110101100
+Parameter \DEFAULT_READ_VALUE = 32'10111010110111111010101110101100
+Parameter \DEFAULT_CNTR_WIDTH = 3
+Parameter \DEFAULT_CNTR_TIMEOUT = 7
+Parameter \ADDRWIDTH_QL_RESERVED = 7
+Parameter \DATAWIDTH_QL_RESERVED = 32
+Parameter \QL_RESERVED_CUST_PROD_ADR = 7'1111110
+Parameter \QL_RESERVED_REVISIONS_ADR = 7'1111111
+Parameter \QL_RESERVED_CUSTOMER_ID = 8'00000001
+Parameter \QL_RESERVED_PRODUCT_ID = 8'00000000
+Parameter \QL_RESERVED_MAJOR_REV = 16'0000000000000000
+Parameter \QL_RESERVED_MINOR_REV = 16'0000000000000001
+Parameter \QL_RESERVED_DEF_REG_VALUE = 32'11011110111111111010101110101100
+
+28.3.6. Executing AST frontend in derive mode using pre-parsed AST for module `\AL4S3B_FPGA_IP'.
+Parameter \APERWIDTH = 17
+Parameter \APERSIZE = 9
+Parameter \FPGA_REG_BASE_ADDRESS = 17'00000000000000000
+Parameter \QL_RESERVED_BASE_ADDRESS = 17'00000100000000000
+Parameter \ADDRWIDTH_FAB_REG = 7
+Parameter \DATAWIDTH_FAB_REG = 32
+Parameter \FPGA_REG_ID_VALUE_ADR = 7'0000000
+Parameter \FPGA_REV_NUM_ADR = 7'0000001
+Parameter \FPGA_SCRATCH_REG_ADR = 7'0000010
+Parameter \AL4S3B_DEF_REG_VALUE = 32'11111010101111011110111110101100
+Parameter \DEFAULT_READ_VALUE = 32'10111010110111111010101110101100
+Parameter \DEFAULT_CNTR_WIDTH = 3
+Parameter \DEFAULT_CNTR_TIMEOUT = 7
+Parameter \ADDRWIDTH_QL_RESERVED = 7
+Parameter \DATAWIDTH_QL_RESERVED = 32
+Parameter \QL_RESERVED_CUST_PROD_ADR = 7'1111110
+Parameter \QL_RESERVED_REVISIONS_ADR = 7'1111111
+Parameter \QL_RESERVED_CUSTOMER_ID = 8'00000001
+Parameter \QL_RESERVED_PRODUCT_ID = 8'00000000
+Parameter \QL_RESERVED_MAJOR_REV = 16'0000000000000000
+Parameter \QL_RESERVED_MINOR_REV = 16'0000000000000001
+Parameter \QL_RESERVED_DEF_REG_VALUE = 32'11011110111111111010101110101100
+Generating RTLIL representation for module `$paramod$047b74358fa3ba7ee881f375483fadf54bd94e8a\AL4S3B_FPGA_IP'.
+Note: Assuming pure combinatorial block at /mnt/c/work/github/QuickLogic-Corp/s3-gateware/usb2serial/rtl/AL4S3B_FPGA_IP.v:242.1-254.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+ERROR: Module `\RAM_RW' referenced in module `\r512x8_512x8' in cell `\RAM_INST' is not part of the design.

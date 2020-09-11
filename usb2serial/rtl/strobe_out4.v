@@ -82,6 +82,7 @@ reg strobe_out_dup3;
 endmodule
 
 
+/*
 module dflip(
 	input clk,
 	input in,
@@ -93,3 +94,5 @@ module dflip(
 		d <= { d[1:0], in };
 	assign out = d[2];
 endmodule
+*/
+

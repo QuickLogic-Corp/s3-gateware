@@ -36,13 +36,29 @@ parameter rd_width_int = 8;
 parameter reg_rd_int = 0;
 parameter sync_fifo_int = 1;
 
+parameter data_depth_int = 512;
+parameter data_width_int = 8;
+
 supply0 GND;
 supply1 VCC;
-FIFO #( wr_depth_int, rd_depth_int,wr_width_int,rd_width_int,reg_rd_int,sync_fifo_int) 
+//FIFO
+FIFO_8K_BLK
+#(
+//    wr_depth_int, rd_depth_int,
+//    wr_width_int,rd_width_int,
+    .data_depth_int(data_depth_int),
+    .data_width_int(data_width_int),
+    .reg_rd_int(reg_rd_int),
+    .sync_fifo_int(sync_fifo_int)) 
 FIFO_INST (.DIN(DIN),.PUSH(PUSH),.POP(POP),.Fifo_Push_Flush(Fifo_Push_Flush),.Fifo_Pop_Flush(Fifo_Pop_Flush),
            .Push_Clk(Clk),.Pop_Clk(Clk),.PUSH_FLAG(PUSH_FLAG),.POP_FLAG(POP_FLAG),
-      .Push_Clk_En(Clk_En),.Pop_Clk_En(Clk_En),.Fifo_Dir(Fifo_Dir),.Async_Flush(Async_Flush),.Push_Clk_Sel(GND),.Pop_Clk_Sel(GND),.Async_Flush_Sel(GND),
-           .Almost_Full(Almost_Full),.Almost_Empty(Almost_Empty),.DOUT(DOUT),
-        .LS(1'b0), .SD(1'b0), .DS(1'b0), .LS_RB1(1'b0), .SD_RB1(1'b0), .DS_RB1(1'b0));
+      .Push_Clk_En(Clk_En),.Pop_Clk_En(Clk_En),.Fifo_Dir(Fifo_Dir),.Async_Flush(Async_Flush),
+//      .Push_Clk_Sel(GND),
+//      .Pop_Clk_Sel(GND),
+//      .Async_Flush_Sel(GND),
+           .Almost_Full(Almost_Full),.Almost_Empty(Almost_Empty),.DOUT(DOUT)
+//           ,
+//        .LS(1'b0), .SD(1'b0), .DS(1'b0), .LS_RB1(1'b0), .SD_RB1(1'b0), .DS_RB1(1'b0)
+    );
 endmodule
 `endif
