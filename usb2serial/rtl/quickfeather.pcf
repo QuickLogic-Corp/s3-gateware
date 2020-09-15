@@ -1,4 +1,3 @@
-set_io accel_intn_o            2
 set_io spi_cs_o                11
 set_io spi_mosi_o              16
 set_io usb_pu_cntrl_o          15

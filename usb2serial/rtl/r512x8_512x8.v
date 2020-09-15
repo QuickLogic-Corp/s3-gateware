@@ -37,12 +37,36 @@ parameter rd_width_int = 8;
 parameter wr_enable_int = 1;
 parameter reg_rd_int = 0;
 
+parameter addr_int = 9;
+parameter data_depth_int = 512;
+parameter data_width_int = 8;
+parameter [16383:0] INIT = 16384'h0;
+parameter INIT_FILE = "";
 
 supply0 GND;
 supply1 VCC;
+/*
 RAM_RW #(wr_addr_int,rd_addr_int, wr_depth_int,
         	rd_depth_int,wr_width_int,rd_width_int,wr_enable_int,reg_rd_int)
 RAM_INST (.WA(WA),.RA(RA),.WD(WD),.WD_SEL(WD_SEL),.RD_SEL(RD_SEL),
           .WClk(WClk),.RClk(RClk),.WClk_En(WClk_En),.RClk_En(RClk_En),.WEN(WEN),.RD(RD),.WClk_Sel(GND),.RClk_Sel(GND),.LS(LS),.DS(DS),.SD(SD),.LS_RB1(LS_RB1),.DS_RB1(DS_RB1),.SD_RB1(SD_RB1));
+*/
+RAM_8K_BLK #(   .addr_int(addr_int),
+                .data_depth_int(data_depth_int),
+                .data_width_int(data_width_int),
+                .wr_enable_int(wr_enable_int),
+                .reg_rd_int(reg_rd_int),
+                .INIT(INIT),
+                .INIT_FILE(INIT_FILE))
+RAM_INST (      .WA(WA),
+                .RA(RA),
+                .WD(WD),
+                .WClk(WClk),
+                .WClk_En(WClk_En),
+                .RClk(RClk),
+                .RClk_En(RClk_En),
+                .WEN(WEN),
+                .RD(RD));
+
 endmodule
 `endif

@@ -23,6 +23,7 @@ ${current_dir}/usb_fs_out_pe.v \
 ${current_dir}/usb_fs_pe.v \
 ${current_dir}/usb_fs_rx.v \
 ${current_dir}/usb_fs_tx.v \
+${current_dir}/usb_fs_tx_mux.v \
 ${current_dir}/usb_m4_bridge_ep.v \
 ${current_dir}/usb_reset_det.v \
 ${current_dir}/usb_serial_ctrl_ep.v \
