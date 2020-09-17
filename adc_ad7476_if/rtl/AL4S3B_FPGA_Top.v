@@ -1,5 +1,4 @@
 `timescale 1ns / 10ps
-//`define ENAB_UART_16550_inst
 //`define USE_DEBUG_PORT
 //`define ENAB_GPIO_INT
 module top ( 
@@ -18,11 +17,6 @@ module top (
 			dbg_sdma_active,
 			dbg_sdma_done
 `endif
-`ifdef ENAB_UART_16550_inst				
-			,
-			SIN_i,
-			SOUT_o
-`endif
 `ifdef ENAB_GPIO_INT
 			,
 		    GPIO_PIN	
@@ -37,7 +31,6 @@ parameter       APERSIZE                    = 10            ;
 
                                                                 // these are byte offsets
 parameter       FPGA_REG_BASE_ADDRESS       = 17'h00000     ; // Assumes 128K Byte FPGA Memory Aperture
-parameter       UART_BASE_ADDRESS           = 17'h01000     ;
 parameter       DMA_REG_BASE_ADDR           = 17'h10000     ;
 parameter       DMA0_DPORT_BASE_ADDR        = 17'h11000     ;
 parameter       QL_RESERVED_BASE_ADDRESS    = 17'h12000     ; // Assumes 128K Byte FPGA Memory Aperture
@@ -116,11 +109,6 @@ output		            dbg_sdma_req    ;
 output		            dbg_sdma_active ;
 output		            dbg_sdma_done   ;
 `endif
-`ifdef ENAB_UART_16550_inst
-input					SIN_i;
-output					SOUT_o;
-`endif
-
 //
 //GPIO
 //
@@ -191,12 +179,6 @@ wire            dbg_sdma_active ;
 wire            dbg_sdma_done   ;
 `endif
 
-`ifdef ENAB_UART_16550_inst
-wire			SIN_i;
-wire			SOUT_o;
-`endif
-
-wire			UART_Intr;
 //------Logic Operations---------------
 //
 //debug
@@ -228,7 +210,6 @@ AL4S3B_FPGA_IP              #(
     .APERSIZE                  	( APERSIZE                  ),
 	
     .FPGA_REG_BASE_ADDRESS     	( FPGA_REG_BASE_ADDRESS     ), 
-	.UART_BASE_ADDRESS	     	( UART_BASE_ADDRESS		    ),
     .DMA_REG_BASE_ADDR  	   	( DMA_REG_BASE_ADDR			),
 	.DMA0_DPORT_BASE_ADDR  		( DMA0_DPORT_BASE_ADDR    	),
 	.QL_RESERVED_BASE_ADDRESS	( QL_RESERVED_BASE_ADDRESS 	),
@@ -305,15 +286,6 @@ AL4S3B_FPGA_IP              #(
 `ifdef ENAB_GPIO_INT	
     .GPIO_PIN                  ( GPIO_PIN                    ),
 `endif
-	//
-	//UART
-	//
-`ifdef ENAB_UART_16550_inst
-	.SIN_i	             		(SIN_i						 ),
-	.SOUT_o             		(SOUT_o						 ),   
-`endif
-	
-	.UART_Intr_o                (UART_Intr					 ),   
 
     // Misc
     //
@@ -362,7 +334,7 @@ qlal4s3b_cell_macro              u_qlal4s3b_cell_macro
     //
     // FB Interrupts
     //
-    .FB_msg_out                ({1'b0, UART_Intr, 1'b0, SDMA0_INT}), // input   [3:0]
+    .FB_msg_out                ({1'b0, 1'b0, 1'b0, SDMA0_INT}), // input   [3:0]
     .FB_Int_Clr                (  8'h0                       ), // input   [7:0]
     .FB_Start                  (                             ), // output
     .FB_Busy                   (  1'b0                       ), // input
