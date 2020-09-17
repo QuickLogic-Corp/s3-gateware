@@ -1,2 +1,2 @@
 # s3-gateware
-s3 fpga ips
+s3 gatweware (FPGA) designs
