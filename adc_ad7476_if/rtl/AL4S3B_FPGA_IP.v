@@ -1,6 +1,5 @@
 `timescale 1ns / 10ps
 //`define USE_DEBUG_PORT
-//`define ENAB_GPIO_INT
 module AL4S3B_FPGA_IP ( 
 
                 // AHB-To_FPGA Bridge I/F
@@ -25,12 +24,7 @@ module AL4S3B_FPGA_IP (
 				DMA_Done_i,	   
 				DMA_Req_o,	   
 				INTR_o,	
-`ifdef ENAB_GPIO_INT				
-				// GPIO's
-				GPIO_PIN,
-`endif	
 
-                //
 				CSn_o,
 				SCLK_o,
 				SDATA_i, 
@@ -71,18 +65,12 @@ parameter       FPGA_DBG1_REG_ADR           = 10'h030       ;
 parameter       FPGA_DBG2_REG_ADR           = 10'h034       ;
 parameter       FPGA_DBG3_REG_ADR           = 10'h038       ;
 
-parameter       FABRIC_GPIO_IN_REG_ADR      = 10'h100       ; 
-parameter       FABRIC_GPIO_OUT_REG_ADR     = 10'h104       ; 
-parameter       FABRIC_GPIO_OE_REG_ADR      = 10'h108       ; 
-
 parameter       DMA_EN_REG_ADR              = 10'h000       ;
 parameter       DMA_STS_REG_ADR             = 10'h004       ;
 parameter       DMA_INTR_EN_REG_ADR         = 10'h008       ;
 
 parameter       AL4S3B_DEVICE_ID            = 16'h0         ;
 parameter       AL4S3B_REV_LEVEL            = 32'h0         ;
-parameter       AL4S3B_GPIO_REG             = 21'h0         ;
-parameter       AL4S3B_GPIO_OE_REG          = 21'h0         ;
 parameter       AL4S3B_SCRATCH_REG          = 32'h12345678  ;
 
 parameter       AL4S3B_DEF_REG_VALUE        = 32'hFAB_DEF_AC; // Distinguish access to undefined area
@@ -122,11 +110,6 @@ input           WB_RST           ;  // FPGA Reset               to   FPGA
 output  [31:0]  WBs_RD_DAT       ;  // Read Data Bus              from FPGA
 output          WBs_ACK          ;  // Transfer Cycle Acknowledge from FPGA
 
-// GPIO
-//
-`ifdef ENAB_GPIO_INT
-inout 	[3:0]	GPIO_PIN;
-`endif
 // Misc
 //
 input                	CLK_IP_i;  
@@ -168,13 +151,6 @@ wire            WBs_ACK          ;  // Wishbone Client Acknowledge
 
 wire           	CLK_IP_i		 ;  
 wire           	RST_IP_i		 ; 
-
-`ifdef ENAB_GPIO_INT
-wire 	[3:0]	GPIO_PIN;
-wire    [3:0]  GPIO_In;
-wire    [3:0]  GPIO_Out;
-wire    [3:0]  GPIO_oe;
-`endif
 
 
 wire			CSn_o;
@@ -226,8 +202,6 @@ parameter       DEFAULT_COUNT  =  1  ;
 //------Internal Signals---------------
 //
 
-// GPIO
-//
 
 // Wishbone Bus Signals
 //
@@ -308,18 +282,12 @@ AL4S3B_FPGA_Registers #(
 	.FPGA_DBG2_REG_ADR   		( FPGA_DBG2_REG_ADR   			),
 	.FPGA_DBG3_REG_ADR   		( FPGA_DBG3_REG_ADR   			),
 	
-	.FABRIC_GPIO_IN_REG_ADR     ( FABRIC_GPIO_IN_REG_ADR      	),
-    .FABRIC_GPIO_OUT_REG_ADR    ( FABRIC_GPIO_OUT_REG_ADR     	),
-    .FABRIC_GPIO_OE_REG_ADR     ( FABRIC_GPIO_OE_REG_ADR      	),
-		
 	.DMA_EN_REG_ADR   			( DMA_EN_REG_ADR     			),
 	.DMA_STS_REG_ADR   			( DMA_STS_REG_ADR     			),
 	.DMA_INTR_EN_REG_ADR     	( DMA_INTR_EN_REG_ADR	    	),
 
     .AL4S3B_DEVICE_ID           ( AL4S3B_DEVICE_ID              ),
     .AL4S3B_REV_LEVEL           ( AL4S3B_REV_LEVEL              ),
-    .AL4S3B_GPIO_REG            ( AL4S3B_GPIO_REG               ),
-    .AL4S3B_GPIO_OE_REG         ( AL4S3B_GPIO_OE_REG            ),
     .AL4S3B_SCRATCH_REG         ( AL4S3B_SCRATCH_REG            ),
 
     .AL4S3B_DEF_REG_VALUE       ( AL4S3B_DEF_REG_VALUE          )
@@ -368,11 +336,6 @@ AL4S3B_FPGA_Registers #(
 	
 	.fsm_top_st_i              ( fsm_top_st			            ), 
 	.spi_fsm_st_i              ( spi_fsm_st			            ),
-`ifdef ENAB_GPIO_INT	
-	.GPIO_IN_i                 ( GPIO_In                        ),
-	.GPIO_OUT_o                ( GPIO_Out                       ),
-	.GPIO_OE_o                 ( GPIO_oe                        ),
-`endif	
     .Device_ID_o               ( Device_ID_o                    )
 
     );
@@ -445,20 +408,6 @@ Serializer_Deserializer_Test     u_Serializer_Deserializer_Test
     .spi_sck_i                 ( spi_sck_i		                ), 
     .spi_miso_o                ( spi_miso_o		                )
     );	
-`endif
-	
-// GPIO
-//
-`ifdef ENAB_GPIO_INT
-bipad u_bipad_I0    ( .A( GPIO_Out[0]   ), .EN( GPIO_oe[0]       ), .Q( GPIO_In[0]    ), .P( GPIO_PIN[0]  ) );
-bipad u_bipad_I1    ( .A( GPIO_Out[1]   ), .EN( GPIO_oe[1]       ), .Q( GPIO_In[1]    ), .P( GPIO_PIN[1]  ) );
-bipad u_bipad_I2    ( .A( GPIO_Out[2]   ), .EN( GPIO_oe[2]       ), .Q( GPIO_In[2]    ), .P( GPIO_PIN[2]  ) );
-bipad u_bipad_I3    ( .A( GPIO_Out[3]   ), .EN( GPIO_oe[3]       ), .Q( GPIO_In[3]    ), .P( GPIO_PIN[3]  ) );
-
-//pragma attribute u_bipad_I0                  preserve_cell true
-//pragma attribute u_bipad_I1                  preserve_cell true 
-//pragma attribute u_bipad_I2                  preserve_cell true
-//pragma attribute u_bipad_I3                  preserve_cell true
 `endif
 	
 // Reserved Resources Block

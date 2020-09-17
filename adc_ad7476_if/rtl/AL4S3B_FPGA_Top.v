@@ -1,6 +1,5 @@
 `timescale 1ns / 10ps
 //`define USE_DEBUG_PORT
-//`define ENAB_GPIO_INT
 module top ( 
 			CSn_o,
             SCLK_o,
@@ -16,10 +15,6 @@ module top (
 			dbg_sdma_req,   
 			dbg_sdma_active,
 			dbg_sdma_done
-`endif
-`ifdef ENAB_GPIO_INT
-			,
-		    GPIO_PIN	
 `endif
             );
 
@@ -50,18 +45,12 @@ parameter       FPGA_DBG1_REG_ADR           = 10'h030       ;
 parameter       FPGA_DBG2_REG_ADR           = 10'h034       ;
 parameter       FPGA_DBG3_REG_ADR           = 10'h038       ;
 
-parameter       FABRIC_GPIO_IN_REG_ADR      = 10'h100       ; 
-parameter       FABRIC_GPIO_OUT_REG_ADR     = 10'h104       ; 
-parameter       FABRIC_GPIO_OE_REG_ADR      = 10'h108       ; 
-
 parameter       DMA_EN_REG_ADR              = 10'h000       ;
 parameter       DMA_STS_REG_ADR             = 10'h004       ;
 parameter       DMA_INTR_EN_REG_ADR         = 10'h008       ;
 
 parameter       AL4S3B_DEVICE_ID            = 16'h0         ;
 parameter       AL4S3B_REV_LEVEL            = 32'h0         ;
-parameter       AL4S3B_GPIO_REG             = 22'h0         ;
-parameter       AL4S3B_GPIO_OE_REG          = 22'h0         ;
 parameter       AL4S3B_SCRATCH_REG          = 32'h12345678  ;
 
 parameter       AL4S3B_DEF_REG_VALUE        = 32'hFAB_DEF_AC; // Distinguish access to undefined area
@@ -87,12 +76,6 @@ parameter       QL_RESERVED_DEF_REG_VALUE   = 32'hDEF_FAB_AC; // Distinguish acc
 //------Port Signals-------------------
 //
 
-// GPIO
-//
-`ifdef ENAB_GPIO_INT
-inout  [3:0]   GPIO_PIN       ;
-`endif
-
 output 					CSn_o;
 output 					SCLK_o;
 //output 					SDI_o;
@@ -108,12 +91,6 @@ inout            		dbg_spi_miso_o ;
 output		            dbg_sdma_req    ;
 output		            dbg_sdma_active ;
 output		            dbg_sdma_done   ;
-`endif
-//
-//GPIO
-//
-`ifdef ENAB_GPIO_INT
-wire   [3:0]   GPIO_PIN       ;
 `endif
 //------Define Parameters--------------
 //
@@ -227,18 +204,12 @@ AL4S3B_FPGA_IP              #(
 	.FPGA_DBG2_REG_ADR   		( FPGA_DBG2_REG_ADR   		),
 	.FPGA_DBG3_REG_ADR   		( FPGA_DBG3_REG_ADR   		),
 	
-	.FABRIC_GPIO_IN_REG_ADR    ( FABRIC_GPIO_IN_REG_ADR     ),
-    .FABRIC_GPIO_OUT_REG_ADR   ( FABRIC_GPIO_OUT_REG_ADR    ),
-    .FABRIC_GPIO_OE_REG_ADR    ( FABRIC_GPIO_OE_REG_ADR     ),
-	  
 	.DMA_EN_REG_ADR   			( DMA_EN_REG_ADR     		),
 	.DMA_STS_REG_ADR   			( DMA_STS_REG_ADR     		),
 	.DMA_INTR_EN_REG_ADR     	( DMA_INTR_EN_REG_ADR	    ),
 
     .AL4S3B_DEVICE_ID          ( AL4S3B_DEVICE_ID           ),
     .AL4S3B_REV_LEVEL          ( AL4S3B_REV_LEVEL           ),
-    .AL4S3B_GPIO_REG           ( AL4S3B_GPIO_REG            ),
-    .AL4S3B_GPIO_OE_REG        ( AL4S3B_GPIO_OE_REG         ),
     .AL4S3B_SCRATCH_REG        ( AL4S3B_SCRATCH_REG         ),
 
     .AL4S3B_DEF_REG_VALUE      ( AL4S3B_DEF_REG_VALUE       ),
@@ -281,12 +252,6 @@ AL4S3B_FPGA_IP              #(
     .WBs_ACK                   ( WBs_ACK                     ), // output        | Transfer Cycle Acknowledge from FPGA
 
     //
-    // GPIO
-    //
-`ifdef ENAB_GPIO_INT	
-    .GPIO_PIN                  ( GPIO_PIN                    ),
-`endif
-
     // Misc
     //
 	.CSn_o	             		(CSn_o						 ),
