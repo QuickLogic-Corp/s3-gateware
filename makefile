@@ -1,6 +1,6 @@
 RAW_DIRS:=$(subst /,,$(wildcard */))
 
-filters:=usb2serial
+filters:=ci usb2serial
 
 DIRS:=$(filter-out $(filters),${RAW_DIRS})
 
