@@ -147,13 +147,6 @@ AL4S3B_FPGA_IP              #(
 
     .FPGA_REG_ID_VALUE_ADR      ( FPGA_REG_ID_VALUE_ADR     ),
     .FPGA_REV_NUM_ADR           ( FPGA_REV_NUM_ADR          ),
-    .FPGA_FIFO_RST_ADR          ( FPGA_FIFO_RST_ADR         ),
-    .FPGA_SENSOR_EN_REG_ADR     ( FPGA_SENSOR_EN_REG_ADR    ),
-    .FPGA_FIFO_OVERRUN_ADR      ( FPGA_FIFO_OVERRUN_ADR     ),
-
-    .FPGA_DBG1_REG_ADR          ( FPGA_DBG1_REG_ADR         ),
-    .FPGA_DBG2_REG_ADR          ( FPGA_DBG2_REG_ADR         ),
-    .FPGA_DBG3_REG_ADR          ( FPGA_DBG3_REG_ADR         ),
 
     .AL4S3B_DEVICE_ID           ( AL4S3B_DEVICE_ID          ),
     .AL4S3B_REV_LEVEL           ( AL4S3B_REV_LEVEL          ),

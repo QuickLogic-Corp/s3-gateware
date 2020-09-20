@@ -37,7 +37,8 @@ parameter       APERSIZE                    = 10            ;
                                                                 // these are byte offsets.
 parameter       FPGA_REG_BASE_ADDRESS       = 17'h00000     ; // Assumes 128K Byte FPGA Memory Aperture
 parameter       UART0_BASE_ADDRESS          = 17'h01000     ;
-parameter       QL_RESERVED_BASE_ADDRESS    = 17'h12000     ; // Assumes 128K Byte FPGA Memory Aperture
+//parameter       QL_RESERVED_BASE_ADDRESS    = 17'h12000     ; // Assumes 128K Byte FPGA Memory Aperture
+parameter       QL_RESERVED_BASE_ADDRESS    = 17'h03000     ; // Assumes 128K Byte FPGA Memory Aperture
 
 parameter       ADDRWIDTH_FAB_REG           =  10           ;
 parameter       DATAWIDTH_FAB_REG           =  32           ;
@@ -46,13 +47,6 @@ parameter       DATAWIDTH_FAB_REG           =  32           ;
                                                                 //  the 2 LSB's (on the right) should be 0's.
 parameter       FPGA_REG_ID_VALUE_ADR       = 10'h000       ; 
 parameter       FPGA_REV_NUM_ADR            = 10'h004       ; 
-parameter       FPGA_FIFO_RST_ADR           = 10'h008       ; 
-parameter       FPGA_SENSOR_EN_REG_ADR      = 10'h00C       ; 
-parameter       FPGA_FIFO_OVERRUN_ADR       = 10'h010       ; 
-
-parameter       FPGA_DBG1_REG_ADR           = 10'h030       ; 
-parameter       FPGA_DBG2_REG_ADR           = 10'h034       ;
-parameter       FPGA_DBG3_REG_ADR           = 10'h038       ;
 
 parameter       AL4S3B_DEVICE_ID            = 16'h0         ;
 parameter       AL4S3B_REV_LEVEL            = 32'h0         ;
@@ -219,13 +213,6 @@ AL4S3B_FPGA_Registers #(
 
     .FPGA_REG_ID_VALUE_ADR      ( FPGA_REG_ID_VALUE_ADR         ),
     .FPGA_REV_NUM_ADR           ( FPGA_REV_NUM_ADR              ),
-    .FPGA_FIFO_RST_ADR          ( FPGA_FIFO_RST_ADR             ),
-    .FPGA_SENSOR_EN_REG_ADR     ( FPGA_SENSOR_EN_REG_ADR        ),
-    .FPGA_FIFO_OVERRUN_ADR      ( FPGA_FIFO_OVERRUN_ADR         ),
-
-    .FPGA_DBG1_REG_ADR          ( FPGA_DBG1_REG_ADR             ),
-    .FPGA_DBG2_REG_ADR          ( FPGA_DBG2_REG_ADR             ),
-    .FPGA_DBG3_REG_ADR          ( FPGA_DBG3_REG_ADR             ),
 
     .AL4S3B_DEVICE_ID           ( AL4S3B_DEVICE_ID              ),
     .AL4S3B_REV_LEVEL           ( AL4S3B_REV_LEVEL              ),

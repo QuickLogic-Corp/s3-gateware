@@ -14,11 +14,11 @@ module AL4S3B_FPGA_Registers (
                         WBs_DAT_o,
                         WBs_ACK_o,
 
-						fsm_top_st_i, 
-						spi_fsm_st_i,
-											 
-						dbg_reset_o,
-						Device_ID_o
+                        fsm_top_st_i, 
+                        spi_fsm_st_i,
+
+                        dbg_reset_o,
+                        Device_ID_o
                          );
 
 
@@ -31,14 +31,6 @@ parameter       DATAWIDTH                   =  32;   // Allow for up to 128 regi
                                                                 //  the 2 LSB's (on the right) should be 0's.
 parameter       FPGA_REG_ID_VALUE_ADR       = 10'h000       ; 
 parameter       FPGA_REV_NUM_ADR            = 10'h004       ; 
-parameter       FPGA_FIFO_RST_ADR           = 10'h008       ; 
-parameter       FPGA_SENSOR_EN_REG_ADR      = 10'h00C       ; 
-parameter       FPGA_FIFO_OVERRUN_ADR       = 10'h010       ; 
-
-parameter       FPGA_DBG1_REG_ADR           = 10'h030       ; 
-parameter       FPGA_DBG2_REG_ADR           = 10'h034       ;
-parameter       FPGA_DBG3_REG_ADR           = 10'h038       ;
-
 
 parameter       AL4S3B_DEVICE_ID            = 16'h0         ;
 parameter       AL4S3B_REV_LEVEL            = 32'h0         ;
@@ -65,14 +57,14 @@ output                   WBs_ACK_o     ;  // Transfer Cycle Acknowledge from FPG
 //
 // Misc
 //
-output           [31:0]  Device_ID_o   ;
+output  [31:0]  Device_ID_o   ;
      
 
 
-input   		 [1:0]	 fsm_top_st_i; 
-input   		 [1:0]	 spi_fsm_st_i;   
+input   [1:0]   fsm_top_st_i; 
+input   [1:0]   spi_fsm_st_i;   
 
-output 					 dbg_reset_o;
+output          dbg_reset_o;
 
 // FPGA Global Signals
 //
@@ -96,22 +88,22 @@ reg                      WBs_ACK_o     ;  // Wishbone Client Acknowledge
 
 // Misc
 //
-wire             [31:0]  Device_ID_o;
-wire    		 [31:0]  Rev_Num;
+wire    [31:0]  Device_ID_o;
+wire    [31:0]  Rev_Num;
 
 
     
 
 
 
-wire					 Pop_Sig_int;
-wire					 Pop_Sig;
-wire			[3:0]    pop_flag; 
+wire            Pop_Sig_int;
+wire            Pop_Sig;
+wire    [3:0]   pop_flag; 
 
-reg				[9:0]	 rx_fifo_cnt;  
+reg     [9:0]   rx_fifo_cnt;  
 
-wire    		[1:0]	 fsm_top_st_i;
-wire    		[1:0]	 spi_fsm_st_i;
+wire    [1:0]   fsm_top_st_i;
+wire    [1:0]   spi_fsm_st_i;
 
 //------Define Parameters--------------
 //
@@ -119,13 +111,10 @@ wire    		[1:0]	 spi_fsm_st_i;
 //
 //------Internal Signals---------------
 //
-wire                     FPGA_FIFO_RST_Dcd    ;
-wire                     FPGA_SENSOR_EN_REG_Dcd    ;  
 
-wire					 dbg_reset_o;
+wire            dbg_reset_o;
 
-wire 					 fifo_ovrrun;
-reg 					 fifo_ovrrun_r;
+wire            fifo_ovrrun;
 
 //------Logic Operations---------------
 //
@@ -133,10 +122,6 @@ reg 					 fifo_ovrrun_r;
 
 // debug
 assign dbg_reset_o = 1'b0;
-
-// Define the FPGA's local register write enables
-assign FPGA_FIFO_RST_Dcd      = ( WBs_ADR_i[ADDRWIDTH-3:0] == FPGA_FIFO_RST_ADR[ADDRWIDTH-1:2]  ) & WBs_CYC_i & WBs_STB_i & WBs_WE_i   & (~WBs_ACK_o);
-assign FPGA_SENSOR_EN_REG_Dcd = ( WBs_ADR_i[ADDRWIDTH-3:0] == FPGA_SENSOR_EN_REG_ADR[ADDRWIDTH-1:2] ) & WBs_CYC_i & WBs_STB_i & WBs_WE_i   & (~WBs_ACK_o);
 
 
 // Define the Acknowledge back to the host for registers
@@ -150,11 +135,11 @@ always @( posedge WBs_CLK_i or posedge WBs_RST_i)
 begin
     if (WBs_RST_i)
     begin
-		WBs_ACK_o    	  <= 1'b0    ;
+        WBs_ACK_o <= 1'b0;
     end  
     else
     begin
-        WBs_ACK_o                   <=  WBs_ACK_o_nxt  ;
+        WBs_ACK_o <=  WBs_ACK_o_nxt;
     end  
 end
 
@@ -163,19 +148,13 @@ assign Rev_Num     = 32'h00000100;
 
 // Define the how to read the local registers and memory
 //
-always @(
-         WBs_ADR_i        	or
-         Device_ID_o      	or
-		 Rev_Num          	or
-		 fifo_ovrrun_r
- )
+always @(*)
  begin
     case(WBs_ADR_i[ADDRWIDTH-3:0])
-    FPGA_REG_ID_VALUE_ADR  [ADDRWIDTH-1:2]  : WBs_DAT_o <= Device_ID_o         			  ;     
-	FPGA_REV_NUM_ADR       [ADDRWIDTH-1:2]  : WBs_DAT_o <= Rev_Num            			  ;
-    FPGA_FIFO_RST_ADR      [ADDRWIDTH-1:2]  : WBs_DAT_o <= { 31'h0, 1'b0   		    } ;
-	default                                 : WBs_DAT_o <= AL4S3B_DEF_REG_VALUE             ;
-	endcase
+    FPGA_REG_ID_VALUE_ADR  [ADDRWIDTH-1:2]  : WBs_DAT_o <= Device_ID_o          ;     
+    FPGA_REV_NUM_ADR       [ADDRWIDTH-1:2]  : WBs_DAT_o <= Rev_Num              ;
+    default                                 : WBs_DAT_o <= AL4S3B_DEF_REG_VALUE ;
+    endcase
 end
 
 
