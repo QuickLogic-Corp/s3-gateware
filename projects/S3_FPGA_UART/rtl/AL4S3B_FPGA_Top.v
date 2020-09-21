@@ -17,7 +17,7 @@ parameter       APERSIZE                    = 10            ;
                                                                 // these are byte offsets
 parameter       FPGA_REG_BASE_ADDRESS       = 17'h00000     ; // Assumes 128K Byte FPGA Memory Aperture
 parameter       UART0_BASE_ADDRESS          = 17'h01000     ;
-parameter       QL_RESERVED_BASE_ADDRESS    = 17'h12000     ; // Assumes 128K Byte FPGA Memory Aperture
+parameter       QL_RESERVED_BASE_ADDRESS    = 17'h03000     ; // Assumes 128K Byte FPGA Memory Aperture
 
 parameter       ADDRWIDTH_FAB_REG           =  10           ;
 parameter       DATAWIDTH_FAB_REG           =  32           ;

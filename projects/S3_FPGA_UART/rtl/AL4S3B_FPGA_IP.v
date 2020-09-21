@@ -37,7 +37,6 @@ parameter       APERSIZE                    = 10            ;
                                                                 // these are byte offsets.
 parameter       FPGA_REG_BASE_ADDRESS       = 17'h00000     ; // Assumes 128K Byte FPGA Memory Aperture
 parameter       UART0_BASE_ADDRESS          = 17'h01000     ;
-//parameter       QL_RESERVED_BASE_ADDRESS    = 17'h12000     ; // Assumes 128K Byte FPGA Memory Aperture
 parameter       QL_RESERVED_BASE_ADDRESS    = 17'h03000     ; // Assumes 128K Byte FPGA Memory Aperture
 
 parameter       ADDRWIDTH_FAB_REG           =  10           ;
@@ -183,13 +182,7 @@ assign WBs_ACK              =    WBs_ACK_FPGA_Reg | WBs_ACK_UART0
 
 // Define the how to read from each IP
 //
-always @(
-        WBs_ADR               or
-        WBs_DAT_o_FPGA_Reg    or
-        WBs_DAT_o_UART0       or
-        WBs_DAT_o_QL_Reserved or
-        WBs_RD_DAT    
-        )
+always @(*)
  begin
     case(WBs_ADR[APERWIDTH-1:APERSIZE+2])
     FPGA_REG_BASE_ADDRESS    [APERWIDTH-1:APERSIZE+2]: WBs_RD_DAT  <=    WBs_DAT_o_FPGA_Reg     ;
