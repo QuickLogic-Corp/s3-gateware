@@ -1,17 +1,21 @@
 #
 # make all to make the 
 #
-#
-# need to figure out a way to use these in the command line
-RTL_SRCS:=$(wildcard *.v)
+
+IPMODULES = UART_16550
+MODULEDIRS = $(addprefix ../../../ip_modules/,${IPMODULES})
+RTL_SRCS:=$(wildcard *.v) $(wildcard ${MODULEDIRS}/rtl/*.v)
 # RTL_SRCS:= $(wildcard ../*.v) $(wildcard *.v)
 filters=
-SRCS:=$(filter-out $(filters),$(notdir $(RTL_SRCS)))
+SRCS:=$(filter-out $(filters),${RTL_SRCS})
 
-all:		build/top.bit
+all:			../top_bit.h
 
-build/top.bit:	${SRCS}
-		ql_symbiflow -compile -d ql-eos-s3 -P pu64 -v ../../../IP_modules/UART_16550/rtl/*.v *.v -t top -p quickfeather.pcf
+top_bit.h:		${SRCS}
+				ql_symbiflow -compile -d ql-eos-s3 -P pu64 -v ${RTL_SRCS} -t top -p quickfeather.pcf -dump header
+		
+../top_bit.h:	top_bit.h
+				mv top_bit.h ../top_bit.h
 
 
 clean:
