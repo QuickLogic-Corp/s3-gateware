@@ -1,6 +1,6 @@
 .PHONY:${BUILDDIR}
  
-current_dir := /mnt/c/work/github/QuickLogic-Corp/s3-gateware/Projects/S3_FPGA_UART/rtl
+current_dir := /mnt/c/work/github/QuickLogic-Corp/s3-gateware/projects/S3_FPGA_UART/rtl
 TOP := top
 VERILOG := ${current_dir}/../../../IP_modules/UART_16550/rtl/UART_16550.v \
 ${current_dir}/../../../IP_modules/UART_16550/rtl/UART_16550_Interrupt_Control.v \
@@ -23,16 +23,16 @@ BUILDDIR := build
 all: ${BUILDDIR}/${TOP}.bit
 
 ${BUILDDIR}/${TOP}.eblif: ${VERILOG}
-	cd ${BUILDDIR} && synth -t ${TOP} -v ${VERILOG} -d ${DEVICE} -p ${PCF} -P ${PART} 2>&1 > /mnt/c/work/github/QuickLogic-Corp/s3-gateware/Projects/S3_FPGA_UART/rtl/build/top.log
+	cd ${BUILDDIR} && synth -t ${TOP} -v ${VERILOG} -d ${DEVICE} -p ${PCF} -P ${PART} 2>&1 > /mnt/c/work/github/QuickLogic-Corp/s3-gateware/projects/S3_FPGA_UART/rtl/build/top.log
 
 ${BUILDDIR}/${TOP}.net: ${BUILDDIR}/${TOP}.eblif
-	cd ${BUILDDIR} && pack -e ${TOP}.eblif -d ${DEVICE} -s ${SDC} 2>&1 > /mnt/c/work/github/QuickLogic-Corp/s3-gateware/Projects/S3_FPGA_UART/rtl/build/top.log
+	cd ${BUILDDIR} && pack -e ${TOP}.eblif -d ${DEVICE} -s ${SDC} 2>&1 > /mnt/c/work/github/QuickLogic-Corp/s3-gateware/projects/S3_FPGA_UART/rtl/build/top.log
 
 ${BUILDDIR}/${TOP}.place: ${BUILDDIR}/${TOP}.net
-	cd ${BUILDDIR} && place -e ${TOP}.eblif -d ${DEVICE} -p ${PCF} -n ${TOP}.net -P ${PARTNAME} -s ${SDC} 2>&1 > /mnt/c/work/github/QuickLogic-Corp/s3-gateware/Projects/S3_FPGA_UART/rtl/build/top.log
+	cd ${BUILDDIR} && place -e ${TOP}.eblif -d ${DEVICE} -p ${PCF} -n ${TOP}.net -P ${PARTNAME} -s ${SDC} 2>&1 > /mnt/c/work/github/QuickLogic-Corp/s3-gateware/projects/S3_FPGA_UART/rtl/build/top.log
 
 ${BUILDDIR}/${TOP}.route: ${BUILDDIR}/${TOP}.place
-	cd ${BUILDDIR} && route -e ${TOP}.eblif -d ${DEVICE} -s ${SDC} 2>&1 > /mnt/c/work/github/QuickLogic-Corp/s3-gateware/Projects/S3_FPGA_UART/rtl/build/top.log
+	cd ${BUILDDIR} && route -e ${TOP}.eblif -d ${DEVICE} -s ${SDC} 2>&1 > /mnt/c/work/github/QuickLogic-Corp/s3-gateware/projects/S3_FPGA_UART/rtl/build/top.log
 
 ${BUILDDIR}/${TOP}.fasm: ${BUILDDIR}/${TOP}.route
 	cd ${BUILDDIR} && write_fasm -e ${TOP}.eblif -d ${DEVICE}
@@ -51,7 +51,7 @@ ${BUILDDIR}/${TOP}_jlink.h: ${BUILDDIR}/${TOP}.jlink
 
 ${BUILDDIR}/${TOP}.post_v: ${BUILDDIR}/${TOP}.bit
 	cd ${BUILDDIR} && write_fasm2bels -e ${TOP}.eblif -d ${DEVICE} -p ${PCF} -n ${TOP}.net -P ${PARTNAME}
-	cd ${BUILDDIR} && analysis -e ${TOP}.eblif -d ${DEVICE} -s ${SDC} 2>&1 > /mnt/c/work/github/QuickLogic-Corp/s3-gateware/Projects/S3_FPGA_UART/rtl/build/top.log
+	cd ${BUILDDIR} && analysis -e ${TOP}.eblif -d ${DEVICE} -s ${SDC} 2>&1 > /mnt/c/work/github/QuickLogic-Corp/s3-gateware/projects/S3_FPGA_UART/rtl/build/top.log
 
 clean:
 	rm -rf ${BUILDDIR}
