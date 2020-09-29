@@ -1,3 +1,11 @@
 set_io UART0_SIN_i 6
 set_io UART0_SOUT_o 2
-set_io gnd_o 59
+set_io debug0 55
+set_io debug1 31
+set_io debug2 25
+set_io debug3 56
+set_io debug4 57
+set_io debug5 63
+set_io debug6 59
+set_io debug7 61
+set_io debug8 3

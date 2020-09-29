@@ -25,6 +25,9 @@ module AL4S3B_FPGA_IP (
                 UART0_Intr_o,
 
                 Device_ID_o
+
+                , debug_o
+
                 );
 
 
@@ -101,6 +104,8 @@ input                   UART0_SIN_i;
 output                  UART0_SOUT_o;
 output                  UART0_Intr_o;
 
+output  [31:0]          debug_o;
+
 // FPGA Global Signals
 //
 wire            WB_CLK          ;  // Wishbone FPGA Clock
@@ -129,6 +134,8 @@ wire            UART0_Intr_o;
 
 
 wire    [31:0]  Device_ID_o;
+
+wire    [31:0]          debug_o;
 
 
 wire            dbg_reset;
@@ -252,6 +259,8 @@ UART_16550 u_UART_16550_0      (
     .SOUT_o                    ( UART0_SOUT_o                   ),
 
     .INTR_o                    ( UART0_Intr_o                   )
+
+    , .debug_o                  ( debug_o                       )
                                                                 );
 
 // Reserved Resources Block

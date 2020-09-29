@@ -1,11 +1,21 @@
 `timescale 1ns / 10ps
 module top ( 
-            gnd_o,               // needed for PMOD connector on the QuickFeather board
+            //gnd_o,               // needed for PMOD connector on the QuickFeather board
 
             // UART 0
             UART0_SIN_i,
             UART0_SOUT_o
 
+            ,
+            debug0,
+            debug1,
+            debug2,
+            debug3,
+            debug4,
+            debug5,
+            debug6,
+            debug7,
+            debug8
             );
 
 
@@ -61,11 +71,21 @@ parameter       QL_RESERVED_DEF_REG_VALUE   = 32'hDEF_FAB_AC; // Distinguish acc
 //------Port Signals-------------------
 //
 
-output                  gnd_o;
+//output                  gnd_o;
 
 // UART 0
 input                   UART0_SIN_i;
 output                  UART0_SOUT_o;
+
+output          debug0;
+output          debug1;
+output          debug2;
+output          debug3;
+output          debug4;
+output          debug5;
+output          debug6;
+output          debug7;
+output          debug8;
 
 //------Define Parameters--------------
 //
@@ -79,7 +99,7 @@ output                  UART0_SOUT_o;
 
 // FPGA Global Signals
 //
-wire                    gnd_o;
+//wire                    gnd_o;
 
 wire                    CLK_IP;
 wire                    RST_IP;
@@ -115,9 +135,12 @@ wire            UART0_SIN_i;
 wire            UART0_SOUT_o;
 
 wire            UART0_Intr;
+
+wire    [31:0]  debug;
+
 //------Logic Operations---------------
 //
-assign gnd_o = 1'b0;
+//assign gnd_o = 1'b0;
 
 // Determine the FPGA reset
 //
@@ -198,6 +221,8 @@ AL4S3B_FPGA_IP              #(
     .UART0_Intr_o               ( UART0_Intr                ),   
 
     .Device_ID_o                ( Device_ID                 )
+
+    , .debug_o                  (debug                      )
 );
 
 // Verilog model of QLAL4S3B
@@ -303,5 +328,16 @@ qlal4s3b_cell_macro              u_qlal4s3b_cell_macro
 
 //pragma attribute u_qlal4s3b_cell_macro         preserve_cell true
 //pragma attribute u_AL4S3B_FPGA_IP            preserve_cell true
+
+
+assign debug0 = debug[0];
+assign debug1 = debug[1];
+assign debug2 = debug[2];
+assign debug3 = debug[3];
+assign debug4 = debug[4];
+assign debug5 = debug[5];
+assign debug6 = debug[6];
+assign debug7 = debug[7];
+assign debug8 = debug[8];
 
 endmodule

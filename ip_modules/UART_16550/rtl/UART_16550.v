@@ -49,6 +49,8 @@ module UART_16550 (
 
 	            INTR_o
 
+                , debug_o
+
                 );
 
 
@@ -96,6 +98,7 @@ output                   SOUT_o;
 
 output                   INTR_o;
 
+output  [31:0]          debug_o;
 
 // Fabric Global Signals
 //
@@ -122,6 +125,7 @@ wire                     SOUT_o;
 
 wire                     INTR_o;
 
+wire    [31:0]          debug_o;
 
 //------Define Parameters--------------
 //
@@ -441,6 +445,8 @@ UART_16550_Tx_Rx_FIFOs                        u_UART_16550_Tx_Rx_FIFOs
 
     .Tx_FIFO_Empty_o                    ( Tx_FIFO_Empty                   ),
     .Tx_FIFO_Level_o                    ( Tx_FIFO_Level                   )
+
+	, .debug_o                          ( debug_o                           )
 	
                                                                           );
 																		  

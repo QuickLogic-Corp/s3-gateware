@@ -69,6 +69,8 @@ module UART_16550_Tx_Rx_FIFOs(
                 Tx_FIFO_Empty_o,
                 Tx_FIFO_Level_o				
 
+                , debug_o
+
                 );
 
 
@@ -124,6 +126,7 @@ output                   Tx_FIFO_Empty_o;
 
 output            [8:0]  Tx_FIFO_Level_o;
 
+output  [31:0]  debug_o;
 
 // Fabric Global Signals
 //
@@ -188,6 +191,8 @@ reg               [8:0]  Tx_FIFO_Level_o_nxt;
 wire              [7:0]  Tx_DAT_Out;
 
 wire                     Tx_FIFO_Flush;
+
+wire    [31:0]  debug_o;
 
 //------Define Parameters--------------
 //
@@ -461,5 +466,15 @@ f512x16_512x16 u_Rx_fifo(
 	  .POP_FLAG           (                       ),
 	  .DOUT               ( Rx_DAT_Out            ) 
     );
+
+
+assign debug_o =    {
+                        7'b0, Tx_FIFO_Pop_i,    // 31:24
+                        Tx_DAT_Out,             // 23:16
+                        7'b0, Tx_FIFO_Push_i,   // 15:8
+                        WBs_DAT_i               //  7:0
+                    };
+
+
 
 endmodule
