@@ -49,15 +49,18 @@ module AL4S3B_FPGA_top (
 parameter       APERWIDTH                   = 17            ;
 parameter       APERSIZE                    =  9            ;
 
-parameter       FPGA_REG_BASE_ADDRESS     = 17'h00000     ; // Assumes 128K Byte FPGA Memory Aperture
+                                                              // these are byte offsets
+parameter       FPGA_REG_BASE_ADDRESS       = 17'h00000     ; // Assumes 128K Byte FPGA Memory Aperture
 parameter       QL_RESERVED_BASE_ADDRESS    = 17'h00800     ; // Assumes 128K Byte FPGA Memory Aperture
 
 parameter       ADDRWIDTH_FAB_REG           =  7            ;
 parameter       DATAWIDTH_FAB_REG           = 32            ;
 
-parameter       FPGA_REG_ID_VALUE_ADR     =  7'h0; 
-parameter       FPGA_REV_NUM_ADR          =  7'h1; 
-parameter       FPGA_SCRATCH_REG_ADR      =  7'h2; 
+                                                              // these are byte offsets
+                                                              //  the 2 LSB's (on the right) should be 0's.
+parameter       FPGA_REG_ID_VALUE_ADR     =  10'h000; 
+parameter       FPGA_REV_NUM_ADR          =  10'h004; 
+parameter       FPGA_SCRATCH_REG_ADR      =  10'h008; 
 
 parameter       AL4S3B_DEF_REG_VALUE        = 32'hFAB_DEF_AC; // Distinguish access to undefined area
 
@@ -68,8 +71,8 @@ parameter       DEFAULT_CNTR_TIMEOUT        =  7            ;
 parameter       ADDRWIDTH_QL_RESERVED       =  7            ;
 parameter       DATAWIDTH_QL_RESERVED       = 32            ;
 
-parameter       QL_RESERVED_CUST_PROD_ADR   =  7'h7E        ;  // <<-- Very Top of the FPGA's Memory Aperture
-parameter       QL_RESERVED_REVISIONS_ADR   =  7'h7F        ;  // <<-- Very Top of the FPGA's Memory Aperture
+parameter       QL_RESERVED_CUST_PROD_ADR   =  10'h1F8       ;  // <<-- Very Top of the FPGA's Memory Aperture
+parameter       QL_RESERVED_REVISIONS_ADR   =  10'h1FC       ;  // <<-- Very Top of the FPGA's Memory Aperture
 
 parameter       QL_RESERVED_CUSTOMER_ID     =  8'h01        ;  // <<-- Update for each Customer
 parameter       QL_RESERVED_PRODUCT_ID      =  8'h00        ;  // <<-- Update for each Customer Product
