@@ -75,18 +75,18 @@ module AL4S3B_FPGA_Registers (
 parameter                ADDRWIDTH                   =   7  ;   // Allow for up to 128 registers in the FPGA
 parameter                DATAWIDTH                   =  32  ;   // Allow for up to 128 registers in the FPGA
 
-parameter                FPGA_REG_ID_VALUE_ADR       =  7'h0;   // 0x00
-parameter                FPGA_REV_NUM_ADR            =  7'h1;   // 0x04
-parameter                FPGA_SCRATCH_REG_ADR        =  7'h2;   // 0x08
-parameter                FPGA_CLKCTRL_REG_ADR        =  7'h3;   // 0x0C
-parameter                FPGA_USBPID_REG_ADR         =  7'h4;   // 0x10
+parameter                FPGA_REG_ID_VALUE_ADR       =  10'h000;   // 0x00
+parameter                FPGA_REV_NUM_ADR            =  10'h004;   // 0x04
+parameter                FPGA_SCRATCH_REG_ADR        =  10'h008;   // 0x08
+parameter                FPGA_CLKCTRL_REG_ADR        =  10'h00C;   // 0x0C
+parameter                FPGA_USBPID_REG_ADR         =  10'h010;   // 0x10
 
 // USB to M4, and M4 to USB registers
-parameter                FPGA_U2M_FIFO_FLAGS        =  7'h10;
-parameter                FPGA_U2M_FIFO_RDATA        =  7'h11;
-parameter                FPGA_M2U_FIFO_FLAGS        =  7'h20;
-parameter                FPGA_M2U_FIFO_WDATA        =  7'h21;
-parameter                FPGA_U2M_FIFO_INT_EN       =  7'h30;
+parameter                FPGA_U2M_FIFO_FLAGS        =  10'h040;
+parameter                FPGA_U2M_FIFO_RDATA        =  10'h044;
+parameter                FPGA_M2U_FIFO_FLAGS        =  10'h080;
+parameter                FPGA_M2U_FIFO_WDATA        =  10'h084;
+parameter                FPGA_U2M_FIFO_INT_EN       =  10'h0C0;
 
 parameter                AL4S3B_DEF_REG_VALUE        = 32'hFAB_DEF_AC;
 
@@ -187,11 +187,11 @@ wire					 WBs_ACK_o_nxt;
 
 // Define the FPGA's local register write enables
 //
-assign FB_SCRATCH_REG_Wr_Dcd  = (WBs_ADR_i == FPGA_SCRATCH_REG_ADR) & WBs_CYC_i & WBs_STB_i & WBs_WE_i   & (~WBs_ACK_o);
-assign M2U_FIFO_WDATA_WE = (WBs_ADR_i == FPGA_M2U_FIFO_WDATA) & WBs_CYC_i & WBs_STB_i & WBs_WE_i   & (~WBs_ACK_o);
-assign INTERRUPT_EN_WE = (WBs_ADR_i == FPGA_U2M_FIFO_INT_EN) & WBs_CYC_i & WBs_STB_i & WBs_WE_i   & (~WBs_ACK_o);
-assign CLKCTRL_WE = (WBs_ADR_i == FPGA_CLKCTRL_REG_ADR) & WBs_CYC_i & WBs_STB_i & WBs_WE_i   & (~WBs_ACK_o);
-assign USBPID_WE = (WBs_ADR_i == FPGA_USBPID_REG_ADR) & WBs_CYC_i & WBs_STB_i & WBs_WE_i   & (~WBs_ACK_o);
+assign FB_SCRATCH_REG_Wr_Dcd  = (WBs_ADR_i[ADDRWIDTH-2:0] == FPGA_SCRATCH_REG_ADR[ADDRWIDTH:2]) & WBs_CYC_i & WBs_STB_i & WBs_WE_i   & (~WBs_ACK_o);
+assign M2U_FIFO_WDATA_WE = (WBs_ADR_i[ADDRWIDTH-2:0] == FPGA_M2U_FIFO_WDATA[ADDRWIDTH:2]) & WBs_CYC_i & WBs_STB_i & WBs_WE_i   & (~WBs_ACK_o);
+assign INTERRUPT_EN_WE = (WBs_ADR_i[ADDRWIDTH-2:0] == FPGA_U2M_FIFO_INT_EN[ADDRWIDTH:2]) & WBs_CYC_i & WBs_STB_i & WBs_WE_i   & (~WBs_ACK_o);
+assign CLKCTRL_WE = (WBs_ADR_i[ADDRWIDTH-2:0] == FPGA_CLKCTRL_REG_ADR[ADDRWIDTH:2]) & WBs_CYC_i & WBs_STB_i & WBs_WE_i   & (~WBs_ACK_o);
+assign USBPID_WE = (WBs_ADR_i[ADDRWIDTH-2:0] == FPGA_USBPID_REG_ADR[ADDRWIDTH:2]) & WBs_CYC_i & WBs_STB_i & WBs_WE_i   & (~WBs_ACK_o);
 
 // Define the Acknowledge back to the host for registers
 //
@@ -256,17 +256,17 @@ assign Rev_Num     = 32'h00000200;
 //
 always @(*)
  begin
-    case(WBs_ADR_i[ADDRWIDTH-1:0])
-    FPGA_REG_ID_VALUE_ADR    : WBs_DAT_o <= Device_ID_o;
-    FPGA_REV_NUM_ADR         : WBs_DAT_o <= Rev_Num;  
-    FPGA_SCRATCH_REG_ADR     : WBs_DAT_o <= { 16'h0, Scratch_reg }; 
-    FPGA_CLKCTRL_REG_ADR     : WBs_DAT_o <= { 31'h0, clk_ctrl_reg }; 
-    FPGA_USBPID_REG_ADR      : WBs_DAT_o <= { 16'h0, usb_pid_reg }; 
-    FPGA_U2M_FIFO_FLAGS      : WBs_DAT_o <= { 28'b0, FIFO_u2m_popflag };
-    FPGA_U2M_FIFO_RDATA      : WBs_DAT_o <= { 24'b0, FIFO_u2m_dout };
-    FPGA_M2U_FIFO_FLAGS      : WBs_DAT_o <= { 28'b0, FIFO_m2u_pushflag };
-    FPGA_U2M_FIFO_INT_EN     : WBs_DAT_o <= { 31'b0, Interrupt_en };
-	default                  : WBs_DAT_o <= AL4S3B_DEF_REG_VALUE;
+    case(WBs_ADR_i[ADDRWIDTH-2:0])
+    FPGA_REG_ID_VALUE_ADR[ADDRWIDTH:2]    : WBs_DAT_o <= Device_ID_o;
+    FPGA_REV_NUM_ADR[ADDRWIDTH:2]         : WBs_DAT_o <= Rev_Num;  
+    FPGA_SCRATCH_REG_ADR[ADDRWIDTH:2]     : WBs_DAT_o <= { 16'h0, Scratch_reg }; 
+    FPGA_CLKCTRL_REG_ADR[ADDRWIDTH:2]     : WBs_DAT_o <= { 31'h0, clk_ctrl_reg }; 
+    FPGA_USBPID_REG_ADR[ADDRWIDTH:2]      : WBs_DAT_o <= { 16'h0, usb_pid_reg }; 
+    FPGA_U2M_FIFO_FLAGS[ADDRWIDTH:2]      : WBs_DAT_o <= { 28'b0, FIFO_u2m_popflag };
+    FPGA_U2M_FIFO_RDATA[ADDRWIDTH:2]      : WBs_DAT_o <= { 24'b0, FIFO_u2m_dout };
+    FPGA_M2U_FIFO_FLAGS[ADDRWIDTH:2]      : WBs_DAT_o <= { 28'b0, FIFO_m2u_pushflag };
+    FPGA_U2M_FIFO_INT_EN[ADDRWIDTH:2]     : WBs_DAT_o <= { 31'b0, Interrupt_en };
+    default                               : WBs_DAT_o <= AL4S3B_DEF_REG_VALUE;
 	endcase
 end
 

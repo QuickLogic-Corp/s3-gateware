@@ -52,8 +52,8 @@ module AL4S3B_FPGA_QL_Reserved (
 parameter                ADDRWIDTH                   =   7           ;   // Allow for up to 128 registers in the FPGA
 parameter                DATAWIDTH                   =  32           ;   // Allow for up to 128 registers in the FPGA
 
-parameter                QL_RESERVED_CUST_PROD_ADR   =  7'h7E        ;
-parameter                QL_RESERVED_REVISIONS_ADR   =  7'h7F        ;
+parameter                QL_RESERVED_CUST_PROD_ADR   =  10'h1F8      ;  
+parameter                QL_RESERVED_REVISIONS_ADR   =  10'h1FC      ;
 
 parameter                QL_RESERVED_CUSTOMER_ID     =  8'h01        ;  
 parameter                QL_RESERVED_PRODUCT_ID      =  8'h00        ;
@@ -216,8 +216,8 @@ always @(
         )
 begin
     case(WBs_ADR_i[ADDRWIDTH-1:0])
-    QL_RESERVED_CUST_PROD_ADR   : WBs_DAT_o <= { 16'h0, QL_RESERVED_CUSTOMER_ID, QL_RESERVED_PRODUCT_ID };
-    QL_RESERVED_REVISIONS_ADR   : WBs_DAT_o <= {        QL_RESERVED_MAJOR_REV  , QL_RESERVED_MINOR_REV  };
+    QL_RESERVED_CUST_PROD_ADR[ADDRWIDTH+1:2]   : WBs_DAT_o <= { 16'h0, QL_RESERVED_CUSTOMER_ID, QL_RESERVED_PRODUCT_ID };
+    QL_RESERVED_REVISIONS_ADR[ADDRWIDTH+1:2]   : WBs_DAT_o <= {        QL_RESERVED_MAJOR_REV  , QL_RESERVED_MINOR_REV  };
 	default                     : WBs_DAT_o <=          QL_RESERVED_DEF_REG_VALUE                        ;
 	endcase
 end
