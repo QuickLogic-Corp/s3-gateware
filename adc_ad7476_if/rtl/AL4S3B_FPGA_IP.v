@@ -1,7 +1,5 @@
 `timescale 1ns / 10ps
-`define ENAB_UART_16550_inst
 //`define USE_DEBUG_PORT
-//`define ENAB_GPIO_INT
 module AL4S3B_FPGA_IP ( 
 
                 // AHB-To_FPGA Bridge I/F
@@ -26,18 +24,7 @@ module AL4S3B_FPGA_IP (
 				DMA_Done_i,	   
 				DMA_Req_o,	   
 				INTR_o,	
-`ifdef ENAB_GPIO_INT				
-				// GPIO's
-				GPIO_PIN,
-`endif	
-				// UART signals
-`ifdef ENAB_UART_16550_inst	
-				SIN_i,
-				SOUT_o,
-`endif			
-				UART_Intr_o,
 
-                //
 				CSn_o,
 				SCLK_o,
 				SDATA_i, 
@@ -59,7 +46,6 @@ parameter       APERSIZE                    = 10            ;
 
                                                                 // these are byte offsets.
 parameter       FPGA_REG_BASE_ADDRESS     	= 17'h00000     ; // Assumes 128K Byte FPGA Memory Aperture
-parameter       UART_BASE_ADDRESS           = 17'h01000     ;
 parameter       DMA_REG_BASE_ADDR           = 17'h10000     ;
 parameter       DMA0_DPORT_BASE_ADDR        = 17'h11000     ;
 parameter       QL_RESERVED_BASE_ADDRESS    = 17'h12000     ; // Assumes 128K Byte FPGA Memory Aperture
@@ -79,18 +65,12 @@ parameter       FPGA_DBG1_REG_ADR           = 10'h030       ;
 parameter       FPGA_DBG2_REG_ADR           = 10'h034       ;
 parameter       FPGA_DBG3_REG_ADR           = 10'h038       ;
 
-parameter       FABRIC_GPIO_IN_REG_ADR      = 10'h100       ; 
-parameter       FABRIC_GPIO_OUT_REG_ADR     = 10'h104       ; 
-parameter       FABRIC_GPIO_OE_REG_ADR      = 10'h108       ; 
-
 parameter       DMA_EN_REG_ADR              = 10'h000       ;
 parameter       DMA_STS_REG_ADR             = 10'h004       ;
 parameter       DMA_INTR_EN_REG_ADR         = 10'h008       ;
 
 parameter       AL4S3B_DEVICE_ID            = 16'h0         ;
 parameter       AL4S3B_REV_LEVEL            = 32'h0         ;
-parameter       AL4S3B_GPIO_REG             = 21'h0         ;
-parameter       AL4S3B_GPIO_OE_REG          = 21'h0         ;
 parameter       AL4S3B_SCRATCH_REG          = 32'h12345678  ;
 
 parameter       AL4S3B_DEF_REG_VALUE        = 32'hFAB_DEF_AC; // Distinguish access to undefined area
@@ -130,11 +110,6 @@ input           WB_RST           ;  // FPGA Reset               to   FPGA
 output  [31:0]  WBs_RD_DAT       ;  // Read Data Bus              from FPGA
 output          WBs_ACK          ;  // Transfer Cycle Acknowledge from FPGA
 
-// GPIO
-//
-`ifdef ENAB_GPIO_INT
-inout 	[3:0]	GPIO_PIN;
-`endif
 // Misc
 //
 input                	CLK_IP_i;  
@@ -155,11 +130,6 @@ input					spi_ss_i  ;
 input					spi_sck_i ;
 inout					spi_miso_o;
 `endif
-`ifdef ENAB_UART_16550_inst	
-input          			SIN_i; 
-output 					SOUT_o;
-`endif
-output 					UART_Intr_o;
 
 // FPGA Global Signals
 //
@@ -182,19 +152,6 @@ wire            WBs_ACK          ;  // Wishbone Client Acknowledge
 wire           	CLK_IP_i		 ;  
 wire           	RST_IP_i		 ; 
 
-`ifdef ENAB_GPIO_INT
-wire 	[3:0]	GPIO_PIN;
-wire    [3:0]  GPIO_In;
-wire    [3:0]  GPIO_Out;
-wire    [3:0]  GPIO_oe;
-`endif
-
-`ifdef ENAB_UART_16550_inst
-wire          	SIN_i; 
-wire 			SOUT_o;
-`endif
-
-wire 			UART_Intr_o;
 
 wire			CSn_o;
 wire 			SCLK_o;
@@ -245,23 +202,18 @@ parameter       DEFAULT_COUNT  =  1  ;
 //------Internal Signals---------------
 //
 
-// GPIO
-//
 
 // Wishbone Bus Signals
 //
 wire            WBs_CYC_FPGA_Reg   ; 
 wire            WBs_CYC_DMA_Reg    ;
 wire            WBs_CYC_DMA_Data   ;
-wire			WBs_CYC_UART	   ;
 wire            WBs_CYC_QL_Reserved  ;
 
 wire            WBs_ACK_FPGA_Reg   ;
-wire            WBs_ACK_UART       ;
 wire            WBs_ACK_QL_Reserved  ;
 
 wire    [31:0]  WBs_DAT_o_FPGA_Reg ; 
-wire    [15:0]  WBs_DAT_o_UART     ;
 wire    [31:0]  WBs_DMA_REG_DAT    ; 
 wire    [31:0]  WBs_DMA_FIFO_DAT   ;
 wire    [31:0]  WBs_DAT_o_QL_Reserved;
@@ -279,18 +231,13 @@ assign WBs_CYC_DMA_Reg    = (  WBs_ADR[APERWIDTH-1:APERSIZE+2] 	== DMA_REG_BASE_
 assign WBs_CYC_DMA_Data   = (  WBs_ADR[APERWIDTH-1:APERSIZE+2] 	== DMA0_DPORT_BASE_ADDR[APERWIDTH-1:APERSIZE+2] )	
                                 & (  WBs_CYC                                                                            );
 								
-assign WBs_CYC_UART         = (  WBs_ADR[APERWIDTH-1:APERSIZE+2] == UART_BASE_ADDRESS[APERWIDTH-1:APERSIZE+2] ) 
-                            & (( WBs_CYC & WBs_WE  & WBs_BYTE_STB[0]                                                    ) 
-                            |  ( WBs_CYC & WBs_RD                                                                       )); 
-
 assign WBs_CYC_QL_Reserved  = (  WBs_ADR[APERWIDTH-1:APERSIZE+2] == QL_RESERVED_BASE_ADDRESS[APERWIDTH-1:APERSIZE+2] ) 
                             & (  WBs_CYC  																				);
 
 
 // Define the Acknowledge back to the host for everything
 //
-assign WBs_ACK              =    WBs_ACK_FPGA_Reg | WBs_ACK_UART 
-                                 |    WBs_ACK_QL_Reserved;
+assign WBs_ACK              =    WBs_ACK_FPGA_Reg | WBs_ACK_QL_Reserved;
 
 
 // Define the how to read from each IP
@@ -298,7 +245,6 @@ assign WBs_ACK              =    WBs_ACK_FPGA_Reg | WBs_ACK_UART
 always @(
          WBs_ADR               or
          WBs_DAT_o_FPGA_Reg    or
-		 WBs_DAT_o_UART        or
 		 WBs_DMA_REG_DAT       or
 		 WBs_DMA_FIFO_DAT      or
          WBs_DAT_o_QL_Reserved or
@@ -307,7 +253,6 @@ always @(
  begin
     case(WBs_ADR[APERWIDTH-1:APERSIZE+2])
     FPGA_REG_BASE_ADDRESS    [APERWIDTH-1:APERSIZE+2]: WBs_RD_DAT  <=    WBs_DAT_o_FPGA_Reg   	;
-	UART_BASE_ADDRESS        [APERWIDTH-1:APERSIZE+2]: WBs_RD_DAT  <=    {16'h0, WBs_DAT_o_UART};
 	DMA_REG_BASE_ADDR        [APERWIDTH-1:APERSIZE+2]: WBs_RD_DAT  <=    WBs_DMA_REG_DAT   		;
 	DMA0_DPORT_BASE_ADDR     [APERWIDTH-1:APERSIZE+2]: WBs_RD_DAT  <=    WBs_DMA_FIFO_DAT  		;
     QL_RESERVED_BASE_ADDRESS [APERWIDTH-1:APERSIZE+2]: WBs_RD_DAT  <=    WBs_DAT_o_QL_Reserved  ;
@@ -337,18 +282,12 @@ AL4S3B_FPGA_Registers #(
 	.FPGA_DBG2_REG_ADR   		( FPGA_DBG2_REG_ADR   			),
 	.FPGA_DBG3_REG_ADR   		( FPGA_DBG3_REG_ADR   			),
 	
-	.FABRIC_GPIO_IN_REG_ADR     ( FABRIC_GPIO_IN_REG_ADR      	),
-    .FABRIC_GPIO_OUT_REG_ADR    ( FABRIC_GPIO_OUT_REG_ADR     	),
-    .FABRIC_GPIO_OE_REG_ADR     ( FABRIC_GPIO_OE_REG_ADR      	),
-		
 	.DMA_EN_REG_ADR   			( DMA_EN_REG_ADR     			),
 	.DMA_STS_REG_ADR   			( DMA_STS_REG_ADR     			),
 	.DMA_INTR_EN_REG_ADR     	( DMA_INTR_EN_REG_ADR	    	),
 
     .AL4S3B_DEVICE_ID           ( AL4S3B_DEVICE_ID              ),
     .AL4S3B_REV_LEVEL           ( AL4S3B_REV_LEVEL              ),
-    .AL4S3B_GPIO_REG            ( AL4S3B_GPIO_REG               ),
-    .AL4S3B_GPIO_OE_REG         ( AL4S3B_GPIO_OE_REG            ),
     .AL4S3B_SCRATCH_REG         ( AL4S3B_SCRATCH_REG            ),
 
     .AL4S3B_DEF_REG_VALUE       ( AL4S3B_DEF_REG_VALUE          )
@@ -397,11 +336,6 @@ AL4S3B_FPGA_Registers #(
 	
 	.fsm_top_st_i              ( fsm_top_st			            ), 
 	.spi_fsm_st_i              ( spi_fsm_st			            ),
-`ifdef ENAB_GPIO_INT	
-	.GPIO_IN_i                 ( GPIO_In                        ),
-	.GPIO_OUT_o                ( GPIO_Out                       ),
-	.GPIO_OE_o                 ( GPIO_oe                        ),
-`endif	
     .Device_ID_o               ( Device_ID_o                    )
 
     );
@@ -474,48 +408,6 @@ Serializer_Deserializer_Test     u_Serializer_Deserializer_Test
     .spi_sck_i                 ( spi_sck_i		                ), 
     .spi_miso_o                ( spi_miso_o		                )
     );	
-`endif
-	
-// Serial Port
-//
-`ifdef ENAB_UART_16550_inst
-UART_16550 u_UART_16550        
-                               ( 
-    // AHB-To_Fabric Bridge I/F
-    //
-    .WBs_ADR_i                 ( WBs_ADR[5:2]                   ),
-    .WBs_CYC_i                 ( WBs_CYC_UART                   ),
-    .WBs_WE_i                  ( WBs_WE                         ),
-    .WBs_STB_i                 ( WBs_STB                        ),
-    .WBs_DAT_i                 ( WBs_WR_DAT[7:0]                ),
-    .WBs_CLK_i                 ( WB_CLK                         ),
-    .WBs_RST_i                 ( WB_RST                         ),
-    .WBs_DAT_o                 ( WBs_DAT_o_UART                 ),
-    .WBs_ACK_o                 ( WBs_ACK_UART                   ),
-
-	.SIN_i                     ( SIN_i                          ),
-	.SOUT_o                    ( SOUT_o                         ),
-
-	.INTR_o                    ( UART_Intr_o                    )
-                                                                );
-`else
-	assign WBs_DAT_o_UART = 16'h0;
-	assign WBs_ACK_UART   = 1'b0;
-	assign UART_Intr_o    = 1'b0;
-`endif
-																
-// GPIO
-//
-`ifdef ENAB_GPIO_INT
-bipad u_bipad_I0    ( .A( GPIO_Out[0]   ), .EN( GPIO_oe[0]       ), .Q( GPIO_In[0]    ), .P( GPIO_PIN[0]  ) );
-bipad u_bipad_I1    ( .A( GPIO_Out[1]   ), .EN( GPIO_oe[1]       ), .Q( GPIO_In[1]    ), .P( GPIO_PIN[1]  ) );
-bipad u_bipad_I2    ( .A( GPIO_Out[2]   ), .EN( GPIO_oe[2]       ), .Q( GPIO_In[2]    ), .P( GPIO_PIN[2]  ) );
-bipad u_bipad_I3    ( .A( GPIO_Out[3]   ), .EN( GPIO_oe[3]       ), .Q( GPIO_In[3]    ), .P( GPIO_PIN[3]  ) );
-
-//pragma attribute u_bipad_I0                  preserve_cell true
-//pragma attribute u_bipad_I1                  preserve_cell true 
-//pragma attribute u_bipad_I2                  preserve_cell true
-//pragma attribute u_bipad_I3                  preserve_cell true
 `endif
 	
 // Reserved Resources Block
