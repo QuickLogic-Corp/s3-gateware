@@ -65,6 +65,11 @@ module UART_16550_Tx_Rx_FIFOs(
 
                 Tx_FIFO_Pop_i,
                 Tx_FIFO_DAT_o,
+                
+                Almost_Full_o, 
+                Almost_Empty_o, 
+                PUSH_FLAG_o, 
+                POP_FLAG_o,
 
                 Tx_FIFO_Empty_o,
                 Tx_FIFO_Level_o				
@@ -124,6 +129,15 @@ output                   Tx_FIFO_Empty_o;
 
 output            [8:0]  Tx_FIFO_Level_o;
 
+output                   Almost_Full_o;
+output                   Almost_Empty_o;
+output            [3:0]  PUSH_FLAG_o;
+output            [3:0]  POP_FLAG_o;
+   
+wire                     Almost_Full;
+wire                     Almost_Empty;
+wire              [3:0]  PUSH_FLAG;
+wire              [3:0]  POP_FLAG;
 
 // Fabric Global Signals
 //
@@ -189,6 +203,7 @@ wire              [7:0]  Tx_DAT_Out;
 
 wire                     Tx_FIFO_Flush;
 
+wire                     Tx_FIFO_Empty_int;
 //------Define Parameters--------------
 //
 
@@ -216,7 +231,10 @@ wire              [7:0]  Rx_FIFO_DAT_Rx_FIFO       ;
 
 //------Logic Operations---------------
 //
-
+assign Almost_Full_o  = Almost_Full;
+assign Almost_Empty_o = Almost_Empty;
+assign PUSH_FLAG_o    = PUSH_FLAG;
+assign POP_FLAG_o     = POP_FLAG;
 
 // Define the Fabric's Local Registers
 //
@@ -347,18 +365,19 @@ begin
     if (WBs_RST_i)
     begin
         Tx_FIFO_Level_o <= 9'h0;
-		Tx_FIFO_Empty_o <= 1'b1;
+		    Tx_FIFO_Empty_o <= 1'b1;
     end  
     else
     begin
         Tx_FIFO_Level_o <= Tx_FIFO_Level_o_nxt;
-		Tx_FIFO_Empty_o <= Tx_FIFO_Empty_o_nxt;
+		    Tx_FIFO_Empty_o <= Tx_FIFO_Empty_int;
     end  
 end
 
 
 // Determine the Tx FIFO Level
 //
+
 always @( Tx_FIFO_Pop_i          or
           Tx_FIFO_Push_i         or
           Tx_FIFO_Flush_i        or
@@ -384,6 +403,7 @@ end
 
 // Determine the Tx FIFO Empty Flag
 //
+/*
 always @( Tx_FIFO_Pop_i          or
           Tx_FIFO_Push_i         or
           Tx_FIFO_Flush_i        or
@@ -397,7 +417,7 @@ begin
     begin
         case({Tx_FIFO_Pop_i, Tx_FIFO_Push_i})
         2'b00: Tx_FIFO_Empty_o_nxt <=  Tx_FIFO_Empty_o                         ;  // No Operation -> Hold
-        2'b01: Tx_FIFO_Empty_o_nxt <=  1'b0                                    ;  // Push         -> add      one byte
+        2'b01: Tx_FIFO_Empty_o_nxt <=  1'b0                                    ;  // Push         -> add      one byte              
         2'b10: Tx_FIFO_Empty_o_nxt <= (Tx_FIFO_Level_o == 9'h001) ? 1'b1 : 1'b0;  // Pop          -> subtract one byte
         2'b11: Tx_FIFO_Empty_o_nxt <=  Tx_FIFO_Empty_o                         ;  // Push and Pop -> Hold
         endcase
@@ -406,6 +426,8 @@ begin
     endcase
 
 end 
+*/
+assign Tx_FIFO_Empty_int = (POP_FLAG == 4'b0000)? 1'b1: 1'b0;
 
 // Determine when to Flush the FIFOs
 //
@@ -419,6 +441,11 @@ assign Tx_FIFO_Flush      = WBs_RST_i | Tx_FIFO_Flush_i;
 //
 assign Tx_FIFO_DAT_o     = Tx_FIFO_Empty_o ? 8'h0 : Tx_DAT_Out[7:0];
 
+//debug
+//wire Tx_FIFO_Pop;
+//assign Tx_FIFO_Pop = (POP_FLAG == 4'h0)? 1'b0: Tx_FIFO_Pop_i;
+   
+
 //------Instantiate Modules------------
 //
 
@@ -426,18 +453,18 @@ assign Tx_FIFO_DAT_o     = Tx_FIFO_Empty_o ? 8'h0 : Tx_DAT_Out[7:0];
 //
 f512x8_512x8 u_Tx_fifo  (
 		.DIN                ( WBs_DAT_i             ),
-		.Fifo_Push_Flush    ( Tx_FIFO_Flush         ),
-		.Fifo_Pop_Flush     ( Tx_FIFO_Flush         ),
+		.Fifo_Push_Flush    ( 1'b0         ),
+		.Fifo_Pop_Flush     ( 1'b0          ),
 		.PUSH               ( Tx_FIFO_Push_i        ),
 		.POP                ( Tx_FIFO_Pop_i         ),
 		.Clk                ( WBs_CLK_i             ),
 		.Clk_En             ( 1'b1                  ),
-		.Fifo_Dir           ( 1'b0                  ),
+		.Fifo_Dir           ( 1'b1                  ),
 		.Async_Flush        ( Tx_FIFO_Flush         ),
-		.Almost_Full        (                       ),
-		.Almost_Empty       (                       ),
-		.PUSH_FLAG          (                       ),
-		.POP_FLAG           (                       ),
+		.Almost_Full        ( Almost_Full           ), 
+		.Almost_Empty       ( Almost_Empty          ),
+		.PUSH_FLAG          ( PUSH_FLAG             ),
+		.POP_FLAG           ( POP_FLAG              ),
 		.DOUT               ( Tx_DAT_Out            ) 
     );
 
@@ -447,13 +474,13 @@ f512x16_512x16 u_Rx_fifo(
                           Rx_Framing_Error_i    ,
                           Rx_Break_Interrupt_i  ,
                           Rx_FIFO_DAT_i        }),
-		.Fifo_Push_Flush    ( Rx_FIFO_Flush         ),
-		.Fifo_Pop_Flush     ( Rx_FIFO_Flush         ),
+		.Fifo_Push_Flush    ( 1'b0          ),
+		.Fifo_Pop_Flush     ( 1'b0          ),
 		.PUSH               ( Rx_FIFO_Push_i        ),
 		.POP                ( Rx_FIFO_Pop_i         ),
 		.Clk                ( WBs_CLK_i             ),
     .Clk_En             ( 1'b1                  ),
-	  .Fifo_Dir           ( 1'b0                  ),
+	  .Fifo_Dir           ( 1'b1                  ),
 	  .Async_Flush        ( Rx_FIFO_Flush         ),
     .Almost_Full        (                       ),
 	  .Almost_Empty       (                       ),

@@ -44,10 +44,10 @@ module UART_16550 (
                 WBs_DAT_o,
                 WBs_ACK_o,
 
-	            SIN_i,
-	            SOUT_o,
+                SIN_i,
+                SOUT_o,
 
-	            INTR_o
+                INTR_o
 
                 );
 
@@ -317,6 +317,31 @@ UART_16550_Registers                   #(
     .UART_16550_IIR_Rd_o                ( UART_16550_IIR_Rd               )
 
                                                                           );
+                                                                          
+
+// Tx - Transmit FIFO and FIFO tracking logic
+//
+/*
+UART_16550_Tx_FIFO                        u_UART_16550_Tx_FIFO
+                                        ( 
+
+    .WBs_CLK_i                          ( WBs_CLK_i                       ),
+    .WBs_RST_i                          ( WBs_RST_i                       ),
+
+    .WBs_DAT_i                          ( WBs_DAT_i                       ),
+
+    .Tx_FIFO_Flush_i                    ( Tx_FIFO_Flush                   ),
+
+    .Tx_FIFO_Push_i                     ( Tx_FIFO_Push                    ),
+
+    .Tx_FIFO_Pop_i                      ( Tx_FIFO_Pop                     ),
+    .Tx_FIFO_DAT_o                      ( Tx_FIFO_DAT                     ),
+
+    .Tx_FIFO_Empty_o                    ( Tx_FIFO_Empty                   ),
+    .Tx_FIFO_Level_o                    ( Tx_FIFO_Level                   )
+
+                                                                          );
+*/
 
 
 // Tx - Tranmit Logic Block
@@ -359,6 +384,39 @@ UART_16550_Tx_Logic                       u_UART_16550_Tx_Logic
     .Tx_SOUT_o                          ( Tx_SOUT                         )
                                                                           );
 
+
+// Rx - Receive FIFO and FIFO tracking logic
+//
+/*
+UART_16550_Rx_FIFO                        u_UART_16550_Rx_FIFO
+                                        ( 
+
+    .WBs_CLK_i                          ( WBs_CLK_i                       ),
+    .WBs_RST_i                          ( WBs_RST_i                       ),
+
+    .Rx_FIFO_Enable_i                   ( Rx_Tx_FIFO_Enable               ),
+    .Rx_FIFO_Flush_i                    ( Rx_FIFO_Flush                   ),
+
+    .Rx_FIFO_Push_i                     ( Rx_FIFO_Push                    ), // From Rx   Logic for FIFO
+    .Rx_FIFO_DAT_i                      ( Rx_DAT                          ), // From Rx   Logic for FIFO
+
+    .Rx_Parity_Error_i                  ( Rx_Parity_Error                 ), // From Rx   Logic for FIFO
+    .Rx_Framing_Error_i                 ( Rx_Framing_Error                ), // From Rx   Logic for FIFO
+    .Rx_Break_Interrupt_i               ( Rx_Break_Interrupt              ), // From Rx   Logic for FIFO
+
+    .Rx_FIFO_Pop_i                      ( Rx_FIFO_Pop                     ), // From FIFO Logic for Register Logic
+    .Rx_FIFO_DAT_o                      ( Rx_FIFO_DAT                     ), // From FIFO Logic for Register Logic
+
+    .Rx_Parity_Error_o                  ( Rx_FIFO_Parity_Error            ), // From FIFO Logic for Register Logic
+    .Rx_Framing_Error_o                 ( Rx_FIFO_Framing_Error           ), // From FIFO Logic for Register Logic
+    .Rx_Break_Interrupt_o               ( Rx_FIFO_Break_Interrupt         ), // From FIFO Logic for Register Logic
+
+    .Rx_FIFO_Level_o                    ( Rx_FIFO_Level                   ),
+    .Rx_FIFO_Empty_o                    ( Rx_FIFO_Empty                   ),
+    .Rx_FIFO_Full_o                     ( Rx_FIFO_Full                    )
+
+                                                                          );
+*/
 
 // Rx - Receive Logic Block
 //
@@ -403,6 +461,7 @@ UART_16550_Rx_Logic                       u_UART_16550_Rx_Logic
 																		  
 // Rx - Receive FIFO and FIFO tracking logic
 //
+
 UART_16550_Tx_Rx_FIFOs                        u_UART_16550_Tx_Rx_FIFOs 
                                         ( 
 
@@ -432,42 +491,24 @@ UART_16550_Tx_Rx_FIFOs                        u_UART_16550_Tx_Rx_FIFOs
     .Rx_FIFO_Empty_o                    ( Rx_FIFO_Empty                   ),
     .Rx_FIFO_Full_o                     ( Rx_FIFO_Full                    ),
 	
-	.Tx_FIFO_Flush_i                    ( Tx_FIFO_Flush                   ),
+	  .Tx_FIFO_Flush_i                    ( Tx_FIFO_Flush                   ),
 
     .Tx_FIFO_Push_i                     ( Tx_FIFO_Push                    ),
 
     .Tx_FIFO_Pop_i                      ( Tx_FIFO_Pop                     ),
     .Tx_FIFO_DAT_o                      ( Tx_FIFO_DAT                     ),
+    
+    .Almost_Full_o                      (                                 ),
+    .Almost_Empty_o                     (                                 ),
+    .PUSH_FLAG_o                        (                                 ),
+    .POP_FLAG_o                         (                                 ),
 
     .Tx_FIFO_Empty_o                    ( Tx_FIFO_Empty                   ),
     .Tx_FIFO_Level_o                    ( Tx_FIFO_Level                   )
 	
                                                                           );
+                                                                         
 																		  
-// Tx - Transmit FIFO and FIFO tracking logic
-//
-/*
-UART_16550_Tx_FIFO                        u_UART_16550_Tx_FIFO
-                                        ( 
-
-    .WBs_CLK_i                          ( WBs_CLK_i                       ),
-    .WBs_RST_i                          ( WBs_RST_i                       ),
-
-    .WBs_DAT_i                          ( WBs_DAT_i                       ),
-
-    .Tx_FIFO_Flush_i                    ( Tx_FIFO_Flush                   ),
-
-    .Tx_FIFO_Push_i                     ( Tx_FIFO_Push                    ),
-
-    .Tx_FIFO_Pop_i                      ( Tx_FIFO_Pop                     ),
-    .Tx_FIFO_DAT_o                      ( Tx_FIFO_DAT                     ),
-
-    .Tx_FIFO_Empty_o                    ( Tx_FIFO_Empty                   ),
-    .Tx_FIFO_Level_o                    ( Tx_FIFO_Level                   )
-
-                                                                          );
-*/
-
 // Interrupt Logic Block
 //
 UART_16550_Interrupt_Control              u_UART_16550_Interrupt_Control
