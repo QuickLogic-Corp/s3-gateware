@@ -1,0 +1,1 @@
+ql_symbiflow -compile -d ql-eos-s3 -P pu64 -v ../../../ip_modules/UART_16550/rtl/*.v ../../../ip_modules/GPIO/rtl/*.v *.v -t top -p quickfeather.pcf
