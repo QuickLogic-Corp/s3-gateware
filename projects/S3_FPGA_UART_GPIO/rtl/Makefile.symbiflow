@@ -2,19 +2,19 @@
  
 current_dir := /mnt/c/work/github/QuickLogic-Corp/s3-gateware/projects/S3_FPGA_UART_GPIO/rtl
 TOP := top
-VERILOG := ${current_dir}/../../../ip_modules/UART_16550/rtl/UART_16550.v \
-${current_dir}/../../../ip_modules/UART_16550/rtl/UART_16550_Interrupt_Control.v \
-${current_dir}/../../../ip_modules/UART_16550/rtl/UART_16550_Registers.v \
-${current_dir}/../../../ip_modules/UART_16550/rtl/UART_16550_Rx_Logic.v \
-${current_dir}/../../../ip_modules/UART_16550/rtl/UART_16550_Tx_Logic.v \
-${current_dir}/../../../ip_modules/UART_16550/rtl/UART_16550_Tx_Rx_FIFOs.v \
-${current_dir}/../../../ip_modules/UART_16550/rtl/f512x16_512x16.v \
-${current_dir}/../../../ip_modules/UART_16550/rtl/f512x8_512x8.v \
-${current_dir}/../../../ip_modules/GPIO/rtl/GPIO_controller.v \
-${current_dir}/AL4S3B_FPGA_IP.v \
+VERILOG := ${current_dir}/AL4S3B_FPGA_IP.v \
 ${current_dir}/AL4S3B_FPGA_QL_Reserved.v \
 ${current_dir}/AL4S3B_FPGA_Registers.v \
-${current_dir}/AL4S3B_FPGA_Top.v  
+${current_dir}/AL4S3B_FPGA_Top.v \
+${current_dir}/../../../ip_modules/UART_16550/rtl//UART_16550.v \
+${current_dir}/../../../ip_modules/UART_16550/rtl//UART_16550_Interrupt_Control.v \
+${current_dir}/../../../ip_modules/UART_16550/rtl//UART_16550_Registers.v \
+${current_dir}/../../../ip_modules/UART_16550/rtl//UART_16550_Rx_Logic.v \
+${current_dir}/../../../ip_modules/UART_16550/rtl//UART_16550_Tx_Logic.v \
+${current_dir}/../../../ip_modules/UART_16550/rtl//UART_16550_Tx_Rx_FIFOs.v \
+${current_dir}/../../../ip_modules/UART_16550/rtl//f512x16_512x16.v \
+${current_dir}/../../../ip_modules/UART_16550/rtl//f512x8_512x8.v \
+${current_dir}/../../../ip_modules/GPIO/rtl//GPIO_controller.v  
 PARTNAME := PU64
 DEVICE  := ql-eos-s3_wlcsp
 PCF := ${current_dir}/quickfeather.pcf
