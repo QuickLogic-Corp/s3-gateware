@@ -37,10 +37,10 @@ parameter       APERWIDTH                   = 17            ;
 parameter       APERSIZE                    = 10            ;
 
                                                                 // these are byte offsets.
-parameter       FPGA_REG_BASE_ADDRESS       = 17'h00000     ; // Assumes 128K Byte FPGA Memory Aperture
+parameter       FPGA_REG_BASE_ADDRESS       = 17'h00000     ; 
 parameter       UART0_BASE_ADDRESS          = 17'h01000     ;
 parameter       GPIO_BASE_ADDRESS           = 17'h04000     ;
-parameter       QL_RESERVED_BASE_ADDRESS    = 17'h05000     ; // Assumes 128K Byte FPGA Memory Aperture
+parameter       QL_RESERVED_BASE_ADDRESS    = 17'h05000     ; 
 
 parameter       ADDRWIDTH_FAB_REG           =  10           ;
 parameter       DATAWIDTH_FAB_REG           =  32           ;
@@ -138,14 +138,6 @@ wire    [31:0]  Device_ID_o;
 
 wire            dbg_reset;
 
-//------Define Parameters--------------
-//
-
-// Default I/O timeout statemachine
-//
-parameter       DEFAULT_IDLE   =  0  ;
-parameter       DEFAULT_COUNT  =  1  ;
-
 
 //------Internal Signals---------------
 //
@@ -169,7 +161,7 @@ wire    [31:0]  WBs_DAT_o_QL_Reserved   ;
 //------Logic Operations---------------
 //
 // Define the Chip Select for each interface
-//
+
 assign WBs_CYC_FPGA_Reg   = (  WBs_ADR[APERWIDTH-1:APERSIZE+2] == FPGA_REG_BASE_ADDRESS[APERWIDTH-1:APERSIZE+2] ) 
                             & (  WBs_CYC                                                                                );
 
@@ -182,13 +174,11 @@ assign WBs_CYC_QL_Reserved  = (  WBs_ADR[APERWIDTH-1:APERSIZE+2] == QL_RESERVED_
 
 
 // Define the Acknowledge back to the host for everything
-//
 assign WBs_ACK              =    WBs_ACK_FPGA_Reg | WBs_ACK_UART0 | WBs_ACK_GPIO
                                  |    WBs_ACK_QL_Reserved;
 
 
-// Define the how to read from each IP
-//
+// Define how to read from each IP
 always @(*)
  begin
     case(WBs_ADR[APERWIDTH-1:APERSIZE+2])
@@ -201,12 +191,8 @@ always @(*)
 end
 //------Instantiate Modules------------
 //
-// Define the FPGA I/O Pad Signals
-//
-// Note: Use the Constraint manager in SpDE to assign these buffers to FBIO pads.
-//
 // General FPGA Resources 
-//
+
 AL4S3B_FPGA_Registers #(
 
     .ADDRWIDTH                  ( ADDRWIDTH_FAB_REG             ),
@@ -225,7 +211,6 @@ AL4S3B_FPGA_Registers #(
      u_AL4S3B_FPGA_Registers 
                                 ( 
     // AHB-To_FPGA Bridge I/F
-    //
     .WBs_ADR_i          ( WBs_ADR[ADDRWIDTH_FAB_REG+1:2] ),
     .WBs_CYC_i          ( WBs_CYC_FPGA_Reg               ),
     .WBs_BYTE_STB_i     ( WBs_BYTE_STB                   ),
@@ -236,8 +221,6 @@ AL4S3B_FPGA_Registers #(
     .WBs_RST_i          ( WB_RST                         ),
     .WBs_DAT_o          ( WBs_DAT_o_FPGA_Reg             ),
     .WBs_ACK_o          ( WBs_ACK_FPGA_Reg               ), 
-
-    .dbg_reset_o        ( dbg_reset                      ), 
 
     .Device_ID_o        ( Device_ID_o                    )
     );
@@ -292,8 +275,8 @@ GPIO_controller
 //
 AL4S3B_FPGA_QL_Reserved     #(
 
-.ADDRWIDTH                 ( ADDRWIDTH_QL_RESERVED          ),
-.DATAWIDTH                 ( DATAWIDTH_QL_RESERVED          ),
+    .ADDRWIDTH                 ( ADDRWIDTH_QL_RESERVED          ),
+    .DATAWIDTH                 ( DATAWIDTH_QL_RESERVED          ),
 
     .QL_RESERVED_CUST_PROD_ADR ( QL_RESERVED_CUST_PROD_ADR      ),
     .QL_RESERVED_REVISIONS_ADR ( QL_RESERVED_REVISIONS_ADR      ),
@@ -307,10 +290,9 @@ AL4S3B_FPGA_QL_Reserved     #(
     .DEFAULT_CNTR_WIDTH        ( DEFAULT_CNTR_WIDTH             ),
     .DEFAULT_CNTR_TIMEOUT      ( DEFAULT_CNTR_TIMEOUT           )
                                                                 )
-                                 u_AL4S3B_FPGA_QL_Reserved
+        u_AL4S3B_FPGA_QL_Reserved
                                 (
      // AHB-To_FPGA Bridge I/F
-     //
     .WBs_CLK_i                 ( WB_CLK                         ),
     .WBs_RST_i                 ( WB_RST                         ),
 

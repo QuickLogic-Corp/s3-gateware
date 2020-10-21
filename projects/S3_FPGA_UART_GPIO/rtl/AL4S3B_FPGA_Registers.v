@@ -17,7 +17,6 @@ module AL4S3B_FPGA_Registers (
                         fsm_top_st_i, 
                         spi_fsm_st_i,
 
-                        dbg_reset_o,
                         Device_ID_o
                          );
 
@@ -64,7 +63,6 @@ output  [31:0]  Device_ID_o   ;
 input   [1:0]   fsm_top_st_i; 
 input   [1:0]   spi_fsm_st_i;   
 
-output          dbg_reset_o;
 
 // FPGA Global Signals
 //
@@ -112,16 +110,12 @@ wire    [1:0]   spi_fsm_st_i;
 //------Internal Signals---------------
 //
 
-wire            dbg_reset_o;
 
 wire            fifo_ovrrun;
 
 //------Logic Operations---------------
 //
 
-
-// debug
-assign dbg_reset_o = 1'b0;
 
 
 // Define the Acknowledge back to the host for registers
