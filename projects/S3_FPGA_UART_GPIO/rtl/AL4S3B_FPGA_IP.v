@@ -132,6 +132,7 @@ wire            UART0_SIN_i;
 wire            UART0_SOUT_o;
 wire            UART0_Intr_o;
 
+wire    [31:0]  GPIO_io;
 
 wire    [31:0]  Device_ID_o;
 
