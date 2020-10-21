@@ -108,7 +108,7 @@ begin
     if (WBs_RST_i)
     begin
 		GPIO_out          <= 31'b0    ;
-		GPIO_OE_o         <= 31'b0    ;
+		GPIO_OE           <= 31'b0    ;
 
 		WBs_ACK_o    	  <= 1'b0    ;
     end  
@@ -157,7 +157,6 @@ end
 
 
 // GPIO pins
-/*
 assign GPIO_in = GPIO_io;
 
 genvar i;
@@ -166,8 +165,8 @@ generate
         assign GPIO_io[i] = GPIO_OE[i] ? GPIO_out[i] : 1'bz;
     end
 endgenerate
-*/
 
+/*
 bipad u_bipad_I00    ( .A( GPIO_out[0]   ), .EN( GPIO_OE[0]      ), .Q( GPIO_in[0]   ), .P( GPIO_io[0]   ) );
 bipad u_bipad_I01    ( .A( GPIO_out[1]   ), .EN( GPIO_OE[1]      ), .Q( GPIO_in[1]   ), .P( GPIO_io[1]   ) );
 bipad u_bipad_I02    ( .A( GPIO_out[2]   ), .EN( GPIO_OE[2]      ), .Q( GPIO_in[2]   ), .P( GPIO_io[2]   ) );
@@ -203,6 +202,7 @@ bipad u_bipad_I29    ( .A( GPIO_out[29]  ), .EN( GPIO_OE[29]     ), .Q( GPIO_in[
 
 bipad u_bipad_I30    ( .A( GPIO_out[30]  ), .EN( GPIO_OE[30]     ), .Q( GPIO_in[30]  ), .P( GPIO_io[30]  ) );
 bipad u_bipad_I31    ( .A( GPIO_out[31]  ), .EN( GPIO_OE[31]     ), .Q( GPIO_in[31]  ), .P( GPIO_io[31]  ) );
+*/
 
 endmodule
 
