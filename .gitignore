@@ -1,0 +1,4 @@
+# Build files and auto-generated files from qorc-sdk
+**/rtl/build
+Makefile.symbiflow
+top_bit.c
