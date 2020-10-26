@@ -15,7 +15,7 @@ SRCS:=$(filter-out $(filters),${RTL_SRCS})
 all: ../top_bit.h
 
 top_bit.h: ${SRCS}
-	ql_symbiflow -compile -d ql-eos-s3 -P pu64 -v ${RTL_SRCS} -t top -p quickfeather.pcf -dump header
+	ql_symbiflow -compile -d ql-eos-s3 -P pu64 -v ${RTL_SRCS} -t top -p quickfeather.pcf -dump header >build.log
 		
 ../top_bit.h:	top_bit.h
 	mv top_bit.h ../top_bit.h
