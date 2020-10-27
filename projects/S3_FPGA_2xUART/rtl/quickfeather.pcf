@@ -1,0 +1,5 @@
+set_io UART0_SIN_i IO_2
+set_io UART0_SOUT_o IO_3
+set_io UART1_SIN_i IO_4
+set_io UART1_SOUT_o IO_5
+set_io gnd_o IO_10
