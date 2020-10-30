@@ -1,5 +1,5 @@
 // generated on 2020/07/30 14:15 : convert_fbcfg_to_cpuwrites.pl /cygdrive/c/Work/github/QuickLogic-Corp/qorc-sdk/qf_apps/qf_helloworldsw/fpga/rtl/ShiftRegPattern.qlal4s3b.usb2serial
-uint32_t	axFPGABitStream[] = {
+const uint32_t	axFPGABitStream[] = {
 	 0x00002008, 0x00000478, 0x00003442, 0x00008004, 0x00000934, 0x00002229, 0x0000080a, 0x00002012, 0x00000554, 0x00004385,
 	 0x00003209, 0x0000682a, 0x00000442, 0x00000504, 0x00000385, 0x00000ab1, 0x00008022, 0x0000845a, 0x00001540, 0x00000381,
 	 0x00004a85, 0x00000028, 0x00001448, 0x0000a452, 0x00004004, 0x00001834, 0x00006b09, 0x0000009a, 0x00003102, 0x0000c414,
