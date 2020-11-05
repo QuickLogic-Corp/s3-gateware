@@ -256,13 +256,21 @@ begin
 	if (TEST_ENABLES[5])
       begin
         //Generic_AL4S3B_FPGA_IP_UART_Test_6(BASE_AHB_ADDRESS);
-        $display("rakesh test 6 - UART0 ");
+        $display("test 6 - UART0 ");
         Generic_AL4S3B_FPGA_IP_UART_Test_6(UART0_BASE_ADDRESS);
-        $display("rakesh test 6 - UART0 done");
+        $display("test 6 - UART0 done");
        #100
-        $display("rakesh test 6 - UART1 ");
+        $display("test 6 - UART1 ");
         Generic_AL4S3B_FPGA_IP_UART_Test_6a(UART1_BASE_ADDRESS);
-        $display("rakesh test 6 - UART1 done");
+        $display("test 6 - UART1 done"); 
+       #100
+        $display("test 7 - UART0 ");
+        Generic_AL4S3B_FPGA_IP_UART_Test_7(UART0_BASE_ADDRESS);
+        $display("test 7 - UART0 done"); 
+       #100
+        $display("test 7 - UART1 ");
+        Generic_AL4S3B_FPGA_IP_UART_Test_7a(UART1_BASE_ADDRESS);
+        $display("test 7 - UART1 done"); 
       end
 
 	if (TEST_ENABLES[6])
@@ -270,7 +278,7 @@ begin
         //Generic_AL4S3B_FPGA_IP_UART_Test_7(BASE_AHB_ADDRESS); 
         Generic_AL4S3B_FPGA_IP_UART_Test_7(UART0_BASE_ADDRESS);
        #100
-        Generic_AL4S3B_FPGA_IP_UART_Test_7(UART1_BASE_ADDRESS);
+        Generic_AL4S3B_FPGA_IP_UART_Test_7a(UART1_BASE_ADDRESS);
       end
         
 	if (TEST_ENABLES[7])
@@ -330,12 +338,20 @@ begin
 
 	// Wait for release of reset
     //
-    wait (testbench_top.u_AL4S3B_FPGA_Top.WB_RST === 1'b0);
+`ifdef GSIM
+    wait (testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.WB_RST === 1'b0); 
+`else
+    wait (testbench_top.u_AL4S3B_FPGA_Top.WB_RST === 1'b0); 
+`endif
 
     // Wait for a few clocks
 	//
 	for (i = 0; i < 4; i = i + 1)
+`ifdef GSIM
+    @(posedge testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.WB_CLK);
+`else
 		@(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK);
+`endif
 
 	// Set the debug message
 	//
@@ -375,8 +391,11 @@ begin
 	//
 	// Note: This selects the Divisor Latch Registers rather than the Tx/Rx register
 	//
+`ifdef GSIM
+  testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_LCR), 32'h0080);
+`else
 	testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_LCR), 32'h0080);
-
+`endif
 	// Issue a debug message
 	//
 	testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg2 = "Testing UART Registers";
@@ -396,7 +415,11 @@ begin
 	        //
 	        // Note: This selects the Divisor Latch Registers rather than the Tx/Rx register
 	        //
+        `ifdef GSIM
+          testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_LCR), 32'h0000);
+        `else
 	        testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_LCR), 32'h0000);
+        `endif 
         end
 
 		// Select the target address within the ASSP
@@ -427,7 +450,11 @@ begin
 	    // Wait for a few clocks
 	    //
 	    for (i = 0; i < 14; i = i + 1)
-		    @(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `ifdef GSIM
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.WB_CLK);
+    `else
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK);
+    `endif
 
 		// Loop to send a variety of data to the target
 		//
@@ -465,12 +492,19 @@ begin
 			// Wait for a few clocks
 			//
 			for (i = 0; i < 14; i = i + 1)
-		        @(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `ifdef GSIM
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.WB_CLK) #STD_CLK_DLY;
+    `else
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `endif
 
 			// Write to the target FPGA register
 			//
+          `ifdef GSIM
+            testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((BASE_AHB_ADDRESS + target_address[7:0]), target_data);
+          `else
             testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((BASE_AHB_ADDRESS + target_address[7:0]), target_data);
-
+          `endif
 			// Clear the status between reads
 			//
 			testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg4 = "NO ACTIVITY";
@@ -478,7 +512,11 @@ begin
 			// Wait for a few clocks
 			//
 			for (i = 0; i < 64; i = i + 1)
-		        @(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `ifdef GSIM
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.WB_CLK) #STD_CLK_DLY;
+    `else
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `endif
 
 			case(k[2:0])
 			3'h0:    testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg3 = "Reading Divisor LSB Register";
@@ -494,8 +532,11 @@ begin
 
 			// Read from the FPGA Register
 			//
+          `ifdef GSIM
+            testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((BASE_AHB_ADDRESS + target_address[7:0]), read_data);
+          `else
             testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((BASE_AHB_ADDRESS + target_address[7:0]), read_data);
-
+          `endif
 			// Check the value read back for correctness
 			//
 			expected_data = target_data & target_mask;
@@ -526,7 +567,11 @@ begin
     // Wait for a few clocks
 	//
 	for (i = 0; i < 14; i = i + 1)
-		@(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK);
+    `ifdef GSIM
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.WB_CLK) #STD_CLK_DLY;
+    `else
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `endif
 
 	testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg1	= "NO ACTIVITY";
 	testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg2	= "NO ACTIVITY";
@@ -582,12 +627,20 @@ begin
 
 	// Wait for release of reset
     //
-    wait (testbench_top.u_AL4S3B_FPGA_Top.WB_RST === 1'b0);
+    `ifdef GSIM
+        wait (testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.WB_RST === 1'b0);
+    `else
+        wait (testbench_top.u_AL4S3B_FPGA_Top.WB_RST === 1'b0);
+    `endif
 
     // Wait for a few clocks
 	//
 	for (i = 0; i < 4; i = i + 1)
-		@(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK);
+    `ifdef GSIM
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.WB_CLK) #STD_CLK_DLY;
+    `else
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `endif
 
 	// Set the debug message
 	//
@@ -623,16 +676,22 @@ begin
 
     // Set FIFO Control Register to only use the Rx receive register
     //
+`ifdef GSIM
+  testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'h0);
+`else
 	testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'h0);
-
+`endif
     // Set Diagnostic Message
     //
 	testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg3 = "Writing to IER";
 
     // Set the Interrupt Enable register to enable all interrupts 
     //
+`ifdef GSIM
+  testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_IER), 8'hf);
+`else
 	testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_IER), 8'hf);
-
+`endif
     // Set the Communication Parameters
     //
     word_length      = SERIAL_DATA_8_BITS;
@@ -677,8 +736,11 @@ begin
 	//
 	while ((read_data & 32'h0000_0001) === 32'h0)
     begin
+    `ifdef GSIM
+      testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_LSR), read_data);
+    `else
 	    testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_LSR), read_data);
-
+    `endif
         // Debug Message
         //
 //      $display("        Generic_AL4S3B_FPGA_UART_Test_2:  UART Line Status Reg - Read the value 0x%0x at time: %0t \n", read_data, $realtime);
@@ -693,16 +755,22 @@ begin
     //
     // Note: The FIFO Clear operation should do nothing
     //
+`ifdef GSIM
+  testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'h2);
+`else
 	testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'h2);
-
+`endif
     // Issue diagnostic message
 	//
 	testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg3 = "Checking LSR for FIFO Clear";
 
     // Read the Line Status register to see if the status has changed
     //
+`ifdef GSIM
+  testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_LSR), read_data);
+`else
 	testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_LSR), read_data);
-
+`endif
     // The expected status shows that the Tx logic is empty, and the Receive Holding register is full.
     //
     expected_data = 32'h61;
@@ -759,8 +827,11 @@ begin
 	//
 	while ((read_data & 32'h0000_0002) === 32'h0)
     begin
+    `ifdef GSIM
+      testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_LSR), read_data);
+    `else
 	    testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_LSR), read_data);
-
+    `endif
         // Debug Message
         //
 //      $display("        Generic_AL4S3B_FPGA_UART_Test_2:  UART Line Status Reg - Read the value 0x%0x at time: %0t \n", read_data, $realtime);
@@ -797,8 +868,11 @@ begin
 
     // Check if an interrupt was generated
     //
+`ifdef GSIM
+  testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_IIR), IIR_read_data);
+`else
 	testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_IIR), IIR_read_data);
-
+`endif
     // Check that there are:
     //
     //     - FIFOs are not enabled
@@ -837,8 +911,11 @@ begin
 
     // Read the Line Status register to see if the status has cleared
     //
+`ifdef GSIM
+  testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_LSR), read_data);
+`else
 	testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_LSR), read_data);
-
+`endif
     // The expected status shows that the Tx logic is empty, and the Receive Holding register is full but the overrun is cleared.
     //
     expected_data = 32'h61;
@@ -872,8 +949,11 @@ begin
     //
     // Note: This will empty the Rx Holding register prior to the next serial stream.
     //
+`ifdef GSIM
+  testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_RBR), read_data);
+`else
 	testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_RBR), read_data);
-
+`endif
     // The last serial stream should be in the Rx Holding register
 	//
     expected_data = target_data[7:0];
@@ -905,16 +985,22 @@ begin
 
     // Set the Interrupt Enable register to enable all interrupts 
     //
+`ifdef GSIM
+  testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_IER), 8'hf);
+`else
 	testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_IER), 8'hf);
-
+`endif
     // Set Diagnostic Message
     //
 	testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg3 = "Read from IIR";
 
     // Check if an interrupt was generated
     //
+`ifdef GSIM
+  testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_IIR), IIR_read_data);
+`else
 	testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_IIR), IIR_read_data);
-
+`endif
     // Check that there are:
     //
     //     - FIFOs are not enabled
@@ -990,7 +1076,11 @@ begin
 	//       affect the results of the interrupt ID (i.e. Status) Register
     //
 	for (i = 0; i < 20; i = i + 1)
-		@(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK);
+    `ifdef GSIM
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.WB_CLK) #STD_CLK_DLY;
+    `else
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `endif
 
 
     // Loop to check each valid interrupt status
@@ -1006,8 +1096,11 @@ begin
 
         // Check if an interrupt was generated
         //
-	    testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_IIR), IIR_read_data);
-
+      `ifdef GSIM
+        testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_IIR), IIR_read_data);
+      `else
+	      testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_IIR), IIR_read_data);
+      `endif
         // Check that there are:
         //
         //     - FIFOs are not enabled
@@ -1054,8 +1147,11 @@ begin
     //
     while ((read_data & 32'h0000_0001) === 32'h0)
     begin
+    `ifdef GSIM
+      testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_LSR), read_data);
+    `else
 	    testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_LSR), read_data);
-
+    `endif
         // Debug Message
         //
 //      $display("  Generic_AL4S3B_FPGA_IP_UART_Test_1:  UART Line Status Reg - Read the value 0x%0x at time: %0t \n", read_data, $realtime);
@@ -1094,7 +1190,11 @@ begin
 	//       affect the results of the interrupt ID (i.e. Status) Register
     //
 	for (i = 0; i < 260; i = i + 1)
-		@(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK);
+    `ifdef GSIM
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.WB_CLK) #STD_CLK_DLY;
+    `else
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `endif
 
 
     // Loop to check each valid interrupt status
@@ -1110,8 +1210,11 @@ begin
 
         // Check if an interrupt was generated
         //
+    `ifdef GSIM
+      testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_IIR), IIR_read_data);
+    `else
 	    testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_IIR), IIR_read_data);
-
+    `endif
         // Check that there are:
         //
         //     - FIFOs are not enabled
@@ -1160,8 +1263,11 @@ begin
     //
     while ((read_data & 32'h0000_0002) === 32'h0)
     begin
+    `ifdef GSIM
+      testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_LSR), read_data);
+    `else
 	    testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_LSR), read_data);
-
+    `endif
         // Debug Message
         //
 //      $display("        Generic_AL4S3B_FPGA_UART_Test_2: UART Line Status Reg - Read the value 0x%0x at time: %0t \n", read_data, $realtime);
@@ -1200,8 +1306,11 @@ begin
 
     // Read the Line Status register to see if the status has cleared the overrun and parity errors
     //
+  `ifdef GSIM
+    testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_LSR), read_data);
+  `else
   	testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_LSR), read_data);
-
+  `endif
     // The expected status shows that the Tx logic is empty, and the Receive Holding register is full and errors are cleared.
     //
     expected_data = 32'h61;
@@ -1230,13 +1339,21 @@ begin
     // Wait for the Timeout Interrupt
 	//
 	for (i = 0; i < 666; i = i + 1)
-		@(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK);
+    `ifdef GSIM
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.WB_CLK) #STD_CLK_DLY;
+    `else
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `endif
 
 
     // Wait for a few clocks
 	//
 	for (i = 0; i < 14; i = i + 1)
-		@(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK);
+    `ifdef GSIM
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.WB_CLK) #STD_CLK_DLY;
+    `else
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `endif
 
 	testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg1	= "NO ACTIVITY";
 	testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg2	= "NO ACTIVITY";
@@ -1287,7 +1404,11 @@ begin
     // Wait for a few clocks
 	//
 	for (i = 0; i < 4; i = i + 1)
-		@(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK);
+    `ifdef GSIM
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.WB_CLK) #STD_CLK_DLY;
+    `else
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `endif
 		
 //	$stop();	
 
@@ -1304,8 +1425,11 @@ begin
     //
     // Note: FIFO operations will be tested in a different routine
     //
+`ifdef GSIM
+  testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'h0);
+`else
 	testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'h0);
-
+`endif
 
     // Set diagnostic message
 	//
@@ -1444,8 +1568,11 @@ begin
 		            //
 		            while ((read_data & 32'h0000_0001) === 32'h0)
                     begin
+                    `ifdef GSIM
+                      testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_LSR), read_data);
+                    `else
 	                    testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_LSR), read_data);
-
+                    `endif
                         // Debug Message
                         //
 //                      $display("        Generic_AL4S3B_FPGA_UART_Test_3:  UART Line Status Reg - Read the value 0x%0x at time: %0t \n", read_data, $realtime);
@@ -1457,8 +1584,11 @@ begin
 
                     // Read value received from the external UART
                     //
+                `ifdef GSIM
+                  testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_THR), RBR_read_data);
+                `else
 	                testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_THR), RBR_read_data);
-
+                `endif
                     // Check the ouptut value for correctness
                     //
                     expected_data = target_data & target_mask;
@@ -1541,7 +1671,11 @@ begin
     // Wait for a few clocks
 	//
 	for (i = 0; i < 14; i = i + 1)
-		@(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK);
+    `ifdef GSIM
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.WB_CLK) #STD_CLK_DLY;
+    `else
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `endif
 
 	testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg1	= "NO ACTIVITY";
 	testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg2	= "NO ACTIVITY";
@@ -1593,7 +1727,11 @@ begin
     // Wait for a few clocks
 	//
 	for (i = 0; i < 4; i = i + 1)
-		@(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK);
+    `ifdef GSIM
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.WB_CLK) #STD_CLK_DLY;
+    `else
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `endif
 
 	//$stop();	
 	// Set the debug message
@@ -1607,8 +1745,11 @@ begin
 
     // Set FIFO Control Register to enable the use the Rx and Tx FIFOs
     //
+`ifdef GSIM
+  testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'h1);
+`else
 	testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'h1);
-
+`endif
 
     // Set diagnostic message
 	//
@@ -1728,8 +1869,11 @@ begin
 
                     // Check that the push is working correctly by checking the Rx FIFO Level
                     //
+                `ifdef GSIM
+                  testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_RX_FIFO_LEVEL), Rx_FIFO_Level);
+                `else
 	                testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_RX_FIFO_LEVEL), Rx_FIFO_Level);
-
+                `endif
                     // Determine if there was a FIFO Level error 
 					//
                     if (Rx_FIFO_Level[7:0] !== m[7:0])
@@ -1778,8 +1922,11 @@ begin
 		        //
 		        while ((read_data & 32'h0000_0001) === 32'h0)
                 begin
+                `ifdef GSIM
+                  testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_LSR), read_data);
+                `else
 	                testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_LSR), read_data);
-
+                `endif
                     // Debug Message
                     //
 //                  $display("        Generic_AL4S3B_FPGA_UART_Test_4:  UART Line Status Reg - Read the value 0x%0x at time: %0t \n", read_data, $realtime);
@@ -1844,8 +1991,11 @@ begin
 
                     // Get the value in the Line Status Register
                     //
+                `ifdef GSIM
+                  testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_LSR), read_data);
+                `else
 	                testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_LSR), read_data);
-
+                `endif
                     if (read_data[0] !== 1'b1)
                     begin
                         $display("[Error] Generic_AL4S3B_FPGA_UART_Test_4: Line Status register value read=0x%x shows FIFO unexpectely empty at time %0t", 
@@ -1862,8 +2012,11 @@ begin
 
                         // Check that the push is working correctly by checking the Rx FIFO Level
                         //
+                    `ifdef GSIM
+                      testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_RX_FIFO_LEVEL), Rx_FIFO_Level);
+                    `else
 	                    testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_RX_FIFO_LEVEL), Rx_FIFO_Level);
-
+                    `endif
                         // Check the ouptut value for correctness
                         //
                         expected_data = 38 - m;
@@ -1895,8 +2048,11 @@ begin
 
                         // Read value received from the external UART
                         //
+                    `ifdef GSIM
+                      testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_THR), RBR_read_data);
+                    `else
 	                    testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_THR), RBR_read_data);
-
+                    `endif
                         // Check the ouptut value for correctness
                         //
                         expected_data = target_data & target_mask;
@@ -1980,7 +2136,11 @@ begin
     // Wait for a few clocks
 	//
 	for (i = 0; i < 14; i = i + 1)
-		@(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK);
+    `ifdef GSIM
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.WB_CLK) #STD_CLK_DLY;
+    `else
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `endif
 
 	testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg1	= "NO ACTIVITY";
 	testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg2	= "NO ACTIVITY";
@@ -2029,12 +2189,20 @@ begin
 
     // Wait for release of reset
     //
-    wait (testbench_top.u_AL4S3B_FPGA_Top.WB_RST === 1'b0);
+    `ifdef GSIM
+        wait (testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.WB_RST === 1'b0);
+    `else
+        wait (testbench_top.u_AL4S3B_FPGA_Top.WB_RST === 1'b0);
+    `endif
     //$stop();
     // Wait for a few clocks
 	//
 	for (i = 0; i < 4; i = i + 1)
-		@(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `ifdef GSIM
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.WB_CLK) #STD_CLK_DLY;
+    `else
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `endif
 
 	// Set the debug message
 	//
@@ -2047,8 +2215,11 @@ begin
 
     // Set FIFO Control Register to disable the use the Rx and Tx FIFOs
     //
+`ifdef GSIM
+  testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'h0);
+`else
 	testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'h0);
-
+`endif
     // Set diagnostic message
 	//
 	testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg2 = "Looping to test UART Tx Formats";
@@ -2177,8 +2348,11 @@ begin
 
                     // Send value to the external UART
                     //
+                `ifdef GSIM
+                  testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_THR), target_data);
+                `else
 	                testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_THR), target_data);
-
+                `endif
                     // Set Diagnostic Message
                     //
 	                testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg3 = "Polling for Tx complete";
@@ -2191,8 +2365,11 @@ begin
 		            //
 		            while ((read_data & 32'h0000_0040) === 32'h0)
                     begin
+                    `ifdef GSIM
+                      testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_LSR), read_data);
+                    `else
 	                    testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_LSR), read_data);
-
+                    `endif
                         // Debug Message
                         //
 //                      $display("        Generic_AL4S3B_FPGA_UART_Test_5: UART Line Status Reg - Read the value 0x%0x at time: %0t \n", read_data, $realtime);
@@ -2260,7 +2437,11 @@ begin
     // Wait for a few clocks
 	//
 	for (i = 0; i < 14; i = i + 1)
-		@(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `ifdef GSIM
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.WB_CLK) #STD_CLK_DLY;
+    `else
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `endif
 
 	testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg1	= "NO ACTIVITY";
 	testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg2	= "NO ACTIVITY";
@@ -2310,16 +2491,24 @@ integer                   Tx_FIFO_Loop_cnt ;
 
 begin
 
-  $display("rakesh test 6 - uart0 start");
+  //$display("rakesh test 6 - uart0 start");
 
     // Wait for release of reset
     //
-    wait (testbench_top.u_AL4S3B_FPGA_Top.WB_RST === 1'b0);
+    `ifdef GSIM
+        wait (testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.WB_RST === 1'b0);
+    `else
+        wait (testbench_top.u_AL4S3B_FPGA_Top.WB_RST === 1'b0);
+    `endif
 
     // Wait for a few clocks
 	//
 	for (i = 0; i < 4; i = i + 1)
-		@(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+`ifdef GSIM
+    @(posedge testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.WB_CLK) #STD_CLK_DLY;
+`else
+		@(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY; 
+`endif
 
 	// Set the debug message
 	//
@@ -2332,8 +2521,11 @@ begin
 
     // Set FIFO Control Register to disable the use the Rx and Tx FIFOs
     //
+`ifdef GSIM
+  testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'h1);
+`else
 	testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'h1);
-
+`endif
     // Set diagnostic message
 	//
 	testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg2 = "Looping to test UART Tx Formats";
@@ -2419,7 +2611,7 @@ begin
                                                          stop_bit_length,
                                                   SERIAL_BAUD_RATE_115200,//SERIAL_BAUD_RATE_38400,
                                                                BREAK_OFF );
-                $display("rakesh test 6 - uart0 config done");
+                //$display("rakesh test 6 - uart0 config done");
                 // While loading the Tx FIFO, capture the outgoing Tx serial stream, and check the Tx FIFO Level
                 //
                 fork
@@ -2573,7 +2765,11 @@ begin
 
                         // Send value to the external UART
                         //
+                    `ifdef GSIM
+                      testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_THR), target_data);
+                    `else
 	                    testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_THR), target_data);
+                    `endif
                     end
                 end
                 begin
@@ -2800,67 +2996,18 @@ begin
 		            //
 		            while ((read_data & 32'h0000_0040) === 32'h0)
                     begin
+                    `ifdef GSIM
+                      testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_LSR), read_data);
+                    `else
 	                    testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_LSR), read_data);
-
+                    `endif
                         // Debug Message
                         //
 //                      $display("        Generic_AL4S3B_FPGA_UART_Test_6: UART Line Status Reg - Read the value 0x%0x at time: %0t \n", read_data, $realtime);
                     end
 
                 end
-				begin
-                    //
-                    // Check that the Tx FIFO Level is correct
-                    //
-
-                    Tx_FIFO_Loop_cnt = 127 ;
-
-                    while (Tx_FIFO_Loop_cnt !== 0)
-                    begin
-                        // Wait for the capture of a data value
-                        //
-                        @(posedge testbench_top.Rx_Capture_Trigger);
-
-                        // Set diagnostic message
-	                    //
-	                    testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg3 = "Reading Tx FIFO Level";
-
-                        // Check that the push is working correctly by checking the Rx FIFO Level
-                        //
-	                    testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_TX_FIFO_LEVEL), Tx_FIFO_Level);
-
-                      $display(" [Check] Generic_AL4S3B_FPGA_UART_Test_6: Serial Tx0 FIFO Level read= %d , Tx0_FIFO_Loop_cnt= %d at time %0t", 
-                                                                                                                        Tx_FIFO_Level[7:0], 
-                                                                                                                     Tx_FIFO_Loop_cnt[7:0], 
-                                                                                                                                 $realtime );
-
-                        // Determine if there was a FIFO Level error 
-					    //
-                      /* 
-                       if (Tx_FIFO_Level[7:0] !== Tx_FIFO_Loop_cnt[7:0])
-                        begin
-                            $display("[Error] Generic_AL4S3B_FPGA_UART_Test_6: Serial Tx FIFO Level read= %d , expected= %d at time %0t", 
-                                                                                                                        Tx_FIFO_Level[7:0], 
-                                                                                                                     Tx_FIFO_Loop_cnt[7:0], 
-                                                                                                                                 $realtime );
-                            fail_count = fail_count + 1;
-	                        testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg4 = "<-TEST FAILED";
-                        end	
-                        else
-                        begin
-                            $display("[Pass]  Generic_AL4S3B_FPGA_UART_Test_6: Serial Tx FIFO Level read= %d , expected= %d at time %0t",  
-                                                                                                                        Tx_FIFO_Level[7:0],
-                                                                                                                     Tx_FIFO_Loop_cnt[7:0],
-                                                                                                                                 $realtime );
-                            pass_count = pass_count + 1;
-	                        testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg4 = "<-TEST PASSED";
-                        end
-                      */
-
-                        Tx_FIFO_Loop_cnt = Tx_FIFO_Loop_cnt - 1 ;
-                    end
-                end
-                join
+              join
             end
         end
     end
@@ -2868,7 +3015,11 @@ begin
     // Wait for a few clocks
 	//
 	for (i = 0; i < 14; i = i + 1)
-		@(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `ifdef GSIM
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.WB_CLK) #STD_CLK_DLY;
+    `else
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `endif
 
 	testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg1	= "NO ACTIVITY";
 	testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg2	= "NO ACTIVITY";
@@ -2901,16 +3052,24 @@ integer                   Tx_FIFO_Loop_cnt ;
 
 begin
 
-  $display("rakesh test 6 - uart1 start");
+  //$display("rakesh test 6 - uart1 start");
 
     // Wait for release of reset
     //
-    wait (testbench_top.u_AL4S3B_FPGA_Top.WB_RST === 1'b0);
+    `ifdef GSIM
+        wait (testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.WB_RST === 1'b0);
+    `else
+        wait (testbench_top.u_AL4S3B_FPGA_Top.WB_RST === 1'b0);
+    `endif
 
     // Wait for a few clocks
 	//
 	for (i = 0; i < 1; i = i + 1)
-		@(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `ifdef GSIM
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.WB_CLK) #STD_CLK_DLY;
+    `else
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `endif
 
 	// Set the debug message
 	//
@@ -2923,8 +3082,11 @@ begin
 
     // Set FIFO Control Register to disable the use the Rx and Tx FIFOs
     //
+`ifdef GSIM
+  testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'h1);
+`else
 	testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'h1);
-
+`endif
     // Set diagnostic message
 	//
 	testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg2 = "Looping to test UART Tx Formats";
@@ -3010,11 +3172,11 @@ begin
                                                          stop_bit_length,
                                                   SERIAL_BAUD_RATE_115200,//SERIAL_BAUD_RATE_38400,
                                                                BREAK_OFF );
-                $display("rakesh test 6 - uart1 config done");
+                //$display("rakesh test 6 - uart1 config done");
                 // While loading the Tx FIFO, capture the outgoing Tx serial stream, and check the Tx FIFO Level
                 //
                 fork
-				begin
+                begin
                     //
                     // Load the Tx FIFO
                     //
@@ -3164,7 +3326,11 @@ begin
 
                         // Send value to the external UART
                         //
+                    `ifdef GSIM
+                      testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_THR), target_data);
+                    `else
 	                    testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_THR), target_data);
+                    `endif
                     end
                 end
                 begin
@@ -3390,66 +3556,18 @@ begin
 		            //
 		            while ((read_data & 32'h0000_0040) === 32'h0)
                     begin
+                    `ifdef GSIM
+                      testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_LSR), read_data);
+                    `else
 	                    testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_LSR), read_data);
-
+                    `endif
                         // Debug Message
                         //
 //                      $display("        Generic_AL4S3B_FPGA_UART_Test_6: UART Line Status Reg - Read the value 0x%0x at time: %0t \n", read_data, $realtime);
                     end
 
                 end
-				begin
-                    //
-                    // Check that the Tx FIFO Level is correct
-                    //
-
-                    Tx_FIFO_Loop_cnt = 127 ;
-
-                    while (Tx_FIFO_Loop_cnt !== 0)
-                    begin
-                        // Wait for the capture of a data value
-                        //
-                        @(posedge testbench_top.Rx_Capture_Trigger);
-
-                        // Set diagnostic message
-	                    //
-	                    testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg3 = "Reading Tx FIFO Level";
-
-                        // Check that the push is working correctly by checking the Rx FIFO Level
-                        //
-	                    testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_TX_FIFO_LEVEL), Tx_FIFO_Level);
-
-                        // Determine if there was a FIFO Level error 
-					    //
-                      $display(" [Check] Generic_AL4S3B_FPGA_UART_Test_6: Serial Tx1 FIFO Level read= %d , Tx1_FIFO_Loop_cnt= %d at time %0t", 
-                                                                                                                        Tx_FIFO_Level[7:0], 
-                                                                                                                     Tx_FIFO_Loop_cnt[7:0], 
-                                                                                                                                 $realtime );
-                      /* 
-                       if (Tx_FIFO_Level[7:0] !== Tx_FIFO_Loop_cnt[7:0])
-                        begin
-                            $display("[Error] Generic_AL4S3B_FPGA_UART1_Test_6: Serial Tx FIFO Level read= %d , expected= %d at time %0t", 
-                                                                                                                        Tx_FIFO_Level[7:0], 
-                                                                                                                     Tx_FIFO_Loop_cnt[7:0], 
-                                                                                                                                 $realtime );
-                            fail_count = fail_count + 1;
-	                        testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg4 = "<-TEST FAILED";
-                        end	
-                        else
-                        begin
-                            $display("[Pass]  Generic_AL4S3B_FPGA_UART1_Test_6: Serial Tx FIFO Level read= %d , expected= %d at time %0t",  
-                                                                                                                        Tx_FIFO_Level[7:0],
-                                                                                                                     Tx_FIFO_Loop_cnt[7:0],
-                                                                                                                                 $realtime );
-                            pass_count = pass_count + 1;
-	                        testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg4 = "<-TEST PASSED";
-                        end
-                      */
-
-                        Tx_FIFO_Loop_cnt = Tx_FIFO_Loop_cnt - 1 ;
-                    end
-                end
-                join
+              join
             end
         end
     end
@@ -3457,7 +3575,11 @@ begin
     // Wait for a few clocks
 	//
 	for (i = 0; i < 14; i = i + 1)
-		@(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `ifdef GSIM
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.WB_CLK) #STD_CLK_DLY;
+    `else
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `endif
 
 	testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg1	= "NO ACTIVITY";
 	testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg2	= "NO ACTIVITY";
@@ -3491,6 +3613,7 @@ endtask
 //       into simulation for additional evaluation.
 //--------------------------------------------------------------------
 //
+
 task Generic_AL4S3B_FPGA_IP_UART_Test_7;
 
 input    [ADDRWIDTH-1:0]  base_address     ;
@@ -3512,16 +3635,24 @@ integer                   Rx_FIFO_Loop_cnt ;
 
 begin
 
-  $display("rakesh test 7 - UART0 ");
+  //$display("rakesh test 7 - UART0 ");
 
     // Wait for release of reset
     //
-    wait (testbench_top.u_AL4S3B_FPGA_Top.WB_RST === 1'b0);
+    `ifdef GSIM
+        wait (testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.WB_RST === 1'b0);
+    `else
+        wait (testbench_top.u_AL4S3B_FPGA_Top.WB_RST === 1'b0);
+    `endif
 
     // Wait for a few clocks
 	//
 	for (i = 0; i < 4; i = i + 1)
-		@(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `ifdef GSIM
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.WB_CLK) #STD_CLK_DLY;
+    `else
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `endif
 
 	// Set the debug message
 	//
@@ -3553,14 +3684,20 @@ begin
     //
     // Note: All interrupts are enabled to check that only expected interrupts happen.
     //
+`ifdef GSIM
+  testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_IER), 8'hf);
+`else
 	testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_IER), 8'hf);
-
+`endif
     // Write the Modem Control Register
     //
     // Note: The Automatic Flow Control is turned on for RTSn
     //
+`ifdef GSIM
+  testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_MCR), 8'h22);
+`else
 	testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_MCR), 8'h22);
-
+`endif
     // Loop to check each Interrupt Trigger value
     //
 	for (i = 0; i < 8; i = i + 1)
@@ -3576,6 +3713,16 @@ begin
 		//      way in the RTL.
         //
         case(i[2:0])
+    `ifdef GSIM
+	    3'h0: testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'h01); // trigger on 1
+	    3'h1: testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'h41); // trigger on 4
+	    3'h2: testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'h81); // trigger on 8
+	    3'h3: testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'hC1); // trigger on 14
+	    3'h4: testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'h29); // trigger on 1
+	    3'h5: testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'h69); // trigger on 128
+	    3'h6: testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'hA9); // trigger on 256
+	    3'h7: testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'hE9); // trigger on 496
+    `else
 	    3'h0: testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'h01); // trigger on 1
 	    3'h1: testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'h41); // trigger on 4
 	    3'h2: testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'h81); // trigger on 8
@@ -3584,6 +3731,7 @@ begin
 	    3'h5: testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'h69); // trigger on 128
 	    3'h6: testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'hA9); // trigger on 256
 	    3'h7: testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'hE9); // trigger on 496
+    `endif
         endcase
 
         case(i[2:0])
@@ -3618,7 +3766,11 @@ begin
             // Wait for the received value to be stored in the FIFO
             //
             for (k = 0; k < 20; k = k + 1)
-		        @(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `ifdef GSIM
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.WB_CLK) #STD_CLK_DLY;
+    `else
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `endif
 
 
             // Set Diagnostic Message
@@ -3627,8 +3779,11 @@ begin
 
             // Check if an interrupt was generated
             //
+        `ifdef GSIM
+          testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_IIR), read_data);
+        `else
 	        testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_IIR), read_data);
-
+        `endif
             // Determine the expected status value
             //
             if ( j >= (Rx_FIFO_Loop_cnt - 2) )
@@ -3681,8 +3836,11 @@ begin
 	        testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg3 = "Read from the Rx FIFO";
 
             // Read the value from the Rx FIFO
+        `ifdef GSIM
+          testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_RBR), read_data);
+        `else
 	        testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_RBR), read_data);
-
+        `endif
             // Determine if there was a Interrupt Status error
             //
             if (read_data[7:0]  !== j[7:0])
@@ -3709,8 +3867,11 @@ begin
 
             // Check if an interrupt was generated
             //
+        `ifdef GSIM
+          testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_IIR), read_data);
+        `else
 	        testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_IIR), read_data);
-
+        `endif
             // Determine the expected status value
             //
             // Note: the values chosen for looping exceed the expected
@@ -3764,7 +3925,339 @@ begin
     // Wait for a few clocks
 	//
 	for (i = 0; i < 14; i = i + 1)
-		@(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `ifdef GSIM
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.WB_CLK) #STD_CLK_DLY;
+    `else
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `endif
+
+	testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg1	= "NO ACTIVITY";
+	testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg2	= "NO ACTIVITY";
+	testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg3	= "NO ACTIVITY";
+	testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg4	= "NO ACTIVITY";
+	testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg5	= "NO ACTIVITY";
+	testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg6	= "NO ACTIVITY";
+
+end
+endtask
+
+
+task Generic_AL4S3B_FPGA_IP_UART_Test_7a;
+
+input    [ADDRWIDTH-1:0]  base_address     ;
+	
+reg                [1:0]  word_length      ;
+reg                       stop_bit_length  ;
+reg                [2:0]  parity_selection ;
+
+reg	     [DATAWIDTH-1:0]  Tx_FIFO_Level    ;
+reg	     [DATAWIDTH-1:0]  read_data        ;
+reg	     [DATAWIDTH-1:0]  expected_data    ;
+reg	     [DATAWIDTH-1:0]  target_data      ;
+reg	     [DATAWIDTH-1:0]  target_data_tx   ;
+reg	     [DATAWIDTH-1:0]  target_mask      ;
+
+integer                   i, j, k, m, n    ;
+integer                   Rx_FIFO_Loop_cnt ;
+
+
+begin
+
+  //$display("rakesh test 7 - UART0 ");
+
+    // Wait for release of reset
+    //
+    `ifdef GSIM
+        wait (testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.WB_RST === 1'b0);
+    `else
+        wait (testbench_top.u_AL4S3B_FPGA_Top.WB_RST === 1'b0);
+    `endif
+
+    // Wait for a few clocks
+	//
+	for (i = 0; i < 4; i = i + 1)
+    `ifdef GSIM
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.WB_CLK) #STD_CLK_DLY;
+    `else
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `endif
+
+	// Set the debug message
+	//
+	testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg1 = "Generic_AL4S3B_FPGA_IP_UART_Test_7a";
+	testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg2 = "Configuring the UART";
+
+    word_length      = SERIAL_DATA_8_BITS;
+    stop_bit_length  = SERIAL_STOP_1_BIT ;
+    parity_selection = SERIAL_PARITY_NONE;
+
+    // Set diagnostic message
+	//
+	testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg3 = "Selecting Rx Formats";
+
+    // Set the Baud Rate on the UART
+    //
+    Generic_AL4S3B_FPGA_IP_UART_Comm_Config ( base_address,
+                                                 word_length,
+                                            parity_selection,
+                                             stop_bit_length,
+                                      SERIAL_BAUD_RATE_115200,//SERIAL_BAUD_RATE_38400,
+                                                   BREAK_OFF );
+
+    // Set Diagnostic Message
+    //
+	testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg3 = "Writing to IER";
+
+    // Enable interrupt capture
+    //
+    // Note: All interrupts are enabled to check that only expected interrupts happen.
+    //
+`ifdef GSIM
+  testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_IER), 8'hf);
+`else
+	testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_IER), 8'hf);
+`endif
+    // Write the Modem Control Register
+    //
+    // Note: The Automatic Flow Control is turned on for RTSn
+    //
+`ifdef GSIM
+  testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_MCR), 8'h22);
+`else
+	testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_MCR), 8'h22);
+`endif
+    // Loop to check each Interrupt Trigger value
+    //
+	for (i = 0; i < 8; i = i + 1)
+    begin
+        // Set Diagnostic Message
+        //
+	    testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg3 = "Writing to FCR";
+
+        // Set FIFO Control Register to disable the use the Rx and Tx FIFOs
+        //
+        // Note: The RXDRYn "DMA" mode is turned on for the 512 entry FIFO modes.
+		//      This is only for testing and the two are not linked in any 
+		//      way in the RTL.
+        //
+        case(i[2:0])
+    `ifdef GSIM
+	    3'h0: testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'h01); // trigger on 1
+	    3'h1: testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'h41); // trigger on 4
+	    3'h2: testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'h81); // trigger on 8
+	    3'h3: testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'hC1); // trigger on 14
+	    3'h4: testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'h29); // trigger on 1
+	    3'h5: testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'h69); // trigger on 128
+	    3'h6: testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'hA9); // trigger on 256
+	    3'h7: testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'hE9); // trigger on 496
+    `else
+	    3'h0: testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'h01); // trigger on 1
+	    3'h1: testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'h41); // trigger on 4
+	    3'h2: testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'h81); // trigger on 8
+	    3'h3: testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'hC1); // trigger on 14
+	    3'h4: testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'h29); // trigger on 1
+	    3'h5: testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'h69); // trigger on 128
+	    3'h6: testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'hA9); // trigger on 256
+	    3'h7: testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'hE9); // trigger on 496
+    `endif
+        endcase
+
+        case(i[2:0])
+        3'h0: Rx_FIFO_Loop_cnt = 2;
+        3'h1: Rx_FIFO_Loop_cnt = 5;
+        3'h2: Rx_FIFO_Loop_cnt = 9;
+        3'h3: Rx_FIFO_Loop_cnt = 15;
+        3'h4: Rx_FIFO_Loop_cnt = 2;
+        3'h5: Rx_FIFO_Loop_cnt = 129;
+        3'h6: Rx_FIFO_Loop_cnt = 257;
+        3'h7: Rx_FIFO_Loop_cnt = 497;
+        endcase
+
+        // Loop to fill the Rx Holding Register/FIFO
+        //
+        for (j = 0; j < Rx_FIFO_Loop_cnt; j = j + 1)
+        begin
+            // Set diagnostic message
+	        //
+	        testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg3 = "Sending Rx Data from External UART";
+
+            // Transmit a value from the external BFM
+            //
+            testbench_top.u_Serial_Tx1_gen_bfm.serial_tx_write_data( 
+                                                       word_length,
+                                                  parity_selection,
+                                                   stop_bit_length,
+                                            SERIAL_BAUD_RATE_115200,//SERIAL_BAUD_RATE_38400,
+                                                             j[7:0] );
+
+
+            // Wait for the received value to be stored in the FIFO
+            //
+            for (k = 0; k < 20; k = k + 1)
+    `ifdef GSIM
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.WB_CLK) #STD_CLK_DLY;
+    `else
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `endif
+
+
+            // Set Diagnostic Message
+            //
+	        testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg3 = "Read from IIR";
+
+            // Check if an interrupt was generated
+            //
+        `ifdef GSIM
+          testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_IIR), read_data);
+        `else
+	        testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_IIR), read_data);
+        `endif
+            // Determine the expected status value
+            //
+            if ( j >= (Rx_FIFO_Loop_cnt - 2) )
+            begin
+                // Allow for the "64-bit FIFO" bit in the status register
+                //
+				if ( i > 3)
+                   expected_data  = 8'hE4 ;
+                else
+                   expected_data  = 8'hC4 ;
+            end  
+            else
+            begin
+                // Allow for the "64-bit FIFO" bit in the status register
+                //
+				if ( i > 3)
+                   expected_data  = 8'hE1 ;
+                else
+                   expected_data  = 8'hC1 ;
+            end  
+
+            // Determine if there was a FIFO Level error 
+            //
+            if (read_data[7:0] !== expected_data[7:0])
+            begin
+                $display("[Error] Generic_AL4S3B_FPGA_UART_Test_7: Interrupt ID Value   read=0x%x , expected=0x%x at time %0t", 
+                                                                                                                  read_data[7:0], 
+                                                                                                              expected_data[7:0], 
+                                                                                                                       $realtime );
+                fail_count = fail_count + 1;
+	            testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg4 = "<-TEST FAILED";
+            end	
+            else
+            begin
+                $display("[Pass]  Generic_AL4S3B_FPGA_UART_Test_7: Interrupt ID Value   read=0x%x , expected=0x%x at time %0t",  
+                                                                                                                  read_data[7:0],
+                                                                                                              expected_data[7:0],
+                                                                                                                       $realtime );
+                pass_count = pass_count + 1;
+	            testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg4 = "<-TEST PASSED";
+            end
+        end
+
+        // Loop to read the values stored in the Rx Holding Register/FIFO
+        //
+        for (j = 0; j < Rx_FIFO_Loop_cnt; j = j + 1)
+        begin
+            // Set diagnostic message
+	        //
+	        testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg3 = "Read from the Rx FIFO";
+
+            // Read the value from the Rx FIFO
+        `ifdef GSIM
+          testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_RBR), read_data);
+        `else
+	        testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_RBR), read_data);
+        `endif
+            // Determine if there was a Interrupt Status error
+            //
+            if (read_data[7:0]  !== j[7:0])
+            begin
+                $display("[Error] Generic_AL4S3B_FPGA_UART_Test_7: Rx FIFO      Data    read=0x%x , expected=0x%x at time %0t", 
+                                                                                                                  read_data[7:0], 
+                                                                                                                          j[7:0], 
+                                                                                                                       $realtime );
+                fail_count = fail_count + 1;
+	            testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg4 = "<-TEST FAILED";
+            end	
+            else
+            begin
+                $display("[Pass]  Generic_AL4S3B_FPGA_UART_Test_7: Rx FIFO      Data    read=0x%x , expected=0x%x at time %0t",  
+                                                                                                                  read_data[7:0],
+                                                                                                                          j[7:0],
+                                                                                                                       $realtime );
+                pass_count = pass_count + 1;
+	            testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg4 = "<-TEST PASSED";
+            end
+            // Set Diagnostic Message
+            //
+	        testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg3 = "Read from IIR";
+
+            // Check if an interrupt was generated
+            //
+        `ifdef GSIM
+          testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_IIR), read_data);
+        `else
+	        testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_IIR), read_data);
+        `endif
+            // Determine the expected status value
+            //
+            // Note: the values chosen for looping exceed the expected
+            //       interrupt limit by 2.
+            //
+            //       The "read" above lowers FIFO contents by one.
+            //
+            if ( j <  1 )
+            begin
+                // Allow for the "64-bit FIFO" bit in the status register
+                //
+				if ( i > 3)
+                   expected_data  = 8'hE4 ;
+                else
+                   expected_data  = 8'hC4 ;
+            end  
+            else
+            begin
+                // Allow for the "64-bit FIFO" bit in the status register
+                //
+				if ( i > 3)
+                   expected_data  = 8'hE1 ;
+                else
+                   expected_data  = 8'hC1 ;
+            end  
+
+
+            // Determine if there was a Interrupt Status error
+            //
+            if (read_data[7:0]  !== expected_data[7:0])
+            begin
+                $display("[Error] Generic_AL4S3B_FPGA_UART_Test_7: Interrupt    Status  read=0x%x , expected=0x%x at time %0t", 
+                                                                                                                  read_data[7:0], 
+                                                                                                              expected_data[7:0], 
+                                                                                                                       $realtime );
+                fail_count = fail_count + 1;
+	            testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg4 = "<-TEST FAILED";
+            end	
+            else
+            begin
+                $display("[Pass]  Generic_AL4S3B_FPGA_UART_Test_7: Interrupt    Status  read=0x%x , expected=0x%x at time %0t",  
+                                                                                                                  read_data[7:0],
+                                                                                                              expected_data[7:0],
+                                                                                                                       $realtime );
+                pass_count = pass_count + 1;
+	            testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg4 = "<-TEST PASSED";
+            end
+        end
+    end
+
+    // Wait for a few clocks
+	//
+	for (i = 0; i < 14; i = i + 1)
+    `ifdef GSIM
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.WB_CLK) #STD_CLK_DLY;
+    `else
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `endif
 
 	testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg1	= "NO ACTIVITY";
 	testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg2	= "NO ACTIVITY";
@@ -3810,12 +4303,20 @@ begin
 
     // Wait for release of reset
     //
-    wait (testbench_top.u_AL4S3B_FPGA_Top.WB_RST === 1'b0);
+    `ifdef GSIM
+        wait (testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.WB_RST === 1'b0);
+    `else
+        wait (testbench_top.u_AL4S3B_FPGA_Top.WB_RST === 1'b0);
+    `endif
     //$stop();
     // Wait for a few clocks
 	//
 	for (i = 0; i < 4; i = i + 1)
-		@(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `ifdef GSIM
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.WB_CLK) #STD_CLK_DLY;
+    `else
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `endif
 
 	// Set the debug message
 	//
@@ -3847,8 +4348,11 @@ begin
     //
     // Note: All interrupts are enabled to check that only expected interrupts happen.
     //
+`ifdef GSIM
+  testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_IER), 8'hf);
+`else
 	testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_IER), 8'hf);
-
+`endif
     // Loop to check the Modem Status Register and Interrupt ID Register Operations
     //
 	for (i = 0; i < 2; i = i + 1)
@@ -3862,8 +4366,11 @@ begin
 
         // Read the Interrupt Status Register
         //
+    `ifdef GSIM
+      testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_IIR), read_data);
+    `else
 	    testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_IIR), read_data);
-
+    `endif
         // Determine if there was a Modem Status Change 
         //
         if (read_data[7:0] !== expected_data[7:0])
@@ -3893,8 +4400,11 @@ begin
 
         // Read the Modem Status Register
         //
+    `ifdef GSIM
+      testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_MSR), read_data);
+    `else
 	    testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_MSR), read_data);
-
+    `endif
         // Determine if there was a Modem Status Change 
         //
         if (read_data[7:0] !== expected_data[7:0])
@@ -3921,7 +4431,11 @@ begin
     // Wait for a few clocks
 	//
 	for (i = 0; i < 14; i = i + 1)
-		@(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `ifdef GSIM
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.WB_CLK) #STD_CLK_DLY;
+    `else
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `endif
 
 	testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg1	= "NO ACTIVITY";
 	testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg2	= "NO ACTIVITY";
@@ -3964,12 +4478,20 @@ begin
 
     // Wait for release of reset
     //
-    wait (testbench_top.u_AL4S3B_FPGA_Top.WB_RST === 1'b0);
+    `ifdef GSIM
+        wait (testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.WB_RST === 1'b0);
+    `else
+        wait (testbench_top.u_AL4S3B_FPGA_Top.WB_RST === 1'b0);
+    `endif
 
     // Wait for a few clocks
 	//
 	for (i = 0; i < 4; i = i + 1)
-		@(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `ifdef GSIM
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.WB_CLK) #STD_CLK_DLY;
+    `else
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `endif
 
 	// Set the debug message
 	//
@@ -4001,16 +4523,22 @@ begin
     //
     // Note: All interrupts are enabled to check that only expected interrupts happen.
     //
+`ifdef GSIM
+  testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_IER), 8'hf);
+`else
 	testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_IER), 8'hf);
-
+`endif
     // Set Diagnostic Message
     //
 	testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg3 = "Writing to FCR";
 
     // Enable the FIFO Operations
     //
+`ifdef GSIM
+  testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'h81); // trigger on 8
+`else
 	testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_FCR), 8'h81); // trigger on 8
-
+`endif
 
     // Set diagnostic message
 	//
@@ -4032,7 +4560,11 @@ begin
     // Wait for a few clocks
 	//
 	for (i = 0; i < 44; i = i + 1)
-		@(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `ifdef GSIM
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.WB_CLK) #STD_CLK_DLY;
+    `else
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `endif
 
     // Transmit a value from the external BFM
     //
@@ -4053,8 +4585,11 @@ begin
 
     // Enable the FIFO Operations
     //
+`ifdef GSIM
+  testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_IIR), read_data); // trigger on 8
+`else
 	testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_read_word_al4s3b_fabric((base_address + UART_IIR), read_data); // trigger on 8
-
+`endif
 	expected_data = 32'hCC;
 
     // Check the Interrupt ID value for timeout
@@ -4081,7 +4616,11 @@ begin
     // Wait for a few clocks
 	//
 	for (i = 0; i < 14; i = i + 1)
-		@(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `ifdef GSIM
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.WB_CLK) #STD_CLK_DLY;
+    `else
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `endif
 
 	testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg1	= "NO ACTIVITY";
 	testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg2	= "NO ACTIVITY";
@@ -4128,19 +4667,27 @@ begin
 
 	// Initialize variables to a default value
 	//
-  $display("rakesh test 6 - uart config");
+  //$display("rakesh test 6 - uart config");
     read_data  = 32'h0;
-	write_data = 32'h0;
+	  write_data = 32'h0;
 
 	// Wait for release of reset
     //
-    wait (testbench_top.u_AL4S3B_FPGA_Top.WB_RST === 1'b0);
+    `ifdef GSIM
+        wait (testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.WB_RST === 1'b0);
+    `else
+        wait (testbench_top.u_AL4S3B_FPGA_Top.WB_RST === 1'b0);
+    `endif
 
     // Wait for a few clocks
 	//
 	for (i = 0; i < 4; i = i + 1)
-		@(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK);
-
+    `ifdef GSIM
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.WB_CLK) #STD_CLK_DLY;
+    `else
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `endif
+    
 	// Set the debug message
 	//
 	testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg4 = "Generic_AL4S3B_FPGA_IP_UART_Comm_Config";
@@ -4259,12 +4806,18 @@ begin
 
     // Write to the UART's Line Control Register
     //
+  `ifdef GSIM
+    testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_LCR), write_data);
+  `else
     testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_LCR), write_data);
-
+  `endif
     // Get the current value of the fabric clock
 	//
-    t_cycle_sys_clk_0 = testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.SYS_CLK0_RESET_LOOP;
-
+  `ifdef GSIM
+    t_cycle_sys_clk_0 = testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.T_CYCLE_CLK_SYS_CLK0;
+  `else
+    t_cycle_sys_clk_0 = testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.T_CYCLE_CLK_SYS_CLK0;
+  `endif
     // Get the serial data rate (Baud Rate)
     //
     case(BAUD_RATE)
@@ -4288,7 +4841,8 @@ begin
     //
     // Note: The value must be within 2% of target for it to work correctly.
     //
-    divisor = (t_cycle_sys_clk_0 * 1000000)/(serial_data_rate * 16);
+    //divisor = (t_cycle_sys_clk_0 * 1000000)/(serial_data_rate * 16);
+    divisor = (1000000000)/(t_cycle_sys_clk_0 * serial_data_rate * 16);
 
     // Binary Counters are being used so the value should be n-1
 	//
@@ -4304,16 +4858,22 @@ begin
 
     // Program the Divisor LSB Register
     //
+  `ifdef GSIM
+    testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_DLL), divisor_minus_one[7:0]);
+  `else
     testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_DLL), divisor_minus_one[7:0]);
-
+  `endif
     // Write a useful diagnostic message
     //
     testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg6 = "Writing to DLM";
 
     // Program the Divisor MSB Register
     //
+  `ifdef GSIM
+    testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_DLM), divisor_minus_one[15:8]);
+  `else
     testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_DLM), divisor_minus_one[15:8]);
-
+  `endif
     // Divisor Latch
     //
     //   0 - Divisor Latches not selected
@@ -4327,11 +4887,15 @@ begin
 
     // Clear the Latch Enable bit so that the Rx/Tx data registers may be used.
 	//
+  `ifdef GSIM
+    testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_LCR), write_data);
+  `else
     testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.u_ahb_gen_bfm.ahb_write_word_al4s3b_fabric((base_address + UART_LCR), write_data);
-
+  `endif
     // Determine what the actual rate is based on the current AL4S3B clock divisor
     //
-    serial_data_rate_check = (t_cycle_sys_clk_0 * 1000000)/(divisor * 16);
+    //serial_data_rate_check = (t_cycle_sys_clk_0 * 1000000)/(divisor * 16);
+    serial_data_rate_check = (1000000000)/(t_cycle_sys_clk_0 * divisor * 16);
 
     // Proper Serial Communication Baud rate requires an error of no more than +/- 2%
     //
@@ -4444,9 +5008,13 @@ begin
     // Wait for a few clocks
 	//
 	for (i = 0; i < 14; i = i + 1)
-		@(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK);
+    `ifdef GSIM
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.WB_CLK) #STD_CLK_DLY;
+    `else
+        @(posedge testbench_top.u_AL4S3B_FPGA_Top.WB_CLK) #STD_CLK_DLY;
+    `endif
     
-  $display("rakesh test 6 - uart config done");
+  //$display("rakesh test 6 - uart config done");
 
 	testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg1	= "NO ACTIVITY";
 	testbench_top.testCases_AL4S3B_FPGA_IP.test_cases_msg2	= "NO ACTIVITY";

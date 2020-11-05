@@ -93,7 +93,11 @@ parameter       STD_CLK_DLY                 =  2            ;
 
 parameter       TEST_MSG_ARRAY_SIZE         = (64 * 8)      ;     // 64 ASCII character array size
 
-
+`ifdef GSIM
+  defparam testbench_top.u_AL4S3B_FPGA_Top.ASSP_u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.T_CYCLE_CLK_SYS_CLK0 = 135.63;
+`else
+  defparam testbench_top.u_AL4S3B_FPGA_Top.u_qlal4s3b_cell_macro.u_ASSP_bfm_inst.T_CYCLE_CLK_SYS_CLK0 = 135.63;
+`endif
 
 // connections between modules
 
@@ -181,7 +185,6 @@ begin
     //Serial_Stop_Bit_parameter1   = SERIAL_STOP_1_BIT     ;
     //Serial_Baud_Rate_parameter1  = SERIAL_BAUD_RATE_115200;
 
-
     //SIN              <=  1'b1;
     UART0_SIN_i      <=  1'b1;
     UART1_SIN_i      <=  1'b1;
@@ -204,17 +207,7 @@ end
 //
 // Note: This represents the board level connection to the FPGA IP.
 //
-top             #(
-
-    .APERWIDTH                 ( APERWIDTH                                 ),
-    .APERSIZE                  ( APERSIZE                                  ),
-
-    .UART0_BASE_ADDRESS        ( UART0_BASE_ADDRESS        [APERWIDTH-1:0] ),
-    .UART1_BASE_ADDRESS        ( UART1_BASE_ADDRESS        [APERWIDTH-1:0] )
-
-	                                                                       )
-
-     u_AL4S3B_FPGA_Top 
+top     u_AL4S3B_FPGA_Top 
 	                           (
     .gnd_o                     (                                           ),
     .UART0_SIN_i               ( Null_Modem_Tx_to_Rx0                      ),

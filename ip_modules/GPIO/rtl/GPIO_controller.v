@@ -163,7 +163,7 @@ assign GPIO_in = GPIO_io;
 
 genvar i;
 generate
-    for (i=0; i<32; i++) begin
+    for (i=0; i<32; i= i+1) begin
         assign GPIO_io[i] = GPIO_OE[i] ? GPIO_out[i] : 1'bz;
     end
 endgenerate

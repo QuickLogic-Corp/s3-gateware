@@ -4,8 +4,8 @@ vlib work
 
 set TEST_NAME uart_test_6
 
-vlog -work work  ../../testbench/cells_sim.v
-vlog -work work  ../../testbench/pp3_cells_sim.v
+vlog -work work  ./models/cells_sim.v
+vlog -work work  ./models/pp3_cells_sim.v
 
 vlog -work work  ../../../../ip_modules/UART_16550/rtl/f512x16_512x16.v
 vlog -work work  ../../../../ip_modules/UART_16550/rtl/f512x8_512x8.v
