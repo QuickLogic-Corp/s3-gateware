@@ -5709,15 +5709,15 @@ Warning 5661: Model 'RAM_CE1_FE1_D1_PR1_WSA2_WSB2_VPR' input port 'A1_1_b0' has 
 Warning 5662: Model 'VCC' output port 'VCC' has no timing specification (no clock specified to create a sequential output port, not combinationally connected to any inputs, not a clock output)
 Warning 5663: Model 'Q_FRAG' input port 'CONST1' has no timing specification (no clock specified to create a sequential input port, not combinationally connected to any outputs, not a clock input)
 Warning 5664: Model 'Q_FRAG' input port 'CONST0' has no timing specification (no clock specified to create a sequential input port, not combinationally connected to any outputs, not a clock input)
-Loading Architecture Description took 0.56 seconds (max_rss 27.5 MiB, delta_rss +23.9 MiB)
+Loading Architecture Description took 0.57 seconds (max_rss 27.5 MiB, delta_rss +23.9 MiB)
 Building complex block graph
 Building complex block graph took 0.09 seconds (max_rss 36.2 MiB, delta_rss +8.7 MiB)
 Load circuit
-Load circuit took 0.03 seconds (max_rss 38.5 MiB, delta_rss +2.3 MiB)
+Load circuit took 0.03 seconds (max_rss 38.6 MiB, delta_rss +2.4 MiB)
 Clean circuit
-Absorbed 2341 LUT buffers
+Absorbed 2340 LUT buffers
 Inferred  106 additional primitive pins as constant generators since they have no combinationally connected inputs
-Inferred   83 additional primitive pins as constant generators due to constant inputs
+Inferred   82 additional primitive pins as constant generators due to constant inputs
 Inferred    0 additional primitive pins as constant generators since they have no combinationally connected inputs
 Inferred    0 additional primitive pins as constant generators due to constant inputs
 Inferred    0 additional primitive pins as constant generators since they have no combinationally connected inputs
@@ -5726,28 +5726,28 @@ Swept input(s)      : 0
 Swept output(s)     : 0 (0 dangling, 0 constant)
 Swept net(s)        : 84
 Swept block(s)      : 1
-Constant Pins Marked: 189
-Clean circuit took 0.15 seconds (max_rss 48.3 MiB, delta_rss +9.9 MiB)
+Constant Pins Marked: 188
+Clean circuit took 0.15 seconds (max_rss 48.5 MiB, delta_rss +9.9 MiB)
 Compress circuit
-Compress circuit took 0.00 seconds (max_rss 48.4 MiB, delta_rss +0.1 MiB)
+Compress circuit took 0.00 seconds (max_rss 48.6 MiB, delta_rss +0.1 MiB)
 Verify circuit
-Verify circuit took 0.00 seconds (max_rss 48.4 MiB, delta_rss +0.0 MiB)
+Verify circuit took 0.00 seconds (max_rss 48.6 MiB, delta_rss +0.0 MiB)
 Circuit Statistics:
-  Blocks: 304
+  Blocks: 303
     .input    :       1
     .output   :       4
     ASSP      :       1
     BIDIR_CELL:       5
-    C_FRAG    :      32
+    C_FRAG    :      33
     F_FRAG    :       1
     GMUX_IC   :       4
     GND       :       1
     Q_FRAG    :      72
-    T_FRAG    :     182
+    T_FRAG    :     180
     VCC       :       1
-  Nets  : 357
+  Nets  : 356
     Avg Fanout:     6.7
-    Max Fanout:   822.0
+    Max Fanout:   824.0
     Min Fanout:     1.0
 Warning 5665: Assuming clocks may propagate through u_gclkbuff_clock0 (GMUX_IC) from pin u_gclkbuff_clock0.IC[0] to u_gclkbuff_clock0.IZ[0] (assuming a non-inverting buffer).
 Warning 5666: Assumed 1 netlist logic connections may be clock buffers. To override this behaviour explicitly create clocks at the appropriate netlist pins.
@@ -5758,14 +5758,14 @@ Warning 5668: Assumed 1 netlist logic connections may be clock buffers. To overr
 Warning 5669: Inferred implicit clock source $iopadmap$top.bitclk_master.I_DAT[0] for netlist clock $iopadmap$bitclk_master (possibly data used as clock)
 Warning 5670: Timing edge from $iopadmap$top.bitclk_master.I_EN[0] to $iopadmap$top.bitclk_master.I_DAT[0] will not be created since $iopadmap$top.bitclk_master.I_DAT[0] has been identified as a clock generator
 Warning 5671: Timing edge from $iopadmap$top.bitclk_master.I_PAD_$inp[0] to $iopadmap$top.bitclk_master.I_DAT[0] will not be created since $iopadmap$top.bitclk_master.I_DAT[0] has been identified as a clock generator
-Adding edge from 'u_gclkbuff_bitclkm.IC[0]' (tnode: 2512) -> 'u_gclkbuff_bitclkm.IZ[0]' (tnode: 2513) to allow clocks to propagate
-Adding edge from 'u_gclkbuff_clock0.IC[0]' (tnode: 2515) -> 'u_gclkbuff_clock0.IZ[0]' (tnode: 2516) to allow clocks to propagate
-Adding edge from 'u_gclkbuff_clock1.IC[0]' (tnode: 2518) -> 'u_gclkbuff_clock1.IZ[0]' (tnode: 2519) to allow clocks to propagate
-Adding edge from 'u_gclkbuff_reset.IC[0]' (tnode: 2521) -> 'u_gclkbuff_reset.IZ[0]' (tnode: 2522) to allow clocks to propagate
-  Timing Graph Nodes: 2742
-  Timing Graph Edges: 4454
+Adding edge from 'u_gclkbuff_bitclkm.IC[0]' (tnode: 2510) -> 'u_gclkbuff_bitclkm.IZ[0]' (tnode: 2511) to allow clocks to propagate
+Adding edge from 'u_gclkbuff_clock0.IC[0]' (tnode: 2513) -> 'u_gclkbuff_clock0.IZ[0]' (tnode: 2514) to allow clocks to propagate
+Adding edge from 'u_gclkbuff_clock1.IC[0]' (tnode: 2516) -> 'u_gclkbuff_clock1.IZ[0]' (tnode: 2517) to allow clocks to propagate
+Adding edge from 'u_gclkbuff_reset.IC[0]' (tnode: 2519) -> 'u_gclkbuff_reset.IZ[0]' (tnode: 2520) to allow clocks to propagate
+  Timing Graph Nodes: 2740
+  Timing Graph Edges: 4452
   Timing Graph Levels: 14
-Build Timing Graph took 0.00 seconds (max_rss 48.6 MiB, delta_rss +0.1 MiB)
+Build Timing Graph took 0.00 seconds (max_rss 48.8 MiB, delta_rss +0.0 MiB)
 Warning 5672: Assuming clocks may propagate through u_gclkbuff_clock0 (GMUX_IC) from pin u_gclkbuff_clock0.IC[0] to u_gclkbuff_clock0.IZ[0] (assuming a non-inverting buffer).
 Warning 5673: Assumed 1 netlist logic connections may be clock buffers. To override this behaviour explicitly create clocks at the appropriate netlist pins.
 Netlist contains 3 clocks
@@ -5787,7 +5787,7 @@ Timing constraints created 4 clocks
   Constrained Clock 'Sys_Clk0' Source: 'u_qlal4s3b_cell_macro.Sys_Clk0[0]'
   Constrained Clock 'Sys_Clk1' Source: 'u_qlal4s3b_cell_macro.Sys_Clk1[0]'
 
-Load Timing Constraints took 0.00 seconds (max_rss 48.6 MiB, delta_rss +0.0 MiB)
+Load Timing Constraints took 0.00 seconds (max_rss 48.8 MiB, delta_rss +0.0 MiB)
 Timing analysis: ON
 Circuit netlist file: top.net
 Circuit placement file: top.place
@@ -5860,12 +5860,12 @@ Begin loading packed FPGA netlist file.
 Netlist generated from file 'top.net'.
 Detected 2 constant generators (to see names run with higher pack verbosity)
 Finished loading packed FPGA netlist file (took 0.09375 seconds).
-Load Packing took 0.10 seconds (max_rss 89.2 MiB, delta_rss +40.6 MiB)
+Load Packing took 0.10 seconds (max_rss 89.3 MiB, delta_rss +40.6 MiB)
 Warning 5676: Netlist contains 0 global net to non-global architecture pin connections
 Warning 5677: Logic block #133 ($false) has only 1 input pin '$false.GND0_GND[0]' -- the whole block is hanging logic that should be swept.
 Warning 5678: Logic block #134 ($true) has only 1 input pin '$true.VCC0_VCC[0]' -- the whole block is hanging logic that should be swept.
 
-Netlist num_nets: 282
+Netlist num_nets: 281
 Netlist num_blocks: 135
 Netlist EMPTY blocks: 0.
 Netlist PB-SDIOMUX blocks: 0.
@@ -5905,11 +5905,11 @@ Pb types usage...
    LOGIC            : 123
     FRAGS           : 123
      c_frag_modes   : 123
-      SINGLE        : 32
-       c_frag       : 32
-      SPLIT         : 91
-       b_frag       : 91
-       t_frag       : 91
+      SINGLE        : 33
+       c_frag       : 33
+      SPLIT         : 90
+       b_frag       : 90
+       t_frag       : 90
      f_frag         : 1
      q_frag_modes   : 72
       INT           : 71
@@ -5985,33 +5985,33 @@ Device Utilization: 0.10 (target 1.00)
 	Physical Tile TL-SYN_GND:
 	Block Utilization: 1.00 Logical Block: PB-SYN_GND
 
-# Build Device Grid took 0.01 seconds (max_rss 89.3 MiB, delta_rss +0.0 MiB)
+# Build Device Grid took 0.01 seconds (max_rss 89.4 MiB, delta_rss +0.0 MiB)
 # Loading routing resource graph
 
 
 
 Warning 5679: This architecture version is for VPR 8.1.0-dev+8980e4621 while your current VPR version is 8.1.0-dev+unkown compatability issues may arise
 
-# Loading routing resource graph took 1.18 seconds (max_rss 582.8 MiB, delta_rss +493.6 MiB)
+# Loading routing resource graph took 1.24 seconds (max_rss 582.5 MiB, delta_rss +493.1 MiB)
   RR Graph Nodes: 1396446
   RR Graph Edges: 2337988
-Create Device took 1.92 seconds (max_rss 582.8 MiB, delta_rss +493.6 MiB)
+Create Device took 2.01 seconds (max_rss 582.5 MiB, delta_rss +493.1 MiB)
 
 Load Placement
-Load Placement took 0.00 seconds (max_rss 582.8 MiB, delta_rss +0.0 MiB)
+Load Placement took 0.00 seconds (max_rss 582.5 MiB, delta_rss +0.0 MiB)
 
 Load Routing
 Begin loading FPGA routing file.
 Finished loading route file
-Load Routing took 0.28 seconds (max_rss 582.8 MiB, delta_rss +0.0 MiB)
+Load Routing took 0.28 seconds (max_rss 582.5 MiB, delta_rss +0.0 MiB)
 
 Checking to ensure routing is legal...
 Completed routing consistency check successfully.
 
-Serial number (magic cookie) for the routing is: -415358832
+Serial number (magic cookie) for the routing is: -1846576213
 Circuit successfully routed with a channel width factor of 100.
 Writing Implementation FASM: top.fasm
-The entire flow of VPR took 3.76562 seconds.
+The entire flow of VPR took 3.875 seconds.
 FASM extra: top_fasm_extra.fasm
 cd build && write_bitstream -d ql-eos-s3_wlcsp -f top.fasm -P PU64 -b top.bit
 Writing bitstream ...
