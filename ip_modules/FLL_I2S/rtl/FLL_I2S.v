@@ -119,7 +119,7 @@ wire            module_decode   ;
 
 wire            REG_WE_CTRL     ;
 wire            REG_WE_SAMP_LEN ;
-wire            REG_WE_SAMP_DLY ;
+wire            REG_WE_SAMP_GAP ;
 
 wire            WBs_ACK_o_nxt   ;
 
@@ -131,8 +131,8 @@ reg     [31:0]  reg_sample_gap    ;
 assign module_decode = (WBs_ADR_i[16:ADDRWIDTH] == MODULE_OFFSET[16:ADDRWIDTH]);
 
 assign REG_WE_CTRL = ( WBs_ADR_i[ADDRWIDTH-1:2] == REG_ADDR_CTRL[ADDRWIDTH-1:2] ) && module_decode && WBs_CYC_i && WBs_STB_i && WBs_WE_i && (~WBs_ACK_o);
-assign REG_WE_SAMP_LEN = ( WBs_ADR_i[ADDRWIDTH-1:2] == REG_ADDR_CTRL[ADDRWIDTH-1:2] ) && module_decode && WBs_CYC_i && WBs_STB_i && WBs_WE_i && (~WBs_ACK_o);
-assign REG_WE_SAMP_DLY = ( WBs_ADR_i[ADDRWIDTH-1:2] == REG_ADDR_SAMP_LEN[ADDRWIDTH-1:2] ) && module_decode && WBs_CYC_i && WBs_STB_i && WBs_WE_i && (~WBs_ACK_o);
+assign REG_WE_SAMP_LEN = ( WBs_ADR_i[ADDRWIDTH-1:2] == REG_ADDR_SAMP_LEN[ADDRWIDTH-1:2] ) && module_decode && WBs_CYC_i && WBs_STB_i && WBs_WE_i && (~WBs_ACK_o);
+assign REG_WE_SAMP_GAP = ( WBs_ADR_i[ADDRWIDTH-1:2] == REG_ADDR_SAMP_GAP[ADDRWIDTH-1:2] ) && module_decode && WBs_CYC_i && WBs_STB_i && WBs_WE_i && (~WBs_ACK_o);
 
 // Define the Acknowledge back to the host for registers
 assign WBs_ACK_o_nxt  =  module_decode && (WBs_CYC_i) && WBs_STB_i && (~WBs_ACK_o);
@@ -171,7 +171,7 @@ begin
         end
 
         // sampling delay register
-        if (REG_WE_SAMP_DLY) begin
+        if (REG_WE_SAMP_GAP) begin
             if (WBs_BYTE_STB_i[0])
                 reg_sample_gap[7:0]       <= WBs_DAT_i[7:0]   ;
             if (WBs_BYTE_STB_i[1])
