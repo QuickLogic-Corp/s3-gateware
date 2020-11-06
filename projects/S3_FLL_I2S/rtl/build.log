@@ -5709,11 +5709,11 @@ Warning 5661: Model 'ASSP' output port 'SDMA_Done' has no timing specification (
 Warning 5662: Model 'ASSP' output port 'SDMA_Active' has no timing specification (no clock specified to create a sequential output port, not combinationally connected to any inputs, not a clock output)
 Warning 5663: Model 'ASSP' output port 'FB_Start' has no timing specification (no clock specified to create a sequential output port, not combinationally connected to any inputs, not a clock output)
 Warning 5664: Model 'GND' output port 'GND' has no timing specification (no clock specified to create a sequential output port, not combinationally connected to any inputs, not a clock output)
-Loading Architecture Description took 0.57 seconds (max_rss 27.5 MiB, delta_rss +23.9 MiB)
+Loading Architecture Description took 1.66 seconds (max_rss 27.5 MiB, delta_rss +23.9 MiB)
 Building complex block graph
-Building complex block graph took 0.09 seconds (max_rss 36.1 MiB, delta_rss +8.6 MiB)
+Building complex block graph took 0.26 seconds (max_rss 36.1 MiB, delta_rss +8.6 MiB)
 Load circuit
-Load circuit took 0.03 seconds (max_rss 38.9 MiB, delta_rss +2.8 MiB)
+Load circuit took 0.09 seconds (max_rss 38.9 MiB, delta_rss +2.8 MiB)
 Clean circuit
 Absorbed 2340 LUT buffers
 Inferred  106 additional primitive pins as constant generators since they have no combinationally connected inputs
@@ -5727,7 +5727,7 @@ Swept output(s)     : 0 (0 dangling, 0 constant)
 Swept net(s)        : 84
 Swept block(s)      : 1
 Constant Pins Marked: 188
-Clean circuit took 0.03 seconds (max_rss 48.7 MiB, delta_rss +9.7 MiB)
+Clean circuit took 0.10 seconds (max_rss 48.7 MiB, delta_rss +9.7 MiB)
 Compress circuit
 Compress circuit took 0.00 seconds (max_rss 48.7 MiB, delta_rss +0.1 MiB)
 Verify circuit
@@ -5765,7 +5765,7 @@ Adding edge from 'u_gclkbuff_reset.IC[0]' (tnode: 2519) -> 'u_gclkbuff_reset.IZ[
   Timing Graph Nodes: 2740
   Timing Graph Edges: 4452
   Timing Graph Levels: 14
-Build Timing Graph took 0.00 seconds (max_rss 48.8 MiB, delta_rss +0.1 MiB)
+Build Timing Graph took 0.01 seconds (max_rss 48.8 MiB, delta_rss +0.1 MiB)
 Warning 5672: Assuming clocks may propagate through u_gclkbuff_clock0 (GMUX_IC) from pin u_gclkbuff_clock0.IC[0] to u_gclkbuff_clock0.IZ[0] (assuming a non-inverting buffer).
 Warning 5673: Assumed 1 netlist logic connections may be clock buffers. To override this behaviour explicitly create clocks at the appropriate netlist pins.
 Netlist contains 3 clocks
@@ -5903,8 +5903,8 @@ Load Packing
 Begin loading packed FPGA netlist file.
 Netlist generated from file 'top.net'.
 Detected 2 constant generators (to see names run with higher pack verbosity)
-Finished loading packed FPGA netlist file (took 0.09375 seconds).
-Load Packing took 0.10 seconds (max_rss 89.4 MiB, delta_rss +40.5 MiB)
+Finished loading packed FPGA netlist file (took 0.28125 seconds).
+Load Packing took 0.28 seconds (max_rss 89.4 MiB, delta_rss +40.5 MiB)
 Warning 5676: Netlist contains 0 global net to non-global architecture pin connections
 Warning 5677: Logic block #133 ($false) has only 1 output pin '$false.GND0_GND[0]'. It may be a constant generator.
 Warning 5678: Logic block #134 ($true) has only 1 output pin '$true.VCC0_VCC[0]'. It may be a constant generator.
@@ -6029,14 +6029,14 @@ Device Utilization: 0.10 (target 1.00)
 	Physical Tile TL-SYN_GND:
 	Block Utilization: 1.00 Logical Block: PB-SYN_GND
 
-# Build Device Grid took 0.01 seconds (max_rss 89.5 MiB, delta_rss +0.0 MiB)
+# Build Device Grid took 0.03 seconds (max_rss 89.5 MiB, delta_rss +0.0 MiB)
 # Loading routing resource graph
 
 
-# Loading routing resource graph took 1.08 seconds (max_rss 481.0 MiB, delta_rss +391.6 MiB)
+# Loading routing resource graph took 2.96 seconds (max_rss 481.0 MiB, delta_rss +391.6 MiB)
   RR Graph Nodes: 1396446
   RR Graph Edges: 2337988
-Create Device took 1.78 seconds (max_rss 481.0 MiB, delta_rss +391.6 MiB)
+Create Device took 4.73 seconds (max_rss 481.0 MiB, delta_rss +391.6 MiB)
 
 Load Placement
 Reading top.place.
@@ -6048,7 +6048,7 @@ Load Placement took 0.00 seconds (max_rss 481.0 MiB, delta_rss +0.0 MiB)
 Load Routing
 Begin loading FPGA routing file.
 Finished loading route file
-Load Routing took 0.27 seconds (max_rss 481.0 MiB, delta_rss +0.0 MiB)
+Load Routing took 0.73 seconds (max_rss 481.0 MiB, delta_rss +0.0 MiB)
 
 Checking to ensure routing is legal...
 Completed routing consistency check successfully.
@@ -6056,13 +6056,13 @@ Completed routing consistency check successfully.
 Serial number (magic cookie) for the routing is: -1728612130
 Circuit successfully routed with a channel width factor of 100.
 
-Incr Slack updates 1 in 5.82e-05 sec
-Full Max Req/Worst Slack updates 1 in 8.7e-06 sec
+Incr Slack updates 1 in 0.0002098 sec
+Full Max Req/Worst Slack updates 1 in 2.53e-05 sec
 Incr Max Req/Worst Slack updates 0 in 0 sec
 Incr Criticality updates 0 in 0 sec
-Full Criticality updates 1 in 7.64e-05 sec
+Full Criticality updates 1 in 0.0002091 sec
 Writing Implementation FASM: top.fasm
-The entire flow of VPR took 3.5 seconds.
+The entire flow of VPR took 9.57812 seconds.
 FASM extra: top_fasm_extra.fasm
 cd build && symbiflow_write_bitstream -d ql-eos-s3_wlcsp -f top.fasm -P PU64 -b top.bit
 Writing bitstream ...
