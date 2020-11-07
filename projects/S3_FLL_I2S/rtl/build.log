@@ -5727,7 +5727,7 @@ Swept output(s)     : 0 (0 dangling, 0 constant)
 Swept net(s)        : 84
 Swept block(s)      : 1
 Constant Pins Marked: 182
-Clean circuit took 0.33 seconds (max_rss 150.3 MiB, delta_rss +94.8 MiB)
+Clean circuit took 0.32 seconds (max_rss 150.3 MiB, delta_rss +94.8 MiB)
 Compress circuit
 Compress circuit took 0.01 seconds (max_rss 150.5 MiB, delta_rss +0.1 MiB)
 Verify circuit
@@ -5911,7 +5911,7 @@ Load Packing
 Begin loading packed FPGA netlist file.
 Netlist generated from file 'top.net'.
 Detected 2 constant generators (to see names run with higher pack verbosity)
-Finished loading packed FPGA netlist file (took 0.25 seconds).
+Finished loading packed FPGA netlist file (took 0.234375 seconds).
 Load Packing took 0.24 seconds (max_rss 150.5 MiB, delta_rss +0.0 MiB)
 Warning 5684: Netlist contains 0 global net to non-global architecture pin connections
 Warning 5685: Logic block #416 ($false) has only 1 output pin '$false.GND0_GND[0]'. It may be a constant generator.
@@ -6057,21 +6057,21 @@ Load Routing
 Begin loading FPGA routing file.
 Finished loading route file
 Warning 5687: 6 timing endpoints were not constrained during timing analysis
-Load Routing took 0.66 seconds (max_rss 507.0 MiB, delta_rss +0.0 MiB)
+Load Routing took 0.64 seconds (max_rss 507.0 MiB, delta_rss +0.0 MiB)
 
 Checking to ensure routing is legal...
 Completed routing consistency check successfully.
 
-Serial number (magic cookie) for the routing is: -210735964
+Serial number (magic cookie) for the routing is: -104205517
 Circuit successfully routed with a channel width factor of 100.
 
-Incr Slack updates 1 in 0.0001553 sec
-Full Max Req/Worst Slack updates 1 in 2.68e-05 sec
+Incr Slack updates 1 in 0.0001551 sec
+Full Max Req/Worst Slack updates 1 in 2.53e-05 sec
 Incr Max Req/Worst Slack updates 0 in 0 sec
 Incr Criticality updates 0 in 0 sec
-Full Criticality updates 1 in 0.0002309 sec
+Full Criticality updates 1 in 0.0002387 sec
 Writing Implementation FASM: top.fasm
-The entire flow of VPR took 5.17188 seconds.
+The entire flow of VPR took 5.15625 seconds.
 FASM extra: top_fasm_extra.fasm
 cd build && symbiflow_write_bitstream -d ql-eos-s3_wlcsp -f top.fasm -P PU64 -b top.bit
 Writing bitstream ...
