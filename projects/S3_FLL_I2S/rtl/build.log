@@ -5709,7 +5709,7 @@ Warning 5661: Model 'ASSP' output port 'SDMA_Done' has no timing specification (
 Warning 5662: Model 'ASSP' output port 'SDMA_Active' has no timing specification (no clock specified to create a sequential output port, not combinationally connected to any inputs, not a clock output)
 Warning 5663: Model 'ASSP' output port 'FB_Start' has no timing specification (no clock specified to create a sequential output port, not combinationally connected to any inputs, not a clock output)
 Warning 5664: Model 'GND' output port 'GND' has no timing specification (no clock specified to create a sequential output port, not combinationally connected to any inputs, not a clock output)
-Loading Architecture Description took 0.56 seconds (max_rss 27.5 MiB, delta_rss +23.9 MiB)
+Loading Architecture Description took 0.57 seconds (max_rss 27.5 MiB, delta_rss +23.9 MiB)
 Building complex block graph
 Building complex block graph took 0.09 seconds (max_rss 36.1 MiB, delta_rss +8.6 MiB)
 Load circuit
@@ -5727,7 +5727,7 @@ Swept output(s)     : 0 (0 dangling, 0 constant)
 Swept net(s)        : 84
 Swept block(s)      : 1
 Constant Pins Marked: 182
-Clean circuit took 0.32 seconds (max_rss 150.3 MiB, delta_rss +94.8 MiB)
+Clean circuit took 0.33 seconds (max_rss 150.3 MiB, delta_rss +94.8 MiB)
 Compress circuit
 Compress circuit took 0.01 seconds (max_rss 150.5 MiB, delta_rss +0.1 MiB)
 Verify circuit
@@ -6062,16 +6062,16 @@ Load Routing took 0.66 seconds (max_rss 507.0 MiB, delta_rss +0.0 MiB)
 Checking to ensure routing is legal...
 Completed routing consistency check successfully.
 
-Serial number (magic cookie) for the routing is: -1381139779
+Serial number (magic cookie) for the routing is: -210735964
 Circuit successfully routed with a channel width factor of 100.
 
-Incr Slack updates 1 in 0.000157 sec
+Incr Slack updates 1 in 0.0001553 sec
 Full Max Req/Worst Slack updates 1 in 2.68e-05 sec
 Incr Max Req/Worst Slack updates 0 in 0 sec
 Incr Criticality updates 0 in 0 sec
-Full Criticality updates 1 in 0.0002399 sec
+Full Criticality updates 1 in 0.0002309 sec
 Writing Implementation FASM: top.fasm
-The entire flow of VPR took 5.14062 seconds.
+The entire flow of VPR took 5.17188 seconds.
 FASM extra: top_fasm_extra.fasm
 cd build && symbiflow_write_bitstream -d ql-eos-s3_wlcsp -f top.fasm -P PU64 -b top.bit
 Writing bitstream ...
