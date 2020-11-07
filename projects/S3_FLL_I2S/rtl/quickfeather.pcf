@@ -1,6 +1,6 @@
 # set_io bitclk_master IO_4
-# set_io dbg_int_speedup IO_2
-# set_io dbg_int_slowdown IO_7
+# set_io dbg_int_speedup IO_7
+# set_io dbg_int_slowdown IO_27
 # set_io dbg_bitclkm IO_3
 # set_io dbg_bitclks IO_8
 
