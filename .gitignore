@@ -2,3 +2,5 @@
 **/rtl/build
 Makefile.symbiflow
 top_bit.c
+*.log
+**/Makefile.symbiflow
