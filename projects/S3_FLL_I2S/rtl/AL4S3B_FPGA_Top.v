@@ -207,8 +207,10 @@ qlal4s3b_cell_macro u_qlal4s3b_cell_macro (
 
 assign dbg_int_speedup  = Interrupt_speedup     ;
 assign dbg_int_slowdown = Interrupt_slowdown    ;
-assign dbg_bitclkm      = bitclk_master_gclk    ;
-assign dbg_bitclks      = bitclk_local          ;
+//assign dbg_bitclkm      = bitclk_master_gclk    ;
+assign dbg_bitclkm      = bitclk_master         ;
+//assign dbg_bitclks      = bitclk_local          ;
+assign dbg_bitclks      = Sys_Clk1             ;
 
 endmodule
 

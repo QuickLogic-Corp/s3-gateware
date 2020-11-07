@@ -484,7 +484,7 @@ always @(posedge rst or posedge bitclk_local)
                             else
                                 fll_state <= st_IDLE;
             st_SAMPLE   : 
-                            if (sample_cnt == 0)
+                            if (sample_cnt == 1)
                                 fll_state <= st_COMPUTE;
                             else
                                 fll_state <= st_SAMPLE;
@@ -590,12 +590,12 @@ always @(posedge rst or posedge bitclk_local)
         // Also don't compare if a rollover has occurred on one of the wordcnt's but not the other.
         if (fll_state == st_COMPUTE && compute_timer == 4'h8) begin
             if (wordcnt_shadow_local[31] == wordcnt_shadow_master[31]) begin
-                if (wordcnt_shadow_local == wordcnt_shadow_master) begin
+                if (wordcnt_shadow_local[30:0] == wordcnt_shadow_master[30:0]) begin
                     wordcnts_aligned <= 1;
                     local_wordcnt_is_ahead <= 0;
                     master_wordcnt_is_ahead <= 0;
                 end else begin
-                    if (wordcnt_shadow_local > wordcnt_shadow_master) begin
+                    if (wordcnt_shadow_local[30:0] > wordcnt_shadow_master[30:0]) begin
                         wordcnts_aligned <= 0;
                         local_wordcnt_is_ahead <= 1;
                         master_wordcnt_is_ahead <= 0;
@@ -634,18 +634,20 @@ always @(posedge rst or posedge bitclk_local)
     end else begin
         if (fll_state == st_COMPUTE && compute_timer == 4'hA) begin
             // check if speedup is needed
-            if  (    (sample_cnt_master[15] && (wordcnts_aligned || master_wordcnt_is_ahead))
-                    ||
-                    (sample_cnt_master == 0 && master_wordcnt_is_ahead)
+//            if  (    (sample_cnt_master[15] && (wordcnts_aligned || master_wordcnt_is_ahead))
+//                    ||
+//                    (sample_cnt_master == 0 && master_wordcnt_is_ahead)
+            if  (    (sample_cnt_master[15] && (master_wordcnt_is_ahead))
                 ) begin
                     speedup_reg <= 1;
                     slowdown_reg <= 0;
                 end
             // check if slowdown is needed
             else
-                if  (   ((!sample_cnt_master[15] && (sample_cnt_master != 0)) && (wordcnts_aligned || local_wordcnt_is_ahead))
-                        ||
-                        (sample_cnt_master == 0 && local_wordcnt_is_ahead)
+//                if  (   ((!sample_cnt_master[15] && (sample_cnt_master != 0)) && (wordcnts_aligned || local_wordcnt_is_ahead))
+//                        ||
+//                        (sample_cnt_master == 0 && local_wordcnt_is_ahead)
+                if  (   ((!sample_cnt_master[15] && (sample_cnt_master != 0)) && (local_wordcnt_is_ahead))
                     ) begin
                         speedup_reg <= 0;
                         slowdown_reg <= 1;
