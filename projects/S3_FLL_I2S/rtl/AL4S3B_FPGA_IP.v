@@ -237,7 +237,7 @@ FLL_I2S
 
         // interrupts to the M4 processor, to speed up or slow down the local clock
         .Interrupt_speedup  ( Interrupt_speedup  ),
-        .Interrupt_slowdown ( Interrupt_speedup  )
+        .Interrupt_slowdown ( Interrupt_slowdown )
 );
 
 

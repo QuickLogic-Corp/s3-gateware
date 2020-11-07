@@ -341,8 +341,6 @@ always @(posedge rst or posedge bitclk_master)
 
     // shadow registers
     //      these are used to copy the wordcnt registers so the calculations can be done.
-reg     [31:0]  wordcnt_shadow_local;
-reg     [31:0]  wordcnt_shadow_master;
 
 always @(posedge rst or posedge bitclk_local)
     if (rst)
@@ -374,6 +372,7 @@ reg             sample_cnt_enable_master_r1;
 reg             sample_cnt_enable_master_r2;
 
 reg             sample_cnt_load;
+reg             sample_cnt_load_r1; // this is used to make sure sample_cnt_load is at least 2 clks wide
 reg             sample_cnt_load_master;
 reg             sample_cnt_load_master_r1;
 reg             sample_cnt_load_master_r2;
@@ -473,17 +472,6 @@ localparam  st_SAMPLE   = 3'h1;
 localparam  st_COMPUTE  = 3'h2;
 localparam  st_GAP      = 3'h3;
 
-    // timers
-always @(posedge rst or posedge bitclk_local)
-    if (rst)
-        compute_timer <= 0;
-    else
-        if (fll_state == st_COMPUTE)
-            compute_timer <= compute_timer + 1;
-        else
-            compute_timer <= 0;
-
-
     // state machine
 always @(posedge rst or posedge bitclk_local)
     if (rst)
@@ -518,6 +506,17 @@ always @(posedge rst or posedge bitclk_local)
         endcase
 
 
+    // timers
+always @(posedge rst or posedge bitclk_local)
+    if (rst)
+        compute_timer <= 0;
+    else
+        if (fll_state == st_COMPUTE)
+            compute_timer <= compute_timer + 1;
+        else
+            compute_timer <= 0;
+
+
     // control signals
 
 always @(posedge rst or posedge bitclk_local)
@@ -539,7 +538,6 @@ always @(posedge rst or posedge bitclk_local)
             sample_cnt_enable <= 0;
 
 
-reg     sample_cnt_load_r1; // this is used to make sure sample_cnt_load is at least 2 clks wide
 
 always @(posedge rst or posedge bitclk_local)
     if (rst) begin
@@ -561,7 +559,7 @@ always @(posedge rst or posedge bitclk_local)
     if (rst)
         sample_gap_cnt_load <= 0;
     else
-        if (fll_state !== st_COMPUTE && fll_state !== st_GAP)
+        if (fll_state != st_COMPUTE && fll_state != st_GAP)
             sample_gap_cnt_load <= 1;
         else
             sample_gap_cnt_load <= 0;
@@ -590,7 +588,7 @@ always @(posedge rst or posedge bitclk_local)
         // Compare the shadow wordcnt's only when in the COMPUTE state, and only after the shadow counts have been copied,
         //  allowing time for the values to settle (so cross-domain logic won't be needed).
         // Also don't compare if a rollover has occurred on one of the wordcnt's but not the other.
-        if (ffl_state == st_COMPUTE && compute_timer == 4'h8) begin
+        if (fll_state == st_COMPUTE && compute_timer == 4'h8) begin
             if (wordcnt_shadow_local[31] == wordcnt_shadow_master[31]) begin
                 if (wordcnt_shadow_local == wordcnt_shadow_master) begin
                     wordcnts_aligned <= 1;
@@ -634,7 +632,7 @@ always @(posedge rst or posedge bitclk_local)
         speedup_reg <= 0;
         slowdown_reg <= 0;
     end else begin
-        if (ffl_state == st_COMPUTE && compute_timer == 4'hA) begin
+        if (fll_state == st_COMPUTE && compute_timer == 4'hA) begin
             // check if speedup is needed
             if  (    (sample_cnt_master[15] && (wordcnts_aligned || master_wordcnt_is_ahead))
                     ||
@@ -645,7 +643,7 @@ always @(posedge rst or posedge bitclk_local)
                 end
             // check if slowdown is needed
             else
-                if  (   ((!sample_cnt_master[15] && (sample_cnt_master !== 0)) && (wordcnts_aligned || local_wordcnt_is_ahead))
+                if  (   ((!sample_cnt_master[15] && (sample_cnt_master != 0)) && (wordcnts_aligned || local_wordcnt_is_ahead))
                         ||
                         (sample_cnt_master == 0 && local_wordcnt_is_ahead)
                     ) begin
