@@ -1,0 +1,1568 @@
+<style>
+body{font-family:"Arial";color:#000000 ;font-size : 12 ;line-height: 1.5em; }
+table {
+	font: 11px/24px Verdana, Arial, Helvetica, sans-serif;
+	border-collapse: collapse;
+	border-top:1px solid #969696;
+	border-left: 1px solid #969696;
+	border-bottom: 1px solid #969696;
+	border-right: 1px solid #969696;
+	padding :0px;
+	border-style: none  none  none  none;
+	}
+
+th {
+	padding: 0 0.5em;
+	text-align: left;
+	}
+
+td {
+	border-bottom: 1px solid #969696;
+	padding: 0 0.5em;
+	}
+
+td.head {
+	border-bottom: 1px solid #969696;
+	padding: 0 0.5em;
+	background: #CCCCFF;
+	}
+
+tr.highlight{
+	color:#FF0000 ;
+	}
+
+td:first-child {
+	width: 190px;
+	}
+
+td+td {
+	border-left: 2px solid #969696;
+	}
+
+td.adjacent {
+	border-left: 1px solid #969696;
+	text-align: center;
+	}
+	</style><body >
+<H2>Report of AL4S3B_FPGA_top</H2><TITLE>Report of AL4S3B_FPGA_top</TITLE>
+<LI><CAPTION><U><A href="#Design Information">Design Information</A></U></CAPTION></LI>
+<LI><CAPTION><U><A href="#Utilization Information">Utilization Information</A></U></CAPTION></LI>
+<LI><CAPTION><U><A href="#Clock Network Utilization by Clock Pads">Clock Network Utilization by Clock Pads</A></U></CAPTION></LI>
+<LI><CAPTION><U><A href="#Clock Network Utilization by Internal Logic">Clock Network Utilization by Internal Logic</A></U></CAPTION></LI>
+<LI><CAPTION><U><A href="#Available Quad Clock MUX">Available Quad Clock MUX</A></U></CAPTION></LI>
+<LI><CAPTION><U><A href="#Clock Timing Results">Clock Timing Results</A></U></CAPTION></LI>
+<LI><CAPTION><U><A href="#Constraints">Constraints</A></U></CAPTION></LI>
+<LI><CAPTION><U><A href="#Tools run on design AL4S3B_FPGA_top">Tools run on design AL4S3B_FPGA_top</A></U></CAPTION></LI>
+<LI><CAPTION><U><A href="#Pin Table">Pin Table</A></U></CAPTION></LI>
+<LI><CAPTION><U><A href="#Fixed Flip Flops">Fixed Flip Flops</A></U></CAPTION></LI>
+<LI><CAPTION><U><A href="#Fixed RAM cells">Fixed RAM cells</A></U></CAPTION></LI>
+<LI><CAPTION><U><A href="#Nets Removed by Technology Mapper">Nets Removed by Technology Mapper</A></U></CAPTION></LI>
+<LI><CAPTION><U><A href="#Flip-flops clocked by non-clock cells">Flip-flops clocked by non-clock cells</A></U></CAPTION></LI>
+<CAPTION><H3><U><A name="Design Information">Design Information</A></U></H3></CAPTION>
+<TABLE BORDER cellSpacing="1" cellpadding="3">
+<TR>
+<TD class=head><B>Design
+<TD>AL4S3B_FPGA_top
+</TR>
+<TR>
+<TD class=head><B>SpDE Version
+<TD>SpDE 2016.2 Release
+</TR>
+<TR>
+<TD class=head><B>Report Generated
+<TD>Fri Aug 28 02:40:50 2020
+</TR>
+<TR>
+<TD class=head><B>CHIP Last Updated
+<TD>Thu Aug 27 14:10:49 2020
+</TR>
+<TR>
+<TD class=head><B>Part Type
+<TD>qlal4s3b
+</TR>
+<TR>
+<TD class=head><B>Speed Grade
+<TD>8
+</TR>
+<TR>
+<TD class=head><B>Operating Range
+<TD>Commercial
+</TR>
+<TR>
+<TD class=head><B>Package Type
+<TD>90 PIN BGA
+</TR>
+<TR>
+<TD class=head><B>Design Check Sum
+<TD>8938e1e2
+</TR>
+</TABLE>
+</TABLE><BR>
+
+<BR><CAPTION align="right" ><U><A href="#Top">Go to Top</A></U></CAPTION><HR>
+<CAPTION><H3><U><A name="Utilization Information">Utilization Information</A></U></H3></CAPTION>
+<TABLE BORDER cellSpacing="1" cellpadding="3">
+<TR>
+<TD class=head><B>Utilized cells (preplacement)
+<TD>    492 of     891  (55.2)
+</TR>
+<TR>
+<TD class=head><B>Utilized cells (postplacement)
+<TD>    622 of     891  (69.8)
+</TR>
+<TR>
+<TD class=head><B>Utilized Logic cell Frags (preplacement)
+<TD>   1643 of    3564  (46.1)
+</TR>
+<TR>
+<TD class=head><B>Utilized Logic cell Frags (postplacement)
+<TD>   1643 of    3564  (46.1)
+</TR>
+<TR>
+<TD class=head><B>Utilized Fragment F
+<TD>    314
+</TR>
+<TR>
+<TD class=head><B>Utilized Fragment C
+<TD>    456
+</TR>
+<TR>
+<TD class=head><B>Utilized Fragment T
+<TD>    381
+</TR>
+<TR>
+<TD class=head><B>Clock only cells
+<TD>      0 of       5  (0.0)
+</TR>
+<TR>
+<TD class=head><B>GPIO of Dual Pin cells
+<TD>      0 of       5  (0.0)
+</TR>
+<TR>
+<TD class=head><B>GPIO of IO cells
+<TD>      2 of      27  (7.4)
+</TR>
+<TR>
+<TD class=head><B>GPIO of SFBIO cells
+<TD>      6 of      14  (42.9)
+</TR>
+<TR>
+<TD class=head><B>Multiplier cells
+<TD>      0 of       2  (0.0)
+</TR>
+<TR>
+<TD class=head><B>ASSP cell
+<TD>      1 of       1  (100.0)
+</TR>
+<TR>
+<TD class=head><B>RAM cells (8K)
+<TD>      4 of       8  (50.0)
+</TR>
+<TR>
+<TD class=head><B>Flip-Flop of bonded IO cells
+<TD>      0 of      81  (0.0)
+</TR>
+<TR>
+<TD class=head><B>Flip-Flop of Logic cells
+<TD>    492 of     891  (55.2)
+</TR>
+<TR>
+<TD class=head><B>Wire resources
+<TD>  38817 of   99981  (38.8)
+</TR>
+<TR>
+<TD class=head><B>Joint resources
+<TD>  37125 of   95504  (38.9)
+</TR>
+</TABLE>
+</TABLE>
+<CAPTION><H3><U><A name="Clock Network Utilization by Clock Pads">Clock Network Utilization by Clock Pads</A></U></H3></CAPTION>
+<TABLE BORDER cellSpacing="1" cellpadding="3">
+</TABLE><BR>
+
+<CAPTION><H3><U><A name="Clock Network Utilization by Internal Logic">Clock Network Utilization by Internal Logic</A></U></H3></CAPTION>
+<TABLE BORDER cellSpacing="1" cellpadding="3">
+<TR>
+<TD class=head><B>Clock Network
+<TD class=head><B>Net
+<TD class=head><B>Driver
+<TD class=head><B>Quad
+<TD class=head><B>Load
+</TR>
+<TR>
+<TD>QMUX_TL0
+<TD>WB_CLK
+<TD>ESPXXO92
+<TD>QUAD_TL
+<TD>85
+</TR>
+<TR>
+<TD>QMUX_TL1
+<TD>clk_48mhz
+<TD>C7
+<TD>QUAD_TL
+<TD>31
+</TR>
+<TR>
+<TD>QMUX_TL2
+<TD>reset
+<TD>ESPXXO95
+<TD>QUAD_TL
+<TD>37
+</TR>
+<TR>
+<TD>QMUX_TL3
+<TD>WB_RST_FPGA
+<TD>A1
+<TD>QUAD_TL
+<TD>44
+</TR>
+<TR>
+<TD>QMUX_TR0
+<TD>WB_CLK_QMUX_TR0_0
+<TD>ESPXXO92
+<TD>QUAD_TR
+<TD>85
+</TR>
+<TR>
+<TD>QMUX_TR1
+<TD>clk_48mhz_QMUX_TR1_0
+<TD>C7
+<TD>QUAD_TR
+<TD>24
+</TR>
+<TR>
+<TD>QMUX_TR2
+<TD>reset_QMUX_TR2_0
+<TD>ESPXXO95
+<TD>QUAD_TR
+<TD>34
+</TR>
+<TR>
+<TD>QMUX_BL0
+<TD>WB_CLK_QMUX_BL0_0
+<TD>ESPXXO92
+<TD>QUAD_BL
+<TD>53
+</TR>
+<TR>
+<TD>QMUX_BL1
+<TD>clk_48mhz_QMUX_BL1_0
+<TD>C7
+<TD>QUAD_BL
+<TD>78
+</TR>
+<TR>
+<TD>QMUX_BL2
+<TD>reset_QMUX_BL2_0
+<TD>ESPXXO95
+<TD>QUAD_BL
+<TD>35
+</TR>
+<TR>
+<TD>QMUX_BL3
+<TD>WB_RST_FPGA_QMUX_BL3_0
+<TD>A1
+<TD>QUAD_BL
+<TD>3
+</TR>
+<TR>
+<TD>QMUX_BR0
+<TD>WB_CLK_QMUX_BR0_0
+<TD>ESPXXO92
+<TD>QUAD_BR
+<TD>85
+</TR>
+<TR>
+<TD>QMUX_BR1
+<TD>clk_48mhz_QMUX_BR1_0
+<TD>C7
+<TD>QUAD_BR
+<TD>54
+</TR>
+<TR>
+<TD>QMUX_BR2
+<TD>reset_QMUX_BR2_0
+<TD>ESPXXO95
+<TD>QUAD_BR
+<TD>37
+</TR>
+<TR>
+<TD>QMUX_BR3
+<TD>WB_RST_FPGA_QMUX_BR3_0
+<TD>A1
+<TD>QUAD_BR
+<TD>6
+</TR>
+</TABLE><BR>
+
+<CAPTION><H3><U><A name="Available Quad Clock MUX">Available Quad Clock MUX</A></U></H3></CAPTION>
+<TABLE BORDER cellSpacing="1" cellpadding="3">
+<TR>
+<TD class=head><B>Quad TOP LEFT
+<TD>1 of 5 Quad Clock Muxes available	(80.0)
+</TR>
+<TR>
+<TD class=head><B>Quad TOP RIGHT
+<TD>2 of 5 Quad Clock Muxes available	(60.0)
+</TR>
+<TR>
+<TD class=head><B>Quad BOTTOM LEFT
+<TD>1 of 5 Quad Clock Muxes available	(80.0)
+</TR>
+<TR>
+<TD class=head><B>Quad BOTTOM RIGHT
+<TD>1 of 5 Quad Clock Muxes available	(80.0)
+</TR>
+</TABLE><BR>
+
+</TABLE>
+</TABLE><BR>
+
+<BR><CAPTION align="right" ><U><A href="#Top">Go to Top</A></U></CAPTION><HR>
+<CAPTION><H3><U><A name="Clock Timing Results">Clock Timing Results</A></U></H3></CAPTION>
+<CAPTION><H4><U><A name="Summary">Summary</A></U></H4></CAPTION>
+<TABLE BORDER cellSpacing="1" cellpadding="3">
+<TABLE BORDER cellSpacing="1" cellpadding="3">
+<TR>
+<TD class=head><B>Clock
+<TD class=head><B>Required Frequency
+<TD class=head><B>UnRestricted Frequency
+<TD class=head><B>Restricted Frequency
+<TD class=head><B>Global Setup Time
+<TD class=head><B>Global Clock to Out
+<TD class=head><B>Skew
+</TR>
+<TR>
+<TD class=head><B>clk_switch_0_dff_clk0n
+<TD>1000 MHz /1.0000 ns
+<TD> 36 MHz /27.7075 ns
+<TD>N/A
+<TD>N/A
+<TD>44.9400 ns
+<TD>5.1802 ns
+</TR>
+<TR>
+<TD class=head><B>Bff
+<TD>1000 MHz /1.0000 ns
+<TD> 34 MHz /29.3459 ns
+<TD>N/A
+<TD>N/A
+<TD>53.5096 ns
+<TD>10.4011 ns
+</TR>
+<TR>
+<TD class=head><B>clk_switch_0_dff_clk1n
+<TD>1000 MHz /1.0000 ns
+<TD> 35 MHz /28.4751 ns
+<TD>N/A
+<TD>N/A
+<TD>50.9852 ns
+<TD>7.4352 ns
+</TR>
+<TR>
+<TD class=head><B>Aff
+<TD>1000 MHz /1.0000 ns
+<TD> 37 MHz /26.9214 ns
+<TD>N/A
+<TD>N/A
+<TD>50.5937 ns
+<TD>12.2135 ns
+</TR>
+</TABLE>
+</TABLE><BR>
+
+<BR><CAPTION align="right" ><U><A href="#Top">Go to Top</A></U></CAPTION><HR>
+<CAPTION><H3><U><A name="Constraints">Constraints</A></U></H3></CAPTION>
+<TABLE BORDER cellSpacing="1" cellpadding="3">
+<TR>
+<TD class=head><B>Path-Name
+<TD class=head><B>Type
+<TD class=head><B>Constraint
+<TD class=head><B>Miss
+<TD class=head><B>Result
+<TD class=head><B>Slack
+</TR>
+<TR>
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_line_state_valid -- u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_rx_data_buffer*
+<TD>Multi-Cycle Path
+<TD>19.4041 ns
+<TD>N/A
+<TD>N/A
+<TD>N/A
+</TR>
+<TR>
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_line_history_h25 -- u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_crc16*
+<TD>Multi-Cycle Path
+<TD>22.2569 ns
+<TD>N/A
+<TD>N/A
+<TD>N/A
+</TR>
+<TR>
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_line_state_valid -- u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_crc16*
+<TD>Multi-Cycle Path
+<TD>24.3486 ns
+<TD>N/A
+<TD>N/A
+<TD>N/A
+</TR>
+<TR>
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_line_history_h25 -- u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_full_pid*
+<TD>Multi-Cycle Path
+<TD>18.4068 ns
+<TD>N/A
+<TD>N/A
+<TD>N/A
+</TR>
+<TR>
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_line_history_h25 -- u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_token_payload*
+<TD>Multi-Cycle Path
+<TD>23.3635 ns
+<TD>N/A
+<TD>N/A
+<TD>N/A
+</TR>
+<TR>
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_line_history_h25 -- u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_crc5*
+<TD>Multi-Cycle Path
+<TD>20.2816 ns
+<TD>N/A
+<TD>N/A
+<TD>N/A
+</TR>
+<TR>
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_line_state_valid -- u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_crc5*
+<TD>Multi-Cycle Path
+<TD>22.3734 ns
+<TD>N/A
+<TD>N/A
+<TD>N/A
+</TR>
+<TR>
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_line_state_valid -- u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_full_pid*
+<TD>Multi-Cycle Path
+<TD>20.4986 ns
+<TD>N/A
+<TD>N/A
+<TD>N/A
+</TR>
+<TR>
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_line_state_valid -- u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_token_payload*
+<TD>Multi-Cycle Path
+<TD>25.4552 ns
+<TD>N/A
+<TD>N/A
+<TD>N/A
+</TR>
+<TR>
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_pkt_start_strobe_sync* -- u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_oe_shift_reg*
+<TD>Multi-Cycle Path
+<TD>N/A
+<TD>&nbsp
+<TD>N/A
+<TD>N/A
+</TR>
+<TR>
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_pkt_start_strobe_sync* -- u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_se0_shift_reg*
+<TD>Multi-Cycle Path
+<TD>N/A
+<TD>&nbsp
+<TD>N/A
+<TD>N/A
+</TR>
+<TR>
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_pkt_start_strobe_sync* -- u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_data_shift_reg*
+<TD>Multi-Cycle Path
+<TD>N/A
+<TD>&nbsp
+<TD>N/A
+<TD>N/A
+</TR>
+<TR>
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_data_shift_reg* -- u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_data_shift_reg*
+<TD>Multi-Cycle Path
+<TD>29.9607 ns
+<TD>N/A
+<TD>N/A
+<TD>N/A
+</TR>
+<TR>
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_crc16* -- u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_data_shift_reg*
+<TD>Multi-Cycle Path
+<TD>24.2475 ns
+<TD>N/A
+<TD>N/A
+<TD>N/A
+</TR>
+<TR>
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_pkt_state* -- u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_data_shift_reg*
+<TD>Multi-Cycle Path
+<TD>26.7871 ns
+<TD>N/A
+<TD>N/A
+<TD>N/A
+</TR>
+<TR>
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_pkt_end_strobe_sync* -- u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_pidq*
+<TD>Multi-Cycle Path
+<TD>N/A
+<TD>&nbsp
+<TD>N/A
+<TD>N/A
+</TR>
+<TR>
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_bit_history_q* -- u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_data_shift_reg*
+<TD>Multi-Cycle Path
+<TD>29.9944 ns
+<TD>N/A
+<TD>N/A
+<TD>N/A
+</TR>
+<TR>
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_data_shift_reg* -- u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_bit_count*
+<TD>Multi-Cycle Path
+<TD>23.0556 ns
+<TD>N/A
+<TD>N/A
+<TD>N/A
+</TR>
+<TR>
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_bit_history_q* -- u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_bit_count*
+<TD>Multi-Cycle Path
+<TD>23.0894 ns
+<TD>N/A
+<TD>N/A
+<TD>N/A
+</TR>
+<TR>
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_tx_data_avail_48 -- u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_data_shift_reg*
+<TD>Multi-Cycle Path
+<TD>20.6722 ns
+<TD>N/A
+<TD>N/A
+<TD>N/A
+</TR>
+<TR>
+<TD> -- u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_byte_strobe
+<TD>Multi-Cycle Path
+<TD>31.5787 ns
+<TD>N/A
+<TD>N/A
+<TD>N/A
+</TR>
+<TR>
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_bit_history_q* -- u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_byte_strobe
+<TD>Multi-Cycle Path
+<TD>N/A
+<TD>&nbsp
+<TD>N/A
+<TD>N/A
+</TR>
+<TR>
+<TD> -- u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_oe_shift_reg*
+<TD>Multi-Cycle Path
+<TD>31.6393 ns
+<TD>N/A
+<TD>N/A
+<TD>N/A
+</TR>
+<TR>
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_bit_history_q* -- u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_oe_shift_reg*
+<TD>Multi-Cycle Path
+<TD>N/A
+<TD>&nbsp
+<TD>N/A
+<TD>N/A
+</TR>
+<TR>
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_pkt_state* -- u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_oe_shift_reg*
+<TD>Multi-Cycle Path
+<TD>N/A
+<TD>&nbsp
+<TD>N/A
+<TD>N/A
+</TR>
+<TR>
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_bit_history_q*
+<TD>Multi-Cycle Path
+<TD>18.5626 ns
+<TD>N/A
+<TD>N/A
+<TD>N/A
+</TR>
+<TR>
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_pidq* -- u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_data_shift_reg*
+<TD>Multi-Cycle Path
+<TD>24.3236 ns
+<TD>N/A
+<TD>N/A
+<TD>N/A
+</TR>
+<TR>
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_pidq* -- *
+<TD>Multi-Cycle Path
+<TD>10.2618 ns
+<TD>N/A
+<TD>N/A
+<TD>N/A
+</TR>
+</TABLE></TABLE>
+Note: Constraints and results for Multi-Cycle Paths are calculated as the source clock period</TABLE>
+multiplied by the integer number of clock cycles specified in the constraint file.
+</TABLE>
+<CAPTION><H4><U><A name="Multi-Cycle Path Constraints">Multi-Cycle Path Constraints</A></U></H4></CAPTION>
+<TABLE BORDER cellSpacing="1" cellpadding="3">
+<TR>
+<TD class=head><B>1
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_line_state_valid to u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_rx_data_buffer*, 2 Clock Periods
+</TR>
+<TR>
+<TD class=head><B>2
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_line_history_h25 to u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_crc16*, 2 Clock Periods
+</TR>
+<TR>
+<TD class=head><B>3
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_line_state_valid to u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_crc16*, 2 Clock Periods
+</TR>
+<TR>
+<TD class=head><B>4
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_line_history_h25 to u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_full_pid*, 2 Clock Periods
+</TR>
+<TR>
+<TD class=head><B>5
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_line_history_h25 to u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_token_payload*, 2 Clock Periods
+</TR>
+<TR>
+<TD class=head><B>6
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_line_history_h25 to u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_crc5*, 2 Clock Periods
+</TR>
+<TR>
+<TD class=head><B>7
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_line_state_valid to u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_crc5*, 2 Clock Periods
+</TR>
+<TR>
+<TD class=head><B>8
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_line_state_valid to u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_full_pid*, 2 Clock Periods
+</TR>
+<TR>
+<TD class=head><B>9
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_line_state_valid to u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_token_payload*, 2 Clock Periods
+</TR>
+<TR>
+<TD class=head><B>10
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_pkt_start_strobe_sync* to u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_oe_shift_reg*, 2 Clock Periods
+</TR>
+<TR>
+<TD class=head><B>11
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_pkt_start_strobe_sync* to u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_se0_shift_reg*, 2 Clock Periods
+</TR>
+<TR>
+<TD class=head><B>12
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_pkt_start_strobe_sync* to u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_data_shift_reg*, 2 Clock Periods
+</TR>
+<TR>
+<TD class=head><B>13
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_data_shift_reg* to u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_data_shift_reg*, 2 Clock Periods
+</TR>
+<TR>
+<TD class=head><B>14
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_crc16* to u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_data_shift_reg*, 2 Clock Periods
+</TR>
+<TR>
+<TD class=head><B>15
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_pkt_state* to u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_data_shift_reg*, 2 Clock Periods
+</TR>
+<TR>
+<TD class=head><B>16
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_pkt_end_strobe_sync* to u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_pidq*, 2 Clock Periods
+</TR>
+<TR>
+<TD class=head><B>17
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_bit_history_q* to u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_data_shift_reg*, 2 Clock Periods
+</TR>
+<TR>
+<TD class=head><B>18
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_data_shift_reg* to u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_bit_count*, 2 Clock Periods
+</TR>
+<TR>
+<TD class=head><B>19
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_bit_history_q* to u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_bit_count*, 2 Clock Periods
+</TR>
+<TR>
+<TD class=head><B>20
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_tx_data_avail_48 to u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_data_shift_reg*, 2 Clock Periods
+</TR>
+<TR>
+<TD class=head><B>21
+<TD> to u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_byte_strobe, 2 Clock Periods
+</TR>
+<TR>
+<TD class=head><B>22
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_bit_history_q* to u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_byte_strobe, 2 Clock Periods
+</TR>
+<TR>
+<TD class=head><B>23
+<TD> to u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_oe_shift_reg*, 2 Clock Periods
+</TR>
+<TR>
+<TD class=head><B>24
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_bit_history_q* to u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_oe_shift_reg*, 2 Clock Periods
+</TR>
+<TR>
+<TD class=head><B>25
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_pkt_state* to u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_oe_shift_reg*, 2 Clock Periods
+</TR>
+<TR>
+<TD class=head><B>26
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_bit_history_q*, 2 Clock Periods
+</TR>
+<TR>
+<TD class=head><B>27
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_pidq* to u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_data_shift_reg*, 2 Clock Periods
+</TR>
+<TR>
+<TD class=head><B>28
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_pidq* to *, 2 Clock Periods
+</TR>
+</TABLE>
+</TABLE>
+</TABLE><BR>
+
+<BR><CAPTION align="right" ><U><A href="#Top">Go to Top</A></U></CAPTION><HR>
+<CAPTION><H3><U><A name="Tools run on design AL4S3B_FPGA_top">Tools run on design AL4S3B_FPGA_top</A></U></H3></CAPTION>
+<TABLE BORDER cellSpacing="1" cellpadding="3">
+<TR>
+<TD class=head><B>partdef
+<TD>6.0
+<TD> Run Time 0:00:00
+</TR>
+<TR>
+<TD class=head><B>design
+<TD>2016.2
+<TD> Run Time 0:00:00
+</TR>
+<TR>
+<TD class=head><B>logic optimizer
+<TD>2016.2
+<TD> Mode = Quality Goal = Speed Level = 1 IgnorePack = FALSE UseNonBondedPads = TRUE Run Time 0:00:05
+</TR>
+<TR>
+<TD class=head><B>placer
+<TD>2016.2
+<TD> Seed = 42 Mode = Quality Run Time 0:00:18
+</TR>
+<TR>
+<TD class=head><B>router
+<TD>2016.2
+<TD> Run Time 0:00:10
+</TR>
+<TR>
+<TD class=head><B>delay modeler
+<TD>2016.2
+<TD> Mode = Commercial Corner = Worst SpeedGrade = 8 LowPower = FALSE CheckedforHTV = FALSE Run Time 0:00:05
+</TR>
+<TR>
+<TD class=head><B>back annotation
+<TD>2016.2
+<TD> Run Time 0:00:01
+</TR>
+<TR>
+<TD class=head><B>verifier (Loading Time)
+<TD>2016.2
+<TD> Strip = TRUE Run Time 0:00:01
+</TR>
+</TABLE>
+</TABLE><BR>
+
+<BR><CAPTION align="right" ><U><A href="#Top">Go to Top</A></U></CAPTION><HR>
+<CAPTION><H3><U><A name="Pin Table">Pin Table</A></U></H3></CAPTION>
+<TABLE BORDER cellSpacing="1" cellpadding="3">
+<TR>
+<TD class=head><B>Pin #
+<TD class=head><B>Pad Name
+<TD class=head><B>Net Name
+<TD class=head><B>PinType
+<TD class=head><B>bankName
+<TD class=head><B>Fixed
+</TR>
+<TR>
+<TD>IO3
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO5
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO8
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO10
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO11
+<TD>VCC
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO13
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO15
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO17
+<TD>VCCIO
+<TD>&nbsp
+<TD>&nbsp
+<TD>VCCIO(A)
+<TD>Y
+</TR>
+<TR>
+<TD>IO18
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO19
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO22
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO23
+<TD>VCCIO
+<TD>&nbsp
+<TD>&nbsp
+<TD>VCCIO(A)
+<TD>Y
+</TR>
+<TR>
+<TD>IO26
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO27
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO28
+<TD>VCC
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO30
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO32
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO34
+<TD>VCCIO
+<TD>&nbsp
+<TD>&nbsp
+<TD>VCCIO(A)
+<TD>Y
+</TR>
+<TR>
+<TD>IO35
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO37
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO40
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO44
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO48
+<TD>VCCIO
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>Y
+</TR>
+<TR>
+<TD>IO49
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO50
+<TD>VCCIO
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>Y
+</TR>
+<TR>
+<TD>IO52
+<TD>VCCIO
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>Y
+</TR>
+<TR>
+<TD>IO53
+<TD>VCC
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO56
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO61
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO67
+<TD>VCCIO
+<TD>&nbsp
+<TD>&nbsp
+<TD>VCCIO(B)
+<TD>Y
+</TR>
+<TR>
+<TD>IO71
+<TD>VCC
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO74
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO78
+<TD>VCCIO
+<TD>&nbsp
+<TD>&nbsp
+<TD>VCCIO(B)
+<TD>Y
+</TR>
+<TR>
+<TD>IO82
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO85
+<TD>VCCIO
+<TD>&nbsp
+<TD>&nbsp
+<TD>VCCIO(B)
+<TD>Y
+</TR>
+<TR>
+<TD>IO91
+<TD>VCC
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO95
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO105
+<TD>VCC
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO108
+<TD>VCCIO
+<TD>&nbsp
+<TD>&nbsp
+<TD>VCCIO(C)
+<TD>Y
+</TR>
+<TR>
+<TD>IO111
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO112
+<TD>VCCIO
+<TD>&nbsp
+<TD>&nbsp
+<TD>VCCIO(C)
+<TD>Y
+</TR>
+<TR>
+<TD>IO117
+<TD>VCCIO
+<TD>&nbsp
+<TD>&nbsp
+<TD>VCCIO(C)
+<TD>Y
+</TR>
+<TR>
+<TD>IO120
+<TD>VCC
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO122
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_0
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(A)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_1
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(A)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_2
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(A)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_3
+<TD>accel_intn_o_obuf.I1
+<TD>accel_intn_o
+<TD>OUTPUT
+<TD>I/O(A)
+<TD>Y
+</TR>
+<TR>
+<TD>FBIO_4
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(A)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_5
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(A)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_6
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(A)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_7
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>CLK(A)/I/O(A)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_8
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>CLK(A)/I/O(A)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_9
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(A)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_10
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(A)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_11
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(A)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_12
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(A)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_13
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(A)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_14
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(A)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_15
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(A)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_16
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(B)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_17
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(B)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_18
+<TD>led_o_obuf.I1
+<TD>led_o
+<TD>OUTPUT
+<TD>I/O(B)
+<TD>Y
+</TR>
+<TR>
+<TD>FBIO_19
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(B)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_20
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(B)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_21
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(B)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_22
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>CLK(B)/I/O(B)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_23
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>CLK(B)/I/O(B)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_24
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>CLK(B)/I/O(B)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_25
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(B)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_26
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(B)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_27
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(B)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_28
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(B)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_29
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(B)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_30
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(B)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_31
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(B)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>SFBIO_0
+<TD>NU (Connect to Vcc or Gnd)
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>SFBIO_1
+<TD>NU (Connect to Vcc or Gnd)
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>SFBIO_2
+<TD>SFB_2_IO
+<TD>spi_sck_o
+<TD>INPUT
+<TD>I/O(C)
+<TD>Y
+</TR>
+<TR>
+<TD>SFBIO_3
+<TD>NU (Connect to Vcc or Gnd)
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>SFBIO_4
+<TD>NU (Connect to Vcc or Gnd)
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>SFBIO_5
+<TD>SFB_5_IO
+<TD>usb_pu_cntrl_o
+<TD>INPUT
+<TD>I/O(C)
+<TD>Y
+</TR>
+<TR>
+<TD>SFBIO_6
+<TD>SFB_6_IO
+<TD>spi_mosi_o
+<TD>INPUT
+<TD>I/O(C)
+<TD>Y
+</TR>
+<TR>
+<TD>SFBIO_7
+<TD>SFB_7_IO
+<TD>spi_cs_o
+<TD>INPUT
+<TD>I/O(C)
+<TD>Y
+</TR>
+<TR>
+<TD>SFBIO_8
+<TD>NU (Connect to Vcc or Gnd)
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>SFBIO_9
+<TD>SFB_9_IO
+<TD>usbn_io
+<TD>OUTPUT
+<TD>I/O(C)
+<TD>Y
+</TR>
+<TR>
+<TD>SFBIO_10
+<TD>SFB_10_IO
+<TD>usbp_io
+<TD>OUTPUT
+<TD>I/O(C)
+<TD>Y
+</TR>
+<TR>
+<TD>SFBIO_11
+<TD>NU (Connect to Vcc or Gnd)
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>SFBIO_12
+<TD>NU (Connect to Vcc or Gnd)
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>SFBIO_13
+<TD>NU (Connect to Vcc or Gnd)
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+</TABLE>
+</TABLE>
+</TABLE>
+</TABLE><BR>
+
+<BR><CAPTION align="right" ><U><A href="#Top">Go to Top</A></U></CAPTION><HR>
+<CAPTION><H3><U><A name="Fixed Flip Flops">Fixed Flip Flops</A></U></H3></CAPTION>
+<TABLE BORDER cellSpacing="1" cellpadding="3"></TABLE>
+None
+</TABLE>
+</TABLE><BR>
+
+<BR><CAPTION align="right" ><U><A href="#Top">Go to Top</A></U></CAPTION><HR>
+<CAPTION><H3><U><A name="Fixed RAM cells">Fixed RAM cells</A></U></H3></CAPTION>
+<TABLE BORDER cellSpacing="1" cellpadding="3">
+<TR>
+<TD class=head><B>Cell Name
+<TD class=head><B>Instance Name
+<TD class=head><B>Net Name
+</TR>
+<TR>
+<TD>RAM2_A2
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_out_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_out_ep_data[7]
+</TR>
+<TR>
+<TD>RAM2_B2
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_in_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1
+<TD>u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_tx_data[7]
+</TR>
+</TABLE>
+</TABLE>
+<BR><CAPTION align="right" ><U><A href="#Top">Go to Top</A></U></CAPTION><HR>
+<CAPTION><H3><U><A name="Nets Removed by Technology Mapper">Nets Removed by Technology Mapper</A></U></H3></CAPTION>
+<TABLE BORDER cellSpacing="1" cellpadding="3"></TABLE>
+Removed Nets option is FALSE. Removed Nets information will not be displayed.
+<BR><CAPTION align="right" ><U><A href="#Top">Go to Top</A></U></CAPTION><HR>
+<CAPTION><H3><U><A name="Flip-flops clocked by non-clock cells">Flip-flops clocked by non-clock cells</A></U></H3></CAPTION>
+<TABLE BORDER cellSpacing="1" cellpadding="3">
+<TR>
+<TD class=head><B>FF_INSTANCE
+<TD class=head><B>OWNING_CELL
+<TD class=head><B>DRIVING_CELL
+<TD class=head><B>DRIVING_NET
+</TR>
+<TR>
+<TD>clk_switch_0_reg_dff_clk0p.I1
+<TD>C8
+<TD>ESPXXO94
+<TD>Sys_Clk1
+</TR>
+<TR>
+<TD>clk_switch_0_reg_dff_clk1p.I1
+<TD>C9
+<TD>B8
+<TD>nx24538z1
+</TR>
+</TABLE><BR>
+
+<BR><CAPTION align="right" ><U><A href="#Top">Go to Top</A></U></CAPTION><HR>

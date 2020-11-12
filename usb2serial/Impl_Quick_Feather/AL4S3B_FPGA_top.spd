@@ -1,0 +1,1130 @@
+; Time: Fri Aug 28 02:33:27 2020
+; SpDE Version: SpDE 2016.2 Release
+; Time: Fri Aug 28 02:33:27 2020
+; Status: Load file C:\Work\SVN\repos\hardware\trunk\FpgaIpDesigns\S3\USBserialport_S3B\Impl_Quick_Feather\AL4S3B_FPGA_top.chp begin...
+Debug: Cell : IO17(914), Usage : 1
+Debug: Cell : IO23(920), Usage : 1
+Debug: Cell : IO34(931), Usage : 1
+Debug: Cell : IO48(945), Usage : 1
+Debug: Cell : IO50(947), Usage : 1
+Debug: Cell : IO52(949), Usage : 1
+Debug: Cell : IO62(959), Usage : 1
+Debug: Cell : IO67(964), Usage : 1
+Debug: Cell : IO78(975), Usage : 1
+Debug: Cell : IO85(982), Usage : 1
+Debug: Cell : SFB_0_IO(1007), Usage : 1
+Debug: Cell : SFB_2_IO(1009), Usage : 1
+Debug: Cell : IO108(1000), Usage : 1
+Debug: Cell : SFB_5_IO(1012), Usage : 1
+Debug: Cell : SFB_6_IO(1013), Usage : 1
+Debug: Cell : IO112(1002), Usage : 1
+Debug: Cell : SFB_7_IO(1014), Usage : 1
+Debug: Cell : SFB_9_IO(1016), Usage : 1
+Debug: Cell : IO117(1004), Usage : 1
+Debug: Cell : SFB_10_IO(1017), Usage : 1
+; Time: Fri Aug 28 02:33:33 2020
+; Status: Load file C:\Work\SVN\repos\hardware\trunk\FpgaIpDesigns\S3\USBserialport_S3B\Impl_Quick_Feather\AL4S3B_FPGA_top.chp complete
+; Time: Fri Aug 28 02:33:33 2020
+; Status: 
+Joint Propagation begin!...
+
+Joint propagation successful!...; Time: Fri Aug 28 02:33:33 2020
+; Status: 
+Joint Propagation Ends!...
+; Time: Fri Aug 28 02:33:33 2020
+; Status: Fragment-Level Netlister begin...
+; Time: Fri Aug 28 02:33:33 2020
+; Status: Fragment-Level Netlister complete
+; Time: Fri Aug 28 02:33:33 2020
+; Status: Read constraint file AL4S3B_FPGA_top.qcf begin...
+Info     : cf_1017_lf: Applying Tools options from qcf file. (..\cf\cf.c:3011)
+; Time: Fri Aug 28 02:33:33 2020
+; Status: Read constraint file AL4S3B_FPGA_top.qcf complete...
+; Time: Fri Aug 28 02:33:33 2020
+; Status: cf:window based placer mod name u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_pkt_end_strobe_reg_flag.I1 window 0(I15 O20)
+; Time: Fri Aug 28 02:33:33 2020
+; Status: cf:window based placer mod name u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_reg_bit_strobe.I1 window 1(P20 P22)
+; Time: Fri Aug 28 02:33:33 2020
+; Status: cf:window based placer mod name u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_reg_dpair_q[0].I1 window 2(F20 J23)
+; Time: Fri Aug 28 02:33:33 2020
+; Status: cf:window based placer mod name u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_reg_dpair_q[1].I1 window 2(F20 J23)
+; Time: Fri Aug 28 02:33:33 2020
+; Status: cf:window based placer mod name u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_reg_dpair_q[2].I1 window 2(F20 J23)
+; Time: Fri Aug 28 02:33:33 2020
+; Status: cf:window based placer mod name u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_reg_dpair_q[3].I1 window 2(F20 J23)
+; Time: Fri Aug 28 02:33:33 2020
+; Status: cf:window based placer mod name u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_reg_dvalid_crc.I1 window 3(L15 M17)
+; Time: Fri Aug 28 02:33:33 2020
+; Status: cf:window based placer mod name u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_reg_dvalid_data.I1 window 3(L15 M17)
+; Time: Fri Aug 28 02:33:33 2020
+; Status: cf:window based placer mod name u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_reg_dvalid_pid.I1 window 3(L15 M17)
+; Time: Fri Aug 28 02:33:33 2020
+; Status: cf:window based placer mod name u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_reg_dvalid_tkn.I1 window 3(L15 M17)
+; Time: Fri Aug 28 02:33:33 2020
+; Status: cf:window based placer mod name u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_reg_line_history_h0.I1 window 0(I15 O20)
+; Time: Fri Aug 28 02:33:33 2020
+; Status: cf:window based placer mod name u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_reg_line_state[0].I1 window 2(F20 J23)
+; Time: Fri Aug 28 02:33:33 2020
+; Status: cf:window based placer mod name u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_reg_line_state[1].I1 window 2(F20 J23)
+; Time: Fri Aug 28 02:33:33 2020
+; Status: cf:window based placer mod name u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_reg_line_state[2].I1 window 2(F20 J23)
+; Time: Fri Aug 28 02:33:33 2020
+; Status: cf:window based placer mod name u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_reg_line_state_valid.I1 window 3(L15 M17)
+; Time: Fri Aug 28 02:33:33 2020
+; Status: cf:window based placer mod name u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_reg_rx_data_buffer[0].I1 window 4(G15 I20)
+; Time: Fri Aug 28 02:33:33 2020
+; Status: cf:window based placer mod name u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_reg_rx_data_buffer[1].I1 window 4(G15 I20)
+; Time: Fri Aug 28 02:33:33 2020
+; Status: cf:window based placer mod name u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_reg_rx_data_buffer[2].I1 window 4(G15 I20)
+; Time: Fri Aug 28 02:33:33 2020
+; Status: cf:window based placer mod name u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_reg_rx_data_buffer[3].I1 window 4(G15 I20)
+; Time: Fri Aug 28 02:33:33 2020
+; Status: cf:window based placer mod name u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_reg_rx_data_buffer[4].I1 window 4(G15 I20)
+; Time: Fri Aug 28 02:33:33 2020
+; Status: cf:window based placer mod name u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_reg_rx_data_buffer[5].I1 window 4(G15 I20)
+; Time: Fri Aug 28 02:33:33 2020
+; Status: cf:window based placer mod name u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_reg_rx_data_buffer[6].I1 window 4(G15 I20)
+; Time: Fri Aug 28 02:33:33 2020
+; Status: cf:window based placer mod name u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_reg_rx_data_buffer[7].I1 window 4(G15 I20)
+; Time: Fri Aug 28 02:33:33 2020
+; Status: cf:window based placer mod name u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_reg_rx_data_buffer[8].I1 window 4(G15 I20)
+; Time: Fri Aug 28 02:33:33 2020
+; Status: cf:window based placer mod name u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_reg_token_payload[0].I1 window 5(Q9 S14)
+; Time: Fri Aug 28 02:33:33 2020
+; Status: cf:window based placer mod name u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_reg_token_payload[1].I1 window 5(Q9 S14)
+; Time: Fri Aug 28 02:33:33 2020
+; Status: cf:window based placer mod name u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_reg_token_payload[10].I1 window 5(Q9 S14)
+; Time: Fri Aug 28 02:33:33 2020
+; Status: cf:window based placer mod name u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_reg_token_payload[11].I1 window 5(Q9 S14)
+; Time: Fri Aug 28 02:33:33 2020
+; Status: cf:window based placer mod name u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_reg_token_payload[2].I1 window 5(Q9 S14)
+; Time: Fri Aug 28 02:33:33 2020
+; Status: cf:window based placer mod name u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_reg_token_payload[3].I1 window 5(Q9 S14)
+; Time: Fri Aug 28 02:33:33 2020
+; Status: cf:window based placer mod name u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_reg_token_payload[4].I1 window 5(Q9 S14)
+; Time: Fri Aug 28 02:33:33 2020
+; Status: cf:window based placer mod name u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_reg_token_payload[5].I1 window 5(Q9 S14)
+; Time: Fri Aug 28 02:33:33 2020
+; Status: cf:window based placer mod name u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_reg_token_payload[6].I1 window 5(Q9 S14)
+; Time: Fri Aug 28 02:33:33 2020
+; Status: cf:window based placer mod name u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_reg_token_payload[7].I1 window 5(Q9 S14)
+; Time: Fri Aug 28 02:33:33 2020
+; Status: cf:window based placer mod name u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_reg_token_payload[8].I1 window 5(Q9 S14)
+; Time: Fri Aug 28 02:33:33 2020
+; Status: cf:window based placer mod name u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_rx_inst_reg_token_payload[9].I1 window 5(Q9 S14)
+; Time: Fri Aug 28 02:33:33 2020
+; Status: cf:window based placer mod name u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_reg_oe_shift_reg[0].I1 window 6(P18 R20)
+; Time: Fri Aug 28 02:33:33 2020
+; Status: cf:window based placer mod name u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_reg_oe_shift_reg[1].I1 window 6(P18 R20)
+; Time: Fri Aug 28 02:33:33 2020
+; Status: cf:window based placer mod name u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_reg_oe_shift_reg[2].I1 window 6(P18 R20)
+; Time: Fri Aug 28 02:33:33 2020
+; Status: cf:window based placer mod name u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_reg_oe_shift_reg[3].I1 window 6(P18 R20)
+; Time: Fri Aug 28 02:33:33 2020
+; Status: cf:window based placer mod name u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_reg_oe_shift_reg[4].I1 window 6(P18 R20)
+; Time: Fri Aug 28 02:33:33 2020
+; Status: cf:window based placer mod name u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_reg_oe_shift_reg[5].I1 window 6(P18 R20)
+; Time: Fri Aug 28 02:33:33 2020
+; Status: cf:window based placer mod name u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_reg_oe_shift_reg[6].I1 window 6(P18 R20)
+; Time: Fri Aug 28 02:33:33 2020
+; Status: cf:window based placer mod name u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_tx_inst_reg_oe_shift_reg[7].I1 window 6(P18 R20)
+; Time: Fri Aug 28 02:33:33 2020
+; Status: Verifier begin...
+; Time: Fri Aug 28 02:33:33 2020
+; Status: verifier: no buffer removal
+; Time: Fri Aug 28 02:33:33 2020
+; Status: verifier: no const FF removal
+; Time: Fri Aug 28 02:33:33 2020
+; Status: verifier: vrAddFF2Clock
+; Time: Fri Aug 28 02:33:34 2020
+; Status: verifier: vrAddFF2Clock
+Debug: Cell : IO17(914), Usage : 1
+Debug: Cell : IO23(920), Usage : 1
+Debug: Cell : IO34(931), Usage : 1
+Debug: Cell : IO48(945), Usage : 1
+Debug: Cell : IO50(947), Usage : 1
+Debug: Cell : IO52(949), Usage : 1
+Debug: Cell : IO62(959), Usage : 1
+Debug: Cell : IO67(964), Usage : 1
+Debug: Cell : IO78(975), Usage : 1
+Debug: Cell : IO85(982), Usage : 1
+Debug: Cell : SFB_0_IO(1007), Usage : 1
+Debug: Cell : SFB_2_IO(1009), Usage : 1
+Debug: Cell : IO108(1000), Usage : 1
+Debug: Cell : SFB_5_IO(1012), Usage : 1
+Debug: Cell : SFB_6_IO(1013), Usage : 1
+Debug: Cell : IO112(1002), Usage : 1
+Debug: Cell : SFB_7_IO(1014), Usage : 1
+Debug: Cell : SFB_9_IO(1016), Usage : 1
+Debug: Cell : IO117(1004), Usage : 1
+Debug: Cell : SFB_10_IO(1017), Usage : 1
+Info     : vr_1049: Net 'u_AL4S3B_FPGA_IP.u_usb2m4_serial_ctrl_ep_inst_rom_addr[4]' has high logic cell fanout of 34.
+Info     : vr_1049: Net 'u_AL4S3B_FPGA_IP.dup_0_rom_addr[3]' has high logic cell fanout of 43.
+Info     : vr_1049: Net 'u_AL4S3B_FPGA_IP.dup_0_rom_addr[0]' has high logic cell fanout of 49.
+Info     : vr_1049: Net 'u_AL4S3B_FPGA_IP.nx27429z2' has high logic cell fanout of 38.
+; Time: Fri Aug 28 02:33:34 2020
+; Status: Verifier complete
+; Time: Fri Aug 28 02:33:34 2020
+; Status: Fragment-Level Netlister begin...
+; Time: Fri Aug 28 02:33:34 2020
+; Status: Fragment-Level Netlister complete
+; Time: Fri Aug 28 02:33:34 2020
+; Status: Fragment-Level Netlister begin...
+; Time: Fri Aug 28 02:33:34 2020
+; Status: Fragment-Level Netlister complete
+; Time: Fri Aug 28 02:33:34 2020
+; Status: Fragment-Level Netlister begin...
+; Time: Fri Aug 28 02:33:35 2020
+; Status: Fragment-Level Netlister complete
+; Time: Fri Aug 28 02:33:35 2020
+; Status: verifier: vrAddFF2Clock
+; Time: Fri Aug 28 02:33:35 2020
+; Status: verifier: vrAddFF2Clock
+; Time: Fri Aug 28 02:34:26 2020
+; Status: Fragment-Level Netlister begin...
+; Time: Fri Aug 28 02:34:26 2020
+; Status: Fragment-Level Netlister complete
+; Time: Fri Aug 28 02:38:16 2020
+; Status: Verifier begin...
+; Time: Fri Aug 28 02:38:16 2020
+; Status: verifier: no buffer removal
+; Time: Fri Aug 28 02:38:16 2020
+; Status: verifier: const FFs removal starts
+; Time: Fri Aug 28 02:38:16 2020
+; Status: verifier: const FFs removal ends
+; Time: Fri Aug 28 02:38:16 2020
+; Status: verifier: begin fixing global clock buffers
+; INote: LVCMOS Bank Standard is set on BANK_A.
+; INote: Vccio (2.5) of gate accel_intn_o_obuf.I1 is applied on BANK_A.
+; Time: Fri Aug 28 02:38:17 2020
+; Status: verifier: vrAddFF2Clock
+; Time: Fri Aug 28 02:38:17 2020
+; Status: verifier: vrAddFF2Clock
+; INote: LVCMOS Bank Standard is set on BANK_A.
+; INote: Vccio (2.5) of gate accel_intn_o_obuf.I1 is applied on BANK_A.
+Debug: Cell : IO17(914), Usage : 1
+Debug: Cell : IO23(920), Usage : 1
+Debug: Cell : IO34(931), Usage : 1
+Debug: Cell : IO48(945), Usage : 1
+Debug: Cell : IO50(947), Usage : 1
+Debug: Cell : IO52(949), Usage : 1
+Debug: Cell : IO67(964), Usage : 1
+Debug: Cell : IO78(975), Usage : 1
+Debug: Cell : IO85(982), Usage : 1
+Debug: Cell : IO108(1000), Usage : 1
+Debug: Cell : IO112(1002), Usage : 1
+Debug: Cell : IO117(1004), Usage : 1
+Info     : vr_1049: Net 'u_AL4S3B_FPGA_IP.u_usb2m4_serial_ctrl_ep_inst_rom_addr[4]' has high logic cell fanout of 34.
+Info     : vr_1049: Net 'u_AL4S3B_FPGA_IP.dup_0_rom_addr[3]' has high logic cell fanout of 43.
+Info     : vr_1049: Net 'u_AL4S3B_FPGA_IP.dup_0_rom_addr[0]' has high logic cell fanout of 49.
+Info     : vr_1049: Net 'u_AL4S3B_FPGA_IP.nx27429z2' has high logic cell fanout of 38.
+; Time: Fri Aug 28 02:38:17 2020
+; Status: Verifier complete
+; Time: Fri Aug 28 02:38:17 2020
+; Status: Fragment-Level Netlister begin...
+; Time: Fri Aug 28 02:38:17 2020
+; Status: Fragment-Level Netlister complete
+Info     : cf_1041_lf: SpDE Tools options are saved in constraint file. (..\cf\cfwrite.c:3491)
+; Time: Fri Aug 28 02:38:26 2020
+; Status: Verifier begin...
+; Time: Fri Aug 28 02:38:26 2020
+; Status: verifier: no buffer removal
+; Time: Fri Aug 28 02:38:26 2020
+; Status: verifier: const FFs removal starts
+; Time: Fri Aug 28 02:38:26 2020
+; Status: verifier: const FFs removal ends
+; Time: Fri Aug 28 02:38:26 2020
+; Status: verifier: begin fixing global clock buffers
+; Time: Fri Aug 28 02:38:27 2020
+; Status: verifier: vrAddFF2Clock
+; Time: Fri Aug 28 02:38:27 2020
+; Status: verifier: vrAddFF2Clock
+Debug: Cell : IO17(914), Usage : 1
+Debug: Cell : IO23(920), Usage : 1
+Debug: Cell : IO34(931), Usage : 1
+Debug: Cell : IO48(945), Usage : 1
+Debug: Cell : IO50(947), Usage : 1
+Debug: Cell : IO52(949), Usage : 1
+Debug: Cell : IO67(964), Usage : 1
+Debug: Cell : IO78(975), Usage : 1
+Debug: Cell : IO85(982), Usage : 1
+Debug: Cell : IO108(1000), Usage : 1
+Debug: Cell : IO112(1002), Usage : 1
+Debug: Cell : IO117(1004), Usage : 1
+Info     : vr_1049: Net 'u_AL4S3B_FPGA_IP.u_usb2m4_serial_ctrl_ep_inst_rom_addr[4]' has high logic cell fanout of 34.
+Info     : vr_1049: Net 'u_AL4S3B_FPGA_IP.dup_0_rom_addr[3]' has high logic cell fanout of 43.
+Info     : vr_1049: Net 'u_AL4S3B_FPGA_IP.dup_0_rom_addr[0]' has high logic cell fanout of 49.
+Info     : vr_1049: Net 'u_AL4S3B_FPGA_IP.nx27429z2' has high logic cell fanout of 38.
+; Time: Fri Aug 28 02:38:27 2020
+; Status: Verifier complete
+Info     : cf_1041_lf: SpDE Tools options are saved in constraint file. (..\cf\cfwrite.c:3491)
+; Time: Fri Aug 28 02:38:34 2020
+; Status: Fragment-Level Netlister begin...
+; Time: Fri Aug 28 02:38:35 2020
+; Status: Fragment-Level Netlister complete
+; Options for logic optimizer
+; logic optimizer.Mode = Quality
+; logic optimizer.Goal = Speed
+; logic optimizer.p2Level = 1
+; logic optimizer.Level = 2
+; logic optimizer.IgnorePack = FALSE
+; logic optimizer.Utilization = 492
+; logic optimizer.FragFUtilization = 314
+; logic optimizer.FragOUtilization = 456
+; logic optimizer.FragNUtilization = 381
+; logic optimizer.FragQUtilization = 492
+; logic optimizer.UseNonBondedPads = TRUE
+; Time: Fri Aug 28 02:38:35 2020
+; Status: AreaOptimization = FALSE
+; Time: Fri Aug 28 02:38:35 2020
+; Status: Logic Optimizer begin: minimize delay.
+; Time: Fri Aug 28 02:38:35 2020
+; Status: Pulling 0 FFs into pads by user's specification.
+; Time: Fri Aug 28 02:38:35 2020
+; Status: Technology mapping...
+; Time: Fri Aug 28 02:38:35 2020
+; Status: Logic replication count 0
+; Time: Fri Aug 28 02:38:38 2020
+; Status: Initializing AD with constraints ...
+; Time: Fri Aug 28 02:38:38 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:38:38 2020
+; Status: Timing driven calculations end...
+; Time: Fri Aug 28 02:38:39 2020
+; Status: AD Close...
+; Time: Fri Aug 28 02:38:39 2020
+; Status: Initializing AD with constraints ...
+; Time: Fri Aug 28 02:38:39 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:38:39 2020
+; Status: Timing driven calculations end...
+; Time: Fri Aug 28 02:38:39 2020
+; Status: AD Close...
+; Time: Fri Aug 28 02:38:39 2020
+; Status: Packing...
+; Time: Fri Aug 28 02:38:39 2020
+; Status: FZ,TZ,TZ packing count 0
+; Time: Fri Aug 28 02:38:40 2020
+; Status: Packing F into Q count 48
+; Time: Fri Aug 28 02:38:40 2020
+; Status: Constant block usage of 9 removed
+
+1 (0)  BIDIR3 u_AL4S3B_FPGA_IP.u_bipad_I0.I1 
+2 (1)  BIDIR3 u_AL4S3B_FPGA_IP.u_bipad_I1.I1 
+3 (5)  BIDIR3 led_o_obuf.I1 
+4 (6)  BIDIR3 accel_intn_o_obuf.I1 
+5 (7)  BIDIR3 spi_mosi_o_obuf.I1 
+6 (8)  BIDIR3 spi_sck_o_obuf.I1 
+7 (9)  BIDIR3 spi_cs_o_obuf.I1 
+8 (10)  BIDIR3 usb_pu_cntrl_o_obuf.I1 
+1 (899) pin FBIO_0 cell IO2  BIDIR3
+2 (901) pin FBIO_1 cell IO4  BIDIR3
+3 (903) pin FBIO_2 cell IO6  BIDIR3
+4 (906) pin FBIO_3 cell IO9  BIDIR3
+5 (909) pin FBIO_4 cell IO12  BIDIR3
+6 (911) pin FBIO_5 cell IO14  BIDIR3
+7 (913) pin FBIO_6 cell IO16  BIDIR3
+8 (917) pin FBIO_7 cell IO20  BIDIR3
+9 (922) pin FBIO_8 cell IO25  BIDIR3
+10 (926) pin FBIO_9 cell IO29  BIDIR3
+11 (928) pin FBIO_10 cell IO31  BIDIR3
+12 (930) pin FBIO_11 cell IO33  BIDIR3
+13 (933) pin FBIO_12 cell IO36  BIDIR3
+14 (935) pin FBIO_13 cell IO38  BIDIR3
+15 (938) pin FBIO_14 cell IO41  BIDIR3
+16 (940) pin FBIO_15 cell IO43  BIDIR3
+17 (954) pin FBIO_16 cell IO57  BIDIR3
+18 (956) pin FBIO_17 cell IO59  BIDIR3
+19 (959) pin FBIO_18 cell IO62  BIDIR3
+20 (961) pin FBIO_19 cell IO64  BIDIR3
+21 (963) pin FBIO_20 cell IO66  BIDIR3
+22 (966) pin FBIO_21 cell IO69  BIDIR3
+23 (970) pin FBIO_22 cell IO73  BIDIR3
+24 (974) pin FBIO_23 cell IO77  BIDIR3
+25 (978) pin FBIO_24 cell IO81  BIDIR3
+26 (981) pin FBIO_25 cell IO84  BIDIR3
+27 (984) pin FBIO_26 cell IO87  BIDIR3
+28 (986) pin FBIO_27 cell IO89  BIDIR3
+29 (989) pin FBIO_28 cell IO92  BIDIR3
+30 (991) pin FBIO_29 cell IO94  BIDIR3
+31 (994) pin FBIO_30 cell IO97  BIDIR3
+32 (996) pin FBIO_31 cell IO99  BIDIR3
+33 (1007) pin SFBIO_0 cell SFB_0_IO  SDIOMUX
+34 (1008) pin SFBIO_1 cell SFB_1_IO  SDIOMUX
+35 (1009) pin SFBIO_2 cell SFB_2_IO  SDIOMUX
+36 (1010) pin SFBIO_3 cell SFB_3_IO  SDIOMUX
+37 (1011) pin SFBIO_4 cell SFB_4_IO  SDIOMUX
+38 (1012) pin SFBIO_5 cell SFB_5_IO  SDIOMUX
+39 (1013) pin SFBIO_6 cell SFB_6_IO  SDIOMUX
+40 (1014) pin SFBIO_7 cell SFB_7_IO  SDIOMUX
+41 (1015) pin SFBIO_8 cell SFB_8_IO  SDIOMUX
+42 (1016) pin SFBIO_9 cell SFB_9_IO  SDIOMUX
+43 (1017) pin SFBIO_10 cell SFB_10_IO  SDIOMUX
+44 (1018) pin SFBIO_11 cell SFB_11_IO  SDIOMUX
+45 (1019) pin SFBIO_12 cell SFB_12_IO  SDIOMUX
+46 (1020) pin SFBIO_13 cell SFB_13_IO  SDIOMUX
+Gate u_AL4S3B_FPGA_IP.u_bipad_I0.I1 is mapped onto SFBIO. IO Configuration Constraints ignored.
+Gate u_AL4S3B_FPGA_IP.u_bipad_I1.I1 is mapped onto SFBIO. IO Configuration Constraints ignored.
+5 959  IO62 BIDIR3 led_o_obuf.I1 
+6 906  IO9 BIDIR3 accel_intn_o_obuf.I1 
+Gate spi_mosi_o_obuf.I1 is mapped onto SFBIO. IO Configuration Constraints ignored.
+Gate spi_sck_o_obuf.I1 is mapped onto SFBIO. IO Configuration Constraints ignored.
+Gate spi_cs_o_obuf.I1 is mapped onto SFBIO. IO Configuration Constraints ignored.
+Gate usb_pu_cntrl_o_obuf.I1 is mapped onto SFBIO. IO Configuration Constraints ignored.; Time: Fri Aug 28 02:38:40 2020
+; Result: ; Summary: Clock-only cells: 0 of 5
+; Time: Fri Aug 28 02:38:40 2020
+; Result: ; Summary: Bi-directional cells: 2 of 46
+; Time: Fri Aug 28 02:38:40 2020
+; Status: Checking functionality
+; Time: Fri Aug 28 02:38:40 2020
+; Status: Logic Optimizer complete
+; Time: Fri Aug 28 02:38:40 2020
+; Status: verifier: vrAddFF2Clock
+; Time: Fri Aug 28 02:38:40 2020
+; Status: verifier: vrAddFF2Clock
+; Options for placer
+; placer.Seed = 42
+; placer.Mode = Quality
+; placer.Lambda = 0.300000
+; placer.Level = 1
+; placer.newGreedyFlow = TRUE
+; placer.FastAnnealer = 2
+; placer.PowerReduction = FALSE
+; placer.GClkBufferInsertion = 0
+
+ Logic cells which are exceeding inputs > 16
+; Time: Fri Aug 28 02:38:40 2020
+; Status: Placer begin...
+; Time: Fri Aug 28 02:38:40 2020
+; Status: New Flow Greedy Placer selected...
+; Time: Fri Aug 28 02:38:40 2020
+; Status: detail placer begin...
+Debug: WindowBasedPlacer:  71 blocks with window constraints assigned
+; Time: Fri Aug 28 02:38:40 2020
+; Status: Initializing Ad Module
+; Time: Fri Aug 28 02:38:40 2020
+; Status: Initializing AD with constraints ...
+; Time: Fri Aug 28 02:38:41 2020
+; Status: newRandomization is ON
+; Time: Fri Aug 28 02:38:41 2020
+; Status: oldPlacerMoves is ON
+; Time: Fri Aug 28 02:38:41 2020
+; Status: autoNormalization is 0
+; Time: Fri Aug 28 02:38:41 2020
+; Status: alternateRootGreedy is 1
+; Time: Fri Aug 28 02:38:41 2020
+; Status: Power Reduction OFF
+; Time: Fri Aug 28 02:38:41 2020
+; Status: Running new Greedy Flow...
+Debug: Alpha 0.000023, Beta 0.000113, bbCost 44040.000000, tdCost 8817.125864, Dgreedy 2, Rlimit 32
+; Time: Fri Aug 28 02:38:49 2020
+; Status: Closing Ad-Module
+; Time: Fri Aug 28 02:38:49 2020
+; Status: AD Close...
+; Time: Fri Aug 28 02:38:49 2020
+; Status: Placement Buffering
+Debug: WindowBasedPlacer:  71 blocks with window constraints assigned
+; Time: Fri Aug 28 02:38:49 2020
+; Status: Initializing Ad Module
+; Time: Fri Aug 28 02:38:49 2020
+; Status: Initializing AD with constraints ...
+Debug: Alpha 0.000128, Beta 0.001484, bbCost 7798.000000, tdCost 673.750630, Dgreedy 152, Rlimit 1
+; Time: Fri Aug 28 02:38:56 2020
+; Status: Cycle loop with 5956600 attempted moves complete
+; Time: Fri Aug 28 02:38:56 2020
+; Status: Total 158 cycles completed.
+; Time: Fri Aug 28 02:38:56 2020
+; Status: Closing Ad-Module
+; Time: Fri Aug 28 02:38:56 2020
+; Status: AD Close...
+; Time: Fri Aug 28 02:38:56 2020
+; Status: detail placer complete
+; Time: Fri Aug 28 02:38:56 2020
+; Status: Placer complete
+; Time: Fri Aug 28 02:38:56 2020
+; Status: Fragment-Level Netlister begin...
+; Time: Fri Aug 28 02:38:56 2020
+; Status: Fragment-Level Netlister complete
+
+ Logic cells which are exceeding inputs > 16
+; Time: Fri Aug 28 02:38:56 2020
+; Status: Fragment simulator begins ...
+; Time: Fri Aug 28 02:38:58 2020
+; Status: Fragment simulator ends successfully.
+; Options for router
+; router.MinCycles = 5
+; router.MaxCycles = 1500
+; router.Seed = 42
+; router.LoopCnt = 2
+; router.LPRouting = FALSE
+; router.MaxHidriveFanouts = 20
+; router.CongestionTable = 0
+; router.RouteMode = 0
+; router.PureMagic = 0
+; router.NetMagic = 0
+; router.UnusedIO = Z
+; router.GmuxSelection = FALSE
+; router.IncRippleMarking = FALSE
+
+Router Option: <Timing Driven Router>; Time: Fri Aug 28 02:38:58 2020
+; Status: 
+
+KR2: Router begin...
+
+KR2: Running Clock router...
+Net <WB_CLK> auto promoted through GMUX
+Net <clk_48mhz> auto promoted through GMUX
+Net <reset> auto promoted through GMUX
+Net <WB_RST_FPGA> auto promoted through GMUX
+KR2: Clock router Completed!..
+
+KR2: Initializing...
+; Time: Fri Aug 28 02:38:58 2020
+; Status: Fragment-Level Netlister begin...
+; Time: Fri Aug 28 02:38:58 2020
+; Status: Fragment-Level Netlister complete
+; Time: Fri Aug 28 02:38:58 2020
+; Status: Initializing AD with constraints ...
+
+
+Configuration Values of <AUD,AOD> : <0.050000,1.000000>
+
+
+
+KR2: Running supply router...Debug: Cell : IO9(906), Usage : 1
+Debug: Cell : IO17(914), Usage : 1
+Debug: Cell : IO23(920), Usage : 1
+Debug: Cell : IO34(931), Usage : 1
+Debug: Cell : IO48(945), Usage : 1
+Debug: Cell : IO50(947), Usage : 1
+Debug: Cell : IO52(949), Usage : 1
+Debug: Cell : IO62(959), Usage : 1
+Debug: Cell : IO67(964), Usage : 1
+Debug: Cell : IO78(975), Usage : 1
+Debug: Cell : IO85(982), Usage : 1
+Debug: Cell : SFB_2_IO(1009), Usage : 1
+Debug: Cell : IO108(1000), Usage : 1
+Debug: Cell : SFB_5_IO(1012), Usage : 1
+Debug: Cell : SFB_6_IO(1013), Usage : 1
+Debug: Cell : IO112(1002), Usage : 1
+Debug: Cell : SFB_7_IO(1014), Usage : 1
+Debug: Cell : SFB_9_IO(1016), Usage : 1
+Debug: Cell : IO117(1004), Usage : 1
+Debug: Cell : SFB_10_IO(1017), Usage : 1
+
+
+KR2: Supply Nets details!...
+Number of Tie-Lo Frags to be routed: 8182
+Number of Tie-Hi Frags to be routed: 1860
+
+KR2: Supply router Completed!...
+
+Total Number of conventional nets to be routed :1535
+
+KR2: Running unified router...
+
+Cycle :0	OverConstraints :5176	NonRoutedNets :0	RouteStatus  :<266, 1426>	JointsUsed  :<31312>
+JointOCs :	[S1 :<1071>] [S2 :<2427>] [S3 :<0>] [S4 :<817>]; Time: Fri Aug 28 02:38:59 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:38:59 2020
+; Status: Timing driven calculations end...
+
+
+Cycle :1	OverConstraints :2299	NonRoutedNets :0	RouteStatus  :<733, 959>	JointsUsed  :<34412>
+JointOCs :	[S1 :<644>] [S2 :<1167>] [S3 :<0>] [S4 :<481>]; Time: Fri Aug 28 02:38:59 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:38:59 2020
+; Status: Timing driven calculations end...
+
+
+Cycle :2	OverConstraints :1395	NonRoutedNets :0	RouteStatus  :<901, 791>	JointsUsed  :<35191>
+JointOCs :	[S1 :<385>] [S2 :<681>] [S3 :<0>] [S4 :<327>]; Time: Fri Aug 28 02:39:00 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:39:00 2020
+; Status: Timing driven calculations end...
+
+
+Cycle :3	OverConstraints :959	NonRoutedNets :0	RouteStatus  :<1057, 635>	JointsUsed  :<35623>
+JointOCs :	[S1 :<280>] [S2 :<415>] [S3 :<0>] [S4 :<264>]; Time: Fri Aug 28 02:39:01 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:39:01 2020
+; Status: Timing driven calculations end...
+
+
+Cycle :4	OverConstraints :793	NonRoutedNets :0	RouteStatus  :<1134, 558>	JointsUsed  :<35791>
+JointOCs :	[S1 :<225>] [S2 :<331>] [S3 :<0>] [S4 :<237>]; Time: Fri Aug 28 02:39:01 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:39:01 2020
+; Status: Timing driven calculations end...
+
+
+Cycle :5	OverConstraints :698	NonRoutedNets :0	RouteStatus  :<1167, 525>	JointsUsed  :<35903>
+JointOCs :	[S1 :<193>] [S2 :<306>] [S3 :<0>] [S4 :<199>]; Time: Fri Aug 28 02:39:02 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:39:02 2020
+; Status: Timing driven calculations end...
+
+
+Cycle :6	OverConstraints :623	NonRoutedNets :0	RouteStatus  :<1220, 472>	JointsUsed  :<35986>
+JointOCs :	[S1 :<175>] [S2 :<282>] [S3 :<0>] [S4 :<166>]; Time: Fri Aug 28 02:39:02 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:39:02 2020
+; Status: Timing driven calculations end...
+
+
+Cycle :7	OverConstraints :536	NonRoutedNets :0	RouteStatus  :<1269, 423>	JointsUsed  :<36149>
+JointOCs :	[S1 :<150>] [S2 :<226>] [S3 :<0>] [S4 :<160>]; Time: Fri Aug 28 02:39:03 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:39:03 2020
+; Status: Timing driven calculations end...
+
+
+Cycle :8	OverConstraints :442	NonRoutedNets :0	RouteStatus  :<1328, 364>	JointsUsed  :<36276>
+JointOCs :	[S1 :<127>] [S2 :<191>] [S3 :<0>] [S4 :<123>]; Time: Fri Aug 28 02:39:03 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:39:03 2020
+; Status: Timing driven calculations end...
+
+
+Cycle :9	OverConstraints :402	NonRoutedNets :0	RouteStatus  :<1321, 371>	JointsUsed  :<36352>
+JointOCs :	[S1 :<126>] [S2 :<172>] [S3 :<0>] [S4 :<104>]; Time: Fri Aug 28 02:39:03 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:39:03 2020
+; Status: Timing driven calculations end...
+
+
+Cycle :10	OverConstraints :353	NonRoutedNets :0	RouteStatus  :<1365, 327>	JointsUsed  :<36441>
+JointOCs :	[S1 :<119>] [S2 :<151>] [S3 :<0>] [S4 :<83>]; Time: Fri Aug 28 02:39:04 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:39:04 2020
+; Status: Timing driven calculations end...
+
+
+Cycle :11	OverConstraints :292	NonRoutedNets :0	RouteStatus  :<1417, 275>	JointsUsed  :<36541>
+JointOCs :	[S1 :<115>] [S2 :<116>] [S3 :<0>] [S4 :<61>]; Time: Fri Aug 28 02:39:04 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:39:04 2020
+; Status: Timing driven calculations end...
+
+
+Cycle :12	OverConstraints :259	NonRoutedNets :0	RouteStatus  :<1462, 230>	JointsUsed  :<36586>
+JointOCs :	[S1 :<92>] [S2 :<124>] [S3 :<0>] [S4 :<43>]; Time: Fri Aug 28 02:39:04 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:39:04 2020
+; Status: Timing driven calculations end...
+
+
+Cycle :13	OverConstraints :231	NonRoutedNets :0	RouteStatus  :<1474, 218>	JointsUsed  :<36656>
+JointOCs :	[S1 :<84>] [S2 :<106>] [S3 :<0>] [S4 :<41>]; Time: Fri Aug 28 02:39:04 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:39:04 2020
+; Status: Timing driven calculations end...
+
+
+Cycle :14	OverConstraints :185	NonRoutedNets :0	RouteStatus  :<1508, 184>	JointsUsed  :<36735>
+JointOCs :	[S1 :<69>] [S2 :<92>] [S3 :<0>] [S4 :<24>]; Time: Fri Aug 28 02:39:05 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:39:05 2020
+; Status: Timing driven calculations end...
+
+
+Cycle :15	OverConstraints :159	NonRoutedNets :0	RouteStatus  :<1534, 158>	JointsUsed  :<36794>
+JointOCs :	[S1 :<63>] [S2 :<70>] [S3 :<0>] [S4 :<26>]; Time: Fri Aug 28 02:39:05 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:39:05 2020
+; Status: Timing driven calculations end...
+
+
+Cycle :16	OverConstraints :148	NonRoutedNets :0	RouteStatus  :<1532, 160>	JointsUsed  :<36789>
+JointOCs :	[S1 :<53>] [S2 :<75>] [S3 :<0>] [S4 :<20>]; Time: Fri Aug 28 02:39:05 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:39:05 2020
+; Status: Timing driven calculations end...
+
+
+Cycle :17	OverConstraints :116	NonRoutedNets :0	RouteStatus  :<1572, 120>	JointsUsed  :<36858>
+JointOCs :	[S1 :<45>] [S2 :<53>] [S3 :<0>] [S4 :<18>]; Time: Fri Aug 28 02:39:05 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:39:05 2020
+; Status: Timing driven calculations end...
+
+
+Cycle :18	OverConstraints :108	NonRoutedNets :0	RouteStatus  :<1578, 114>	JointsUsed  :<36874>
+JointOCs :	[S1 :<40>] [S2 :<52>] [S3 :<0>] [S4 :<16>]; Time: Fri Aug 28 02:39:05 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:39:05 2020
+; Status: Timing driven calculations end...
+
+
+Cycle :19	OverConstraints :85	NonRoutedNets :0	RouteStatus  :<1593, 99>	JointsUsed  :<36920>
+JointOCs :	[S1 :<37>] [S2 :<39>] [S3 :<0>] [S4 :<9>]; Time: Fri Aug 28 02:39:05 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:39:05 2020
+; Status: Timing driven calculations end...
+
+
+Cycle :20	OverConstraints :70	NonRoutedNets :0	RouteStatus  :<1616, 76>	JointsUsed  :<36975>
+JointOCs :	[S1 :<33>] [S2 :<30>] [S3 :<0>] [S4 :<7>]; Time: Fri Aug 28 02:39:05 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:39:05 2020
+; Status: Timing driven calculations end...
+
+
+Cycle :21	OverConstraints :60	NonRoutedNets :0	RouteStatus  :<1621, 71>	JointsUsed  :<36974>
+JointOCs :	[S1 :<27>] [S2 :<25>] [S3 :<0>] [S4 :<8>]; Time: Fri Aug 28 02:39:05 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:39:05 2020
+; Status: Timing driven calculations end...
+
+
+Cycle :22	OverConstraints :47	NonRoutedNets :0	RouteStatus  :<1635, 57>	JointsUsed  :<37000>
+JointOCs :	[S1 :<21>] [S2 :<22>] [S3 :<0>] [S4 :<4>]; Time: Fri Aug 28 02:39:05 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:39:05 2020
+; Status: Timing driven calculations end...
+
+
+Cycle :23	OverConstraints :43	NonRoutedNets :0	RouteStatus  :<1644, 48>	JointsUsed  :<37007>
+JointOCs :	[S1 :<22>] [S2 :<18>] [S3 :<0>] [S4 :<3>]; Time: Fri Aug 28 02:39:06 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:39:06 2020
+; Status: Timing driven calculations end...
+
+
+Cycle :24	OverConstraints :36	NonRoutedNets :0	RouteStatus  :<1652, 40>	JointsUsed  :<37021>
+JointOCs :	[S1 :<15>] [S2 :<17>] [S3 :<0>] [S4 :<4>]; Time: Fri Aug 28 02:39:06 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:39:06 2020
+; Status: Timing driven calculations end...
+
+
+Cycle :25	OverConstraints :32	NonRoutedNets :0	RouteStatus  :<1655, 37>	JointsUsed  :<37048>
+JointOCs :	[S1 :<14>] [S2 :<14>] [S3 :<0>] [S4 :<4>]; Time: Fri Aug 28 02:39:06 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:39:06 2020
+; Status: Timing driven calculations end...
+
+
+Cycle :26	OverConstraints :24	NonRoutedNets :0	RouteStatus  :<1662, 30>	JointsUsed  :<37064>
+JointOCs :	[S1 :<14>] [S2 :<10>] [S3 :<0>] [S4 :<0>]; Time: Fri Aug 28 02:39:06 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:39:06 2020
+; Status: Timing driven calculations end...
+
+
+Cycle :27	OverConstraints :20	NonRoutedNets :0	RouteStatus  :<1674, 18>	JointsUsed  :<37074>
+JointOCs :	[S1 :<6>] [S2 :<13>] [S3 :<0>] [S4 :<1>]; Time: Fri Aug 28 02:39:06 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:39:06 2020
+; Status: Timing driven calculations end...
+
+
+Cycle :28	OverConstraints :15	NonRoutedNets :0	RouteStatus  :<1672, 20>	JointsUsed  :<37082>
+JointOCs :	[S1 :<6>] [S2 :<8>] [S3 :<0>] [S4 :<1>]; Time: Fri Aug 28 02:39:06 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:39:06 2020
+; Status: Timing driven calculations end...
+
+
+Cycle :29	OverConstraints :13	NonRoutedNets :0	RouteStatus  :<1674, 18>	JointsUsed  :<37085>
+JointOCs :	[S1 :<11>] [S2 :<2>] [S3 :<0>] [S4 :<0>]; Time: Fri Aug 28 02:39:06 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:39:06 2020
+; Status: Timing driven calculations end...
+
+
+Cycle :30	OverConstraints :12	NonRoutedNets :0	RouteStatus  :<1678, 14>	JointsUsed  :<37084>
+JointOCs :	[S1 :<5>] [S2 :<7>] [S3 :<0>] [S4 :<0>]; Time: Fri Aug 28 02:39:06 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:39:06 2020
+; Status: Timing driven calculations end...
+
+
+Cycle :31	OverConstraints :12	NonRoutedNets :0	RouteStatus  :<1677, 15>	JointsUsed  :<37086>
+JointOCs :	[S1 :<6>] [S2 :<6>] [S3 :<0>] [S4 :<0>]; Time: Fri Aug 28 02:39:06 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:39:06 2020
+; Status: Timing driven calculations end...
+
+
+Cycle :32	OverConstraints :9	NonRoutedNets :0	RouteStatus  :<1678, 14>	JointsUsed  :<37093>
+JointOCs :	[S1 :<5>] [S2 :<4>] [S3 :<0>] [S4 :<0>]; Time: Fri Aug 28 02:39:06 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:39:06 2020
+; Status: Timing driven calculations end...
+
+
+Cycle :33	OverConstraints :8	NonRoutedNets :0	RouteStatus  :<1680, 12>	JointsUsed  :<37097>
+JointOCs :	[S1 :<5>] [S2 :<3>] [S3 :<0>] [S4 :<0>]; Time: Fri Aug 28 02:39:06 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:39:06 2020
+; Status: Timing driven calculations end...
+
+
+Cycle :34	OverConstraints :7	NonRoutedNets :0	RouteStatus  :<1683, 9>	JointsUsed  :<37099>
+JointOCs :	[S1 :<3>] [S2 :<4>] [S3 :<0>] [S4 :<0>]; Time: Fri Aug 28 02:39:06 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:39:06 2020
+; Status: Timing driven calculations end...
+
+
+Cycle :35	OverConstraints :7	NonRoutedNets :0	RouteStatus  :<1681, 11>	JointsUsed  :<37103>
+JointOCs :	[S1 :<5>] [S2 :<2>] [S3 :<0>] [S4 :<0>]; Time: Fri Aug 28 02:39:06 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:39:06 2020
+; Status: Timing driven calculations end...
+
+
+Cycle :36	OverConstraints :7	NonRoutedNets :0	RouteStatus  :<1681, 11>	JointsUsed  :<37105>
+JointOCs :	[S1 :<3>] [S2 :<4>] [S3 :<0>] [S4 :<0>]; Time: Fri Aug 28 02:39:06 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:39:06 2020
+; Status: Timing driven calculations end...
+
+
+Cycle :37	OverConstraints :4	NonRoutedNets :0	RouteStatus  :<1687, 5>	JointsUsed  :<37110>
+JointOCs :	[S1 :<2>] [S2 :<2>] [S3 :<0>] [S4 :<0>]; Time: Fri Aug 28 02:39:06 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:39:06 2020
+; Status: Timing driven calculations end...
+
+
+Cycle :38	OverConstraints :4	NonRoutedNets :0	RouteStatus  :<1685, 7>	JointsUsed  :<37109>
+JointOCs :	[S1 :<3>] [S2 :<1>] [S3 :<0>] [S4 :<0>]; Time: Fri Aug 28 02:39:06 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:39:06 2020
+; Status: Timing driven calculations end...
+
+
+Cycle :39	OverConstraints :2	NonRoutedNets :0	RouteStatus  :<1689, 3>	JointsUsed  :<37115>
+JointOCs :	[S1 :<1>] [S2 :<1>] [S3 :<0>] [S4 :<0>]; Time: Fri Aug 28 02:39:06 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:39:06 2020
+; Status: Timing driven calculations end...
+
+
+Cycle :40	OverConstraints :2	NonRoutedNets :0	RouteStatus  :<1689, 3>	JointsUsed  :<37114>
+JointOCs :	[S1 :<0>] [S2 :<2>] [S3 :<0>] [S4 :<0>]; Time: Fri Aug 28 02:39:06 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:39:06 2020
+; Status: Timing driven calculations end...
+
+
+Cycle :41	OverConstraints :1	NonRoutedNets :0	RouteStatus  :<1690, 2>	JointsUsed  :<37121>
+JointOCs :	[S1 :<1>] [S2 :<0>] [S3 :<0>] [S4 :<0>]; Time: Fri Aug 28 02:39:06 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:39:06 2020
+; Status: Timing driven calculations end...
+
+
+Cycle :42	OverConstraints :1	NonRoutedNets :0	RouteStatus  :<1690, 2>	JointsUsed  :<37120>
+JointOCs :	[S1 :<1>] [S2 :<0>] [S3 :<0>] [S4 :<0>]; Time: Fri Aug 28 02:39:06 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:39:06 2020
+; Status: Timing driven calculations end...
+
+
+Cycle :43	OverConstraints :1	NonRoutedNets :0	RouteStatus  :<1690, 2>	JointsUsed  :<37120>
+JointOCs :	[S1 :<0>] [S2 :<1>] [S3 :<0>] [S4 :<0>]; Time: Fri Aug 28 02:39:06 2020
+; Status: Timing driven calculations begin...
+; Time: Fri Aug 28 02:39:06 2020
+; Status: Timing driven calculations end...
+
+
+Cycle :44	OverConstraints :0	NonRoutedNets :0	RouteStatus  :<1692, 0>	JointsUsed  :<37125>
+JointOCs :	[S1 :<0>] [S2 :<0>] [S3 :<0>] [S4 :<0>]
+
+
+
+Total number of available joints :95504
+Total number of used joints :37125
+Percentage of joint utilization :38.87%
+
+
+
+KR2: Writting back database...
+; Time: Fri Aug 28 02:39:06 2020
+; Status: 
+Joint Propagation begin!...
+
+Joint propagation successful!...; Time: Fri Aug 28 02:39:06 2020
+; Status: 
+Joint Propagation Ends!...
+; Time: Fri Aug 28 02:39:06 2020
+; Status: AD Close...
+; Time: Fri Aug 28 02:39:06 2020
+; Status: 
+Router Completed!...
+; Time: Fri Aug 28 02:39:06 2020
+; Status: Fragment-Level Netlister begin...
+; Time: Fri Aug 28 02:39:06 2020
+; Status: Fragment-Level Netlister complete
+; Time: Fri Aug 28 02:39:06 2020
+; Status: Fragment simulator begins ...
+; Time: Fri Aug 28 02:39:08 2020
+; Status: Fragment simulator ends successfully.
+; Options for delay modeler
+; delay modeler.Mode = Commercial
+; delay modeler.Corner = Worst
+; delay modeler.OutPadCap = 30.000000
+; delay modeler.SpeedGrade = 8
+; delay modeler.LowPower = FALSE
+; delay modeler.CustomVccBest = 1.200000
+; delay modeler.CustomVccNominal = 1.200000
+; delay modeler.CustomVccWorst = 1.200000
+; delay modeler.CustomVccLPBest = 3.600000
+; delay modeler.CustomVccLPNominal = 3.300000
+; delay modeler.CustomVccLPWorst = 3.000000
+; delay modeler.CustomTempBest = 25.000000
+; delay modeler.CustomTempNominal = 25.000000
+; delay modeler.CustomTempWorst = 25.000000
+; delay modeler.CheckedforHTV = FALSE
+; Time: Fri Aug 28 02:39:08 2020
+; Status: Delay Modeler begin...
+; Warning: Cannot open D:/qlal4s3b_RoutingDelays.csv file name for writing.
+
+; Time: Fri Aug 28 02:39:12 2020
+; Status: Delay Modeler complete
+; Options for back annotation
+; back annotation.FixFFs = FALSE
+; back annotation.FixIos = TRUE
+; back annotation.FixRams = FALSE
+; back annotation.Simulator = Verilog
+; back annotation.MissingHeader = TRUE
+; back annotation.GeneratePSFiles = FALSE
+; Time: Fri Aug 28 02:39:13 2020
+; Status: Fragment-Level Netlister begin...
+; Time: Fri Aug 28 02:39:13 2020
+; Status: Fragment-Level Netlister complete
+; Time: Fri Aug 28 02:39:13 2020
+; Status: Verilog back annotation begin...
+; Time: Fri Aug 28 02:39:13 2020
+; Status: Verilog netlist begin...
+; Time: Fri Aug 28 02:39:13 2020
+; Status: Verilog back annotation in progress...
+; Time: Fri Aug 28 02:39:14 2020
+; Status: Verilog netlist complete
+; Time: Fri Aug 28 02:39:14 2020
+; Status: SDF back annotation begin...
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+; Time: Fri Aug 28 02:39:14 2020
+; Status: SDF back annotation complete
+; Time: Fri Aug 28 02:39:14 2020
+; Status: Verilog back annotation complete
+; Time: Fri Aug 28 02:39:14 2020
+; Status: Back annotation begin...
+
+Synplicity Synthesis pin location command file successfully written.
+Info     : cf_1041_lf: SpDE Tools options are saved in constraint file. (..\cf\cfwrite.c:3491)
+; Time: Fri Aug 28 02:39:14 2020
+; Status: Back annotation complete
+; Time: Fri Aug 28 02:39:15 2020
+; Status: Fragment-Level Netlister begin...
+; Time: Fri Aug 28 02:39:15 2020
+; Status: Fragment-Level Netlister complete
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_u2m_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_u2m_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_u2m_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_u2m_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_u2m_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_u2m_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_u2m_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_u2m_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_m2u_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_m2u_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_m2u_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_m2u_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_m2u_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_m2u_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_m2u_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_m2u_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_out_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_out_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_out_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_out_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_out_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_out_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_out_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_out_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_in_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_in_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_in_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_in_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_in_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_in_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_in_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_in_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+; Time: Fri Aug 28 02:39:15 2020
+; Status: Report file C:\Work\SVN\repos\hardware\trunk\FpgaIpDesigns\S3\USBserialport_S3B\Impl_Quick_Feather\AL4S3B_FPGA_top_rpt.html created.
+; Time: Fri Aug 28 02:40:17 2020
+; Status: Saving file C:\Work\SVN\repos\hardware\trunk\FpgaIpDesigns\S3\USBserialport_S3B\Impl_Quick_Feather\AL4S3B_FPGA_top.chp
+Info     : cf_1041_lf: SpDE Tools options are saved in constraint file. (..\cf\cfwrite.c:3491)
+; Time: Fri Aug 28 02:40:17 2020
+; Status: Fragment-Level Netlister begin...
+; Time: Fri Aug 28 02:40:17 2020
+; Status: Fragment-Level Netlister complete
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_u2m_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_u2m_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_u2m_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_u2m_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_u2m_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_u2m_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_u2m_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_u2m_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_m2u_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_m2u_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_m2u_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_m2u_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_m2u_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_m2u_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_m2u_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_m2u_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_out_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_out_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_out_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_out_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_out_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_out_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_out_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_out_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_in_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_in_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_in_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_in_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_in_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_in_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_in_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_in_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+; Time: Fri Aug 28 02:40:17 2020
+; Status: Report file C:\Work\SVN\repos\hardware\trunk\FpgaIpDesigns\S3\USBserialport_S3B\Impl_Quick_Feather\AL4S3B_FPGA_top_rpt.html created.
+; Time: Fri Aug 28 02:40:17 2020
+; Status: File C:\Work\SVN\repos\hardware\trunk\FpgaIpDesigns\S3\USBserialport_S3B\Impl_Quick_Feather\AL4S3B_FPGA_top.chp saved
+; Time: Fri Aug 28 02:40:25 2020
+; Status: Path analyzer begin...
+; Time: Fri Aug 28 02:40:25 2020
+; Status: Static Timing Analyzer initialized
+; Time: Fri Aug 28 02:40:25 2020
+; Status: Static Timing Analyzer complete
+; Time: Fri Aug 28 02:40:43 2020
+; Status: Path analyzer begin...
+; Time: Fri Aug 28 02:40:43 2020
+; Status: Static Timing Analyzer initialized
+; Time: Fri Aug 28 02:40:43 2020
+; Status: Static Timing Analyzer complete
+; Time: Fri Aug 28 02:40:49 2020
+; Status: Saving file C:\Work\SVN\repos\hardware\trunk\FpgaIpDesigns\S3\USBserialport_S3B\Impl_Quick_Feather\AL4S3B_FPGA_top.chp
+Info     : cf_1041_lf: SpDE Tools options are saved in constraint file. (..\cf\cfwrite.c:3491)
+; Time: Fri Aug 28 02:40:49 2020
+; Status: Fragment-Level Netlister begin...
+; Time: Fri Aug 28 02:40:49 2020
+; Status: Fragment-Level Netlister complete
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_u2m_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_u2m_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_u2m_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_u2m_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_u2m_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_u2m_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_u2m_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_u2m_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_m2u_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_m2u_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_m2u_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_m2u_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_m2u_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_m2u_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_m2u_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.FPGA_FIFO_m2u_f512x8_512x8_0_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_out_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_out_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_out_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_out_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_out_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_out_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_out_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_out_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_in_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_in_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_in_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_in_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_in_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_in_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_in_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_usb2m4_serial_usb_fs_pe_inst_usb_fs_in_pe_inst_ep_out_data_buffer_RAM_INST_genblk6.U1 without clock net
+; Time: Fri Aug 28 02:40:50 2020
+; Status: Report file C:\Work\SVN\repos\hardware\trunk\FpgaIpDesigns\S3\USBserialport_S3B\Impl_Quick_Feather\AL4S3B_FPGA_top_rpt.html created.
+; Time: Fri Aug 28 02:40:50 2020
+; Status: File C:\Work\SVN\repos\hardware\trunk\FpgaIpDesigns\S3\USBserialport_S3B\Impl_Quick_Feather\AL4S3B_FPGA_top.chp saved
+; Time: Fri Aug 28 02:40:53 2020
+; Status: utMemClose: Max memory used was 200786993 bytes
