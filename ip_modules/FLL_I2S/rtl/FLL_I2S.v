@@ -364,8 +364,8 @@ always @(posedge rst or posedge bitclk_master)
 
 // sample counters - one in each clk domain
 
-reg     [15:0]  sample_cnt;
-reg     [15:0]  sample_cnt_master;
+reg     [31:0]  sample_cnt;
+reg     [31:0]  sample_cnt_master;
 reg             sample_cnt_enable;
 reg             sample_cnt_enable_master;
 reg             sample_cnt_enable_master_r1;
@@ -377,7 +377,7 @@ reg             sample_cnt_load_master;
 reg             sample_cnt_load_master_r1;
 reg             sample_cnt_load_master_r2;
 
-reg     [15:0]  sample_gap_cnt;
+reg     [31:0]  sample_gap_cnt;
 reg             sample_gap_cnt_enable;
 reg             sample_gap_cnt_load;
 
