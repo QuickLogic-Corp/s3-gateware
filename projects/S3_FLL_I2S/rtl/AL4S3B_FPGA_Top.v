@@ -8,7 +8,9 @@ module top (
             dbg_int_speedup,
             dbg_int_slowdown,
             dbg_bitclkm,
-            dbg_bitclks
+            dbg_bitclks //,
+            //dbg_master_wordcnt_is_ahead,
+            //dbg_local_wordcnt_is_ahead
             );
 
 //------Port Signals-------------------
@@ -19,6 +21,8 @@ output          dbg_int_speedup;
 output          dbg_int_slowdown;
 output          dbg_bitclkm;
 output          dbg_bitclks;
+//output          dbg_master_wordcnt_is_ahead;
+//output          dbg_local_wordcnt_is_ahead;
 
 //------Define Parameters--------------
 // None at this time
@@ -52,6 +56,10 @@ wire            WB_RST_FPGA     ; // Wishbone FPGA Reset
 
 // Misc
 wire    [31:0]  Device_ID      ;
+
+// debug
+wire            dbg_master_wordcnt_is_ahead;
+wire            dgb_local_wordcnt_is_ahead;
 
 
 wire            bitclk_master       ;
@@ -108,7 +116,11 @@ AL4S3B_FPGA_IP u_AL4S3B_FPGA_IP (
     .Interrupt_speedup          ( Interrupt_speedup         ),
     .Interrupt_slowdown         ( Interrupt_slowdown        ),
 
-    .Device_ID_o                ( Device_ID                 )
+    .Device_ID_o                ( Device_ID                 ),
+    
+    // debug signals
+    .master_wordcnt_is_ahead_o  ( dbg_master_wordcnt_is_ahead ),
+    .local_wordcnt_is_ahead_o   ( dbg_local_wordcnt_is_ahead  )
 );
 
 // Verilog model of QLAL4S3B
@@ -210,8 +222,7 @@ assign dbg_int_slowdown = Interrupt_slowdown    ;
 //assign dbg_bitclkm      = bitclk_master_gclk    ;
 assign dbg_bitclkm      = bitclk_master         ;
 //assign dbg_bitclks      = bitclk_local          ;
-//assign dbg_bitclks      = Sys_Clk1             ;
-assign dbg_bitclks      = bitclk_master;
+assign dbg_bitclks      = Sys_Clk1             ;
 
 endmodule
 

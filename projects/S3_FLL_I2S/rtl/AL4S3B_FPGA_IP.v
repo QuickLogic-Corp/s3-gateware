@@ -30,7 +30,11 @@ module AL4S3B_FPGA_IP (
                 Interrupt_speedup,
                 Interrupt_slowdown,
 
-                Device_ID_o
+                Device_ID_o,
+                
+                // debug signals
+                master_wordcnt_is_ahead_o,
+                local_wordcnt_is_ahead_o
 );
 
 
@@ -105,6 +109,10 @@ input           bitclk_local;
 output          Interrupt_speedup;
 output          Interrupt_slowdown;
 
+// debug signals
+output          master_wordcnt_is_ahead_o;
+output          local_wordcnt_is_ahead_o;
+
 
 // FPGA Global Signals
 wire            WB_CLK          ;  // Wishbone FPGA Clock
@@ -133,6 +141,10 @@ wire            Interrupt_speedup;
 wire            Interrupt_slowdown;
 
 wire    [31:0]  Device_ID_o;
+
+// debug signals
+wire            master_wordcnt_is_ahead_o;
+wire            local_wordcnt_is_ahead_o;
 
 
 //------Internal Signals---------------
@@ -237,7 +249,11 @@ FLL_I2S
 
         // interrupts to the M4 processor, to speed up or slow down the local clock
         .Interrupt_speedup  ( Interrupt_speedup  ),
-        .Interrupt_slowdown ( Interrupt_slowdown )
+        .Interrupt_slowdown ( Interrupt_slowdown ),
+        
+        // debug signals
+        .master_wordcnt_is_ahead_o  ( master_wordcnt_is_ahead_o ),
+        .local_wordcnt_is_ahead_o   ( local_wordcnt_is_ahead_o  )
 );
 
 

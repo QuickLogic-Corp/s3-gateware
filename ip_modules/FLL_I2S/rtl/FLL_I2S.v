@@ -22,7 +22,11 @@ module FLL_I2S (
 
                 // interrupts to the M4 processor, to speed up or slow down the local clock
                 Interrupt_speedup,
-                Interrupt_slowdown
+                Interrupt_slowdown,
+                
+                // debug
+                master_wordcnt_is_ahead_o,
+                local_wordcnt_is_ahead_o
 );
 
 
@@ -74,6 +78,9 @@ input           bitclk_local;
 output          Interrupt_speedup;
 output          Interrupt_slowdown;
 
+// Debug signals
+output          master_wordcnt_is_ahead_o;
+output          local_wordcnt_is_ahead_o;
 
 // FPGA Global Signals
 wire            WBs_CLK_i           ;  // Wishbone FPGA Clock
@@ -111,6 +118,11 @@ localparam  ADDRWIDTH   =  8;
 localparam  REG_ADDR_CTRL       =  8'h00        ; 
 localparam  REG_ADDR_SAMP_LEN   =  8'h04        ; 
 localparam  REG_ADDR_SAMP_GAP   =  8'h08        ; 
+localparam  REG_ADDR_WC_DIFF    =  8'h0C        ;
+localparam  REG_ADDR_WC         =  8'h10        ;
+localparam  REG_ADDR_WC_MSTR    =  8'h14        ;
+localparam  REG_ADDR_WC_LOCAL   =  8'h18        ;
+localparam  REG_ADDR_SCNT_MSTR  =  8'h1C        ;
 
 
 //------Internal Signals---------------
@@ -124,8 +136,12 @@ wire            REG_WE_SAMP_GAP ;
 wire            WBs_ACK_o_nxt   ;
 
 reg             reg_enable      ;
-reg     [31:0]  reg_sample_len    ;
-reg     [31:0]  reg_sample_gap    ;
+reg     [31:0]  reg_sample_len  ;
+reg     [31:0]  reg_sample_gap  ;
+
+// debug 
+reg     [31:0]  wordcnt_diff    ;
+reg     [15:0]  scmaster        ;
 
 
 assign module_decode = (WBs_ADR_i[16:ADDRWIDTH] == MODULE_OFFSET[16:ADDRWIDTH]);
@@ -195,6 +211,11 @@ always @(*)
         REG_ADDR_CTRL[ADDRWIDTH-1:2]        : WBs_DAT_o <= {31'b0, reg_enable}  ;
         REG_ADDR_SAMP_LEN[ADDRWIDTH-1:2]    : WBs_DAT_o <= reg_sample_len       ;
         REG_ADDR_SAMP_GAP[ADDRWIDTH-1:2]    : WBs_DAT_o <= reg_sample_gap       ;
+        REG_ADDR_WC_DIFF[ADDRWIDTH-1:2]     : WBs_DAT_o <= wordcnt_diff         ;
+        REG_ADDR_WC[ADDRWIDTH-1:2]          : WBs_DAT_o <= {wordcnt_shadow_local[15:0], wordcnt_shadow_master[15:0]}       ;
+        REG_ADDR_WC_MSTR[ADDRWIDTH-1:2]     : WBs_DAT_o <= wordcnt_shadow_master;
+        REG_ADDR_WC_LOCAL[ADDRWIDTH-1:2]    : WBs_DAT_o <= wordcnt_shadow_local ;
+        REG_ADDR_SCNT_MSTR[ADDRWIDTH-1:2]   : WBs_DAT_o <= scmaster ;
     default                                 : WBs_DAT_o <= DEFAULT_REG_VALUE    ;
     endcase
 end
@@ -589,6 +610,7 @@ always @(posedge rst or posedge bitclk_local)
         //  allowing time for the values to settle (so cross-domain logic won't be needed).
         // Also don't compare if a rollover has occurred on one of the wordcnt's but not the other.
         if (fll_state == st_COMPUTE && compute_timer == 4'h8) begin
+            wordcnt_diff = wordcnt_shadow_local - wordcnt_shadow_master;
             if (wordcnt_shadow_local[31] == wordcnt_shadow_master[31]) begin
                 if (wordcnt_shadow_local[30:0] == wordcnt_shadow_master[30:0]) begin
                     wordcnts_aligned <= 1;
@@ -633,6 +655,7 @@ always @(posedge rst or posedge bitclk_local)
         slowdown_reg <= 0;
     end else begin
         if (fll_state == st_COMPUTE && compute_timer == 4'hA) begin
+            scmaster <= sample_cnt_master; // Debug
             // check if speedup is needed
 //            if  (    (sample_cnt_master[15] && (wordcnts_aligned || master_wordcnt_is_ahead))
 //                    ||
@@ -663,8 +686,11 @@ always @(posedge rst or posedge bitclk_local)
         end
     end
 
-assign Interrupt_speedup = speedup_reg;
-assign Interrupt_slowdown = slowdown_reg;
+assign  Interrupt_speedup = speedup_reg;
+assign  Interrupt_slowdown = slowdown_reg;
+
+assign  master_wordcnt_is_ahead_o = master_wordcnt_is_ahead;
+assign  local_wordcnt_is_ahead_o = local_wordcnt_is_ahead;
 
 
 endmodule
