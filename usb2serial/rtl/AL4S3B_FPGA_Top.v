@@ -28,7 +28,7 @@
 
 `timescale 1ns / 10ps
 
-module AL4S3B_FPGA_top ( 
+module top ( 
             usbp_io,
 			usbn_io,
 			usb_pu_cntrl_o,

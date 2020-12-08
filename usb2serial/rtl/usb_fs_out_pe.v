@@ -429,20 +429,12 @@ module usb_fs_out_pe #(
 					.RA		( RA_Int )	,
 					
 					.WD		(WD_Int), 
-					.WD_SEL	(1'b1), 
-					.RD_SEL	(1'b1)	,
 					.WClk		( clk ),
 					.RClk		( clk )	,
 					.WClk_En	( 1'b1  )	,
 					.RClk_En	( 1'b1  )	,
 					.WEN		( WE_Int )	,
-					.RD		( RD_Int  )	,
-					.LS		( 1'b0  )	,
-					.DS		( 1'b0  )	,
-					.SD		( 1'b0  )	,
-					.LS_RB1	( 1'b0  )	,
-					.DS_RB1	( 1'b0  )	,
-					.SD_RB1    ( 1'b0  )
+					.RD		( RD_Int  )	
 					);
 
 endmodule

@@ -106,7 +106,7 @@ module usb_fs_tx (
 
   reg data_payload = 0;
 
-  reg [31:0] pkt_state = 0;
+  reg [2:0] pkt_state = 0;
   localparam IDLE = 0;
   localparam SYNC = 1;
   localparam PID = 2;
