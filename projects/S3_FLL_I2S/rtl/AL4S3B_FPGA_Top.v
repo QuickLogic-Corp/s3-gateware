@@ -8,9 +8,9 @@ module top (
             dbg_int_speedup,
             dbg_int_slowdown,
             dbg_bitclkm,
-            dbg_bitclks,
-            dbg_master_wordcnt_is_ahead,
-            dbg_local_wordcnt_is_ahead
+            dbg_bitclks //,
+            //dbg_master_wordcnt_is_ahead,
+            //dbg_local_wordcnt_is_ahead
             );
 
 //------Port Signals-------------------
@@ -21,8 +21,8 @@ output          dbg_int_speedup;
 output          dbg_int_slowdown;
 output          dbg_bitclkm;
 output          dbg_bitclks;
-output          dbg_master_wordcnt_is_ahead;
-output          dbg_local_wordcnt_is_ahead;
+//output          dbg_master_wordcnt_is_ahead;
+//output          dbg_local_wordcnt_is_ahead;
 
 //------Define Parameters--------------
 // None at this time
@@ -219,7 +219,6 @@ qlal4s3b_cell_macro u_qlal4s3b_cell_macro (
 
 assign dbg_int_speedup  = Interrupt_speedup     ;
 assign dbg_int_slowdown = Interrupt_slowdown    ;
-
 //assign dbg_bitclkm      = bitclk_master_gclk    ;
 assign dbg_bitclkm      = bitclk_master         ;
 //assign dbg_bitclks      = bitclk_local          ;
