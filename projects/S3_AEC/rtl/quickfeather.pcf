@@ -1,0 +1,13 @@
+# set_io bitclk_master IO_4
+# set_io dbg_int_speedup IO_7
+# set_io dbg_int_slowdown IO_27
+# set_io dbg_bitclkm IO_3
+# set_io dbg_bitclks IO_8
+
+set_io bitclk_master 3
+set_io dbg_int_speedup 63
+set_io dbg_int_slowdown 28
+set_io dbg_bitclkm 2
+set_io dbg_bitclks 61
+# set_io dbg_master_wordcnt_is_ahead 22
+# set_io dbg_local_wordcnt_is_ahead 21
