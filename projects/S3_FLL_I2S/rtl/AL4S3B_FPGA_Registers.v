@@ -137,7 +137,7 @@ begin
     end  
 end
 
-assign Device_ID_o = 32'hABCD0011;
+assign Device_ID_o = 32'hABCD0100;
 assign Rev_Num     = 32'h00000100; 
 
 // Define the how to read the local registers and memory

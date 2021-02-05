@@ -5713,11 +5713,11 @@ Loading Architecture Description took 0.56 seconds (max_rss 27.5 MiB, delta_rss 
 Building complex block graph
 Building complex block graph took 0.09 seconds (max_rss 36.1 MiB, delta_rss +8.6 MiB)
 Load circuit
-Load circuit took 0.16 seconds (max_rss 62.0 MiB, delta_rss +25.9 MiB)
+Load circuit took 0.16 seconds (max_rss 62.2 MiB, delta_rss +26.0 MiB)
 Clean circuit
-Absorbed 10268 LUT buffers
+Absorbed 10185 LUT buffers
 Inferred  106 additional primitive pins as constant generators since they have no combinationally connected inputs
-Inferred   75 additional primitive pins as constant generators due to constant inputs
+Inferred   74 additional primitive pins as constant generators due to constant inputs
 Inferred    0 additional primitive pins as constant generators since they have no combinationally connected inputs
 Inferred    0 additional primitive pins as constant generators due to constant inputs
 Inferred    0 additional primitive pins as constant generators since they have no combinationally connected inputs
@@ -5726,28 +5726,28 @@ Swept input(s)      : 0
 Swept output(s)     : 0 (0 dangling, 0 constant)
 Swept net(s)        : 84
 Swept block(s)      : 1
-Constant Pins Marked: 181
-Clean circuit took 0.61 seconds (max_rss 226.6 MiB, delta_rss +164.6 MiB)
+Constant Pins Marked: 180
+Clean circuit took 0.61 seconds (max_rss 225.7 MiB, delta_rss +163.6 MiB)
 Compress circuit
-Compress circuit took 0.02 seconds (max_rss 227.1 MiB, delta_rss +0.4 MiB)
+Compress circuit took 0.02 seconds (max_rss 226.2 MiB, delta_rss +0.4 MiB)
 Verify circuit
-Verify circuit took 0.00 seconds (max_rss 227.1 MiB, delta_rss +0.0 MiB)
+Verify circuit took 0.00 seconds (max_rss 226.2 MiB, delta_rss +0.0 MiB)
 Circuit Statistics:
-  Blocks: 1445
+  Blocks: 1441
     .input    :       1
     .output   :       4
     ASSP      :       1
     BIDIR_CELL:       5
-    C_FRAG    :      55
-    F_FRAG    :       4
+    C_FRAG    :      49
+    F_FRAG    :       3
     GMUX_IC   :       4
     GND       :       1
     Q_FRAG    :     394
-    T_FRAG    :     975
+    T_FRAG    :     978
     VCC       :       1
-  Nets  : 1498
+  Nets  : 1494
     Avg Fanout:     7.0
-    Max Fanout:  3119.0
+    Max Fanout:  3122.0
     Min Fanout:     1.0
 Warning 5665: Assuming clocks may propagate through u_gclkbuff_clock0 (GMUX_IC) from pin u_gclkbuff_clock0.IC[0] to u_gclkbuff_clock0.IZ[0] (assuming a non-inverting buffer).
 Warning 5666: Assuming clocks may propagate through u_gclkbuff_clock1 (GMUX_IC) from pin u_gclkbuff_clock1.IC[0] to u_gclkbuff_clock1.IZ[0] (assuming a non-inverting buffer).
@@ -5762,14 +5762,14 @@ Warning 5672: Assumed 3 netlist logic connections may be clock buffers. To overr
 Warning 5673: Inferred implicit clock source $iopadmap$top.bitclk_master.I_DAT[0] for netlist clock $iopadmap$bitclk_master (possibly data used as clock)
 Warning 5674: Timing edge from $iopadmap$top.bitclk_master.I_EN[0] to $iopadmap$top.bitclk_master.I_DAT[0] will not be created since $iopadmap$top.bitclk_master.I_DAT[0] has been identified as a clock generator
 Warning 5675: Timing edge from $iopadmap$top.bitclk_master.I_PAD_$inp[0] to $iopadmap$top.bitclk_master.I_DAT[0] will not be created since $iopadmap$top.bitclk_master.I_DAT[0] has been identified as a clock generator
-Adding edge from 'u_gclkbuff_bitclkm.IC[0]' (tnode: 11766) -> 'u_gclkbuff_bitclkm.IZ[0]' (tnode: 11767) to allow clocks to propagate
-Adding edge from 'u_gclkbuff_clock0.IC[0]' (tnode: 11769) -> 'u_gclkbuff_clock0.IZ[0]' (tnode: 11770) to allow clocks to propagate
-Adding edge from 'u_gclkbuff_clock1.IC[0]' (tnode: 11772) -> 'u_gclkbuff_clock1.IZ[0]' (tnode: 11773) to allow clocks to propagate
-Adding edge from 'u_gclkbuff_reset.IC[0]' (tnode: 11775) -> 'u_gclkbuff_reset.IZ[0]' (tnode: 11776) to allow clocks to propagate
-  Timing Graph Nodes: 11996
-  Timing Graph Edges: 20036
+Adding edge from 'u_gclkbuff_bitclkm.IC[0]' (tnode: 11702) -> 'u_gclkbuff_bitclkm.IZ[0]' (tnode: 11703) to allow clocks to propagate
+Adding edge from 'u_gclkbuff_clock0.IC[0]' (tnode: 11705) -> 'u_gclkbuff_clock0.IZ[0]' (tnode: 11706) to allow clocks to propagate
+Adding edge from 'u_gclkbuff_clock1.IC[0]' (tnode: 11708) -> 'u_gclkbuff_clock1.IZ[0]' (tnode: 11709) to allow clocks to propagate
+Adding edge from 'u_gclkbuff_reset.IC[0]' (tnode: 11711) -> 'u_gclkbuff_reset.IZ[0]' (tnode: 11712) to allow clocks to propagate
+  Timing Graph Nodes: 11932
+  Timing Graph Edges: 19916
   Timing Graph Levels: 28
-Build Timing Graph took 0.01 seconds (max_rss 227.1 MiB, delta_rss +0.0 MiB)
+Build Timing Graph took 0.01 seconds (max_rss 226.2 MiB, delta_rss +0.0 MiB)
 Warning 5676: Assuming clocks may propagate through u_gclkbuff_clock0 (GMUX_IC) from pin u_gclkbuff_clock0.IC[0] to u_gclkbuff_clock0.IZ[0] (assuming a non-inverting buffer).
 Warning 5677: Assuming clocks may propagate through u_gclkbuff_clock1 (GMUX_IC) from pin u_gclkbuff_clock1.IC[0] to u_gclkbuff_clock1.IZ[0] (assuming a non-inverting buffer).
 Warning 5678: Assuming clocks may propagate through u_gclkbuff_bitclkm (GMUX_IC) from pin u_gclkbuff_bitclkm.IC[0] to u_gclkbuff_bitclkm.IZ[0] (assuming a non-inverting buffer).
@@ -5795,7 +5795,7 @@ Timing constraints created 4 clocks
   Constrained Clock 'Sys_Clk0' Source: 'u_qlal4s3b_cell_macro.Sys_Clk0[0]'
   Constrained Clock 'Sys_Clk1' Source: 'u_qlal4s3b_cell_macro.Sys_Clk1[0]'
 
-Load Timing Constraints took 0.00 seconds (max_rss 227.1 MiB, delta_rss +0.0 MiB)
+Load Timing Constraints took 0.00 seconds (max_rss 226.2 MiB, delta_rss +0.0 MiB)
 Timing analysis: ON
 Circuit netlist file: top.net
 Circuit placement file: top.place
@@ -5912,15 +5912,15 @@ Begin loading packed FPGA netlist file.
 Netlist generated from file 'top.net'.
 Detected 2 constant generators (to see names run with higher pack verbosity)
 Finished loading packed FPGA netlist file (took 0.3125 seconds).
-Load Packing took 0.31 seconds (max_rss 227.1 MiB, delta_rss +0.0 MiB)
+Load Packing took 0.32 seconds (max_rss 226.2 MiB, delta_rss +0.0 MiB)
 Warning 5684: Netlist contains 0 global net to non-global architecture pin connections
-Warning 5685: Logic block #561 ($false) has only 1 output pin '$false.GND0_GND[0]'. It may be a constant generator.
-Warning 5686: Logic block #562 ($true) has only 1 output pin '$true.VCC0_VCC[0]'. It may be a constant generator.
+Warning 5685: Logic block #557 ($false) has only 1 output pin '$false.GND0_GND[0]'. It may be a constant generator.
+Warning 5686: Logic block #558 ($true) has only 1 output pin '$true.VCC0_VCC[0]'. It may be a constant generator.
 
-Netlist num_nets: 1132
-Netlist num_blocks: 563
+Netlist num_nets: 1127
+Netlist num_blocks: 559
 Netlist EMPTY blocks: 0.
-Netlist PB-LOGIC blocks: 551.
+Netlist PB-LOGIC blocks: 547.
 Netlist PB-RAM blocks: 0.
 Netlist PB-BIDIR blocks: 5.
 Netlist PB-GMUX blocks: 4.
@@ -5935,21 +5935,21 @@ Netlist output pins: 14
 
 
 Pb types usage...
-  PB-LOGIC          : 551
-   LOGIC            : 551
-    FRAGS           : 551
-     c_frag_modes   : 551
-      SINGLE        : 55
-       c_frag       : 55
-      SPLIT         : 496
-       b_frag       : 496
-       t_frag       : 479
-     f_frag         : 4
+  PB-LOGIC          : 547
+   LOGIC            : 547
+    FRAGS           : 547
+     c_frag_modes   : 547
+      SINGLE        : 49
+       c_frag       : 49
+      SPLIT         : 498
+       b_frag       : 498
+       t_frag       : 480
+     f_frag         : 3
      q_frag_modes   : 394
-      INT           : 361
-       q_frag       : 361
-      EXT           : 33
-       q_frag       : 33
+      INT           : 362
+       q_frag       : 362
+      EXT           : 32
+       q_frag       : 32
   PB-BIDIR          : 5
    BIDIR            : 5
     INPUT           : 1
@@ -5975,7 +5975,7 @@ FPGA sized to 39 x 35: 1365 grid tiles (ql-eos-s3)
 
 Resource usage...
 	Netlist
-		551	blocks of type: PB-LOGIC
+		547	blocks of type: PB-LOGIC
 	Architecture
 		891	blocks of type: TL-LOGIC
 	Netlist
@@ -6017,7 +6017,7 @@ Resource usage...
 
 Device Utilization: 0.41 (target 1.00)
 	Physical Tile TL-LOGIC:
-	Block Utilization: 0.62 Logical Block: PB-LOGIC
+	Block Utilization: 0.61 Logical Block: PB-LOGIC
 	Physical Tile TL-RAM:
 	Block Utilization: 0.00 Logical Block: PB-RAM
 	Physical Tile TL-MULT:
@@ -6037,41 +6037,41 @@ Device Utilization: 0.41 (target 1.00)
 	Physical Tile TL-SYN_GND:
 	Block Utilization: 1.00 Logical Block: PB-SYN_GND
 
-# Build Device Grid took 0.01 seconds (max_rss 227.1 MiB, delta_rss +0.0 MiB)
+# Build Device Grid took 0.01 seconds (max_rss 226.2 MiB, delta_rss +0.0 MiB)
 # Loading routing resource graph
 
 
-# Loading routing resource graph took 1.06 seconds (max_rss 520.5 MiB, delta_rss +293.5 MiB)
+# Loading routing resource graph took 1.12 seconds (max_rss 514.3 MiB, delta_rss +288.1 MiB)
   RR Graph Nodes: 1396446
   RR Graph Edges: 2337988
-Create Device took 1.73 seconds (max_rss 520.5 MiB, delta_rss +293.5 MiB)
+Create Device took 1.85 seconds (max_rss 514.3 MiB, delta_rss +288.1 MiB)
 
 Load Placement
 Reading top.place.
 
 Successfully read top.place.
 
-Load Placement took 0.00 seconds (max_rss 520.5 MiB, delta_rss +0.0 MiB)
+Load Placement took 0.00 seconds (max_rss 514.3 MiB, delta_rss +0.0 MiB)
 
 Load Routing
 Begin loading FPGA routing file.
 Finished loading route file
 Warning 5687: 22 timing endpoints were not constrained during timing analysis
-Load Routing took 0.93 seconds (max_rss 520.5 MiB, delta_rss +0.0 MiB)
+Load Routing took 0.96 seconds (max_rss 514.3 MiB, delta_rss +0.0 MiB)
 
 Checking to ensure routing is legal...
 Completed routing consistency check successfully.
 
-Serial number (magic cookie) for the routing is: -1937409229
+Serial number (magic cookie) for the routing is: -766009688
 Circuit successfully routed with a channel width factor of 100.
 
-Incr Slack updates 1 in 0.0002032 sec
-Full Max Req/Worst Slack updates 1 in 3.2e-05 sec
+Incr Slack updates 1 in 0.0002028 sec
+Full Max Req/Worst Slack updates 1 in 3.25e-05 sec
 Incr Max Req/Worst Slack updates 0 in 0 sec
 Incr Criticality updates 0 in 0 sec
-Full Criticality updates 1 in 0.0003269 sec
+Full Criticality updates 1 in 0.0003314 sec
 Writing Implementation FASM: top.fasm
-The entire flow of VPR took 6.375 seconds.
+The entire flow of VPR took 6.51562 seconds.
 FASM extra: top_fasm_extra.fasm
 cd build && symbiflow_write_bitstream -d ql-eos-s3_wlcsp -f top.fasm -P PU64 -b top.bit
 Writing bitstream ...
