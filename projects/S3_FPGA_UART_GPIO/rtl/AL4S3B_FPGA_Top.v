@@ -30,11 +30,11 @@ wire            RST_IP          ;
      
 wire            WB_CLK          ; // Selected FPGA Clock
 
-wire            Sys_Clk0        ; // Selected FPGA Clock
-wire            Sys_Clk0_Rst    ; // Selected FPGA Reset
+wire            Clk_C16        ; // Selected FPGA Clock
+wire            Clk_C16_Rst    ; // Selected FPGA Reset
 
-wire            Sys_Clk1        ; // Selected FPGA Clock
-wire            Sys_Clk1_Rst    ; // Selected FPGA Reset
+wire            Clk_C21        ; // Selected FPGA Clock
+wire            Clk_C21_Rst    ; // Selected FPGA Reset
 
 // Wishbone Bus Signals
 wire    [16:0]  WBs_ADR         ; // Wishbone Address Bus
@@ -65,11 +65,11 @@ wire    [31:0]  GPIO;
 // Determine the FPGA reset
 //
 // Note: Reset the FPGA IP on either the AHB or clock domain reset signals.
-gclkbuff u_gclkbuff_reset ( .A(Sys_Clk0_Rst | WB_RST) , .Z(WB_RST_FPGA) );
-gclkbuff u_gclkbuff_clock ( .A(Sys_Clk0             ) , .Z(WB_CLK       ) );
+gclkbuff u_gclkbuff_reset ( .A(Clk_C16_Rst | WB_RST) , .Z(WB_RST_FPGA) );
+gclkbuff u_gclkbuff_clock ( .A(Clk_C16             ) , .Z(WB_CLK       ) );
 
-assign RST_IP = Sys_Clk1_Rst;
-assign CLK_IP = Sys_Clk1;
+assign RST_IP = Clk_C21_Rst;
+assign CLK_IP = Clk_C21;
 
 assign GPIO_io = GPIO[3:0];
 
@@ -134,10 +134,10 @@ qlal4s3b_cell_macro u_qlal4s3b_cell_macro (
     .FB_Busy                   (  1'b0                       ), // input
 
     // FB Clocks
-    .Sys_Clk0                  ( Sys_Clk0                    ), // output
-    .Sys_Clk0_Rst              ( Sys_Clk0_Rst                ), // output
-    .Sys_Clk1                  ( Sys_Clk1                    ), // output
-    .Sys_Clk1_Rst              ( Sys_Clk1_Rst                ), // output
+    .Clk_C16                   ( Clk_C16                     ), // output
+    .Clk_C16_Rst               ( Clk_C16_Rst                 ), // output
+    .Clk_C21                   ( Clk_C21                     ), // output
+    .Clk_C21_Rst               ( Clk_C21_Rst                 ), // output
 
     // Packet FIFO
     .Sys_PKfb_Clk              (  1'b0                       ), // input
