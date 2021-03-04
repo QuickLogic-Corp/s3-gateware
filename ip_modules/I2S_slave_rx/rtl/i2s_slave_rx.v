@@ -144,8 +144,8 @@ assign push_right_o = ~i2s_ws_dl &  i2s_ws_d2 & i2s_dll_2;
  );
  */
  
-gclkbuff u_gclkbuff_i2s_clk ( .A(i2s_clk_i) , .Z(i2s_clk_int)); 
-//assign i2s_clk_int = i2s_clk_i;
+//gclkbuff u_gclkbuff_i2s_clk ( .A(i2s_clk_i) , .Z(i2s_clk_int)); 
+assign i2s_clk_int = i2s_clk_i;
 
 // Define the registers associated with the Command Queue Statemachine
 //

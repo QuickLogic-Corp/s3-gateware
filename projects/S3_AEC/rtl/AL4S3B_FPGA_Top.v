@@ -2,40 +2,40 @@
 `timescale 1ns / 10ps
 
 module top ( 
-            bitclk_master,
+            //bitclk_master,
 
 			I2S_CLK_i,
-			I2S_CLK_o,//Added for Fixing Bootstrap issue
+			//I2S_CLK_o,//Added for Fixing Bootstrap issue
 			I2S_WS_CLK_i,
 			I2S_DIN_i
 
             // debug outputs
-            dbg_int_speedup,
-            dbg_int_slowdown,
-            dbg_bitclkm,
-            dbg_bitclks //,
+            //dbg_int_speedup,
+            //dbg_int_slowdown,
+            //dbg_bitclkm,
+            //dbg_bitclks //,
             //dbg_master_wordcnt_is_ahead,
             //dbg_local_wordcnt_is_ahead
             );
 
 //------Port Signals-------------------
 
-input           bitclk_master;
+//input           bitclk_master;
 
 input           I2S_CLK_i;
-output          I2S_CLK_o;
+//output          I2S_CLK_o;
 input           I2S_WS_CLK_i;
 input           I2S_DIN_i;
 
-output          dbg_int_speedup;
-output          dbg_int_slowdown;
-output          dbg_bitclkm;
-output          dbg_bitclks;
+//output          dbg_int_speedup;
+//output          dbg_int_slowdown;
+//output          dbg_bitclkm;
+//output          dbg_bitclks;
 //output          dbg_master_wordcnt_is_ahead;
 //output          dbg_local_wordcnt_is_ahead;
 
 wire            I2S_CLK_i;
-wire            I2S_CLK_o;
+//wire            I2S_CLK_o;
 wire            I2S_WS_CLK_i;
 wire            I2S_DIN_i;
 
@@ -90,6 +90,7 @@ wire            dbg_bitclks         ;
 wire            I2S_RX_Intr   ; 
 wire            I2S_DMA_Intr  ; 
 wire            I2S_Dis_Intr  ;
+wire            I2S_Intr      ;
 
 wire            SDMA_Req_I2S   ; 
 wire            SDMA_Sreq_I2S  ;
@@ -105,21 +106,23 @@ wire    [2:0]   SDMA_Active_Extra;
 //
 // Note: Reset the FPGA IP on either the AHB or clock domain reset signals.
 gclkbuff u_gclkbuff_reset   ( .A(Sys_Clk0_Rst | WB_RST) , .Z(WB_RST_FPGA) );
-gclkbuff u_gclkbuff_clock0  ( .A(Sys_Clk0             ) , .Z(WB_CLK       ) );
+//gclkbuff u_gclkbuff_clock0  ( .A(Sys_Clk0             ) , .Z(WB_CLK       ) );
+gclkbuff u_gclkbuff_clock0  ( .A(Sys_Clk0             ) , .Z(CLK_IP) );
 
 gclkbuff u_gclkbuff_clock1  ( .A(Sys_Clk1             ) , .Z(bitclk_local       ) );
 
 assign RST_IP = Sys_Clk1_Rst;
-assign CLK_IP = bitclk_local;
+//assign CLK_IP = bitclk_local;
+assign WB_CLK = CLK_IP;
 
-gclkbuff u_gclkbuff_bitclkm  ( .A(bitclk_master) , .Z(bitclk_master_gclk) );
+//gclkbuff u_gclkbuff_bitclkm  ( .A(bitclk_master) , .Z(bitclk_master_gclk) );
+gclkbuff u_gclkbuff_bitclkm  ( .A(I2S_CLK_i) , .Z(bitclk_master_gclk) );
 
 
+//assign I2S_CLK_o = I2S_CLK_i;//for bootstrap issue fix
 
-assign I2S_CLK_o = I2S_CLK_i;//for bootstrap issue fix
 
-assign SDMA_Done_Extra = 3'b0;
-assign SDMA_Active_Extra = 3'b0;
+assign I2S_Intr = I2S_Dis_Intr || I2S_DMA_Intr || I2S_RX_Intr;
 
 //------Instantiate Modules------------
 
@@ -194,7 +197,7 @@ qlal4s3b_cell_macro u_qlal4s3b_cell_macro (
     .SDMA_Active               ({SDMA_Active_Extra,SDMA_Active_I2S}), // output  [3:0]
 
     // FB Interrupts
-    .FB_msg_out                ({1'b0, 1'b0, Interrupt_speedup, Interrupt_slowdown}), // input   [3:0]
+    .FB_msg_out                ({1'b0, I2S_Intr, Interrupt_speedup, Interrupt_slowdown}), // input   [3:0]
 
     .FB_Int_Clr                (  8'h0                       ), // input   [7:0]
     .FB_Start                  (                             ), // output

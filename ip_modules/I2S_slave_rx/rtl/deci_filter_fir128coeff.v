@@ -805,10 +805,15 @@ assign I2S_ram_write_ena_sync_firclk = (I2S_ram_write_ena_sync_firclk1 && ~I2S_r
 //assign fir_ram_rd_ena = ~fir_indata_rd_en_sig1 & fir_indata_rd_en_sig; 
 //assign fir_ram_rd_ena = fir_deci_data_push_sig; 
 assign fir_ram_rd_ena = fir_sum_done; 
-	
-always @( posedge fir_clk_i or posedge fir_reset_i or posedge deci_done)
+
+wire I2S_ram_data_cntr_rst;
+assign I2S_ram_data_cntr_rst = fir_reset_i | deci_done;
+
+//always @( posedge fir_clk_i or posedge fir_reset_i or posedge deci_done)
+always @( posedge fir_clk_i or posedge I2S_ram_data_cntr_rst)
 begin
-     if (fir_reset_i | deci_done)
+     //if (fir_reset_i | deci_done)
+     if (I2S_ram_data_cntr_rst)
 	 begin
 	    //I2S_ram_data_cntr  <= {3{1'b0}};
 	    I2S_ram_data_cntr  <= 3'b010;//Start with 2 as the first calculation is done as soon as first sample is available. 

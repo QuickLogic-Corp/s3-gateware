@@ -396,7 +396,8 @@ reg [15:0]  			Fifo_dat_r_lo;
 reg [15:0]              acslip_timer_reg;
 //reg [7:0]               acslip_timer_cntr;
 reg [15:0]               acslip_timer_cntr;
-reg 					acslip_timer_int;
+//reg 					acslip_timer_int;
+wire 					acslip_timer_int;
 
 reg acslip_timer_int_wb_r1;
 reg acslip_timer_int_wb_r2;
@@ -719,6 +720,7 @@ end
 
 
 //ACSLIP interrupt generation
+/*
 always @( posedge sys_ref_clk_i or posedge WBs_RST_i or posedge acslip_reg_rst)
 begin
     if (WBs_RST_i | acslip_reg_rst)
@@ -740,6 +742,8 @@ begin
 		end
 	end
 end	
+*/
+assign acslip_timer_int   = 0;
 
 always @( posedge WBs_CLK_i or posedge WBs_RST_i)
 begin

@@ -31,7 +31,7 @@ module AL4S3B_FPGA_IP (
                 Interrupt_slowdown,
 
 				//I2S signals
-				I2S_CLK_i,
+				//I2S_CLK_i,        // same as bitclk_master
 				I2S_WS_CLK_i,
 				I2S_DIN_i,
 				
@@ -128,7 +128,7 @@ output          Interrupt_speedup;
 output          Interrupt_slowdown;
 
 // I2S Slave I/F
-input 			I2S_CLK_i		;
+//input 			I2S_CLK_i		;
 input 			I2S_WS_CLK_i	;
 input 			I2S_DIN_i		;
 
@@ -177,7 +177,7 @@ wire            Interrupt_slowdown;
 
 
 //I2S slave signals
-wire 			I2S_CLK_i		;
+//wire 			I2S_CLK_i		;
 wire 			I2S_WS_CLK_i	;
 wire 			I2S_DIN_i		;
 
@@ -249,8 +249,42 @@ wire 					wb_coeff_RAM_access_ctrl_sig;
 wire 					sys_c21_div16_sig;
 wire 					i2s_clk_div3_sig;
 
+wire                    i2s_Clock_Stoped_sig;
+
+wire                    sys_ref_clk_i;  // driven by C21 in old design, expected to be 256KHz
+                                        // since C21 is now 3MHz, we need to div by 12 to generate this clock
+
+
 //------Logic Operations---------------
-//
+
+
+// div by 12 to produce a 256KHz clock
+reg                     sys_ref_clk_div12;
+reg     [3:0]           sys_ref_clk_cnt;
+wire                    sys_ref_clk_div12_gclk;
+
+// 0 1 2 3 4 5 6 7 8 9 A B C D  - input clk cnt @3MHz
+// 0 0 0 0 0 0 1 1 1 1 1 1 0 0  - div12 clk @256KHz
+always @(posedge bitclk_local or posedge RST_IP_i)
+    if (RST_IP_i) begin
+        sys_ref_clk_cnt <= 0;
+        sys_ref_clk_div12 <= 0;
+    end else begin
+        if (sys_ref_clk_cnt == 4'hB)
+            sys_ref_clk_cnt <= 0;
+        else
+            sys_ref_clk_cnt <= sys_ref_clk_cnt + 1;
+
+        if (sys_ref_clk_cnt == 4'h5 || sys_ref_clk_cnt == 4'hB)
+            sys_ref_clk_div12 <= !sys_ref_clk_div12;
+        else
+            sys_ref_clk_div12 <= sys_ref_clk_div12;
+    end
+
+gclkbuff u_gclkbuff_sys_clk_div12  ( .A(sys_ref_clk_div12) , .Z(sys_ref_clk_div12_gclk) );
+
+
+
 // Define the Chip Select for each interface
 //  Note: this isn't needed for modules that properly decode the WB addr internally
 
@@ -384,9 +418,11 @@ i2s_slave_w_DMA
         .WBs_COEF_RAM_DAT_o        ( WBs_COEF_RAM_DAT               ),
         .WBs_ACK_o                 ( WBs_ACK_I2S_S                  ),
         
-        .sys_ref_clk_i		   ( sys_ref_clk_i ),
+        //.sys_ref_clk_i		   ( sys_ref_clk_i ),
+        .sys_ref_clk_i		       (sys_ref_clk_div12_gclk          ),
 
-        .I2S_CLK_i                 ( I2S_CLK_i             			),  
+        //.I2S_CLK_i                 ( I2S_CLK_i             			),  
+        .I2S_CLK_i                 ( bitclk_master                  ),  
         .I2S_WS_CLK_i              ( I2S_WS_CLK_i              		),
         .I2S_DIN_i           	   ( I2S_DIN_i                      ),
 
@@ -429,7 +465,8 @@ deci_filter_fir128coeff u_deci_filter_fir128coeff (
         .fir_clk_i				( WB_CLK  ),
         .fir_reset_i			( WB_RST  ),
         .fir_deci_ena_i			( FIR_ena_sig  ),
-        .fir_filter_run_i		(FIR_FILTER_RUN_M4_CMD_SIG),
+        //.fir_filter_run_i		(FIR_FILTER_RUN_M4_CMD_SIG),
+        .fir_filter_run_i		(0),
         
         //Coeff RAM Write interface
         .WBs_CLK_i                 ( WB_CLK                      	),
