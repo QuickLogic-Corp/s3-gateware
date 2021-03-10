@@ -484,9 +484,11 @@ assign FIR_DECI_CONTROL_REG_Wr_Dcd 		    = ( WBs_ADR_i == FIR_DECI_CNTRL_REG_ADR
 //assign FIR_PREDECI_RAM_ADDR_REG_Wr_Dcd 		= ( (WBs_ADR_i[ADDRWIDTH:ADDRWIDTH-1] == FIR_PREDECI_RAM_STRT_ADDR1[9:8]) || (WBs_ADR_i[ADDRWIDTH:ADDRWIDTH-1] == FIR_PREDECI_RAM_STRT_ADDR2[9:8])) & WBs_CYC_i & WBs_STB_i & WBs_WE_i & (~WBs_ACK_sig) ;
 //assign FIR_COEFF_RAM_ADDR_REG_Wr_Dcd 		= ( (WBs_ADR_i[ADDRWIDTH:ADDRWIDTH-1] == FIR_COEFF_RAM_ADDR1[9:8]) ) & WBs_CYC_i & WBs_STB_i & WBs_WE_i & (~WBs_ACK_sig) ;
  
-
-assign FIR_PREDECI_RAM_ADDR_REG_Wr_Dcd 		= ( WBs_ADR_i[9] == FIR_PREDECI_RAM_STRT_ADDR1[9] ) & WBs_CYC_I2S_PREDECI_RAM_i & WBs_STB_i & WBs_WE_i & (~WBs_ACK_sig) ; 
-assign FIR_COEFF_RAM_ADDR_REG_Wr_Dcd 		= ( WBs_ADR_i[9] == FIR_COEFF_RAM_ADDR1[9] ) & WBs_CYC_FIR_COEFF_RAM_i & WBs_STB_i & WBs_WE_i & (~WBs_ACK_sig) ; 
+// [RO] we shouldn't need to decode any address bits, since the full module decode is done externally
+//assign FIR_PREDECI_RAM_ADDR_REG_Wr_Dcd 		= ( WBs_ADR_i[9] == FIR_PREDECI_RAM_STRT_ADDR1[9] ) & WBs_CYC_I2S_PREDECI_RAM_i & WBs_STB_i & WBs_WE_i & (~WBs_ACK_sig) ; 
+//assign FIR_COEFF_RAM_ADDR_REG_Wr_Dcd 		= ( WBs_ADR_i[9] == FIR_COEFF_RAM_ADDR1[9] ) & WBs_CYC_FIR_COEFF_RAM_i & WBs_STB_i & WBs_WE_i & (~WBs_ACK_sig) ; 
+assign FIR_PREDECI_RAM_ADDR_REG_Wr_Dcd 		= WBs_CYC_I2S_PREDECI_RAM_i & WBs_STB_i & WBs_WE_i & (~WBs_ACK_sig) ; 
+assign FIR_COEFF_RAM_ADDR_REG_Wr_Dcd 		= WBs_CYC_FIR_COEFF_RAM_i & WBs_STB_i & WBs_WE_i & (~WBs_ACK_sig) ; 
    
    
 // Define the Acknowledge back to the host for registers

@@ -62,9 +62,12 @@ parameter       APERSIZE                    = 10            ;
                                                                 // these are byte offsets.
 parameter       FPGA_REG_BASE_ADDRESS       = 17'h00000     ; 
 parameter       FLL_BASE_ADDRESS            = 17'h01000     ;
-parameter       I2S_RAM_REG_BASE_ADDRESS    = 17'h02000     ; 
-parameter       I2S_S_REG_BASE_ADDRESS      = 17'h03000     ; 
-parameter       FIR_COEFF_REG_BASE_ADDRESS  = 17'h04000     ; 
+
+parameter       I2S_SLV_MODULE_OFFSET       = 17'h02000     ;
+parameter       I2S_RAM_REG_BASE_ADDRESS    = I2S_SLV_MODULE_OFFSET + 17'h00000     ; 
+parameter       I2S_S_REG_BASE_ADDRESS      = I2S_SLV_MODULE_OFFSET + 17'h01000     ; 
+parameter       FIR_COEFF_REG_BASE_ADDRESS  = I2S_SLV_MODULE_OFFSET + 17'h02000     ; 
+
 parameter       QL_RESERVED_BASE_ADDRESS    = 17'h05000     ; 
 
 parameter       ADDRWIDTH_FAB_REG           =  10           ;
@@ -291,13 +294,13 @@ gclkbuff u_gclkbuff_sys_clk_div12  ( .A(sys_ref_clk_div12) , .Z(sys_ref_clk_div1
 assign WBs_CYC_FPGA_Reg   = (  WBs_ADR[APERWIDTH-1:APERSIZE+2] == FPGA_REG_BASE_ADDRESS[APERWIDTH-1:APERSIZE+2] ) 
                             & (  WBs_CYC                                                                                );
 
-assign WBs_CYC_I2S_PREDECI_RAM  = (  WBs_ADR[APERWIDTH-1:APERSIZE+2] == I2S_RAM_REG_BASE_ADDRESS    [APERWIDTH-1:APERSIZE+2] ) 
+assign WBs_CYC_I2S_PREDECI_RAM  = (  WBs_ADR[APERWIDTH-1:APERSIZE+2] == I2S_RAM_REG_BASE_ADDRESS[APERWIDTH-1:APERSIZE+2] ) 
                             & (  WBs_CYC                                                                                );							
 
-assign WBs_CYC_I2S_S       		= (  WBs_ADR[APERWIDTH-1:APERSIZE+2] == I2S_S_REG_BASE_ADDRESS    [APERWIDTH-1:APERSIZE+2] ) 
+assign WBs_CYC_I2S_S       		= (  WBs_ADR[APERWIDTH-1:APERSIZE+2] == I2S_S_REG_BASE_ADDRESS[APERWIDTH-1:APERSIZE+2] ) 
                             & (  WBs_CYC                                                                                );
 
-assign WBs_CYC_FIR_COEFF_RAM    = (  WBs_ADR[APERWIDTH-1:APERSIZE+2] == FIR_COEFF_REG_BASE_ADDRESS    [APERWIDTH-1:APERSIZE+2] ) 
+assign WBs_CYC_FIR_COEFF_RAM    = (  WBs_ADR[APERWIDTH-1:APERSIZE+2] == FIR_COEFF_REG_BASE_ADDRESS[APERWIDTH-1:APERSIZE+2] ) 
                             & (  WBs_CYC                                                                                );	
 
 assign WBs_CYC_QL_Reserved  = (  WBs_ADR[APERWIDTH-1:APERSIZE+2] == QL_RESERVED_BASE_ADDRESS[APERWIDTH-1:APERSIZE+2] ) 
