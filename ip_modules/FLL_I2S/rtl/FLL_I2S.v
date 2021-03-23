@@ -143,6 +143,10 @@ reg     [31:0]  reg_sample_gap  ;
 reg     [31:0]  wordcnt_diff    ;
 reg     [15:0]  scmaster        ;
 
+reg     [31:0]  wordcnt_shadow_local;
+reg     [31:0]  wordcnt_shadow_master;
+
+
 
 assign module_decode = (WBs_ADR_i[16:ADDRWIDTH] == MODULE_OFFSET[16:ADDRWIDTH]);
 
@@ -272,9 +276,6 @@ reg     [7:0]   bitcnt_master;
 
 reg     [31:0]  wordcnt_local;
 reg     [31:0]  wordcnt_master;
-
-reg     [31:0]  wordcnt_shadow_local;
-reg     [31:0]  wordcnt_shadow_master;
 
 
 always @(posedge rst or posedge bitclk_local)

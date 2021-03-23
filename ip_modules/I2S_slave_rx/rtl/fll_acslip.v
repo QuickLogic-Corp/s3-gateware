@@ -115,7 +115,9 @@ assign  cnt_mic_dat_o  = cnt_mic_dat;
 assign  cnt_i2s_dat_o  = cnt_i2s_dat;
 
 
-assign ACLSIP_Reg_o = aclsip_reg;
+// [RO] disable
+//assign ACLSIP_Reg_o = aclsip_reg;
+assign ACLSIP_Reg_o = 0;
 
 //assign acslip_rst = wbs_rst_i | ACSLIP_Reg_Rst_i | ~ACSLIP_EN_i;
 assign acslip_rst = wbs_rst_i | ACSLIP_Reg_Rst_i | ~ACSLIP_EN_i | ~i2s_en_i;

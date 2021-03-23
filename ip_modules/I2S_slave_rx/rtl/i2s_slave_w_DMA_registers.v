@@ -105,6 +105,9 @@ module i2s_slave_w_DMA_registers (
 				
 			I2S_Dis_IRQ_o,
 			I2S_Dis_IRQ_EN_o,
+
+			I2S_Con_IRQ_o,
+			I2S_Con_IRQ_EN_o,
 			
 			DMA_CNT_o,
             DMA_Start_o,           
@@ -239,6 +242,9 @@ output					 DMA_Done_IRQ_EN_o;
 output             		 I2S_Dis_IRQ_o; 
 output             		 I2S_Dis_IRQ_EN_o;
 
+output             		 I2S_Con_IRQ_o; 
+output             		 I2S_Con_IRQ_EN_o;
+
 input	 				 DMA_Done_i;
 input	 				 DMA_Active_i; 
 input	 				 DMA_REQ_i;
@@ -316,6 +322,9 @@ reg                      Deci_Done_IRQ_EN_o ;
 
 reg              		 I2S_Dis_IRQ_o;
 reg              		 I2S_Dis_IRQ_EN_o;
+
+reg              		 I2S_Con_IRQ_o;
+reg              		 I2S_Con_IRQ_EN_o;
 
 reg                      ACSLIP_timer_IRQ_EN_o;
 reg                      ACSLIP_timer_IRQ_o;
@@ -429,7 +438,9 @@ assign DeciData_Rx_FIFO_Flush_o = Deci_Rx_FIFO_Flush;
 
 assign Deci_Done_IRQ_o = deci_done_irq;
 
-assign ACSLIP_Reg_Rst_o = acslip_reg_rst;
+// [RO] disable
+//assign ACSLIP_Reg_Rst_o = acslip_reg_rst;
+assign ACSLIP_Reg_Rst_o = 0;
 
 assign DMA_Start 			= (DeciData_Rx_FIFO_Level_i >= DMA_CNT_o )? 1'b1 : 1'b0; 
 assign DMA_Start_o 			= DMA_Start & DMA_EN;
@@ -518,6 +529,8 @@ begin
 		ACSLIP_timer_IRQ_EN_o       	    <= 1'b0;
 		I2S_Dis_IRQ_o       				<= 1'b0;
 		I2S_Dis_IRQ_EN_o    				<= 1'b0;
+		I2S_Con_IRQ_o       				<= 1'b0;
+		I2S_Con_IRQ_EN_o    				<= 1'b0;
 		DMA_Done_IRQ_o	 					<= 1'b0;
 		DMA_Done_IRQ_EN_o					<= 1'b0;
 		deci_done_irq	 					<= 1'b0;
@@ -542,7 +555,9 @@ begin
 	    if ( I2S_EN_REG_Wr_Dcd && WBs_BYTE_STB_i[0])
         begin
             I2S_S_EN_o  <=  WBs_DAT_i[0];
-			ACSLIP_EN_o <=  WBs_DAT_i[2];
+			// [RO] disable acslip
+			//ACSLIP_EN_o <=  WBs_DAT_i[2];
+			ACSLIP_EN_o <=  0;
 		end	
 		else if (i2s_dis_i)
 		    I2S_S_EN_o  <=  1'b0;
@@ -555,10 +570,13 @@ begin
 			//LR_CHNL_SEL_o  <=  WBs_DAT_i[3];
 	    end
 		
+		// [RO] disable acslip
+		/*
 	    if ( ACSLIP_RST_REG_Wr_Dcd && WBs_BYTE_STB_i[0])
 		begin
 		     acslip_reg_rst <= WBs_DAT_i[0];
 	    end
+	    */
 /*         else
         begin
 			 acslip_reg_rst <= 1'b0;
@@ -582,17 +600,24 @@ begin
             FIR_deci_en      <=  WBs_DAT_i[0];
 		end	
 		
+        // [RO] disable acslip
+        /*
         if ( ACSLIP_TIMER_REG_Wr_Dcd && WBs_BYTE_STB_i[0])
 		begin
             //acslip_timer_reg  <=  WBs_DAT_i[7:0];
             acslip_timer_reg  <=  WBs_DAT_i[15:0];
 		end	
+		*/
         
 		
 			
 		if ( INTR_EN_REG_Wr_Dcd && WBs_BYTE_STB_i[0])
 		begin
-		    ACSLIP_timer_IRQ_EN_o           <=  WBs_DAT_i[4];
+		    I2S_Con_IRQ_EN_o     		    <=  WBs_DAT_i[5];
+
+		    // [RO] disable acslip
+		    //ACSLIP_timer_IRQ_EN_o           <=  WBs_DAT_i[4];
+
 		    I2S_Dis_IRQ_EN_o     		    <=  WBs_DAT_i[3];
 		    DeciData_Rx_DAT_AVL_IRQ_EN_o    <=  WBs_DAT_i[2];
 		    Deci_Done_IRQ_EN_o              <=  WBs_DAT_i[1];
@@ -609,6 +634,10 @@ begin
             I2S_Dis_IRQ_o   <=  i2s_dis_i ? 1'b1 : WBs_DAT_i[3];
         end
 		
+		if ( (INTR_STS_REG_Wr_Dcd && WBs_BYTE_STB_i[0]) || !i2s_dis_i)
+        begin
+            I2S_Con_IRQ_o   <=  !i2s_dis_i ? 1'b1 : WBs_DAT_i[5];
+        end
 		
 		if ( (INTR_STS_REG_Wr_Dcd && WBs_BYTE_STB_i[0]) || FIR_DECI_Done_i )
         begin
@@ -616,10 +645,14 @@ begin
         end		
 		
 		//if ( (INTR_STS_REG_Wr_Dcd && WBs_BYTE_STB_i[0]) || acslip_timer_int)
+
+		// [RO] disable acslip
+		/*
 		if ( (INTR_STS_REG_Wr_Dcd && WBs_BYTE_STB_i[0]) || acslip_timer_int_wbsync_pulse)
         begin
             ACSLIP_timer_IRQ_o   <=  acslip_timer_int_wbsync_pulse ? 1'b1 : WBs_DAT_i[4];
         end			
+        */
 		
 		
 	    if ( DMA_CNT_REG_Wr_Dcd && WBs_BYTE_STB_i[0])
@@ -650,6 +683,8 @@ assign FIR_ena_o = FIR_deci_en;
 // Define the how to read the local registers and memory
 //
 always @(
+        *
+        /*
          WBs_ADR_i              		or
 		 I2S_S_EN_o             		or
 		 ACSLIP_EN_o             		or
@@ -692,23 +727,45 @@ always @(
 		 //R_Rx_FIFO_Empty        or
 		 //R_Rx_FIFO_Level        or		 
 		 //LR_RXFIFO_DAT
+		 */
  )
  begin
     //case(WBs_ADR_i[ADDRWIDTH-1:0])
     case(WBs_ADR_i[ADDRWIDTH:0])
-    I2S_EN_REG_ADR        : WBs_DAT_o <= { 28'h0,wb_coeff_ram_rd_access_ctrl_sig,ACSLIP_EN_o, wb_FIR_L_PreDeci_RAM_wrMASTER_CTRL,I2S_S_EN_o}; 
-	ACSLIP_REG_RST_ADR    : WBs_DAT_o <= { 31'h0, acslip_reg_rst};
-	INTR_STS_REG_ADR      : WBs_DAT_o <= { 27'h0, ACSLIP_timer_IRQ_o, I2S_Dis_IRQ_o, 1'b0,DeciData_Rx_FIFO_DAT_IRQ_o,DMA_Done_IRQ_o};//INTR_STS_REG_ADR      : WBs_DAT_o <= { 28'h0, I2S_Dis_IRQ_o, R_RX_DAT_IRQ_o,DeciData_Rx_FIFO_DAT_IRQ_o,DMA_Done_IRQ_o};
-	INTR_EN_REG_ADR       : WBs_DAT_o <= { 27'h0, ACSLIP_timer_IRQ_EN_o,I2S_Dis_IRQ_EN_o,DeciData_Rx_DAT_AVL_IRQ_EN_o, Deci_Done_IRQ_EN_o, DMA_Done_IRQ_EN_o};//{ 28'h0, I2S_Dis_IRQ_EN_o,R_RX_DAT_IRQ_EN_o, DeciData_Rx_DAT_AVL_IRQ_EN_o, DMA_Done_IRQ_EN_o};
+
+    // [RO] disable acslip
+    //I2S_EN_REG_ADR        : WBs_DAT_o <= { 28'h0,wb_coeff_ram_rd_access_ctrl_sig,ACSLIP_EN_o, wb_FIR_L_PreDeci_RAM_wrMASTER_CTRL,I2S_S_EN_o}; 
+    I2S_EN_REG_ADR        : WBs_DAT_o <= { 28'h0,wb_coeff_ram_rd_access_ctrl_sig,1'b0, wb_FIR_L_PreDeci_RAM_wrMASTER_CTRL,I2S_S_EN_o}; 
+
+	// [RO] disable acslip
+	//ACSLIP_REG_RST_ADR    : WBs_DAT_o <= { 31'h0, acslip_reg_rst};
+	ACSLIP_REG_RST_ADR    : WBs_DAT_o <= { 31'h0, 1'b0};
+
+	// [RO] disable acslip
+	//INTR_STS_REG_ADR      : WBs_DAT_o <= { 26'h0, I2S_Con_IRQ_o, ACSLIP_timer_IRQ_o, I2S_Dis_IRQ_o, 1'b0,DeciData_Rx_FIFO_DAT_IRQ_o,DMA_Done_IRQ_o};//INTR_STS_REG_ADR      : WBs_DAT_o <= { 28'h0, I2S_Dis_IRQ_o, R_RX_DAT_IRQ_o,DeciData_Rx_FIFO_DAT_IRQ_o,DMA_Done_IRQ_o};
+	INTR_STS_REG_ADR      : WBs_DAT_o <= { 26'h0, I2S_Con_IRQ_o, 1'b0, I2S_Dis_IRQ_o, 1'b0,DeciData_Rx_FIFO_DAT_IRQ_o,DMA_Done_IRQ_o};//INTR_STS_REG_ADR      : WBs_DAT_o <= { 28'h0, I2S_Dis_IRQ_o, R_RX_DAT_IRQ_o,DeciData_Rx_FIFO_DAT_IRQ_o,DMA_Done_IRQ_o};
+
+	// [RO] disable acslip
+	//INTR_EN_REG_ADR       : WBs_DAT_o <= { 26'h0, I2S_Con_IRQ_EN_o, ACSLIP_timer_IRQ_EN_o,I2S_Dis_IRQ_EN_o,DeciData_Rx_DAT_AVL_IRQ_EN_o, Deci_Done_IRQ_EN_o, DMA_Done_IRQ_EN_o};//{ 28'h0, I2S_Dis_IRQ_EN_o,R_RX_DAT_IRQ_EN_o, DeciData_Rx_DAT_AVL_IRQ_EN_o, DMA_Done_IRQ_EN_o};
+	INTR_EN_REG_ADR       : WBs_DAT_o <= { 26'h0, I2S_Con_IRQ_EN_o, 1'b0 ,I2S_Dis_IRQ_EN_o,DeciData_Rx_DAT_AVL_IRQ_EN_o, Deci_Done_IRQ_EN_o, DMA_Done_IRQ_EN_o};//{ 28'h0, I2S_Dis_IRQ_EN_o,R_RX_DAT_IRQ_EN_o, DeciData_Rx_DAT_AVL_IRQ_EN_o, DMA_Done_IRQ_EN_o};
+
 	DECI_FIFO_STS_REG_ADR : WBs_DAT_o <= { 16'h0, Deci_Rx_FIFO_Full,Deci_Rx_FIFO_Empty,7'h0, DeciData_Rx_FIFO_Level_i};  
 	DECI_FIFO_DATA_REG_ADR : WBs_DAT_o <= { Fifo_dat_r_up,Fifo_dat_r_lo};  
 	//ACSLIP_REG_ADR        : WBs_DAT_o <= { 16'h0,6'h0, ACLSIP_Reg_i};
-	ACSLIP_REG_ADR        : WBs_DAT_o <=  ACLSIP_Reg_r1;
+
+	// [RO] disable acslip
+	//ACSLIP_REG_ADR        : WBs_DAT_o <=  ACLSIP_Reg_r1;
+	ACSLIP_REG_ADR        : WBs_DAT_o <=  0;
+
 	DECI_FIFO_RST_ADR     : WBs_DAT_o <= { 31'h0, Deci_Rx_FIFO_Flush};
     DMA_EN_REG_ADR   	  : WBs_DAT_o <= { 31'h0, DMA_EN };
 	DMA_STS_REG_ADR  	  : WBs_DAT_o <= { DMA_Status};
 	DMA_CNT_REG_ADR  	  : WBs_DAT_o <= { 23'h0, DMA_CNT_o};
-	ACSLIP_TIMER_REG_ADR  : WBs_DAT_o <= { 16'h0, acslip_timer_reg};
+
+	// [RO] disable acslip
+	//ACSLIP_TIMER_REG_ADR  : WBs_DAT_o <= { 16'h0, acslip_timer_reg};
+	ACSLIP_TIMER_REG_ADR  : WBs_DAT_o <= { 16'h0, 16'b0};
+
 	FIR_DECI_CNTRL_REG_ADR : WBs_DAT_o <= { 30'h0, FIR_deci_int_en, FIR_deci_en};
 	MIC_DAT_CNT_ADR 	  : WBs_DAT_o <= cnt_mic_dat_r;
 `ifdef AEC_1_0	
@@ -763,7 +820,9 @@ begin
     end
 end
 
-assign acslip_timer_int_wbsync_pulse = acslip_timer_int_wb_r2 & ~acslip_timer_int_wb_r3;
+// [RO] disable acslip
+//assign acslip_timer_int_wbsync_pulse = acslip_timer_int_wb_r2 & ~acslip_timer_int_wb_r3;
+assign acslip_timer_int_wbsync_pulse = 0;
 	 
 always @( posedge WBs_CLK_i or posedge WBs_RST_i)
 begin

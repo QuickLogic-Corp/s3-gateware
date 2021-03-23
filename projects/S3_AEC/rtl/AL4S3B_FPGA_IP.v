@@ -38,6 +38,7 @@ module AL4S3B_FPGA_IP (
 				I2S_RX_Intr_o,
 				I2S_DMA_Intr_o,
 				I2S_Dis_Intr_o,
+				I2S_Con_Intr_o,
 				UART_Intr_o,
 				
 				SDMA_Req_I2S_o,
@@ -138,6 +139,7 @@ input 			I2S_DIN_i		;
 output          I2S_RX_Intr_o   ;				
 output          I2S_DMA_Intr_o  ;	
 output          I2S_Dis_Intr_o  ;
+output          I2S_Con_Intr_o  ;
 output          UART_Intr_o      ;
 
 input 			SDMA_Done_I2S_i	;
@@ -187,6 +189,7 @@ wire 			I2S_DIN_i		;
 wire          	I2S_RX_Intr_o   ;				
 wire          	I2S_DMA_Intr_o  ;	
 wire          	I2S_Dis_Intr_o  ;
+wire          	I2S_Con_Intr_o  ;
 
 wire 			SDMA_Done_I2S_i	;
 wire 			SDMA_Active_I2S_i;
@@ -257,6 +260,9 @@ wire                    i2s_Clock_Stoped_sig;
 wire                    sys_ref_clk_i;  // driven by C21 in old design, expected to be 256KHz
                                         // since C21 is now 3MHz, we need to div by 12 to generate this clock
 
+                                        
+// [RO] debug
+wire    [31:0]  debug_FIR_data;
 
 //------Logic Operations---------------
 
@@ -346,7 +352,8 @@ AL4S3B_FPGA_Registers #(
                                                                     )
      u_AL4S3B_FPGA_Registers    ( 
         // AHB-To_FPGA Bridge I/F
-        .WBs_ADR_i          ( WBs_ADR[ADDRWIDTH_FAB_REG+1:2] ),
+        //.WBs_ADR_i          ( WBs_ADR[ADDRWIDTH_FAB_REG+1:2] ),
+        .WBs_ADR_i          ( WBs_ADR[16:0]                  ),
         .WBs_CYC_i          ( WBs_CYC_FPGA_Reg               ),
         .WBs_BYTE_STB_i     ( WBs_BYTE_STB                   ),
         .WBs_WE_i           ( WBs_WE                         ),
@@ -356,6 +363,9 @@ AL4S3B_FPGA_Registers #(
         .WBs_RST_i          ( WB_RST                         ),
         .WBs_DAT_o          ( WBs_DAT_o_FPGA_Reg             ),
         .WBs_ACK_o          ( WBs_ACK_FPGA_Reg               ), 
+
+        // [RO] debug
+        .DEBUG_FIR_data_o   ( debug_FIR_data                 ),
 
         .Device_ID_o        ( Device_ID_o                    )
 );
@@ -432,6 +442,7 @@ i2s_slave_w_DMA
         .I2S_RX_Intr_o             ( I2S_RX_Intr_o                  ), 
         .I2S_DMA_Intr_o            ( I2S_DMA_Intr_o                 ),
         .I2S_Dis_Intr_o            ( I2S_Dis_Intr_o                 ),
+        .I2S_Con_Intr_o            ( I2S_Con_Intr_o                 ),
         
         //FIR Decimation
         .i2s_clk_o                 (i2s_clk_gclk),
@@ -462,7 +473,17 @@ i2s_slave_w_DMA
         .SDMA_Sreq_I2S_o           ( SDMA_Sreq_I2S_o                ),
         .SDMA_Done_I2S_i           ( SDMA_Done_I2S_i                ),
         .SDMA_Active_I2S_i         ( SDMA_Active_I2S_i              )
+
+        // [RO] debug
+        ,
+        .DEBUG_I2S_Data_i           ( debug_FIR_data )
     );
+
+
+// [RO] debug
+wire    [15:0]      FIR_RD_DATA_mux;
+assign FIR_RD_DATA_mux = (debug_FIR_data[16]) ? debug_FIR_data[15:0] : FIR_RD_DATA_sig;
+
 
 deci_filter_fir128coeff u_deci_filter_fir128coeff (
         .fir_clk_i				( WB_CLK  ),
@@ -483,8 +504,12 @@ deci_filter_fir128coeff u_deci_filter_fir128coeff (
        //Data Ram interface.  
         .fir_dat_addr_o			( FIR_DATA_RaDDR_sig  ),		
         .fir_indata_rd_en_o		(   ),//RAM Block's read enable in I2S_slave_Rx_FIFO is always asserted.
-        .fir_data_i				( FIR_RD_DATA_sig  ),
-        
+
+        // [RO] debug, override data from the I2S data RAM with a fixed register value (from FPGA reg block)
+        //.fir_data_i				( FIR_RD_DATA_sig  ),
+        //.fir_data_i				( debug_FIR_data  ),
+        .fir_data_i				( FIR_RD_DATA_mux ),
+
         .wb_Coeff_RAM_aDDR_i	( wb_Coeff_RAM_aDDR_sig ),		
         .wb_Coeff_RAM_Wen_i		( wb_Coeff_RAM_Wen_sig  ),		
         .wb_Coeff_RAM_Data_i	( wb_Coeff_RAM_Data_sig ),
@@ -502,7 +527,7 @@ deci_filter_fir128coeff u_deci_filter_fir128coeff (
         .fir_deci_done_o        ( FIR_DECI_Done_sig )
 );
 
-
+// replace with 32x32 mult so this can be compiled in SpDE (not needed?)
 qlal4s3_mult_16x16_cell u_qlal4s3_mult_16x16_cell ( 
         .Amult			(fir_dat_mul_sig), 
         .Bmult			(fir_coef_mul_sig), 
@@ -510,7 +535,25 @@ qlal4s3_mult_16x16_cell u_qlal4s3_mult_16x16_cell (
         //.sel_mul_32x32  (1'b0),							
         .Cmult			(fir_cmult_sig)
 );
+/*
+wire    [63:0]  mult_out;
+//note: use the upper half of each input/output to avoid sign extentions
+qlal4s3_mult_32x32_cell u_qlal4s3_mult_32x32_cell ( 
+        //.Amult			({16'b0, fir_dat_mul_sig}), 
+        .Amult			({fir_dat_mul_sig, 16'b0}), 
+        //.Bmult			({16'b0, fir_coef_mul_sig}), 
+        .Bmult			({fir_coef_mul_sig, 16'b0}), 
+        .Valid_mult		({fir_mul_valid_sig}),
 
+        // include the following port when compiling with SpDE
+        //      comment it out for use with ql-symbiflow
+        .sel_mul_32x32  (1'b0),							
+
+        //.Cmult			(fir_cmult_sig)
+        .Cmult			(mult_out)
+);
+assign fir_cmult_sig = mult_out[63:32];
+*/
 
 
 // Reserved Resources Block

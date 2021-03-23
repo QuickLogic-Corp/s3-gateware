@@ -57,6 +57,7 @@ module i2s_slave_w_DMA (
                          I2S_RX_Intr_o, 
                          I2S_DMA_Intr_o, 
 						 I2S_Dis_Intr_o,
+						 I2S_Con_Intr_o,
 						 
 						 //FIR interface
 						 i2s_clk_o,
@@ -87,6 +88,10 @@ module i2s_slave_w_DMA (
                          SDMA_Sreq_I2S_o,
                          SDMA_Done_I2S_i,
                          SDMA_Active_I2S_i
+
+                         // [RO] debug
+                         ,
+                         DEBUG_I2S_Data_i
 
                          );
 
@@ -158,6 +163,7 @@ input                    I2S_WS_CLK_i   	 ;
 output                   I2S_RX_Intr_o       ;   
 output                   I2S_DMA_Intr_o      ;  
 output                   I2S_Dis_Intr_o      ; 
+output                   I2S_Con_Intr_o      ; 
 
 output					 i2s_clk_o; 
 
@@ -189,6 +195,9 @@ output 	[8:0]            FIR_I2S_RXRAM_w_Addr_o;
 output                   FIR_I2S_RXRAM_w_ena_o;
 output                   i2s_Clock_Stoped_o;
                                            
+// [RO] debug
+input   [31:0]          DEBUG_I2S_Data_i;
+
 
 // Fabric Global Signals
 //
@@ -222,12 +231,14 @@ wire                    I2S_WS_CLK_i   		 ;
 wire                    I2S_RX_Intr_o       ;   
 wire                    I2S_DMA_Intr_o      ; 
 wire                    I2S_Dis_Intr_o      ; 
+wire                    I2S_Con_Intr_o      ; 
 
 wire              		SDMA_Req_I2S_o      ;
 wire             		SDMA_Sreq_I2S_o     ;
 wire              		SDMA_Done_I2S_i     ;
 wire              		SDMA_Active_I2S_i   ;
 
+wire   [31:0]           DEBUG_I2S_Data_i;
 
 //------Define Parameters--------------
 //
@@ -258,6 +269,9 @@ wire					 I2S_S_EN			;
 
 wire					I2S_Dis_IRQ_EN       ;  
 wire					I2S_Dis_IRQ           ; 
+
+wire					I2S_Con_IRQ_EN       ;  
+wire					I2S_Con_IRQ           ; 
 
 wire    [DATAWIDTH-1:0]  WBs_DAT_o_reg      ;
 wire                     WBs_CYC_reg        ;
@@ -340,13 +354,18 @@ assign SDMA_Sreq_I2S_o = 1'b0;
 //assign I2S_RX_Intr_L = (L_RX_DAT_IRQ_EN)? L_RX_DAT_IRQ : 1'b0;
 //assign I2S_RX_Intr_R = (R_RX_DAT_IRQ_EN)? R_RX_DAT_IRQ : 1'b0;
 //assign I2S_RX_Intr_o  = I2S_RX_Intr_L | I2S_RX_Intr_R; 
+
+// [RO] disable ACSLIP
+//assign I2S_RX_Intr_o  = 	(Deci_Done_IRQ_EN_sig 			& Deci_Done_IRQ_sig) 			| 
+//							(DeciData_Rx_DAT_AVL_IRQ_EN_sig & DeciData_Rx_DAT_AVL_IRQ_sig) 	|
+//							(ACSLIP_timer_IRQ_EN_sig 		& ACSLIP_timer_IRQ_sig) ; 
 assign I2S_RX_Intr_o  = 	(Deci_Done_IRQ_EN_sig 			& Deci_Done_IRQ_sig) 			| 
-							(DeciData_Rx_DAT_AVL_IRQ_EN_sig & DeciData_Rx_DAT_AVL_IRQ_sig) 	|
-							(ACSLIP_timer_IRQ_EN_sig 		& ACSLIP_timer_IRQ_sig) ; 
+							(DeciData_Rx_DAT_AVL_IRQ_EN_sig & DeciData_Rx_DAT_AVL_IRQ_sig);
 
 assign I2S_DMA_Intr_o = (DMA_Done_IRQ_EN)? DMA_Done_IRQ: 1'b0; 
 
 assign I2S_Dis_Intr_o = (I2S_Dis_IRQ_EN)? I2S_Dis_IRQ: 1'b0; 
+assign I2S_Con_Intr_o = (I2S_Con_IRQ_EN)? I2S_Con_IRQ: 1'b0; 
 
 //assign FIR_ena_o      = DECIMATION_EN_sig;
 
@@ -485,6 +504,9 @@ i2s_slave_w_DMA_registers             #(
 	
 	.I2S_Dis_IRQ_o                      ( I2S_Dis_IRQ                     ),//
 	.I2S_Dis_IRQ_EN_o                   ( I2S_Dis_IRQ_EN                  ),// 	
+
+	.I2S_Con_IRQ_o                      ( I2S_Con_IRQ                     ),//
+	.I2S_Con_IRQ_EN_o                   ( I2S_Con_IRQ_EN                  ),// 	
 	
 	.DMA_CNT_o                          ( DMA_CNT                		  ),//
 	.DMA_Start_o                       	( DMA_Start                       ),//
@@ -511,7 +533,10 @@ i2s_slave_w_DMA_registers             #(
 	
     );
 			
-  
+
+
+wire    [15:0]  L_RXFIFO_DATIN_mux;
+assign L_RXFIFO_DATIN_mux = DEBUG_I2S_Data_i[17] ?  DEBUG_I2S_Data_i[15:0] : L_RXFIFO_DATIN;
   
 //RX FIFO block
 i2s_slave_Rx_FIFOs                u_i2s_slave_Rx_FIFOs_inst0
@@ -522,7 +547,10 @@ i2s_slave_Rx_FIFOs                u_i2s_slave_Rx_FIFOs_inst0
 
     .Deci_Rx_FIFO_Flush_i               ( DeciData_Rx_FIFO_Flush                   ),
 	
-    .L_PreDeci_RXRAM_DAT_i              ( L_RXFIFO_DATIN                  ), 
+    // [RO] debug
+    //.L_PreDeci_RXRAM_DAT_i              ( L_RXFIFO_DATIN                  ), 
+    .L_PreDeci_RXRAM_DAT_i              ( L_RXFIFO_DATIN_mux ), 
+
 	.L_PreDeci_RXRAM_WR_i               ( L_RXFIFO_PUSH                   ),
 	
     .FIR_L_PreDeci_DATA_RaDDR_i		    (  FIR_DATA_RaDDR_i ),	

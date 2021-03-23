@@ -9,6 +9,8 @@ module top (
 			I2S_WS_CLK_i,
 			I2S_DIN_i
 
+            ,
+            dbg_dma_done
             // debug outputs
             //dbg_int_speedup,
             //dbg_int_slowdown,
@@ -27,6 +29,7 @@ input           I2S_CLK_i;
 input           I2S_WS_CLK_i;
 input           I2S_DIN_i;
 
+output          dbg_dma_done;
 //output          dbg_int_speedup;
 //output          dbg_int_slowdown;
 //output          dbg_bitclkm;
@@ -38,6 +41,8 @@ wire            I2S_CLK_i;
 //wire            I2S_CLK_o;
 wire            I2S_WS_CLK_i;
 wire            I2S_DIN_i;
+
+wire            dbg_dma_done;
 
 //------Define Parameters--------------
 // None at this time
@@ -90,6 +95,7 @@ wire            dbg_bitclks         ;
 wire            I2S_RX_Intr   ; 
 wire            I2S_DMA_Intr  ; 
 wire            I2S_Dis_Intr  ;
+wire            I2S_Con_Intr  ;
 wire            I2S_Intr      ;
 
 wire            SDMA_Req_I2S   ; 
@@ -122,7 +128,7 @@ gclkbuff u_gclkbuff_bitclkm  ( .A(I2S_CLK_i) , .Z(bitclk_master_gclk) );
 //assign I2S_CLK_o = I2S_CLK_i;//for bootstrap issue fix
 
 
-assign I2S_Intr = I2S_Dis_Intr || I2S_DMA_Intr || I2S_RX_Intr;
+assign I2S_Intr = I2S_Con_Intr || I2S_Dis_Intr || I2S_DMA_Intr || I2S_RX_Intr;
 
 //------Instantiate Modules------------
 
@@ -157,6 +163,7 @@ AL4S3B_FPGA_IP u_AL4S3B_FPGA_IP (
 	.I2S_RX_Intr_o			   ( I2S_RX_Intr				 ), 
 	.I2S_DMA_Intr_o			   ( I2S_DMA_Intr			     ),
 	.I2S_Dis_Intr_o			   ( I2S_Dis_Intr			     ),
+	.I2S_Con_Intr_o			   ( I2S_Con_Intr			     ),
 
 	.SDMA_Req_I2S_o			   ( SDMA_Req_I2S				 ), 
 	.SDMA_Sreq_I2S_o		   ( SDMA_Sreq_I2S		  		 ),
@@ -268,6 +275,7 @@ qlal4s3b_cell_macro u_qlal4s3b_cell_macro (
 //pragma attribute u_qlal4s3b_cell_macro         preserve_cell true
 //pragma attribute u_AL4S3B_FPGA_IP            preserve_cell true
 
+assign dbg_dma_done = I2S_DMA_Intr;
 
 assign dbg_int_speedup  = Interrupt_speedup     ;
 assign dbg_int_slowdown = Interrupt_slowdown    ;

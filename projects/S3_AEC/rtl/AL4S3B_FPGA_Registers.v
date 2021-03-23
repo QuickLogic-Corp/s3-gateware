@@ -17,6 +17,8 @@ module AL4S3B_FPGA_Registers (
                         fsm_top_st_i, 
                         spi_fsm_st_i,
 
+                        DEBUG_FIR_data_o,
+
                         Device_ID_o
                          );
 
@@ -31,6 +33,9 @@ parameter       DATAWIDTH                   =  32;   // Allow for up to 128 regi
 parameter       FPGA_REG_ID_VALUE_ADR       = 10'h000       ; 
 parameter       FPGA_REV_NUM_ADR            = 10'h004       ; 
 
+// [RO] debug
+parameter       DEBUG_FIR_DATA_ADR          = 10'h010       ;
+
 parameter       AL4S3B_DEVICE_ID            = 32'h0         ;
 parameter       AL4S3B_REV_LEVEL            = 32'h0         ;
 parameter       AL4S3B_SCRATCH_REG          = 32'h12345678  ;
@@ -42,7 +47,7 @@ parameter       AL4S3B_DEF_REG_VALUE        = 32'hFAB_DEF_AC;
 
 // AHB-To_FPGA Bridge I/F
 //
-input   [ADDRWIDTH-1:0]  WBs_ADR_i     ;  // Address Bus                to   FPGA
+input   [16:0]           WBs_ADR_i     ;  // Address Bus                to   FPGA
 input                    WBs_CYC_i     ;  // Cycle Chip Select          to   FPGA 
 input             [3:0]  WBs_BYTE_STB_i;  // Byte Select                to   FPGA
 input                    WBs_WE_i      ;  // Write Enable               to   FPGA
@@ -56,6 +61,10 @@ output                   WBs_ACK_o     ;  // Transfer Cycle Acknowledge from FPG
 //
 // Misc
 //
+
+// [RO] debug
+output  [31:0]  DEBUG_FIR_data_o;
+
 output  [31:0]  Device_ID_o   ;
      
 
@@ -71,7 +80,7 @@ wire                     WBs_RST_i     ;  // Wishbone FPGA Reset
 
 // Wishbone Bus Signals
 //
-wire    [ADDRWIDTH-1:0]  WBs_ADR_i     ;  // Wishbone Address Bus
+wire    [16:0]           WBs_ADR_i     ;  // Wishbone Address Bus
 wire                     WBs_CYC_i     ;  // Wishbone Client Cycle  Strobe (i.e. Chip Select) 
 wire              [3:0]  WBs_BYTE_STB_i;  // Wishbone Byte   Enables
 wire                     WBs_WE_i      ;  // Wishbone Write  Enable Strobe
@@ -89,7 +98,9 @@ reg                      WBs_ACK_o     ;  // Wishbone Client Acknowledge
 wire    [31:0]  Device_ID_o;
 wire    [31:0]  Rev_Num;
 
-
+// [RO] debug
+wire    [31:0]  DEBUG_FIR_data_o;
+reg     [31:0]  DEBUG_FIR_data_reg;
     
 
 
@@ -116,6 +127,10 @@ wire            fifo_ovrrun;
 //------Logic Operations---------------
 //
 
+// [RO] debug
+wire    DEBUG_REG_WE_FIR_DATA;
+assign DEBUG_REG_WE_FIR_DATA = ( WBs_ADR_i[ADDRWIDTH-1:2] == DEBUG_FIR_DATA_ADR[ADDRWIDTH-1:2] ) && WBs_CYC_i && WBs_STB_i && WBs_WE_i && (~WBs_ACK_o);
+
 
 
 // Define the Acknowledge back to the host for registers
@@ -129,10 +144,25 @@ always @( posedge WBs_CLK_i or posedge WBs_RST_i)
 begin
     if (WBs_RST_i)
     begin
+        //DEBUG_FIR_data_reg <= 0;
+
         WBs_ACK_o <= 1'b0;
     end  
     else
     begin
+        /*
+        if (DEBUG_REG_WE_FIR_DATA) begin
+            if (WBs_BYTE_STB_i[0])
+                DEBUG_FIR_data_reg[7:0] <= WBs_DAT_i[7:0]   ;
+            if (WBs_BYTE_STB_i[1])
+                DEBUG_FIR_data_reg[15:8] <= WBs_DAT_i[15:8]   ;
+            if (WBs_BYTE_STB_i[2])
+                DEBUG_FIR_data_reg[23:16] <= WBs_DAT_i[23:16]   ;
+            if (WBs_BYTE_STB_i[3])
+                DEBUG_FIR_data_reg[31:24] <= WBs_DAT_i[31:24]   ;
+        end
+        */
+
         WBs_ACK_o <=  WBs_ACK_o_nxt;
     end  
 end
@@ -141,15 +171,20 @@ end
 //
 always @(*)
  begin
-    case(WBs_ADR_i[ADDRWIDTH-3:0])
+    case(WBs_ADR_i[ADDRWIDTH-1:2])
     FPGA_REG_ID_VALUE_ADR  [ADDRWIDTH-1:2]  : WBs_DAT_o <= AL4S3B_DEVICE_ID     ;
     FPGA_REV_NUM_ADR       [ADDRWIDTH-1:2]  : WBs_DAT_o <= AL4S3B_REV_LEVEL     ;
+    //DEBUG_FIR_DATA_ADR     [ADDRWIDTH-1:2]  : WBs_DAT_o <= DEBUG_FIR_data_reg   ;
     default                                 : WBs_DAT_o <= AL4S3B_DEF_REG_VALUE ;
     endcase
 end
 
 assign Device_ID_o = AL4S3B_DEVICE_ID;
 assign Rev_Num     = AL4S3B_REV_LEVEL;
+
+// [RO] debug
+//assign DEBUG_FIR_data_o = DEBUG_FIR_data_reg;
+assign DEBUG_FIR_data_o = 0;
 
 
 endmodule
