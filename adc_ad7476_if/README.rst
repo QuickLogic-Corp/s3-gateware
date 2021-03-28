@@ -5,7 +5,7 @@ ADC_7476_IF - S3 Gateware
 Contains the Verilog RTL source for an ADC interface design, for the
 Analog Devices 7476 ADC. This design is targeted for the QuickLogic S3B
 device in the 64-pin QFN package, on the QuickFeather development board.
-The design interfaces to an eternal ADC, connected to the QuickFeather
+The design interfaces to an external ADC, connected to the QuickFeather
 board via a Pmod connector (connector J8 on the QuickFeather board).
 
 The QuickFeather board schematic can be found here in the /doc/
