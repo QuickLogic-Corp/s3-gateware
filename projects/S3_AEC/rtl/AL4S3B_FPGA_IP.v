@@ -35,16 +35,18 @@ module AL4S3B_FPGA_IP (
 				I2S_WS_CLK_i,
 				I2S_DIN_i,
 				
-				I2S_RX_Intr_o,
-				I2S_DMA_Intr_o,
+				//I2S_RX_Intr_o,
+				//I2S_DMA_Intr_o,
+				Deci_Filter_Intr_o,
+				Deci_Filter_DMA_Intr_o,
 				I2S_Dis_Intr_o,
 				I2S_Con_Intr_o,
 				UART_Intr_o,
 				
-				SDMA_Req_I2S_o,
-                SDMA_Sreq_I2S_o,
-                SDMA_Done_I2S_i,
-                SDMA_Active_I2S_i,
+				SDMA_Req_deci_filter_o,
+                SDMA_Sreq_deci_filter_o,
+                SDMA_Done_deci_filter_i,
+                SDMA_Active_deci_filter_i,
 
                 Device_ID_o,
                 
@@ -65,9 +67,11 @@ parameter       FPGA_REG_BASE_ADDRESS       = 17'h00000     ;
 parameter       FLL_BASE_ADDRESS            = 17'h01000     ;
 
 parameter       I2S_SLV_MODULE_OFFSET       = 17'h02000     ;
+parameter       DECI_FILTER_MODULE_OFFSET   = 17'h04000     ;
 parameter       I2S_RAM_REG_BASE_ADDRESS    = I2S_SLV_MODULE_OFFSET + 17'h00000     ; 
 parameter       I2S_S_REG_BASE_ADDRESS      = I2S_SLV_MODULE_OFFSET + 17'h01000     ; 
-parameter       FIR_COEFF_REG_BASE_ADDRESS  = I2S_SLV_MODULE_OFFSET + 17'h02000     ; 
+parameter       DECI_FILTER_REG_BASE_ADDRESS = DECI_FILTER_MODULE_OFFSET            ;
+parameter       FIR_COEFF_REG_BASE_ADDRESS  = DECI_FILTER_MODULE_OFFSET + 17'h01000     ; 
 
 parameter       QL_RESERVED_BASE_ADDRESS    = 17'h05000     ; 
 
@@ -136,17 +140,20 @@ output          Interrupt_slowdown;
 input 			I2S_WS_CLK_i	;
 input 			I2S_DIN_i		;
 
-output          I2S_RX_Intr_o   ;				
-output          I2S_DMA_Intr_o  ;	
+//output          I2S_RX_Intr_o   ;				
+//output          I2S_DMA_Intr_o  ;	
+output          Deci_Filter_Intr_o;
+output          Deci_Filter_DMA_Intr_o;
+
 output          I2S_Dis_Intr_o  ;
 output          I2S_Con_Intr_o  ;
 output          UART_Intr_o      ;
 
-input 			SDMA_Done_I2S_i	;
-input 			SDMA_Active_I2S_i;
+input 			SDMA_Done_deci_filter_i	;
+input 			SDMA_Active_deci_filter_i;
 
-output          SDMA_Req_I2S_o  ;				
-output          SDMA_Sreq_I2S_o ;
+output          SDMA_Req_deci_filter_o;
+output          SDMA_Sreq_deci_filter_o ;
 
 
 // debug signals
@@ -186,16 +193,18 @@ wire            Interrupt_slowdown;
 wire 			I2S_WS_CLK_i	;
 wire 			I2S_DIN_i		;
 
-wire          	I2S_RX_Intr_o   ;				
-wire          	I2S_DMA_Intr_o  ;	
+//wire          	I2S_RX_Intr_o   ;				
+//wire          	I2S_DMA_Intr_o  ;	
+wire            Deci_Filter_Intr_o;
+wire            Deci_Filter_DMA_Intr_o;
 wire          	I2S_Dis_Intr_o  ;
 wire          	I2S_Con_Intr_o  ;
 
-wire 			SDMA_Done_I2S_i	;
-wire 			SDMA_Active_I2S_i;
+wire 			SDMA_Done_deci_filter_i	;
+wire 			SDMA_Active_deci_filter_i;
 
-wire      	    SDMA_Req_I2S_o  ;				
-wire          	SDMA_Sreq_I2S_o ;
+wire      	    SDMA_Req_deci_filter_o;
+wire          	SDMA_Sreq_deci_filter_o ;
 
 wire    [31:0]  Device_ID_o;
 
@@ -210,6 +219,7 @@ wire            local_wordcnt_is_ahead_o;
 wire            WBs_CYC_FPGA_Reg        ; 
 wire            WBs_CYC_I2S_PREDECI_RAM           ; 
 wire            WBs_CYC_I2S_S        ;
+wire            WBs_CYC_DECI_FILTER                  ;
 wire            WBs_CYC_I2S_SIG        ;
 wire            WBs_CYC_FIR_COEFF_RAM        ;
 wire            WBs_CYC_QL_Reserved     ;
@@ -218,11 +228,13 @@ wire            WBs_ACK_FPGA_Reg        ;
 wire            WBs_ACK_FLL             ;
 wire            WBs_ACK_IR           ;
 wire            WBs_ACK_I2S_S        ; 
+wire            WBs_ACK_DECI_FILTER  ; 
 wire            WBs_ACK_QL_Reserved     ;
 
 wire    [31:0]  WBs_DAT_o_FPGA_Reg      ; 
 wire    [31:0]  WBs_DAT_o_FLL           ;
 wire    [31:0]  WBs_DAT_I2S_S        ;
+wire    [31:0]  WBs_DAT_DECI_FILTER   ;
 wire    [31:0]  WBs_COEF_RAM_DAT        ;
 wire    [31:0]  WBs_DAT_o_QL_Reserved   ;
 
@@ -260,6 +272,7 @@ wire                    i2s_Clock_Stoped_sig;
 wire                    sys_ref_clk_i;  // driven by C21 in old design, expected to be 256KHz
                                         // since C21 is now 3MHz, we need to div by 12 to generate this clock
 
+wire                    I2S_S_EN;
                                         
 // [RO] debug
 wire    [31:0]  debug_FIR_data;
@@ -306,6 +319,9 @@ assign WBs_CYC_I2S_PREDECI_RAM  = (  WBs_ADR[APERWIDTH-1:APERSIZE+2] == I2S_RAM_
 assign WBs_CYC_I2S_S       		= (  WBs_ADR[APERWIDTH-1:APERSIZE+2] == I2S_S_REG_BASE_ADDRESS[APERWIDTH-1:APERSIZE+2] ) 
                             & (  WBs_CYC                                                                                );
 
+assign WBs_CYC_DECI_FILTER  = (WBs_ADR[APERWIDTH-1:APERSIZE+2] == DECI_FILTER_REG_BASE_ADDRESS[APERWIDTH-1:APERSIZE+2] ) 
+                            & (  WBs_CYC                                                                                );
+
 assign WBs_CYC_FIR_COEFF_RAM    = (  WBs_ADR[APERWIDTH-1:APERSIZE+2] == FIR_COEFF_REG_BASE_ADDRESS[APERWIDTH-1:APERSIZE+2] ) 
                             & (  WBs_CYC                                                                                );	
 
@@ -316,6 +332,7 @@ assign WBs_CYC_QL_Reserved  = (  WBs_ADR[APERWIDTH-1:APERSIZE+2] == QL_RESERVED_
 // Combine the ACK's from each IP module
 assign WBs_ACK              =    WBs_ACK_FPGA_Reg | WBs_ACK_FLL
                                     |    WBs_ACK_I2S_S 
+                                    |   WBs_ACK_DECI_FILTER  
                                     |    WBs_ACK_QL_Reserved;
 
 
@@ -326,6 +343,7 @@ always @(*)
     FPGA_REG_BASE_ADDRESS    [APERWIDTH-1:APERSIZE+2]: WBs_RD_DAT  <=    WBs_DAT_o_FPGA_Reg     ;
     FLL_BASE_ADDRESS         [APERWIDTH-1:APERSIZE+2]: WBs_RD_DAT  <=    WBs_DAT_o_FLL          ;
     I2S_S_REG_BASE_ADDRESS     [APERWIDTH-1:APERSIZE+2]		: WBs_RD_DAT  <=    WBs_DAT_I2S_S   ;
+    DECI_FILTER_REG_BASE_ADDRESS [APERWIDTH-1:APERSIZE+2]		: WBs_RD_DAT  <=    WBs_DAT_DECI_FILTER   ;
     FIR_COEFF_REG_BASE_ADDRESS [APERWIDTH-1:APERSIZE+2]		: WBs_RD_DAT  <=    WBs_COEF_RAM_DAT   ;
     QL_RESERVED_BASE_ADDRESS [APERWIDTH-1:APERSIZE+2]: WBs_RD_DAT  <=    WBs_DAT_o_QL_Reserved  ;
     default:                                           WBs_RD_DAT  <=    DEFAULT_READ_VALUE     ;
@@ -428,7 +446,7 @@ i2s_slave_w_DMA
         .WBs_STB_i                 ( WBs_STB                      	),
         .WBs_DAT_i                 ( WBs_WR_DAT                     ),
         .WBs_DAT_o                 ( WBs_DAT_I2S_S                  ),
-        .WBs_COEF_RAM_DAT_o        ( WBs_COEF_RAM_DAT               ),
+        .WBs_COEF_RAM_DAT_o        ( ),
         .WBs_ACK_o                 ( WBs_ACK_I2S_S                  ),
         
         //.sys_ref_clk_i		   ( sys_ref_clk_i ),
@@ -439,8 +457,8 @@ i2s_slave_w_DMA
         .I2S_WS_CLK_i              ( I2S_WS_CLK_i              		),
         .I2S_DIN_i           	   ( I2S_DIN_i                      ),
 
-        .I2S_RX_Intr_o             ( I2S_RX_Intr_o                  ), 
-        .I2S_DMA_Intr_o            ( I2S_DMA_Intr_o                 ),
+        .I2S_RX_Intr_o             ( ), 
+        .I2S_DMA_Intr_o            ( ),
         .I2S_Dis_Intr_o            ( I2S_Dis_Intr_o                 ),
         .I2S_Con_Intr_o            ( I2S_Con_Intr_o                 ),
         
@@ -448,7 +466,7 @@ i2s_slave_w_DMA
         .i2s_clk_o                 (i2s_clk_gclk),
         .FIR_DATA_RaDDR_i		   ( FIR_DATA_RaDDR_sig	),
         .FIR_RD_DATA_o			   ( FIR_RD_DATA_sig	),		
-        .FIR_ena_o				   ( FIR_ena_sig   ),
+        .FIR_ena_o				   ( ),
         
         .wb_Coeff_RAM_aDDR_o	   ( wb_Coeff_RAM_aDDR_sig ),		
         .wb_Coeff_RAM_Wen_o		   ( wb_Coeff_RAM_Wen_sig  ),		
@@ -456,8 +474,10 @@ i2s_slave_w_DMA
         .wb_Coeff_RAM_Data_i       (wb_Coeff_RAM_rd_Data_sig), 
         .wb_Coeff_RAM_rd_access_ctrl_o (wb_coeff_RAM_access_ctrl_sig), 
         
-        .FIR_DECI_DATA_i		   ( fir_deci_data_sig	),
-        .FIR_DECI_DATA_PUSH_i	   ( fir_deci_data_push_sig	),
+        //.FIR_DECI_DATA_i		   ( fir_deci_data_sig	),
+        .FIR_DECI_DATA_i		   ( 0	),
+        //.FIR_DECI_DATA_PUSH_i	   ( fir_deci_data_push_sig	),
+        .FIR_DECI_DATA_PUSH_i	   ( 0	),
 
         .FIR_I2S_RXRAM_w_Addr_o    ( FIR_RXRAM_w_Addr_sig),
         .FIR_I2S_RXRAM_w_ena_o     ( FIR_I2S_RXRAM_w_ena_sig),
@@ -469,13 +489,14 @@ i2s_slave_w_DMA
         .i2s_clk_div3_o            ( i2s_clk_div3_sig ),	
         //
 
-        .SDMA_Req_I2S_o            ( SDMA_Req_I2S_o                 ), 
-        .SDMA_Sreq_I2S_o           ( SDMA_Sreq_I2S_o                ),
-        .SDMA_Done_I2S_i           ( SDMA_Done_I2S_i                ),
-        .SDMA_Active_I2S_i         ( SDMA_Active_I2S_i              )
+        .SDMA_Req_I2S_o            ( ), 
+        .SDMA_Sreq_I2S_o           ( ),
+        .SDMA_Done_I2S_i           ( 0                ),
+        .SDMA_Active_I2S_i         ( 0              ),
+
+        .I2S_S_EN_o                 ( I2S_S_EN                      ),
 
         // [RO] debug
-        ,
         .DEBUG_I2S_Data_i           ( debug_FIR_data )
     );
 
@@ -485,6 +506,45 @@ wire    [15:0]      FIR_RD_DATA_mux;
 assign FIR_RD_DATA_mux = (debug_FIR_data[16]) ? debug_FIR_data[15:0] : FIR_RD_DATA_sig;
 
 
+decimation_filter_3to1 u_decimation_filter_3to1 (
+        .WBs_CLK_i                  ( WB_CLK                      	),
+        .WBs_RST_i                  ( WB_RST                      	),
+
+        .WBs_ADR_i                  ( WBs_ADR[ADDRWIDTH_DMA_REG+2:2] ),
+
+        .WBs_CYC_i                  ( WBs_CYC_DECI_FILTER                  ),
+        .WBs_CYC_FIR_COEFF_RAM_i    ( WBs_CYC_FIR_COEFF_RAM          ),
+
+        .WBs_BYTE_STB_i             ( WBs_BYTE_STB                   ),
+        .WBs_WE_i                   ( WBs_WE                       	),
+        .WBs_STB_i                  ( WBs_STB                      	),
+        .WBs_DAT_i                  ( WBs_WR_DAT                     ),
+        .WBs_DAT_o                  ( WBs_DAT_DECI_FILTER   ),
+        .WBs_COEF_RAM_DAT_o         ( WBs_COEF_RAM_DAT               ),
+
+        .WBs_ACK_o                  ( WBs_ACK_DECI_FILTER  ),
+
+        .Deci_Filter_Intr_o         ( Deci_Filter_Intr_o         ),
+        .Deci_Filter_DMA_Intr_o     ( Deci_Filter_DMA_Intr_o  ),
+
+        .I2S_S_EN_i                 ( I2S_S_EN                      ),
+        .FIR_RXRAM_w_Addr_i         ( FIR_RXRAM_w_Addr_sig  ),
+        .FIR_I2S_RXRAM_w_ena_i      ( FIR_I2S_RXRAM_w_ena_sig ),
+        .i2s_clk_gclk_i             ( i2s_clk_gclk ),
+
+        .FIR_DATA_RaDDR_o           ( FIR_DATA_RaDDR_sig  ),
+        .FIR_RD_DATA_i              ( FIR_RD_DATA_mux ),
+
+        .i2s_Clock_Stoped_i         ( i2s_Clock_Stoped_sig ),
+
+        .SDMA_Req_deci_filter_o     ( SDMA_Req_deci_filter_o     ),
+        .SDMA_Sreq_deci_filter_o    ( SDMA_Sreq_deci_filter_o     ),
+        .SDMA_Active_deci_filter_i  ( SDMA_Active_deci_filter_i )
+    );
+
+
+
+/*
 deci_filter_fir128coeff u_deci_filter_fir128coeff (
         .fir_clk_i				( WB_CLK  ),
         .fir_reset_i			( WB_RST  ),
@@ -535,6 +595,9 @@ qlal4s3_mult_16x16_cell u_qlal4s3_mult_16x16_cell (
         //.sel_mul_32x32  (1'b0),							
         .Cmult			(fir_cmult_sig)
 );
+*/
+
+
 /*
 wire    [63:0]  mult_out;
 //note: use the upper half of each input/output to avoid sign extentions

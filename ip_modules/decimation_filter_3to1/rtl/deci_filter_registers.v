@@ -27,7 +27,7 @@
 `timescale 1ns / 10ps
 
 //`define AEC_1_0
-module i2s_slave_w_DMA_registers ( 
+module deci_filter_registers ( 
                          
             WBs_CLK_i,          
             WBs_RST_i,   
@@ -454,9 +454,7 @@ assign DeciData_Rx_FIFO_DAT_IRQ_o = (DMA_Start)? 1'b1: 1'b0;
 //assign DeciData_Rx_FIFO_Pop_o = ( WBs_ADR_i == DECI_FIFO_DATA_REG_ADR && WBs_CYC_i == 1'b1)? pop_int: 1'b0;  
 assign DeciData_Rx_FIFO_Pop_o 	= deci_fifo_pop;  
 //assign deci_fifo_pop 			= ( WBs_ADR_i == DECI_FIFO_DATA_REG_ADR && WBs_CYC_i == 1'b1 && WBs_ACK_sig == 1'b0 && WBs_ACK_sig_r == 1'b0 && DeciData_Rx_FIFO_Empty_i == 1'b0) ? 1'b1 : 1'b0;
-    // [RO] moved register to deci_filter
-//assign deci_fifo_pop 			= ( WBs_ADR_i == DECI_FIFO_DATA_REG_ADR && WBs_CYC_i == 1'b1  && WBs_ACK_sig_r == 1'b0 && DeciData_Rx_FIFO_Empty_i == 1'b0) ? 1'b1 : 1'b0;
-assign deci_fifo_pop 			= 0;
+assign deci_fifo_pop 			= ( WBs_ADR_i == DECI_FIFO_DATA_REG_ADR && WBs_CYC_i == 1'b1  && WBs_ACK_sig_r == 1'b0 && DeciData_Rx_FIFO_Empty_i == 1'b0) ? 1'b1 : 1'b0;
 
 assign wb_Coeff_RAM_rd_access_ctrl_o = wb_coeff_ram_rd_access_ctrl_sig;
 
@@ -510,7 +508,9 @@ assign FIR_COEFF_RAM_ADDR_REG_Wr_Dcd 		= WBs_CYC_FIR_COEFF_RAM_i & WBs_STB_i & W
 //assign WBs_ACK_o_nxt          =   (WBs_CYC_i | WBs_CYC_FIR_COEFF_RAM_i | WBs_CYC_I2S_PREDECI_RAM_i)  & WBs_STB_i & (~WBs_ACK_sig);
 assign WBs_ACK_o_nxt          =   (WBs_CYC_i | WBs_CYC_FIR_COEFF_RAM_i | WBs_CYC_I2S_PREDECI_RAM_i)  & WBs_STB_i & (~WBs_ACK_sig & ~WBs_ACK_sig_r);
 
-assign wb_FIR_L_PreDeci_RAM_wrMASTER_CTRL_o = wb_FIR_L_PreDeci_RAM_wrMASTER_CTRL;
+// [RO] remove
+//assign wb_FIR_L_PreDeci_RAM_wrMASTER_CTRL_o = wb_FIR_L_PreDeci_RAM_wrMASTER_CTRL;
+assign wb_FIR_L_PreDeci_RAM_wrMASTER_CTRL_o = 0;
 
 // Define the Fabric's Local Registers
 //
@@ -556,7 +556,9 @@ begin
     begin
 	    if ( I2S_EN_REG_Wr_Dcd && WBs_BYTE_STB_i[0])
         begin
-            I2S_S_EN_o  <=  WBs_DAT_i[0];
+            // [RO] disable
+            //I2S_S_EN_o  <=  WBs_DAT_i[0];
+            I2S_S_EN_o  <=  0;
 			// [RO] disable acslip
 			//ACSLIP_EN_o <=  WBs_DAT_i[2];
 			ACSLIP_EN_o <=  0;
@@ -567,11 +569,7 @@ begin
 	    if ( I2S_EN_REG_Wr_Dcd && WBs_BYTE_STB_i[0])
 		begin
 		     wb_FIR_L_PreDeci_RAM_wrMASTER_CTRL <= WBs_DAT_i[1];
-
-            // [RO] moved register to deci_filter
-		     //wb_coeff_ram_rd_access_ctrl_sig    <= WBs_DAT_i[3];
-		     wb_coeff_ram_rd_access_ctrl_sig    <= 0;
-
+		     wb_coeff_ram_rd_access_ctrl_sig    <= WBs_DAT_i[3];
             //stereo_en      <=  WBs_DAT_i[2]; 
 			//LR_CHNL_SEL_o  <=  WBs_DAT_i[3];
 	    end
@@ -589,31 +587,22 @@ begin
         end */		
 		
 			
-    // [RO] moved register to deci_filter
-    /*
 	    if ( DECI_FIFO_RST_Wr_Dcd && WBs_BYTE_STB_i[0])
             Deci_Rx_FIFO_Flush  <=  WBs_DAT_i[0];
 		else
 			Deci_Rx_FIFO_Flush  <= 1'b0;	
-		*/
 			
 
-    // [RO] moved register to deci_filter
-    /*
         if ( DMA_EN_REG_Wr_Dcd && WBs_BYTE_STB_i[0])
             DMA_EN  <=  WBs_DAT_i[0];
 		else if (DMA_Clr_i)
 			DMA_EN  <=  1'b0;
-		*/
 			
-    // [RO] moved register to deci_filter
-    /*
         if ( FIR_DECI_CONTROL_REG_Wr_Dcd && WBs_BYTE_STB_i[0])
 		begin
             FIR_deci_int_en  <=  WBs_DAT_i[1];
             FIR_deci_en      <=  WBs_DAT_i[0];
 		end	
-		*/
 		
         // [RO] disable acslip
         /*
@@ -628,46 +617,44 @@ begin
 			
 		if ( INTR_EN_REG_Wr_Dcd && WBs_BYTE_STB_i[0])
 		begin
-		    I2S_Con_IRQ_EN_o     		    <=  WBs_DAT_i[5];
+	        // [RO] disable unused register
+		    //I2S_Con_IRQ_EN_o     		    <=  WBs_DAT_i[5];
+		    I2S_Con_IRQ_EN_o     		    <=  0;
 
 		    // [RO] disable acslip
 		    //ACSLIP_timer_IRQ_EN_o           <=  WBs_DAT_i[4];
 
-		    I2S_Dis_IRQ_EN_o     		    <=  WBs_DAT_i[3];
-
-            // [RO] moved register to deci_filter
-            /*
+	        // [RO] disable unused register
+		    //I2S_Dis_IRQ_EN_o     		    <=  WBs_DAT_i[3];
+		    I2S_Dis_IRQ_EN_o     		    <=  0;
 		    DeciData_Rx_DAT_AVL_IRQ_EN_o    <=  WBs_DAT_i[2];
 		    Deci_Done_IRQ_EN_o              <=  WBs_DAT_i[1];
             DMA_Done_IRQ_EN_o    		    <=  WBs_DAT_i[0];
-            */
 		end
 		
-        // [RO] moved register to deci_filter
-        /*
 		if ( (INTR_STS_REG_Wr_Dcd && WBs_BYTE_STB_i[0]) || DMA_Done_i)
         begin
             DMA_Done_IRQ_o   <=  DMA_Done_i ? 1'b1 : WBs_DAT_i[0];
         end
-        */
 		
 		if ( (INTR_STS_REG_Wr_Dcd && WBs_BYTE_STB_i[0]) || i2s_dis_i)
         begin
-            I2S_Dis_IRQ_o   <=  i2s_dis_i ? 1'b1 : WBs_DAT_i[3];
+	        // [RO] disable unused register
+            //I2S_Dis_IRQ_o   <=  i2s_dis_i ? 1'b1 : WBs_DAT_i[3];
+            I2S_Dis_IRQ_o   <=  0;
         end
 		
 		if ( (INTR_STS_REG_Wr_Dcd && WBs_BYTE_STB_i[0]) || !i2s_dis_i)
         begin
-            I2S_Con_IRQ_o   <=  !i2s_dis_i ? 1'b1 : WBs_DAT_i[5];
+	        // [RO] disable unused register
+            //I2S_Con_IRQ_o   <=  !i2s_dis_i ? 1'b1 : WBs_DAT_i[5];
+            I2S_Con_IRQ_o   <=  0;
         end
 		
-        // [RO] moved register to deci_filter
-        /*
 		if ( (INTR_STS_REG_Wr_Dcd && WBs_BYTE_STB_i[0]) || FIR_DECI_Done_i )
         begin
             deci_done_irq   <=  FIR_DECI_Done_i ? 1'b1 : WBs_DAT_i[2];
         end		
-        */
 		
 		//if ( (INTR_STS_REG_Wr_Dcd && WBs_BYTE_STB_i[0]) || acslip_timer_int)
 
@@ -680,11 +667,8 @@ begin
         */
 		
 		
-    // [RO] moved register to deci_filter
-    /*
 	    if ( DMA_CNT_REG_Wr_Dcd && WBs_BYTE_STB_i[0])
             DMA_CNT_o  <=  WBs_DAT_i[8:0];
-        */
 			
         //if ( WBs_ADR_i == MIC_DAT_CNT_ADR && WBs_ACK_o == 1'b1)
 `ifdef AEC_1_0		
@@ -763,9 +747,9 @@ always @(
 
     // [RO] disable acslip
     //I2S_EN_REG_ADR        : WBs_DAT_o <= { 28'h0,wb_coeff_ram_rd_access_ctrl_sig,ACSLIP_EN_o, wb_FIR_L_PreDeci_RAM_wrMASTER_CTRL,I2S_S_EN_o}; 
-    // [RO] moved register to deci_filter
+    // [RO] disable unused bits
     //I2S_EN_REG_ADR        : WBs_DAT_o <= { 28'h0,wb_coeff_ram_rd_access_ctrl_sig,1'b0, wb_FIR_L_PreDeci_RAM_wrMASTER_CTRL,I2S_S_EN_o}; 
-    I2S_EN_REG_ADR        : WBs_DAT_o <= { 28'h0,1'b0,1'b0, wb_FIR_L_PreDeci_RAM_wrMASTER_CTRL,I2S_S_EN_o}; 
+    I2S_EN_REG_ADR        : WBs_DAT_o <= { 28'h0,wb_coeff_ram_rd_access_ctrl_sig,1'b0, 1'b0,1'b0}; 
 
 	// [RO] disable acslip
 	//ACSLIP_REG_RST_ADR    : WBs_DAT_o <= { 31'h0, acslip_reg_rst};
@@ -773,54 +757,33 @@ always @(
 
 	// [RO] disable acslip
 	//INTR_STS_REG_ADR      : WBs_DAT_o <= { 26'h0, I2S_Con_IRQ_o, ACSLIP_timer_IRQ_o, I2S_Dis_IRQ_o, 1'b0,DeciData_Rx_FIFO_DAT_IRQ_o,DMA_Done_IRQ_o};//INTR_STS_REG_ADR      : WBs_DAT_o <= { 28'h0, I2S_Dis_IRQ_o, R_RX_DAT_IRQ_o,DeciData_Rx_FIFO_DAT_IRQ_o,DMA_Done_IRQ_o};
-    // [RO] moved register to deci_filter
+	// [RO] disable unused register
 	//INTR_STS_REG_ADR      : WBs_DAT_o <= { 26'h0, I2S_Con_IRQ_o, 1'b0, I2S_Dis_IRQ_o, 1'b0,DeciData_Rx_FIFO_DAT_IRQ_o,DMA_Done_IRQ_o};//INTR_STS_REG_ADR      : WBs_DAT_o <= { 28'h0, I2S_Dis_IRQ_o, R_RX_DAT_IRQ_o,DeciData_Rx_FIFO_DAT_IRQ_o,DMA_Done_IRQ_o};
-	INTR_STS_REG_ADR      : WBs_DAT_o <= { 26'h0, I2S_Con_IRQ_o, 1'b0, I2S_Dis_IRQ_o, 1'b0,1'b0,1'b0};//INTR_STS_REG_ADR      : WBs_DAT_o <= { 28'h0, I2S_Dis_IRQ_o, R_RX_DAT_IRQ_o,DeciData_Rx_FIFO_DAT_IRQ_o,DMA_Done_IRQ_o};
+	INTR_STS_REG_ADR      : WBs_DAT_o <= { 26'h0, 1'b0, 1'b0, 1'b0, 1'b0,DeciData_Rx_FIFO_DAT_IRQ_o,DMA_Done_IRQ_o};//INTR_STS_REG_ADR      : WBs_DAT_o <= { 28'h0, I2S_Dis_IRQ_o, R_RX_DAT_IRQ_o,DeciData_Rx_FIFO_DAT_IRQ_o,DMA_Done_IRQ_o};
 
 	// [RO] disable acslip
 	//INTR_EN_REG_ADR       : WBs_DAT_o <= { 26'h0, I2S_Con_IRQ_EN_o, ACSLIP_timer_IRQ_EN_o,I2S_Dis_IRQ_EN_o,DeciData_Rx_DAT_AVL_IRQ_EN_o, Deci_Done_IRQ_EN_o, DMA_Done_IRQ_EN_o};//{ 28'h0, I2S_Dis_IRQ_EN_o,R_RX_DAT_IRQ_EN_o, DeciData_Rx_DAT_AVL_IRQ_EN_o, DMA_Done_IRQ_EN_o};
-    // [RO] moved register to deci_filter
-	//INTR_EN_REG_ADR       : WBs_DAT_o <= { 26'h0, I2S_Con_IRQ_EN_o, 1'b0 ,I2S_Dis_IRQ_EN_o,DeciData_Rx_DAT_AVL_IRQ_EN_o, Deci_Done_IRQ_EN_o, DMA_Done_IRQ_EN_o};//{ 28'h0, I2S_Dis_IRQ_EN_o,R_RX_DAT_IRQ_EN_o, DeciData_Rx_DAT_AVL_IRQ_EN_o, DMA_Done_IRQ_EN_o};
-	INTR_EN_REG_ADR       : WBs_DAT_o <= { 26'h0, I2S_Con_IRQ_EN_o, 1'b0 ,I2S_Dis_IRQ_EN_o,1'b0, 1'b0, 1'b0};//{ 28'h0, I2S_Dis_IRQ_EN_o,R_RX_DAT_IRQ_EN_o, DeciData_Rx_DAT_AVL_IRQ_EN_o, DMA_Done_IRQ_EN_o};
+	// [RO] disable unused register
+	INTR_EN_REG_ADR       : WBs_DAT_o <= { 26'h0, 1'b0, 1'b0 ,1'b0,DeciData_Rx_DAT_AVL_IRQ_EN_o, Deci_Done_IRQ_EN_o, DMA_Done_IRQ_EN_o};//{ 28'h0, I2S_Dis_IRQ_EN_o,R_RX_DAT_IRQ_EN_o, DeciData_Rx_DAT_AVL_IRQ_EN_o, DMA_Done_IRQ_EN_o};
 
-    // [RO] moved register to deci_filter
-	//DECI_FIFO_STS_REG_ADR : WBs_DAT_o <= { 16'h0, Deci_Rx_FIFO_Full,Deci_Rx_FIFO_Empty,7'h0, DeciData_Rx_FIFO_Level_i};  
-	DECI_FIFO_STS_REG_ADR : WBs_DAT_o <= {0};  
-
-    // [RO] moved register to deci_filter
-	//DECI_FIFO_DATA_REG_ADR : WBs_DAT_o <= { Fifo_dat_r_up,Fifo_dat_r_lo};  
-	DECI_FIFO_DATA_REG_ADR : WBs_DAT_o <= {0};  
-
+	DECI_FIFO_STS_REG_ADR : WBs_DAT_o <= { 16'h0, Deci_Rx_FIFO_Full,Deci_Rx_FIFO_Empty,7'h0, DeciData_Rx_FIFO_Level_i};  
+	DECI_FIFO_DATA_REG_ADR : WBs_DAT_o <= { Fifo_dat_r_up,Fifo_dat_r_lo};  
 	//ACSLIP_REG_ADR        : WBs_DAT_o <= { 16'h0,6'h0, ACLSIP_Reg_i};
 
 	// [RO] disable acslip
 	//ACSLIP_REG_ADR        : WBs_DAT_o <=  ACLSIP_Reg_r1;
 	ACSLIP_REG_ADR        : WBs_DAT_o <=  0;
 
-    // [RO] moved register to deci_filter
-	//DECI_FIFO_RST_ADR     : WBs_DAT_o <= { 31'h0, Deci_Rx_FIFO_Flush};
-	DECI_FIFO_RST_ADR     : WBs_DAT_o <= {0};
-
-    // [RO] moved register to deci_filter
-    //DMA_EN_REG_ADR   	  : WBs_DAT_o <= { 31'h0, DMA_EN };
-    DMA_EN_REG_ADR   	  : WBs_DAT_o <= {0};
-
-    // [RO] moved register to deci_filter
-	//DMA_STS_REG_ADR  	  : WBs_DAT_o <= { DMA_Status};
-	DMA_STS_REG_ADR  	  : WBs_DAT_o <= {0};
-
-    // [RO] moved register to deci_filter
-	//DMA_CNT_REG_ADR  	  : WBs_DAT_o <= { 23'h0, DMA_CNT_o};
-	DMA_CNT_REG_ADR  	  : WBs_DAT_o <= {0};
+	DECI_FIFO_RST_ADR     : WBs_DAT_o <= { 31'h0, Deci_Rx_FIFO_Flush};
+    DMA_EN_REG_ADR   	  : WBs_DAT_o <= { 31'h0, DMA_EN };
+	DMA_STS_REG_ADR  	  : WBs_DAT_o <= { DMA_Status};
+	DMA_CNT_REG_ADR  	  : WBs_DAT_o <= { 23'h0, DMA_CNT_o};
 
 	// [RO] disable acslip
 	//ACSLIP_TIMER_REG_ADR  : WBs_DAT_o <= { 16'h0, acslip_timer_reg};
 	ACSLIP_TIMER_REG_ADR  : WBs_DAT_o <= { 16'h0, 16'b0};
 
-    // [RO] moved register to deci_filter
-	//FIR_DECI_CNTRL_REG_ADR : WBs_DAT_o <= { 30'h0, FIR_deci_int_en, FIR_deci_en};
-	FIR_DECI_CNTRL_REG_ADR : WBs_DAT_o <= {0};
-
+	FIR_DECI_CNTRL_REG_ADR : WBs_DAT_o <= { 30'h0, FIR_deci_int_en, FIR_deci_en};
 	MIC_DAT_CNT_ADR 	  : WBs_DAT_o <= cnt_mic_dat_r;
 `ifdef AEC_1_0	
 	I2S_DAT_CNT_ADR 	  : WBs_DAT_o <= cnt_i2s_dat_i;

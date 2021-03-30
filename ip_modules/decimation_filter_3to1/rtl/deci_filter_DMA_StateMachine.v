@@ -24,7 +24,7 @@
 
 `timescale 1ns/10ps
 
-module i2s_slave_w_DMA_StateMachine (
+module deci_filter_DMA_StateMachine (
        
                          WBs_CLK_i,
                          WBs_RST_i,

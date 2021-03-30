@@ -183,7 +183,11 @@ wire               [3:0]  DeciData_Rx_FIFO_Empty_flag_sig;
 //
 assign Rx_FIFO_Flush      			= WBs_RST_i | Deci_Rx_FIFO_Flush_i;
 assign L_PreDeci_I2S_RXRAM_w_ena_o  = I2SData_wMEM_WE_mux_sig;
-assign DeciData_RXFIFO_DAT_o 		= L_DeciData_RXFIFO_DAT;
+
+// [RO] disable, moved to deci_filter module
+//assign DeciData_RXFIFO_DAT_o 		= L_DeciData_RXFIFO_DAT;
+assign DeciData_RXFIFO_DAT_o 		= 0;
+
 assign DeciData_RXFIFO_Pop 			= DeciData_RXFIFO_Pop_i; 
 
 assign DeciData_Rx_FIFO_Empty_flag_o = DeciData_Rx_FIFO_Empty_flag_sig;
@@ -271,7 +275,7 @@ gclkbuff  u_i2s_predeci_ram_gclkbuff
 
 // Ram instantiation 
 //I2S Mono data is written to RAM for FIR decimation
-r512x16_512x16 u_r512x16_512x16_I2S_PREDECIM_DATA (
+i2s_rx_r512x16_512x16 u_r512x16_512x16_I2S_PREDECIM_DATA (
 								 .WA	  	(I2SData_ADDR_mux_sig), //( I2S_FIR_DATA_WaDDR_sig  ) 	,
 								 .RA		( FIR_L_PreDeci_DATA_RaDDR_i )	,
 								 
@@ -297,7 +301,9 @@ r512x16_512x16 u_r512x16_512x16_I2S_PREDECIM_DATA (
 //FIFO for storing decimation samples
 //assign L_MONO_i2sblk_RXFIFO_PUSH 	= (STEREO_EN_i)? L_PreDeci_RXRAM_WR_i: 1'b0;
 		
-af512x16_512x16                u_af512x16_512x16_L 
+// [RO] moved to the deci_filter module
+/*
+af512x16_512x16_i2s_rx                u_af512x16_512x16_L 
                             (
         .DIN                ( FIR_Deci_DATA_i	),
         .Fifo_Push_Flush    ( Rx_FIFO_Flush         ),
@@ -316,7 +322,7 @@ af512x16_512x16                u_af512x16_512x16_L
         .POP_FLAG           ( DeciData_Rx_FIFO_Empty_flag_sig            ),//L_POP_FLAG_
         .DOUT               ( L_DeciData_RXFIFO_DAT         )//L_RXFIFO_DAT_
         );										
-
+*/
 
 endmodule
 

@@ -92,16 +92,18 @@ wire            dbg_int_slowdown    ;
 wire            dbg_bitclkm         ;
 wire            dbg_bitclks         ;
 
-wire            I2S_RX_Intr   ; 
-wire            I2S_DMA_Intr  ; 
+//wire            I2S_RX_Intr   ; 
+//wire            I2S_DMA_Intr  ; 
+wire            Deci_Filter_Intr_o;
+wire            Deci_Filter_DMA_Intr_o;
 wire            I2S_Dis_Intr  ;
 wire            I2S_Con_Intr  ;
 wire            I2S_Intr      ;
 
-wire            SDMA_Req_I2S   ; 
-wire            SDMA_Sreq_I2S  ;
-wire            SDMA_Done_I2S  ;
-wire            SDMA_Active_I2S;
+wire            SDMA_Req_deci_filter      ;
+wire            SDMA_Sreq_deci_filter      ;
+wire            SDMA_Done_deci_filter  ;
+wire            SDMA_Active_deci_filter;
 
 wire    [2:0]   SDMA_Done_Extra;
 wire    [2:0]   SDMA_Active_Extra;
@@ -128,7 +130,7 @@ gclkbuff u_gclkbuff_bitclkm  ( .A(I2S_CLK_i) , .Z(bitclk_master_gclk) );
 //assign I2S_CLK_o = I2S_CLK_i;//for bootstrap issue fix
 
 
-assign I2S_Intr = I2S_Con_Intr || I2S_Dis_Intr || I2S_DMA_Intr || I2S_RX_Intr;
+assign I2S_Intr = I2S_Con_Intr || I2S_Dis_Intr || Deci_Filter_Intr_o || Deci_Filter_DMA_Intr_o;
 
 //------Instantiate Modules------------
 
@@ -160,15 +162,18 @@ AL4S3B_FPGA_IP u_AL4S3B_FPGA_IP (
 	.I2S_WS_CLK_i			    ( I2S_WS_CLK_i              ),
 	.I2S_DIN_i                  ( I2S_DIN_i                 ),
 
-	.I2S_RX_Intr_o			   ( I2S_RX_Intr				 ), 
-	.I2S_DMA_Intr_o			   ( I2S_DMA_Intr			     ),
+	//.I2S_RX_Intr_o			   ( I2S_RX_Intr				 ), 
+	//.I2S_DMA_Intr_o			   ( I2S_DMA_Intr			     ),
+    .Deci_Filter_Intr_o         ( Deci_Filter_Intr_o         ),
+    .Deci_Filter_DMA_Intr_o     ( Deci_Filter_DMA_Intr_o  ),
+
 	.I2S_Dis_Intr_o			   ( I2S_Dis_Intr			     ),
 	.I2S_Con_Intr_o			   ( I2S_Con_Intr			     ),
 
-	.SDMA_Req_I2S_o			   ( SDMA_Req_I2S				 ), 
-	.SDMA_Sreq_I2S_o		   ( SDMA_Sreq_I2S		  		 ),
-	.SDMA_Done_I2S_i		   ( SDMA_Done_I2S		  		 ),
-	.SDMA_Active_I2S_i		   ( SDMA_Active_I2S		     ),
+    .SDMA_Req_deci_filter_o    ( SDMA_Req_deci_filter      ),
+    .SDMA_Sreq_deci_filter_o   ( SDMA_Sreq_deci_filter      ),
+	.SDMA_Done_deci_filter_i		   ( SDMA_Done_deci_filter		  		 ),
+	.SDMA_Active_deci_filter_i		   ( SDMA_Active_deci_filter		     ),
 
 
     .Device_ID_o                ( Device_ID                 ),
@@ -198,10 +203,10 @@ qlal4s3b_cell_macro u_qlal4s3b_cell_macro (
     //.SDMA_Sreq                 (  4'b0000                   ), // input   [3:0]
     //.SDMA_Done                 (), // output  [3:0]
     //.SDMA_Active               (), // output  [3:0]
-    .SDMA_Req                  ({3'h0,SDMA_Req_I2S}                ), // input   [3:0]     
-    .SDMA_Sreq                 ({3'h0,SDMA_Sreq_I2S}               ), // input   [3:0]
-    .SDMA_Done                 ({SDMA_Done_Extra,SDMA_Done_I2S}    ), // output  [3:0]
-    .SDMA_Active               ({SDMA_Active_Extra,SDMA_Active_I2S}), // output  [3:0]
+    .SDMA_Req                  ({3'h0,SDMA_Req_deci_filter}                ), // input   [3:0]     
+    .SDMA_Sreq                 ({3'h0,SDMA_Sreq_deci_filter      }               ), // input   [3:0]
+    .SDMA_Done                 ({SDMA_Done_Extra,SDMA_Done_deci_filter}    ), // output  [3:0]
+    .SDMA_Active               ({SDMA_Active_Extra,SDMA_Active_deci_filter}), // output  [3:0]
 
     // FB Interrupts
     .FB_msg_out                ({1'b0, I2S_Intr, Interrupt_speedup, Interrupt_slowdown}), // input   [3:0]
@@ -275,7 +280,7 @@ qlal4s3b_cell_macro u_qlal4s3b_cell_macro (
 //pragma attribute u_qlal4s3b_cell_macro         preserve_cell true
 //pragma attribute u_AL4S3B_FPGA_IP            preserve_cell true
 
-assign dbg_dma_done = I2S_DMA_Intr;
+//assign dbg_dma_done = I2S_DMA_Intr;
 
 assign dbg_int_speedup  = Interrupt_speedup     ;
 assign dbg_int_slowdown = Interrupt_slowdown    ;

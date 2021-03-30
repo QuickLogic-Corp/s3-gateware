@@ -739,7 +739,7 @@ end
 //end	
 
 //Coeff data is written to RAM for FIR decimation
-r512x16_512x16 u_r512x16_512x16_FIR_COEFF_DATA (
+r512x16_512x16_deci_filter u_r512x16_512x16_FIR_COEFF_DATA (
 								 .WA	  	( wb_Coeff_RAM_aDDR_i  ) 	,
 								 .RA		( coef_ram_rd_addr_ptr )	,
 								 .WD		( wb_Coeff_RAM_Data_i  )	,

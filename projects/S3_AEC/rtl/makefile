@@ -3,7 +3,7 @@
 #
 
 #ql_symbiflow -compile -d ql-eos-s3 -P pu64 -v ../../../ip_modules/FLL_I2S/rtl/*.v *.v -t top -p quickfeather.pcf
-IPMODULES = FLL_I2S I2S_slave_rx
+IPMODULES = FLL_I2S I2S_slave_rx decimation_filter_3to1
 MODULEDIRS = $(addsuffix /rtl/,$(addprefix ../../../ip_modules/,${IPMODULES}))
 $(info MODULEDIRS = ${MODULEDIRS})
 RTL_SRCS:=$(wildcard *.v) $(foreach subdir,$(MODULEDIRS),$(wildcard $(subdir)/*.v))

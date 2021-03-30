@@ -87,10 +87,12 @@ module i2s_slave_w_DMA (
                          SDMA_Req_I2S_o,
                          SDMA_Sreq_I2S_o,
                          SDMA_Done_I2S_i,
-                         SDMA_Active_I2S_i
+                         SDMA_Active_I2S_i,
+
+                         I2S_S_EN_o,
+
 
                          // [RO] debug
-                         ,
                          DEBUG_I2S_Data_i
 
                          );
@@ -194,7 +196,8 @@ input             		 SDMA_Active_I2S_i   ;
 output 	[8:0]            FIR_I2S_RXRAM_w_Addr_o;
 output                   FIR_I2S_RXRAM_w_ena_o;
 output                   i2s_Clock_Stoped_o;
-                                           
+
+output                  I2S_S_EN_o;
 // [RO] debug
 input   [31:0]          DEBUG_I2S_Data_i;
 
@@ -237,6 +240,8 @@ wire              		SDMA_Req_I2S_o      ;
 wire             		SDMA_Sreq_I2S_o     ;
 wire              		SDMA_Done_I2S_i     ;
 wire              		SDMA_Active_I2S_i   ;
+
+wire                    I2S_S_EN_o;
 
 wire   [31:0]           DEBUG_I2S_Data_i;
 
@@ -359,10 +364,14 @@ assign SDMA_Sreq_I2S_o = 1'b0;
 //assign I2S_RX_Intr_o  = 	(Deci_Done_IRQ_EN_sig 			& Deci_Done_IRQ_sig) 			| 
 //							(DeciData_Rx_DAT_AVL_IRQ_EN_sig & DeciData_Rx_DAT_AVL_IRQ_sig) 	|
 //							(ACSLIP_timer_IRQ_EN_sig 		& ACSLIP_timer_IRQ_sig) ; 
-assign I2S_RX_Intr_o  = 	(Deci_Done_IRQ_EN_sig 			& Deci_Done_IRQ_sig) 			| 
-							(DeciData_Rx_DAT_AVL_IRQ_EN_sig & DeciData_Rx_DAT_AVL_IRQ_sig);
+// [RO] disable
+//assign I2S_RX_Intr_o  = 	(Deci_Done_IRQ_EN_sig 			& Deci_Done_IRQ_sig) 			| 
+//							(DeciData_Rx_DAT_AVL_IRQ_EN_sig & DeciData_Rx_DAT_AVL_IRQ_sig);
+assign I2S_RX_Intr_o  = 	0;
 
-assign I2S_DMA_Intr_o = (DMA_Done_IRQ_EN)? DMA_Done_IRQ: 1'b0; 
+// [RO] disable
+//assign I2S_DMA_Intr_o = (DMA_Done_IRQ_EN)? DMA_Done_IRQ: 1'b0; 
+assign I2S_DMA_Intr_o = 0; 
 
 assign I2S_Dis_Intr_o = (I2S_Dis_IRQ_EN)? I2S_Dis_IRQ: 1'b0; 
 assign I2S_Con_Intr_o = (I2S_Con_IRQ_EN)? I2S_Con_IRQ: 1'b0; 
@@ -600,6 +609,8 @@ i2s_slave_Rx_FIFOs                u_i2s_slave_Rx_FIFOs_inst0
 //
 // Instantiate the DMA logic below
 //
+// [RO] moved to the deci_filter module
+/*
 i2s_slave_w_DMA_StateMachine        u_i2s_slave_w_DMA_StateMachine
                                         ( 
 
@@ -625,8 +636,16 @@ i2s_slave_w_DMA_StateMachine        u_i2s_slave_w_DMA_StateMachine
 	.dma_st_o                       	 ( dma_st                          ),
     .DMA_Busy_o                          ( DMA_Busy                        )
                                                                           );  
-																		  
-																		  
+*/																		  
+assign DMA_Clr = 0;
+assign SDMA_Req_I2S = 0;
+assign DMA_Done = 0;
+assign DMA_Active = 0;
+assign dma_cntr = 0;
+assign dma_st = 0;
+assign DMA_Busy = 0;
+
+
 
 fll_acslip # (
 			  .ACSLIP_REG_WIDTH					(ACSLIP_REG_WIDTH)
@@ -657,7 +676,7 @@ fll_acslip # (
 
 
 
-
+assign I2S_S_EN_o = I2S_S_EN;
 
 
 

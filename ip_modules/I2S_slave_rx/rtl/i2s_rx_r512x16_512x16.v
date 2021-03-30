@@ -11,7 +11,7 @@
 ** top level design for RAM using QuickLogic's
 ** RAM block resources.
 ************************************************************************/
-module r512x16_512x16 (WA,RA,WD,WD_SEL,RD_SEL,WClk,RClk,WClk_En,RClk_En,WEN,RD,LS,DS,SD,LS_RB1,DS_RB1,SD_RB1);
+module i2s_rx_r512x16_512x16 (WA,RA,WD,WD_SEL,RD_SEL,WClk,RClk,WClk_En,RClk_En,WEN,RD,LS,DS,SD,LS_RB1,DS_RB1,SD_RB1);
 
 
 input [8:0] WA;

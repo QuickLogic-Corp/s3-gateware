@@ -11,7 +11,7 @@
 ** top level design file for Asynchronous FIFO using QuickLogic's
 ** RAM block resources.
 ************************************************************************/
-module af512x16_512x16(DIN,Fifo_Push_Flush,Fifo_Pop_Flush,PUSH,POP,Push_Clk,Pop_Clk,
+module deci_filter_af512x16_512x16 (DIN,Fifo_Push_Flush,Fifo_Pop_Flush,PUSH,POP,Push_Clk,Pop_Clk,
        Push_Clk_En,Pop_Clk_En,Fifo_Dir,Async_Flush,
        Almost_Full,Almost_Empty,PUSH_FLAG,POP_FLAG,DOUT);
 
