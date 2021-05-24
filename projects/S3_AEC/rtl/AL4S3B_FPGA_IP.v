@@ -494,16 +494,17 @@ i2s_slave_w_DMA
         .SDMA_Done_I2S_i           ( 0                ),
         .SDMA_Active_I2S_i         ( 0              ),
 
-        .I2S_S_EN_o                 ( I2S_S_EN                      ),
+        .I2S_S_EN_o                 ( I2S_S_EN                      )
 
         // [RO] debug
-        .DEBUG_I2S_Data_i           ( debug_FIR_data )
+        //,
+        //.DEBUG_I2S_Data_i           ( debug_FIR_data )
     );
 
 
 // [RO] debug
-wire    [15:0]      FIR_RD_DATA_mux;
-assign FIR_RD_DATA_mux = (debug_FIR_data[16]) ? debug_FIR_data[15:0] : FIR_RD_DATA_sig;
+//wire    [15:0]      FIR_RD_DATA_mux;
+//assign FIR_RD_DATA_mux = (debug_FIR_data[16]) ? debug_FIR_data[15:0] : FIR_RD_DATA_sig;
 
 
 decimation_filter_3to1 u_decimation_filter_3to1 (
@@ -533,7 +534,9 @@ decimation_filter_3to1 u_decimation_filter_3to1 (
         .i2s_clk_gclk_i             ( i2s_clk_gclk ),
 
         .FIR_DATA_RaDDR_o           ( FIR_DATA_RaDDR_sig  ),
-        .FIR_RD_DATA_i              ( FIR_RD_DATA_mux ),
+        .FIR_RD_DATA_i              ( FIR_RD_DATA_sig ),
+        // [RO] debug
+        //.FIR_RD_DATA_i              ( FIR_RD_DATA_mux ),
 
         .i2s_Clock_Stoped_i         ( i2s_Clock_Stoped_sig ),
 

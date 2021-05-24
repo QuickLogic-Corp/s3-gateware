@@ -9,8 +9,8 @@ module top (
 			I2S_WS_CLK_i,
 			I2S_DIN_i
 
-            ,
-            dbg_dma_done
+            //,
+            //dbg_dma_done
             // debug outputs
             //dbg_int_speedup,
             //dbg_int_slowdown,
@@ -29,7 +29,7 @@ input           I2S_CLK_i;
 input           I2S_WS_CLK_i;
 input           I2S_DIN_i;
 
-output          dbg_dma_done;
+//output          dbg_dma_done;
 //output          dbg_int_speedup;
 //output          dbg_int_slowdown;
 //output          dbg_bitclkm;
@@ -42,7 +42,7 @@ wire            I2S_CLK_i;
 wire            I2S_WS_CLK_i;
 wire            I2S_DIN_i;
 
-wire            dbg_dma_done;
+//wire            dbg_dma_done;
 
 //------Define Parameters--------------
 // None at this time

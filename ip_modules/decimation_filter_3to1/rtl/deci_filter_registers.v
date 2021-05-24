@@ -293,7 +293,8 @@ wire	 				 DMA_Busy_i;
 wire	 				 DMA_Clr_i;
 
 reg                      I2S_S_EN_o      ; 
-reg                      ACSLIP_EN_o      ; 
+//reg                      ACSLIP_EN_o      ; 
+wire                      ACSLIP_EN_o      ; 
 wire                     DeciData_Rx_FIFO_Flush_o ;
 reg                      Deci_Rx_FIFO_Flush   ;
 
@@ -326,8 +327,10 @@ reg              		 I2S_Dis_IRQ_EN_o;
 reg              		 I2S_Con_IRQ_o;
 reg              		 I2S_Con_IRQ_EN_o;
 
-reg                      ACSLIP_timer_IRQ_EN_o;
-reg                      ACSLIP_timer_IRQ_o;
+//reg                      ACSLIP_timer_IRQ_EN_o;
+//reg                      ACSLIP_timer_IRQ_o;
+wire                      ACSLIP_timer_IRQ_EN_o;
+wire                      ACSLIP_timer_IRQ_o;
 
 reg 					 WBs_ACK_sig_r;
 //wire                     pop_int;
@@ -402,17 +405,19 @@ reg [15:0]  			Fifo_dat_r_up;
 reg [15:0]  			Fifo_dat_r_lo; 
 
 //reg [7:0]               acslip_timer_reg;
-reg [15:0]              acslip_timer_reg;
+//reg [15:0]              acslip_timer_reg;
 //reg [7:0]               acslip_timer_cntr;
-reg [15:0]               acslip_timer_cntr;
+//reg [15:0]               acslip_timer_cntr;
 //reg 					acslip_timer_int;
-wire 					acslip_timer_int;
+//wire 					acslip_timer_int;
 
+/* [RO] disable ACSLIP
 reg acslip_timer_int_wb_r1;
 reg acslip_timer_int_wb_r2;
 reg acslip_timer_int_wb_r3;
 
 wire acslip_timer_int_wbsync_pulse;
+*/
 
 //------Logic Operations---------------
 //
@@ -519,16 +524,16 @@ begin
     if (WBs_RST_i)
     begin
         I2S_S_EN_o          				<= 1'b0;
-        ACSLIP_EN_o          				<= 1'b0;
+        //ACSLIP_EN_o          				<= 1'b0;
 		wb_FIR_L_PreDeci_RAM_wrMASTER_CTRL 	<= 1'b0; 
 		wb_coeff_ram_rd_access_ctrl_sig 	<= 1'b0; 
 		acslip_reg_rst                  	<= 1'b1;
 		//acslip_timer_reg                  	<= 8'h0F;
-		acslip_timer_reg                  	<= 16'h1DF;
+		//acslip_timer_reg                  	<= 16'h1DF;
 		Deci_Rx_FIFO_Flush  				<= 1'b0;
 		DMA_EN	 		    				<= 1'b0;
-		ACSLIP_timer_IRQ_o       	        <= 1'b0;
-		ACSLIP_timer_IRQ_EN_o       	    <= 1'b0;
+		//ACSLIP_timer_IRQ_o       	        <= 1'b0;
+		//ACSLIP_timer_IRQ_EN_o       	    <= 1'b0;
 		I2S_Dis_IRQ_o       				<= 1'b0;
 		I2S_Dis_IRQ_EN_o    				<= 1'b0;
 		I2S_Con_IRQ_o       				<= 1'b0;
@@ -561,7 +566,7 @@ begin
             I2S_S_EN_o  <=  0;
 			// [RO] disable acslip
 			//ACSLIP_EN_o <=  WBs_DAT_i[2];
-			ACSLIP_EN_o <=  0;
+			//ACSLIP_EN_o <=  0;
 		end	
 		else if (i2s_dis_i)
 		    I2S_S_EN_o  <=  1'b0;
@@ -819,8 +824,9 @@ begin
 	end
 end	
 */
-assign acslip_timer_int   = 0;
+//assign acslip_timer_int   = 0;
 
+/* remove ACSLIP
 always @( posedge WBs_CLK_i or posedge WBs_RST_i)
 begin
 	if (WBs_RST_i)
@@ -836,10 +842,11 @@ begin
        end
     end
 end
+*/
 
 // [RO] disable acslip
-//assign acslip_timer_int_wbsync_pulse = acslip_timer_int_wb_r2 & ~acslip_timer_int_wb_r3;
-assign acslip_timer_int_wbsync_pulse = 0;
+/*
+assign acslip_timer_int_wbsync_pulse = acslip_timer_int_wb_r2 & ~acslip_timer_int_wb_r3;
 	 
 always @( posedge WBs_CLK_i or posedge WBs_RST_i)
 begin
@@ -857,8 +864,13 @@ begin
 
     end
 end	
+*/
 	 
  
+assign ACSLIP_EN_o =  0;
+assign ACSLIP_timer_IRQ_EN_o = 0;
+assign ACSLIP_timer_IRQ_o = 0;
+    
 endmodule
 //wire             [31:0]  LR_RXFIFO_DAT   ; 
 //assign R_RX_DAT_IRQ_o            = (R_Rx_FIFO_Empty_i)? 1'b0: 1'b1;

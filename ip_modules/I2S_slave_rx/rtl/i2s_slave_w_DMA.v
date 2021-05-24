@@ -89,11 +89,12 @@ module i2s_slave_w_DMA (
                          SDMA_Done_I2S_i,
                          SDMA_Active_I2S_i,
 
-                         I2S_S_EN_o,
+                         I2S_S_EN_o
 
 
                          // [RO] debug
-                         DEBUG_I2S_Data_i
+                         //,
+                         //DEBUG_I2S_Data_i
 
                          );
 
@@ -199,7 +200,7 @@ output                   i2s_Clock_Stoped_o;
 
 output                  I2S_S_EN_o;
 // [RO] debug
-input   [31:0]          DEBUG_I2S_Data_i;
+//input   [31:0]          DEBUG_I2S_Data_i;
 
 
 // Fabric Global Signals
@@ -243,7 +244,7 @@ wire              		SDMA_Active_I2S_i   ;
 
 wire                    I2S_S_EN_o;
 
-wire   [31:0]           DEBUG_I2S_Data_i;
+//wire   [31:0]           DEBUG_I2S_Data_i;
 
 //------Define Parameters--------------
 //
@@ -544,8 +545,8 @@ i2s_slave_w_DMA_registers             #(
 			
 
 
-wire    [15:0]  L_RXFIFO_DATIN_mux;
-assign L_RXFIFO_DATIN_mux = DEBUG_I2S_Data_i[17] ?  DEBUG_I2S_Data_i[15:0] : L_RXFIFO_DATIN;
+//wire    [15:0]  L_RXFIFO_DATIN_mux;
+//assign L_RXFIFO_DATIN_mux = DEBUG_I2S_Data_i[17] ?  DEBUG_I2S_Data_i[15:0] : L_RXFIFO_DATIN;
   
 //RX FIFO block
 i2s_slave_Rx_FIFOs                u_i2s_slave_Rx_FIFOs_inst0
@@ -557,8 +558,8 @@ i2s_slave_Rx_FIFOs                u_i2s_slave_Rx_FIFOs_inst0
     .Deci_Rx_FIFO_Flush_i               ( DeciData_Rx_FIFO_Flush                   ),
 	
     // [RO] debug
-    //.L_PreDeci_RXRAM_DAT_i              ( L_RXFIFO_DATIN                  ), 
-    .L_PreDeci_RXRAM_DAT_i              ( L_RXFIFO_DATIN_mux ), 
+    .L_PreDeci_RXRAM_DAT_i              ( L_RXFIFO_DATIN                  ), 
+    //.L_PreDeci_RXRAM_DAT_i              ( L_RXFIFO_DATIN_mux ), 
 
 	.L_PreDeci_RXRAM_WR_i               ( L_RXFIFO_PUSH                   ),
 	
