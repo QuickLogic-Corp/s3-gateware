@@ -1,0 +1,6 @@
+I Place .I2S_DIN_i_ibuf.I1 FBIO_24
+I Fixed .I2S_DIN_i_ibuf.I1 YES
+I Place .I2S_WS_CLK_i_ibuf.I1 FBIO_23
+I Fixed .I2S_WS_CLK_i_ibuf.I1 YES
+I Place .I2S_CLK_i_ibuf.I1 FBIO_31
+I Fixed .I2S_CLK_i_ibuf.I1 YES

@@ -1,0 +1,1003 @@
+; Time: Sat Jun 19 10:13:41 2021
+; SpDE Version: SpDE 2016.2 Release
+; Time: Sat Jun 19 10:13:41 2021
+; Status: Load file C:\Work\github\QuickLogic-Corp\s3-gateware\projects\S3_AEC\build_spde\spde\top.edf begin...
+Error    : nm_1005: The cell 'qlal4s3_mult_16x16_cell' with 'Valid_mult[0]' port is not available for PolarPro-III family.Targeting this design from PolarPro/PolarPro-II/ArcticLink-II to PolarPro-III family is not possible
+Error    : nm_1005: The cell 'qlal4s3_mult_16x16_cell' with 'Valid_mult[1]' port is not available for PolarPro-III family.Targeting this design from PolarPro/PolarPro-II/ArcticLink-II to PolarPro-III family is not possible
+; Time: Sat Jun 19 10:13:42 2021
+; Status: Number of 4-input LUTs = 424
+; Time: Sat Jun 19 10:13:42 2021
+; Status: Number of 3-input LUTs = 738
+; Time: Sat Jun 19 10:13:42 2021
+; Status: Number of 2-input LUTs = 289
+; Time: Sat Jun 19 10:13:42 2021
+; Status: Number of 1-input LUTs = 16
+Warning  : nm_1031: Port 'RST_IP_i' of instance 'u_AL4S3B_FPGA_IP :: AL4S3B_FPGA_IP' is hanging.
+; Time: Sat Jun 19 10:13:43 2021
+; Status: EDIF Reader complete
+; Time: Sat Jun 19 10:13:43 2021
+; Status: Fragment-Level Netlister begin...
+; Time: Sat Jun 19 10:13:43 2021
+; Status: Fragment-Level Netlister complete
+; Time: Sat Jun 19 10:13:44 2021
+; Status: Read constraint file top.qcf begin...
+Info     : cf_1017_lf: Applying Tools options from qcf file. (..\cf\cf.c:3011)
+; Time: Sat Jun 19 10:13:44 2021
+; Status: Read constraint file top.qcf complete...
+; Time: Sat Jun 19 10:13:44 2021
+; Status: Verifier begin...
+; Time: Sat Jun 19 10:13:44 2021
+; Status: verifier: no buffer removal
+; Time: Sat Jun 19 10:13:44 2021
+; Status: verifier: const FFs removal starts
+; Time: Sat Jun 19 10:13:44 2021
+; Status: verifier: const FFs removal ends
+; Time: Sat Jun 19 10:13:44 2021
+; Status: verifier: begin fixing global clock buffers
+Info     : vr_1161: Gate 'u_AL4S3B_FPGA_IP.ix1671z1372' can be instantiated as a CAND gate.
+Info     : vr_1161: Gate 'u_AL4S3B_FPGA_IP.ix45485z1328' can be instantiated as a CAND gate.
+; Time: Sat Jun 19 10:13:44 2021
+; Status: verifier: vrAddFF2Clock
+; Time: Sat Jun 19 10:13:44 2021
+; Status: verifier: vrAddFF2Clock
+Debug: Cell : IO17(914), Usage : 1
+Debug: Cell : IO23(920), Usage : 1
+Debug: Cell : IO34(931), Usage : 1
+Debug: Cell : IO48(945), Usage : 1
+Debug: Cell : IO50(947), Usage : 1
+Debug: Cell : IO52(949), Usage : 1
+Debug: Cell : IO67(964), Usage : 1
+Debug: Cell : IO78(975), Usage : 1
+Debug: Cell : IO85(982), Usage : 1
+Debug: Cell : IO108(1000), Usage : 1
+Debug: Cell : IO112(1002), Usage : 1
+Debug: Cell : IO117(1004), Usage : 1
+Info     : vr_1049: Net 'u_AL4S3B_FPGA_IP.FLL_I2S_0_enable_local_sync' has high logic cell fanout of 69.
+Info     : vr_1049: Net 'u_AL4S3B_FPGA_IP.FLL_I2S_0_enable_master_sync' has high logic cell fanout of 66.
+Info     : vr_1049: Net 'u_AL4S3B_FPGA_IP.FLL_I2S_0_sample_cnt_load' has high logic cell fanout of 36.
+Info     : vr_1049: Net 'u_AL4S3B_FPGA_IP.FLL_I2S_0_sample_cnt_load_master' has high logic cell fanout of 33.
+Info     : vr_1049: Net 'u_AL4S3B_FPGA_IP.FLL_I2S_0_sample_gap_cnt_load' has high logic cell fanout of 33.
+Info     : vr_1049: Net 'u_AL4S3B_FPGA_IP.nx49014z1' has high logic cell fanout of 37.
+Info     : vr_1049: Net 'u_AL4S3B_FPGA_IP.nx2674z19' has high logic cell fanout of 62.
+Info     : vr_1049: Net 'u_AL4S3B_FPGA_IP.nx2674z20' has high logic cell fanout of 43.
+Info     : vr_1049: Net 'u_AL4S3B_FPGA_IP.nx2674z15' has high logic cell fanout of 50.
+Info     : vr_1049: Net 'u_AL4S3B_FPGA_IP.nx2674z17' has high logic cell fanout of 43.
+Info     : vr_1049: Net 'u_AL4S3B_FPGA_IP.nx2674z22' has high logic cell fanout of 54.
+Info     : vr_1049: Net 'u_AL4S3B_FPGA_IP.nx38782z1' has high logic cell fanout of 94.
+Info     : vr_1049: Net 'u_AL4S3B_FPGA_IP.nx54786z2' has high logic cell fanout of 54.
+Info     : vr_1049: Net 'u_AL4S3B_FPGA_IP.nx2787z5' has high logic cell fanout of 33.
+; Time: Sat Jun 19 10:13:44 2021
+; Status: Verifier complete
+; Time: Sat Jun 19 10:13:44 2021
+; Status: Fragment-Level Netlister begin...
+; Time: Sat Jun 19 10:13:45 2021
+; Status: Fragment-Level Netlister complete
+; Time: Sat Jun 19 10:13:45 2021
+; Status: Fragment-Level Netlister begin...
+; Time: Sat Jun 19 10:13:45 2021
+; Status: Fragment-Level Netlister complete
+; Time: Sat Jun 19 10:13:45 2021
+; Status: Fragment-Level Netlister begin...
+; Time: Sat Jun 19 10:13:46 2021
+; Status: Fragment-Level Netlister complete
+; Time: Sat Jun 19 10:13:46 2021
+; Status: verifier: vrAddFF2Clock
+; Time: Sat Jun 19 10:13:46 2021
+; Status: verifier: vrAddFF2Clock
+; Time: Sat Jun 19 10:13:49 2021
+; Status: Fragment-Level Netlister begin...
+; Time: Sat Jun 19 10:13:50 2021
+; Status: Fragment-Level Netlister complete
+; Options for logic optimizer
+; logic optimizer.Mode = Quality
+; logic optimizer.Goal = Speed
+; logic optimizer.p2Level = 1
+; logic optimizer.Level = 2
+; logic optimizer.IgnorePack = FALSE
+; logic optimizer.Utilization = 755
+; logic optimizer.FragFUtilization = 364
+; logic optimizer.FragOUtilization = 755
+; logic optimizer.FragNUtilization = 755
+; logic optimizer.FragQUtilization = 692
+; logic optimizer.UseNonBondedPads = TRUE
+; Time: Sat Jun 19 10:13:50 2021
+; Status: AreaOptimization = FALSE
+; Time: Sat Jun 19 10:13:50 2021
+; Status: Logic Optimizer begin: minimize delay.
+; Time: Sat Jun 19 10:13:50 2021
+; Status: Pulling 0 FFs into pads by user's specification.
+; Time: Sat Jun 19 10:13:50 2021
+; Status: Technology mapping...
+; Time: Sat Jun 19 10:13:50 2021
+; Status: Logic replication count 0
+; Time: Sat Jun 19 10:13:57 2021
+; Status: Initializing AD with constraints ...
+; Time: Sat Jun 19 10:13:57 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:13:57 2021
+; Status: Timing driven calculations end...
+; Time: Sat Jun 19 10:13:58 2021
+; Status: AD Close...
+; Time: Sat Jun 19 10:13:58 2021
+; Status: Initializing AD with constraints ...
+; Time: Sat Jun 19 10:13:58 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:13:58 2021
+; Status: Timing driven calculations end...
+; Time: Sat Jun 19 10:13:59 2021
+; Status: AD Close...
+; Time: Sat Jun 19 10:13:59 2021
+; Status: Packing...
+; Time: Sat Jun 19 10:13:59 2021
+; Status: FZ,TZ,TZ packing count 0
+; Time: Sat Jun 19 10:13:59 2021
+; Status: Packing F into Q count 51
+; Time: Sat Jun 19 10:13:59 2021
+; Status: Constant block usage of 33 removed
+
+1 (1)  BIDIR3 I2S_DIN_i_ibuf.I1 
+2 (2)  BIDIR3 I2S_WS_CLK_i_ibuf.I1 
+3 (3)  BIDIR3 I2S_CLK_i_ibuf.I1 
+1 (899) pin FBIO_0 cell IO2  BIDIR3
+2 (901) pin FBIO_1 cell IO4  BIDIR3
+3 (903) pin FBIO_2 cell IO6  BIDIR3
+4 (906) pin FBIO_3 cell IO9  BIDIR3
+5 (909) pin FBIO_4 cell IO12  BIDIR3
+6 (911) pin FBIO_5 cell IO14  BIDIR3
+7 (913) pin FBIO_6 cell IO16  BIDIR3
+8 (917) pin FBIO_7 cell IO20  BIDIR3
+9 (922) pin FBIO_8 cell IO25  BIDIR3
+10 (926) pin FBIO_9 cell IO29  BIDIR3
+11 (928) pin FBIO_10 cell IO31  BIDIR3
+12 (930) pin FBIO_11 cell IO33  BIDIR3
+13 (933) pin FBIO_12 cell IO36  BIDIR3
+14 (935) pin FBIO_13 cell IO38  BIDIR3
+15 (938) pin FBIO_14 cell IO41  BIDIR3
+16 (940) pin FBIO_15 cell IO43  BIDIR3
+17 (954) pin FBIO_16 cell IO57  BIDIR3
+18 (956) pin FBIO_17 cell IO59  BIDIR3
+19 (959) pin FBIO_18 cell IO62  BIDIR3
+20 (961) pin FBIO_19 cell IO64  BIDIR3
+21 (963) pin FBIO_20 cell IO66  BIDIR3
+22 (966) pin FBIO_21 cell IO69  BIDIR3
+23 (970) pin FBIO_22 cell IO73  BIDIR3
+24 (974) pin FBIO_23 cell IO77  BIDIR3
+25 (978) pin FBIO_24 cell IO81  BIDIR3
+26 (981) pin FBIO_25 cell IO84  BIDIR3
+27 (984) pin FBIO_26 cell IO87  BIDIR3
+28 (986) pin FBIO_27 cell IO89  BIDIR3
+29 (989) pin FBIO_28 cell IO92  BIDIR3
+30 (991) pin FBIO_29 cell IO94  BIDIR3
+31 (994) pin FBIO_30 cell IO97  BIDIR3
+32 (996) pin FBIO_31 cell IO99  BIDIR3
+33 (1007) pin SFBIO_0 cell SFB_0_IO  SDIOMUX
+34 (1008) pin SFBIO_1 cell SFB_1_IO  SDIOMUX
+35 (1009) pin SFBIO_2 cell SFB_2_IO  SDIOMUX
+36 (1010) pin SFBIO_3 cell SFB_3_IO  SDIOMUX
+37 (1011) pin SFBIO_4 cell SFB_4_IO  SDIOMUX
+38 (1012) pin SFBIO_5 cell SFB_5_IO  SDIOMUX
+39 (1013) pin SFBIO_6 cell SFB_6_IO  SDIOMUX
+40 (1014) pin SFBIO_7 cell SFB_7_IO  SDIOMUX
+41 (1015) pin SFBIO_8 cell SFB_8_IO  SDIOMUX
+42 (1016) pin SFBIO_9 cell SFB_9_IO  SDIOMUX
+43 (1017) pin SFBIO_10 cell SFB_10_IO  SDIOMUX
+44 (1018) pin SFBIO_11 cell SFB_11_IO  SDIOMUX
+45 (1019) pin SFBIO_12 cell SFB_12_IO  SDIOMUX
+46 (1020) pin SFBIO_13 cell SFB_13_IO  SDIOMUX
+1 978  IO81 BIDIR3 I2S_DIN_i_ibuf.I1 
+2 974  IO77 BIDIR3 I2S_WS_CLK_i_ibuf.I1 
+3 996  IO99 BIDIR3 I2S_CLK_i_ibuf.I1 
+Found multiplier
+; Time: Sat Jun 19 10:13:59 2021
+; Result: ; Summary: Clock-only cells: 0 of 5
+; Time: Sat Jun 19 10:13:59 2021
+; Result: ; Summary: Bi-directional cells: 1 of 46
+; Time: Sat Jun 19 10:13:59 2021
+; Status: Checking functionality
+; Time: Sat Jun 19 10:13:59 2021
+; Status: Logic Optimizer complete
+; Time: Sat Jun 19 10:13:59 2021
+; Status: verifier: vrAddFF2Clock
+; Time: Sat Jun 19 10:13:59 2021
+; Status: verifier: vrAddFF2Clock
+; Options for placer
+; placer.Seed = 42
+; placer.Mode = Quality
+; placer.Lambda = 0.300000
+; placer.Level = 1
+; placer.newGreedyFlow = TRUE
+; placer.FastAnnealer = 2
+; placer.PowerReduction = FALSE
+; placer.GClkBufferInsertion = 0
+
+ Logic cells which are exceeding inputs > 16
+; Time: Sat Jun 19 10:13:59 2021
+; Status: Placer begin...
+; Time: Sat Jun 19 10:13:59 2021
+; Status: New Flow Greedy Placer selected...
+; Time: Sat Jun 19 10:13:59 2021
+; Status: detail placer begin...
+; Time: Sat Jun 19 10:14:00 2021
+; Status: Initializing Ad Module
+; Time: Sat Jun 19 10:14:00 2021
+; Status: Initializing AD with constraints ...
+; Time: Sat Jun 19 10:14:00 2021
+; Status: newRandomization is ON
+; Time: Sat Jun 19 10:14:01 2021
+; Status: oldPlacerMoves is ON
+; Time: Sat Jun 19 10:14:01 2021
+; Status: autoNormalization is 0
+; Time: Sat Jun 19 10:14:01 2021
+; Status: alternateRootGreedy is 1
+; Time: Sat Jun 19 10:14:01 2021
+; Status: Power Reduction OFF
+; Time: Sat Jun 19 10:14:01 2021
+; Status: Running new Greedy Flow...
+Debug: Alpha 0.000015, Beta 0.000165, bbCost 66631.000000, tdCost 6043.571242, Dgreedy 2, Rlimit 32
+; Time: Sat Jun 19 10:14:17 2021
+; Status: Closing Ad-Module
+; Time: Sat Jun 19 10:14:17 2021
+; Status: AD Close...
+; Time: Sat Jun 19 10:14:17 2021
+; Status: Placement Buffering
+; Time: Sat Jun 19 10:14:18 2021
+; Status: Initializing Ad Module
+; Time: Sat Jun 19 10:14:18 2021
+; Status: Initializing AD with constraints ...
+Debug: Alpha 0.000083, Beta 0.000849, bbCost 12067.000000, tdCost 1178.268502, Dgreedy 436, Rlimit 1
+; Time: Sat Jun 19 10:14:30 2021
+; Status: Cycle loop with 8753800 attempted moves complete
+; Time: Sat Jun 19 10:14:30 2021
+; Status: Total 173 cycles completed.
+; Time: Sat Jun 19 10:14:30 2021
+; Status: Closing Ad-Module
+; Time: Sat Jun 19 10:14:30 2021
+; Status: AD Close...
+; Time: Sat Jun 19 10:14:30 2021
+; Status: detail placer complete
+; Time: Sat Jun 19 10:14:30 2021
+; Status: Placer complete
+; Time: Sat Jun 19 10:14:30 2021
+; Status: Fragment-Level Netlister begin...
+; Time: Sat Jun 19 10:14:31 2021
+; Status: Fragment-Level Netlister complete
+
+ Logic cells which are exceeding inputs > 16
+; Time: Sat Jun 19 10:14:31 2021
+; Status: Fragment simulator begins ...
+; Time: Sat Jun 19 10:14:32 2021
+; Status: Fragment simulator ends successfully.
+; Options for router
+; router.MinCycles = 5
+; router.MaxCycles = 1500
+; router.Seed = 42
+; router.LoopCnt = 2
+; router.LPRouting = FALSE
+; router.MaxHidriveFanouts = 20
+; router.CongestionTable = 0
+; router.RouteMode = 0
+; router.PureMagic = 0
+; router.NetMagic = 0
+; router.UnusedIO = Z
+; router.GmuxSelection = FALSE
+; router.IncRippleMarking = FALSE
+
+Router Option: <Timing Driven Router>; Time: Sat Jun 19 10:14:32 2021
+; Status: 
+
+KR2: Router begin...
+
+KR2: Running Clock router...
+Net <WB_RST_FPGA> auto promoted through GMUX
+Net <bitclk_local> auto promoted through GMUX
+Net <bitclk_master_gclk> auto promoted through GMUX
+Net <WB_CLK> auto promoted through GMUX
+KR2: Clock router Completed!..
+
+KR2: Initializing...
+; Time: Sat Jun 19 10:14:32 2021
+; Status: Fragment-Level Netlister begin...
+; Time: Sat Jun 19 10:14:32 2021
+; Status: Fragment-Level Netlister complete
+; Time: Sat Jun 19 10:14:32 2021
+; Status: Initializing AD with constraints ...
+
+
+Configuration Values of <AUD,AOD> : <0.050000,1.000000>
+
+
+
+KR2: Running supply router...Debug: Cell : IO17(914), Usage : 1
+Debug: Cell : IO23(920), Usage : 1
+Debug: Cell : IO34(931), Usage : 1
+Debug: Cell : IO48(945), Usage : 1
+Debug: Cell : IO50(947), Usage : 1
+Debug: Cell : IO52(949), Usage : 1
+Debug: Cell : IO67(964), Usage : 1
+Debug: Cell : IO77(974), Usage : 1
+Debug: Cell : IO78(975), Usage : 1
+Debug: Cell : IO81(978), Usage : 1
+Debug: Cell : IO85(982), Usage : 1
+Debug: Cell : IO99(996), Usage : 1
+Debug: Cell : IO108(1000), Usage : 1
+Debug: Cell : IO112(1002), Usage : 1
+Debug: Cell : IO117(1004), Usage : 1
+
+
+KR2: Supply Nets details!...
+Number of Tie-Lo Frags to be routed: 8779
+Number of Tie-Hi Frags to be routed: 2266
+
+KR2: Supply router Completed!...
+
+Total Number of conventional nets to be routed :2061
+
+KR2: Running unified router...
+
+Cycle :0	OverConstraints :7630	NonRoutedNets :0	RouteStatus  :<260, 1996>	JointsUsed  :<42390>
+JointOCs :	[S1 :<1700>] [S2 :<3201>] [S3 :<0>] [S4 :<1436>]; Time: Sat Jun 19 10:14:34 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:34 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :1	OverConstraints :3888	NonRoutedNets :0	RouteStatus  :<787, 1469>	JointsUsed  :<46357>
+JointOCs :	[S1 :<1057>] [S2 :<1899>] [S3 :<0>] [S4 :<925>]; Time: Sat Jun 19 10:14:35 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:35 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :2	OverConstraints :2475	NonRoutedNets :0	RouteStatus  :<976, 1280>	JointsUsed  :<47631>
+JointOCs :	[S1 :<630>] [S2 :<1129>] [S3 :<0>] [S4 :<713>]; Time: Sat Jun 19 10:14:36 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:36 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :3	OverConstraints :1680	NonRoutedNets :0	RouteStatus  :<1210, 1046>	JointsUsed  :<48390>
+JointOCs :	[S1 :<460>] [S2 :<619>] [S3 :<0>] [S4 :<601>]; Time: Sat Jun 19 10:14:36 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:36 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :4	OverConstraints :1424	NonRoutedNets :0	RouteStatus  :<1301, 955>	JointsUsed  :<48678>
+JointOCs :	[S1 :<369>] [S2 :<541>] [S3 :<0>] [S4 :<514>]; Time: Sat Jun 19 10:14:37 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:37 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :5	OverConstraints :1214	NonRoutedNets :0	RouteStatus  :<1378, 878>	JointsUsed  :<48891>
+JointOCs :	[S1 :<303>] [S2 :<494>] [S3 :<0>] [S4 :<417>]; Time: Sat Jun 19 10:14:38 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:38 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :6	OverConstraints :1093	NonRoutedNets :0	RouteStatus  :<1432, 824>	JointsUsed  :<49109>
+JointOCs :	[S1 :<294>] [S2 :<418>] [S3 :<0>] [S4 :<381>]; Time: Sat Jun 19 10:14:39 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:39 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :7	OverConstraints :898	NonRoutedNets :0	RouteStatus  :<1504, 752>	JointsUsed  :<49414>
+JointOCs :	[S1 :<255>] [S2 :<321>] [S3 :<0>] [S4 :<321>]; Time: Sat Jun 19 10:14:39 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:39 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :8	OverConstraints :770	NonRoutedNets :0	RouteStatus  :<1598, 658>	JointsUsed  :<49643>
+JointOCs :	[S1 :<216>] [S2 :<279>] [S3 :<0>] [S4 :<275>]; Time: Sat Jun 19 10:14:40 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:40 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :9	OverConstraints :669	NonRoutedNets :0	RouteStatus  :<1658, 598>	JointsUsed  :<49803>
+JointOCs :	[S1 :<211>] [S2 :<221>] [S3 :<0>] [S4 :<237>]; Time: Sat Jun 19 10:14:41 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:41 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :10	OverConstraints :624	NonRoutedNets :0	RouteStatus  :<1721, 535>	JointsUsed  :<49879>
+JointOCs :	[S1 :<211>] [S2 :<204>] [S3 :<0>] [S4 :<209>]; Time: Sat Jun 19 10:14:42 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:42 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :11	OverConstraints :555	NonRoutedNets :0	RouteStatus  :<1772, 484>	JointsUsed  :<50008>
+JointOCs :	[S1 :<174>] [S2 :<208>] [S3 :<0>] [S4 :<173>]; Time: Sat Jun 19 10:14:42 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:42 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :12	OverConstraints :481	NonRoutedNets :0	RouteStatus  :<1796, 460>	JointsUsed  :<50151>
+JointOCs :	[S1 :<165>] [S2 :<180>] [S3 :<0>] [S4 :<136>]; Time: Sat Jun 19 10:14:43 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:43 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :13	OverConstraints :394	NonRoutedNets :0	RouteStatus  :<1862, 394>	JointsUsed  :<50308>
+JointOCs :	[S1 :<130>] [S2 :<160>] [S3 :<0>] [S4 :<104>]; Time: Sat Jun 19 10:14:43 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:43 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :14	OverConstraints :325	NonRoutedNets :0	RouteStatus  :<1920, 336>	JointsUsed  :<50417>
+JointOCs :	[S1 :<117>] [S2 :<121>] [S3 :<0>] [S4 :<87>]; Time: Sat Jun 19 10:14:44 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:44 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :15	OverConstraints :275	NonRoutedNets :0	RouteStatus  :<1958, 298>	JointsUsed  :<50538>
+JointOCs :	[S1 :<97>] [S2 :<110>] [S3 :<0>] [S4 :<68>]; Time: Sat Jun 19 10:14:44 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:44 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :16	OverConstraints :234	NonRoutedNets :0	RouteStatus  :<2006, 250>	JointsUsed  :<50609>
+JointOCs :	[S1 :<87>] [S2 :<85>] [S3 :<0>] [S4 :<62>]; Time: Sat Jun 19 10:14:44 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:44 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :17	OverConstraints :177	NonRoutedNets :0	RouteStatus  :<2050, 206>	JointsUsed  :<50702>
+JointOCs :	[S1 :<77>] [S2 :<61>] [S3 :<0>] [S4 :<39>]; Time: Sat Jun 19 10:14:45 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:45 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :18	OverConstraints :167	NonRoutedNets :0	RouteStatus  :<2054, 202>	JointsUsed  :<50728>
+JointOCs :	[S1 :<75>] [S2 :<62>] [S3 :<0>] [S4 :<30>]; Time: Sat Jun 19 10:14:45 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:45 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :19	OverConstraints :154	NonRoutedNets :0	RouteStatus  :<2074, 182>	JointsUsed  :<50756>
+JointOCs :	[S1 :<75>] [S2 :<51>] [S3 :<0>] [S4 :<28>]; Time: Sat Jun 19 10:14:45 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:45 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :20	OverConstraints :123	NonRoutedNets :0	RouteStatus  :<2113, 143>	JointsUsed  :<50844>
+JointOCs :	[S1 :<47>] [S2 :<50>] [S3 :<0>] [S4 :<26>]; Time: Sat Jun 19 10:14:45 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:45 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :21	OverConstraints :97	NonRoutedNets :0	RouteStatus  :<2123, 133>	JointsUsed  :<50888>
+JointOCs :	[S1 :<48>] [S2 :<29>] [S3 :<0>] [S4 :<20>]; Time: Sat Jun 19 10:14:46 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:46 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :22	OverConstraints :87	NonRoutedNets :0	RouteStatus  :<2145, 111>	JointsUsed  :<50931>
+JointOCs :	[S1 :<49>] [S2 :<23>] [S3 :<0>] [S4 :<15>]; Time: Sat Jun 19 10:14:46 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:46 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :23	OverConstraints :76	NonRoutedNets :0	RouteStatus  :<2157, 99>	JointsUsed  :<50948>
+JointOCs :	[S1 :<35>] [S2 :<26>] [S3 :<0>] [S4 :<15>]; Time: Sat Jun 19 10:14:46 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:46 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :24	OverConstraints :70	NonRoutedNets :0	RouteStatus  :<2162, 94>	JointsUsed  :<50960>
+JointOCs :	[S1 :<33>] [S2 :<25>] [S3 :<0>] [S4 :<12>]; Time: Sat Jun 19 10:14:46 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:46 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :25	OverConstraints :61	NonRoutedNets :0	RouteStatus  :<2173, 83>	JointsUsed  :<50975>
+JointOCs :	[S1 :<33>] [S2 :<18>] [S3 :<0>] [S4 :<10>]; Time: Sat Jun 19 10:14:46 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:46 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :26	OverConstraints :52	NonRoutedNets :0	RouteStatus  :<2185, 71>	JointsUsed  :<51007>
+JointOCs :	[S1 :<29>] [S2 :<19>] [S3 :<0>] [S4 :<4>]; Time: Sat Jun 19 10:14:46 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:46 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :27	OverConstraints :43	NonRoutedNets :0	RouteStatus  :<2198, 58>	JointsUsed  :<51021>
+JointOCs :	[S1 :<23>] [S2 :<16>] [S3 :<0>] [S4 :<4>]; Time: Sat Jun 19 10:14:47 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:47 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :28	OverConstraints :37	NonRoutedNets :0	RouteStatus  :<2202, 54>	JointsUsed  :<51047>
+JointOCs :	[S1 :<19>] [S2 :<13>] [S3 :<0>] [S4 :<5>]; Time: Sat Jun 19 10:14:47 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:47 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :29	OverConstraints :42	NonRoutedNets :0	RouteStatus  :<2204, 52>	JointsUsed  :<51053>
+JointOCs :	[S1 :<14>] [S2 :<22>] [S3 :<0>] [S4 :<6>]; Time: Sat Jun 19 10:14:47 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:47 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :30	OverConstraints :34	NonRoutedNets :0	RouteStatus  :<2210, 46>	JointsUsed  :<51081>
+JointOCs :	[S1 :<23>] [S2 :<8>] [S3 :<0>] [S4 :<3>]; Time: Sat Jun 19 10:14:47 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:47 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :31	OverConstraints :33	NonRoutedNets :0	RouteStatus  :<2210, 46>	JointsUsed  :<51076>
+JointOCs :	[S1 :<15>] [S2 :<16>] [S3 :<0>] [S4 :<2>]; Time: Sat Jun 19 10:14:47 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:47 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :32	OverConstraints :26	NonRoutedNets :0	RouteStatus  :<2219, 37>	JointsUsed  :<51095>
+JointOCs :	[S1 :<14>] [S2 :<12>] [S3 :<0>] [S4 :<0>]; Time: Sat Jun 19 10:14:47 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:47 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :33	OverConstraints :26	NonRoutedNets :0	RouteStatus  :<2217, 39>	JointsUsed  :<51105>
+JointOCs :	[S1 :<16>] [S2 :<10>] [S3 :<0>] [S4 :<0>]; Time: Sat Jun 19 10:14:47 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:47 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :34	OverConstraints :25	NonRoutedNets :0	RouteStatus  :<2226, 30>	JointsUsed  :<51109>
+JointOCs :	[S1 :<12>] [S2 :<13>] [S3 :<0>] [S4 :<0>]; Time: Sat Jun 19 10:14:47 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:47 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :35	OverConstraints :19	NonRoutedNets :0	RouteStatus  :<2231, 25>	JointsUsed  :<51118>
+JointOCs :	[S1 :<11>] [S2 :<8>] [S3 :<0>] [S4 :<0>]; Time: Sat Jun 19 10:14:47 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:47 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :36	OverConstraints :15	NonRoutedNets :0	RouteStatus  :<2235, 21>	JointsUsed  :<51122>
+JointOCs :	[S1 :<5>] [S2 :<10>] [S3 :<0>] [S4 :<0>]; Time: Sat Jun 19 10:14:47 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:47 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :37	OverConstraints :9	NonRoutedNets :0	RouteStatus  :<2242, 14>	JointsUsed  :<51148>
+JointOCs :	[S1 :<6>] [S2 :<3>] [S3 :<0>] [S4 :<0>]; Time: Sat Jun 19 10:14:47 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:47 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :38	OverConstraints :7	NonRoutedNets :0	RouteStatus  :<2243, 13>	JointsUsed  :<51154>
+JointOCs :	[S1 :<5>] [S2 :<2>] [S3 :<0>] [S4 :<0>]; Time: Sat Jun 19 10:14:47 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:47 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :39	OverConstraints :6	NonRoutedNets :0	RouteStatus  :<2245, 11>	JointsUsed  :<51156>
+JointOCs :	[S1 :<4>] [S2 :<2>] [S3 :<0>] [S4 :<0>]; Time: Sat Jun 19 10:14:47 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:47 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :40	OverConstraints :5	NonRoutedNets :0	RouteStatus  :<2249, 7>	JointsUsed  :<51163>
+JointOCs :	[S1 :<2>] [S2 :<3>] [S3 :<0>] [S4 :<0>]; Time: Sat Jun 19 10:14:47 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:47 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :41	OverConstraints :6	NonRoutedNets :0	RouteStatus  :<2249, 7>	JointsUsed  :<51161>
+JointOCs :	[S1 :<3>] [S2 :<3>] [S3 :<0>] [S4 :<0>]; Time: Sat Jun 19 10:14:48 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:48 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :42	OverConstraints :5	NonRoutedNets :0	RouteStatus  :<2250, 6>	JointsUsed  :<51164>
+JointOCs :	[S1 :<3>] [S2 :<2>] [S3 :<0>] [S4 :<0>]; Time: Sat Jun 19 10:14:48 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:48 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :43	OverConstraints :4	NonRoutedNets :0	RouteStatus  :<2248, 8>	JointsUsed  :<51165>
+JointOCs :	[S1 :<3>] [S2 :<1>] [S3 :<0>] [S4 :<0>]; Time: Sat Jun 19 10:14:48 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:48 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :44	OverConstraints :4	NonRoutedNets :0	RouteStatus  :<2250, 6>	JointsUsed  :<51166>
+JointOCs :	[S1 :<1>] [S2 :<3>] [S3 :<0>] [S4 :<0>]; Time: Sat Jun 19 10:14:48 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:48 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :45	OverConstraints :2	NonRoutedNets :0	RouteStatus  :<2253, 3>	JointsUsed  :<51171>
+JointOCs :	[S1 :<1>] [S2 :<1>] [S3 :<0>] [S4 :<0>]; Time: Sat Jun 19 10:14:48 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:48 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :46	OverConstraints :2	NonRoutedNets :0	RouteStatus  :<2253, 3>	JointsUsed  :<51172>
+JointOCs :	[S1 :<1>] [S2 :<1>] [S3 :<0>] [S4 :<0>]; Time: Sat Jun 19 10:14:48 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:48 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :47	OverConstraints :2	NonRoutedNets :0	RouteStatus  :<2252, 4>	JointsUsed  :<51171>
+JointOCs :	[S1 :<1>] [S2 :<1>] [S3 :<0>] [S4 :<0>]; Time: Sat Jun 19 10:14:48 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:48 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :48	OverConstraints :2	NonRoutedNets :0	RouteStatus  :<2252, 4>	JointsUsed  :<51171>
+JointOCs :	[S1 :<0>] [S2 :<2>] [S3 :<0>] [S4 :<0>]; Time: Sat Jun 19 10:14:48 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:48 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :49	OverConstraints :1	NonRoutedNets :0	RouteStatus  :<2254, 2>	JointsUsed  :<51176>
+JointOCs :	[S1 :<0>] [S2 :<1>] [S3 :<0>] [S4 :<0>]; Time: Sat Jun 19 10:14:48 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:48 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :50	OverConstraints :1	NonRoutedNets :0	RouteStatus  :<2254, 2>	JointsUsed  :<51176>
+JointOCs :	[S1 :<1>] [S2 :<0>] [S3 :<0>] [S4 :<0>]; Time: Sat Jun 19 10:14:48 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:48 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :51	OverConstraints :1	NonRoutedNets :0	RouteStatus  :<2254, 2>	JointsUsed  :<51176>
+JointOCs :	[S1 :<1>] [S2 :<0>] [S3 :<0>] [S4 :<0>]; Time: Sat Jun 19 10:14:48 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:48 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :52	OverConstraints :1	NonRoutedNets :0	RouteStatus  :<2254, 2>	JointsUsed  :<51176>
+JointOCs :	[S1 :<0>] [S2 :<1>] [S3 :<0>] [S4 :<0>]; Time: Sat Jun 19 10:14:48 2021
+; Status: Timing driven calculations begin...
+; Time: Sat Jun 19 10:14:48 2021
+; Status: Timing driven calculations end...
+
+
+Cycle :53	OverConstraints :0	NonRoutedNets :0	RouteStatus  :<2256, 0>	JointsUsed  :<51177>
+JointOCs :	[S1 :<0>] [S2 :<0>] [S3 :<0>] [S4 :<0>]
+
+
+
+Total number of available joints :95504
+Total number of used joints :51177
+Percentage of joint utilization :53.59%
+
+
+
+KR2: Writting back database...
+; Time: Sat Jun 19 10:14:48 2021
+; Status: 
+Joint Propagation begin!...
+
+Joint propagation successful!...; Time: Sat Jun 19 10:14:48 2021
+; Status: 
+Joint Propagation Ends!...
+; Time: Sat Jun 19 10:14:48 2021
+; Status: AD Close...
+; Time: Sat Jun 19 10:14:48 2021
+; Status: 
+Router Completed!...
+; Time: Sat Jun 19 10:14:48 2021
+; Status: Fragment-Level Netlister begin...
+; Time: Sat Jun 19 10:14:48 2021
+; Status: Fragment-Level Netlister complete
+; Time: Sat Jun 19 10:14:48 2021
+; Status: Fragment simulator begins ...
+; Time: Sat Jun 19 10:14:50 2021
+; Status: Fragment simulator ends successfully.
+; Options for delay modeler
+; delay modeler.Mode = Commercial
+; delay modeler.Corner = Worst
+; delay modeler.OutPadCap = 30.000000
+; delay modeler.SpeedGrade = 8
+; delay modeler.LowPower = FALSE
+; delay modeler.CustomVccBest = 1.100000
+; delay modeler.CustomVccNominal = 1.100000
+; delay modeler.CustomVccWorst = 1.100000
+; delay modeler.CustomVccLPBest = 3.600000
+; delay modeler.CustomVccLPNominal = 3.300000
+; delay modeler.CustomVccLPWorst = 3.000000
+; delay modeler.CustomTempBest = 25.000000
+; delay modeler.CustomTempNominal = 25.000000
+; delay modeler.CustomTempWorst = 25.000000
+; delay modeler.CheckedforHTV = FALSE
+; Time: Sat Jun 19 10:14:50 2021
+; Status: Delay Modeler begin...
+; Warning: Cannot open D:/qlal4s3b_RoutingDelays.csv file name for writing.
+
+; Time: Sat Jun 19 10:14:57 2021
+; Status: Delay Modeler complete
+; Options for back annotation
+; back annotation.FixFFs = FALSE
+; back annotation.FixIos = FALSE
+; back annotation.FixRams = FALSE
+; back annotation.Simulator = Verilog
+; back annotation.MissingHeader = TRUE
+; back annotation.GeneratePSFiles = FALSE
+; Time: Sat Jun 19 10:14:57 2021
+; Status: Fragment-Level Netlister begin...
+; Time: Sat Jun 19 10:14:57 2021
+; Status: Fragment-Level Netlister complete
+; Time: Sat Jun 19 10:14:57 2021
+; Status: Verilog back annotation begin...
+; Time: Sat Jun 19 10:14:57 2021
+; Status: Verilog netlist begin...
+; Time: Sat Jun 19 10:14:57 2021
+; Status: Verilog back annotation in progress...
+Info     : vg_1007_lf: File "top.vh" does not exist. All bus signals will be flattened and declared as individual wires. (..\vg\vg.c:2650)
+; Time: Sat Jun 19 10:14:59 2021
+; Status: Verilog netlist complete
+; Time: Sat Jun 19 10:14:59 2021
+; Status: SDF back annotation begin...
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+Timing support is not available for ASSP Internal Buffers.
+; Time: Sat Jun 19 10:15:00 2021
+; Status: SDF back annotation complete
+; Time: Sat Jun 19 10:15:00 2021
+; Status: Verilog back annotation complete
+; Time: Sat Jun 19 10:15:00 2021
+; Status: Back annotation begin...
+; Time: Sat Jun 19 10:15:00 2021
+; Status: Back annotation complete
+; Time: Sat Jun 19 10:15:01 2021
+; Status: Fragment-Level Netlister begin...
+; Time: Sat Jun 19 10:15:01 2021
+; Status: Fragment-Level Netlister complete
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_deci_filter_fir128coeff_u_r512x16_512x16_FIR_COEFF_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_deci_filter_fir128coeff_u_r512x16_512x16_FIR_COEFF_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_deci_filter_fir128coeff_u_r512x16_512x16_FIR_COEFF_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_deci_filter_fir128coeff_u_r512x16_512x16_FIR_COEFF_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_deci_filter_fir128coeff_u_r512x16_512x16_FIR_COEFF_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_deci_filter_fir128coeff_u_r512x16_512x16_FIR_COEFF_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_deci_filter_fir128coeff_u_r512x16_512x16_FIR_COEFF_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_deci_filter_fir128coeff_u_r512x16_512x16_FIR_COEFF_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_deci_filter_fir128coeff_u_r512x16_512x16_FIR_COEFF_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_deci_filter_fir128coeff_u_r512x16_512x16_FIR_COEFF_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_deci_filter_fir128coeff_u_r512x16_512x16_FIR_COEFF_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_deci_filter_fir128coeff_u_r512x16_512x16_FIR_COEFF_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_deci_filter_fir128coeff_u_r512x16_512x16_FIR_COEFF_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_deci_filter_fir128coeff_u_r512x16_512x16_FIR_COEFF_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_deci_filter_fir128coeff_u_r512x16_512x16_FIR_COEFF_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_deci_filter_fir128coeff_u_r512x16_512x16_FIR_COEFF_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_I2S_Slave_w_DMA_u_i2s_slave_Rx_FIFOs_inst0_u_r512x16_512x16_I2S_PREDECIM_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_I2S_Slave_w_DMA_u_i2s_slave_Rx_FIFOs_inst0_u_r512x16_512x16_I2S_PREDECIM_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_I2S_Slave_w_DMA_u_i2s_slave_Rx_FIFOs_inst0_u_r512x16_512x16_I2S_PREDECIM_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_I2S_Slave_w_DMA_u_i2s_slave_Rx_FIFOs_inst0_u_r512x16_512x16_I2S_PREDECIM_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_I2S_Slave_w_DMA_u_i2s_slave_Rx_FIFOs_inst0_u_r512x16_512x16_I2S_PREDECIM_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_I2S_Slave_w_DMA_u_i2s_slave_Rx_FIFOs_inst0_u_r512x16_512x16_I2S_PREDECIM_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_I2S_Slave_w_DMA_u_i2s_slave_Rx_FIFOs_inst0_u_r512x16_512x16_I2S_PREDECIM_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_I2S_Slave_w_DMA_u_i2s_slave_Rx_FIFOs_inst0_u_r512x16_512x16_I2S_PREDECIM_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_I2S_Slave_w_DMA_u_i2s_slave_Rx_FIFOs_inst0_u_r512x16_512x16_I2S_PREDECIM_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_I2S_Slave_w_DMA_u_i2s_slave_Rx_FIFOs_inst0_u_r512x16_512x16_I2S_PREDECIM_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_I2S_Slave_w_DMA_u_i2s_slave_Rx_FIFOs_inst0_u_r512x16_512x16_I2S_PREDECIM_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_I2S_Slave_w_DMA_u_i2s_slave_Rx_FIFOs_inst0_u_r512x16_512x16_I2S_PREDECIM_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_I2S_Slave_w_DMA_u_i2s_slave_Rx_FIFOs_inst0_u_r512x16_512x16_I2S_PREDECIM_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_I2S_Slave_w_DMA_u_i2s_slave_Rx_FIFOs_inst0_u_r512x16_512x16_I2S_PREDECIM_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_I2S_Slave_w_DMA_u_i2s_slave_Rx_FIFOs_inst0_u_r512x16_512x16_I2S_PREDECIM_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_I2S_Slave_w_DMA_u_i2s_slave_Rx_FIFOs_inst0_u_r512x16_512x16_I2S_PREDECIM_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_af512x16_512x16_L_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_af512x16_512x16_L_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_af512x16_512x16_L_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_af512x16_512x16_L_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_af512x16_512x16_L_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_af512x16_512x16_L_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_af512x16_512x16_L_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_af512x16_512x16_L_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_af512x16_512x16_L_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_af512x16_512x16_L_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_af512x16_512x16_L_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_af512x16_512x16_L_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_af512x16_512x16_L_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_af512x16_512x16_L_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_af512x16_512x16_L_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_af512x16_512x16_L_FIFO_INST_genblk5.U1 without clock net
+; Time: Sat Jun 19 10:15:02 2021
+; Status: Report file C:\Work\github\QuickLogic-Corp\s3-gateware\projects\S3_AEC\build_spde\spde\top_rpt.html created.
+; Time: Sat Jun 19 10:15:37 2021
+; Status: Saving file C:\Work\github\QuickLogic-Corp\s3-gateware\projects\S3_AEC\build_spde\spde\top.chp
+Info     : cf_1041_lf: SpDE Tools options are saved in constraint file. (..\cf\cfwrite.c:3491)
+; Time: Sat Jun 19 10:15:37 2021
+; Status: Fragment-Level Netlister begin...
+; Time: Sat Jun 19 10:15:37 2021
+; Status: Fragment-Level Netlister complete
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_deci_filter_fir128coeff_u_r512x16_512x16_FIR_COEFF_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_deci_filter_fir128coeff_u_r512x16_512x16_FIR_COEFF_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_deci_filter_fir128coeff_u_r512x16_512x16_FIR_COEFF_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_deci_filter_fir128coeff_u_r512x16_512x16_FIR_COEFF_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_deci_filter_fir128coeff_u_r512x16_512x16_FIR_COEFF_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_deci_filter_fir128coeff_u_r512x16_512x16_FIR_COEFF_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_deci_filter_fir128coeff_u_r512x16_512x16_FIR_COEFF_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_deci_filter_fir128coeff_u_r512x16_512x16_FIR_COEFF_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_deci_filter_fir128coeff_u_r512x16_512x16_FIR_COEFF_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_deci_filter_fir128coeff_u_r512x16_512x16_FIR_COEFF_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_deci_filter_fir128coeff_u_r512x16_512x16_FIR_COEFF_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_deci_filter_fir128coeff_u_r512x16_512x16_FIR_COEFF_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_deci_filter_fir128coeff_u_r512x16_512x16_FIR_COEFF_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_deci_filter_fir128coeff_u_r512x16_512x16_FIR_COEFF_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_deci_filter_fir128coeff_u_r512x16_512x16_FIR_COEFF_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_deci_filter_fir128coeff_u_r512x16_512x16_FIR_COEFF_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_I2S_Slave_w_DMA_u_i2s_slave_Rx_FIFOs_inst0_u_r512x16_512x16_I2S_PREDECIM_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_I2S_Slave_w_DMA_u_i2s_slave_Rx_FIFOs_inst0_u_r512x16_512x16_I2S_PREDECIM_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_I2S_Slave_w_DMA_u_i2s_slave_Rx_FIFOs_inst0_u_r512x16_512x16_I2S_PREDECIM_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_I2S_Slave_w_DMA_u_i2s_slave_Rx_FIFOs_inst0_u_r512x16_512x16_I2S_PREDECIM_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_I2S_Slave_w_DMA_u_i2s_slave_Rx_FIFOs_inst0_u_r512x16_512x16_I2S_PREDECIM_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_I2S_Slave_w_DMA_u_i2s_slave_Rx_FIFOs_inst0_u_r512x16_512x16_I2S_PREDECIM_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_I2S_Slave_w_DMA_u_i2s_slave_Rx_FIFOs_inst0_u_r512x16_512x16_I2S_PREDECIM_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_I2S_Slave_w_DMA_u_i2s_slave_Rx_FIFOs_inst0_u_r512x16_512x16_I2S_PREDECIM_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_I2S_Slave_w_DMA_u_i2s_slave_Rx_FIFOs_inst0_u_r512x16_512x16_I2S_PREDECIM_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_I2S_Slave_w_DMA_u_i2s_slave_Rx_FIFOs_inst0_u_r512x16_512x16_I2S_PREDECIM_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_I2S_Slave_w_DMA_u_i2s_slave_Rx_FIFOs_inst0_u_r512x16_512x16_I2S_PREDECIM_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_I2S_Slave_w_DMA_u_i2s_slave_Rx_FIFOs_inst0_u_r512x16_512x16_I2S_PREDECIM_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_I2S_Slave_w_DMA_u_i2s_slave_Rx_FIFOs_inst0_u_r512x16_512x16_I2S_PREDECIM_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_I2S_Slave_w_DMA_u_i2s_slave_Rx_FIFOs_inst0_u_r512x16_512x16_I2S_PREDECIM_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_I2S_Slave_w_DMA_u_i2s_slave_Rx_FIFOs_inst0_u_r512x16_512x16_I2S_PREDECIM_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_I2S_Slave_w_DMA_u_i2s_slave_Rx_FIFOs_inst0_u_r512x16_512x16_I2S_PREDECIM_DATA_RAM_INST_genblk6.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_af512x16_512x16_L_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_af512x16_512x16_L_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_af512x16_512x16_L_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_af512x16_512x16_L_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_af512x16_512x16_L_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_af512x16_512x16_L_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_af512x16_512x16_L_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_af512x16_512x16_L_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_af512x16_512x16_L_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_af512x16_512x16_L_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_af512x16_512x16_L_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_af512x16_512x16_L_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_af512x16_512x16_L_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_af512x16_512x16_L_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_af512x16_512x16_L_FIFO_INST_genblk5.U1 without clock net
+flip-flop u_AL4S3B_FPGA_IP.u_decimation_filter_3to1_u_af512x16_512x16_L_FIFO_INST_genblk5.U1 without clock net
+; Time: Sat Jun 19 10:15:37 2021
+; Status: Report file C:\Work\github\QuickLogic-Corp\s3-gateware\projects\S3_AEC\build_spde\spde\top_rpt.html created.
+; Time: Sat Jun 19 10:15:37 2021
+; Status: File C:\Work\github\QuickLogic-Corp\s3-gateware\projects\S3_AEC\build_spde\spde\top.chp saved
+; Time: Sat Jun 19 10:15:41 2021
+; Status: utMemClose: Max memory used was 252261447 bytes

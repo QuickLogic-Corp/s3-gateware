@@ -1,0 +1,1168 @@
+<style>
+body{font-family:"Arial";color:#000000 ;font-size : 12 ;line-height: 1.5em; }
+table {
+	font: 11px/24px Verdana, Arial, Helvetica, sans-serif;
+	border-collapse: collapse;
+	border-top:1px solid #969696;
+	border-left: 1px solid #969696;
+	border-bottom: 1px solid #969696;
+	border-right: 1px solid #969696;
+	padding :0px;
+	border-style: none  none  none  none;
+	}
+
+th {
+	padding: 0 0.5em;
+	text-align: left;
+	}
+
+td {
+	border-bottom: 1px solid #969696;
+	padding: 0 0.5em;
+	}
+
+td.head {
+	border-bottom: 1px solid #969696;
+	padding: 0 0.5em;
+	background: #CCCCFF;
+	}
+
+tr.highlight{
+	color:#FF0000 ;
+	}
+
+td:first-child {
+	width: 190px;
+	}
+
+td+td {
+	border-left: 2px solid #969696;
+	}
+
+td.adjacent {
+	border-left: 1px solid #969696;
+	text-align: center;
+	}
+	</style><body >
+<H2>Report of top</H2><TITLE>Report of top</TITLE>
+<LI><CAPTION><U><A href="#Design Information">Design Information</A></U></CAPTION></LI>
+<LI><CAPTION><U><A href="#Utilization Information">Utilization Information</A></U></CAPTION></LI>
+<LI><CAPTION><U><A href="#Clock Network Utilization by Clock Pads">Clock Network Utilization by Clock Pads</A></U></CAPTION></LI>
+<LI><CAPTION><U><A href="#Clock Network Utilization by Internal Logic">Clock Network Utilization by Internal Logic</A></U></CAPTION></LI>
+<LI><CAPTION><U><A href="#Available Quad Clock MUX">Available Quad Clock MUX</A></U></CAPTION></LI>
+<LI><CAPTION><U><A href="#Clock Timing Results">Clock Timing Results</A></U></CAPTION></LI>
+<LI><CAPTION><U><A href="#Tools run on design top">Tools run on design top</A></U></CAPTION></LI>
+<LI><CAPTION><U><A href="#Pin Table">Pin Table</A></U></CAPTION></LI>
+<LI><CAPTION><U><A href="#Fixed Flip Flops">Fixed Flip Flops</A></U></CAPTION></LI>
+<LI><CAPTION><U><A href="#Fixed RAM cells">Fixed RAM cells</A></U></CAPTION></LI>
+<LI><CAPTION><U><A href="#Nets Removed by Technology Mapper">Nets Removed by Technology Mapper</A></U></CAPTION></LI>
+<LI><CAPTION><U><A href="#Flip-flops clocked by non-clock cells">Flip-flops clocked by non-clock cells</A></U></CAPTION></LI>
+<CAPTION><H3><U><A name="Design Information">Design Information</A></U></H3></CAPTION>
+<TABLE BORDER cellSpacing="1" cellpadding="3">
+<TR>
+<TD class=head><B>Design
+<TD>top
+</TR>
+<TR>
+<TD class=head><B>SpDE Version
+<TD>SpDE 2016.2 Release
+</TR>
+<TR>
+<TD class=head><B>Report Generated
+<TD>Sat Jun 19 10:15:37 2021
+</TR>
+<TR>
+<TD class=head><B>CHIP Last Updated
+<TD>Fri Jun 18 21:45:37 2021
+</TR>
+<TR>
+<TD class=head><B>Part Type
+<TD>qlal4s3b
+</TR>
+<TR>
+<TD class=head><B>Speed Grade
+<TD>8
+</TR>
+<TR>
+<TD class=head><B>Operating Range
+<TD>Commercial
+</TR>
+<TR>
+<TD class=head><B>Package Type
+<TD>90 PIN BGA
+</TR>
+<TR>
+<TD class=head><B>Design Check Sum
+<TD>26eaea22
+</TR>
+</TABLE>
+</TABLE><BR>
+
+<BR><CAPTION align="right" ><U><A href="#Top">Go to Top</A></U></CAPTION><HR>
+<CAPTION><H3><U><A name="Utilization Information">Utilization Information</A></U></H3></CAPTION>
+<TABLE BORDER cellSpacing="1" cellpadding="3">
+<TR>
+<TD class=head><B>Utilized cells (preplacement)
+<TD>    687 of     891  (77.1)
+</TR>
+<TR>
+<TD class=head><B>Utilized cells (postplacement)
+<TD>    814 of     891  (91.4)
+</TR>
+<TR>
+<TD class=head><B>Utilized Logic cell Frags (preplacement)
+<TD>   2425 of    3564  (68.0)
+</TR>
+<TR>
+<TD class=head><B>Utilized Logic cell Frags (postplacement)
+<TD>   2425 of    3564  (68.0)
+</TR>
+<TR>
+<TD class=head><B>Utilized Fragment F
+<TD>    408
+</TR>
+<TR>
+<TD class=head><B>Utilized Fragment C
+<TD>    686
+</TR>
+<TR>
+<TD class=head><B>Utilized Fragment T
+<TD>    687
+</TR>
+<TR>
+<TD class=head><B>Clock only cells
+<TD>      0 of       5  (0.0)
+</TR>
+<TR>
+<TD class=head><B>GPIO of Dual Pin cells
+<TD>      2 of       5  (40.0)
+</TR>
+<TR>
+<TD class=head><B>GPIO of IO cells
+<TD>      1 of      27  (3.7)
+</TR>
+<TR>
+<TD class=head><B>GPIO of SFBIO cells
+<TD>      0 of      14  (0.0)
+</TR>
+<TR>
+<TD class=head><B>Multiplier cells
+<TD>      1 of       2  (50.0)
+</TR>
+<TR>
+<TD class=head><B>ASSP cell
+<TD>      1 of       1  (100.0)
+</TR>
+<TR>
+<TD class=head><B>RAM cells (8K)
+<TD>      3 of       8  (37.5)
+</TR>
+<TR>
+<TD class=head><B>Flip-Flop of bonded IO cells
+<TD>      0 of      81  (0.0)
+</TR>
+<TR>
+<TD class=head><B>Flip-Flop of Logic cells
+<TD>    644 of     891  (72.3)
+</TR>
+<TR>
+<TD class=head><B>Wire resources
+<TD>  53433 of   99981  (53.4)
+</TR>
+<TR>
+<TD class=head><B>Joint resources
+<TD>  51177 of   95504  (53.6)
+</TR>
+</TABLE>
+</TABLE>
+<CAPTION><H3><U><A name="Clock Network Utilization by Clock Pads">Clock Network Utilization by Clock Pads</A></U></H3></CAPTION>
+<TABLE BORDER cellSpacing="1" cellpadding="3">
+</TABLE><BR>
+
+<CAPTION><H3><U><A name="Clock Network Utilization by Internal Logic">Clock Network Utilization by Internal Logic</A></U></H3></CAPTION>
+<TABLE BORDER cellSpacing="1" cellpadding="3">
+<TR>
+<TD class=head><B>Clock Network
+<TD class=head><B>Net
+<TD class=head><B>Driver
+<TD class=head><B>Quad
+<TD class=head><B>Load
+</TR>
+<TR>
+<TD>QMUX_TL0
+<TD>WB_RST_FPGA
+<TD>A1
+<TD>QUAD_TL
+<TD>166
+</TR>
+<TR>
+<TD>QMUX_TL1
+<TD>bitclk_local
+<TD>ESPXXO94
+<TD>QUAD_TL
+<TD>84
+</TR>
+<TR>
+<TD>QMUX_TL2
+<TD>bitclk_master_gclk
+<TD>FBIO_31
+<TD>QUAD_TL
+<TD>35
+</TR>
+<TR>
+<TD>QMUX_TL3
+<TD>WB_CLK
+<TD>ESPXXO92
+<TD>QUAD_TL
+<TD>61
+</TR>
+<TR>
+<TD>QMUX_TR0
+<TD>WB_RST_FPGA_QMUX_TR0_0
+<TD>A1
+<TD>QUAD_TR
+<TD>115
+</TR>
+<TR>
+<TD>QMUX_TR1
+<TD>bitclk_local_QMUX_TR1_0
+<TD>ESPXXO94
+<TD>QUAD_TR
+<TD>7
+</TR>
+<TR>
+<TD>QMUX_TR2
+<TD>bitclk_master_gclk_QMUX_TR2_0
+<TD>FBIO_31
+<TD>QUAD_TR
+<TD>8
+</TR>
+<TR>
+<TD>QMUX_TR3
+<TD>WB_CLK_QMUX_TR3_0
+<TD>ESPXXO92
+<TD>QUAD_TR
+<TD>150
+</TR>
+<TR>
+<TD>QMUX_BL0
+<TD>WB_RST_FPGA_QMUX_BL0_0
+<TD>A1
+<TD>QUAD_BL
+<TD>119
+</TR>
+<TR>
+<TD>QMUX_BL1
+<TD>bitclk_local_QMUX_BL1_0
+<TD>ESPXXO94
+<TD>QUAD_BL
+<TD>82
+</TR>
+<TR>
+<TD>QMUX_BL2
+<TD>bitclk_master_gclk_QMUX_BL2_0
+<TD>FBIO_31
+<TD>QUAD_BL
+<TD>66
+</TR>
+<TR>
+<TD>QMUX_BR0
+<TD>WB_RST_FPGA_QMUX_BR0_0
+<TD>A1
+<TD>QUAD_BR
+<TD>67
+</TR>
+<TR>
+<TD>QMUX_BR1
+<TD>bitclk_local_QMUX_BR1_0
+<TD>ESPXXO94
+<TD>QUAD_BR
+<TD>33
+</TR>
+<TR>
+<TD>QMUX_BR2
+<TD>bitclk_master_gclk_QMUX_BR2_0
+<TD>FBIO_31
+<TD>QUAD_BR
+<TD>47
+</TR>
+<TR>
+<TD>QMUX_BR3
+<TD>WB_CLK_QMUX_BR3_0
+<TD>ESPXXO92
+<TD>QUAD_BR
+<TD>81
+</TR>
+<TR>
+<TD>QMUX_BR4
+<TD>u_AL4S3B_FPGA_IP.u_I2S_Slave_w_DMA_u_i2s_slave_Rx_FIFOs_inst0_I2SData_gclk_wclk
+<TD>H8
+<TD>QUAD_BR
+<TD>1
+</TR>
+</TABLE><BR>
+
+<CAPTION><H3><U><A name="Available Quad Clock MUX">Available Quad Clock MUX</A></U></H3></CAPTION>
+<TABLE BORDER cellSpacing="1" cellpadding="3">
+<TR>
+<TD class=head><B>Quad TOP LEFT
+<TD>1 of 5 Quad Clock Muxes available	(80.0)
+</TR>
+<TR>
+<TD class=head><B>Quad TOP RIGHT
+<TD>1 of 5 Quad Clock Muxes available	(80.0)
+</TR>
+<TR>
+<TD class=head><B>Quad BOTTOM LEFT
+<TD>2 of 5 Quad Clock Muxes available	(60.0)
+</TR>
+<TR>
+<TD class=head><B>Quad BOTTOM RIGHT
+<TD>0 of 5 Quad Clock Muxes available	(100.0)
+</TR>
+</TABLE><BR>
+
+</TABLE>
+</TABLE><BR>
+
+<BR><CAPTION align="right" ><U><A href="#Top">Go to Top</A></U></CAPTION><HR>
+<CAPTION><H3><U><A name="Clock Timing Results">Clock Timing Results</A></U></H3></CAPTION>
+<CAPTION><H4><U><A name="Summary">Summary</A></U></H4></CAPTION>
+<TABLE BORDER cellSpacing="1" cellpadding="3">
+<TABLE BORDER cellSpacing="1" cellpadding="3">
+<TR>
+<TD class=head><B>Clock
+<TD class=head><B>Required Frequency
+<TD class=head><B>UnRestricted Frequency
+<TD class=head><B>Restricted Frequency
+<TD class=head><B>Global Setup Time
+<TD class=head><B>Global Clock to Out
+<TD class=head><B>Skew
+</TR>
+<TR>
+<TD class=head><B>u_AL4S3B_FPGA_IP.u_I2S_Slave_w_DMA_wb_FIR_L_PREDECI_RAM_wrMASTER_CTRL_sig
+<TD>1000 MHz /1.0000 ns
+<TD>N/A
+<TD>N/A
+<TD>N/A
+<TD>N/A
+<TD>N/A
+</TR>
+<TR>
+<TD class=head><B>I2S_CLK_i
+<TD>1000 MHz /1.0000 ns
+<TD> 10 MHz /98.6368 ns
+<TD>N/A
+<TD>5.3584 ns
+<TD>N/A
+<TD>-5.0756 ns
+</TR>
+</TABLE>
+</TABLE>
+</TABLE><BR>
+
+<BR><CAPTION align="right" ><U><A href="#Top">Go to Top</A></U></CAPTION><HR>
+<CAPTION><H3><U><A name="Tools run on design top">Tools run on design top</A></U></H3></CAPTION>
+<TABLE BORDER cellSpacing="1" cellpadding="3">
+<TR>
+<TD class=head><B>partdef
+<TD>6.0
+<TD> Run Time 0:00:00
+</TR>
+<TR>
+<TD class=head><B>design
+<TD>2016.2
+<TD> Run Time 0:00:00
+</TR>
+<TR>
+<TD class=head><B>logic optimizer
+<TD>2016.2
+<TD> Mode = Quality Goal = Speed Level = 1 IgnorePack = FALSE UseNonBondedPads = TRUE Run Time 0:00:09
+</TR>
+<TR>
+<TD class=head><B>placer
+<TD>2016.2
+<TD> Seed = 42 Mode = Quality Run Time 0:00:33
+</TR>
+<TR>
+<TD class=head><B>router
+<TD>2016.2
+<TD> Run Time 0:00:18
+</TR>
+<TR>
+<TD class=head><B>delay modeler
+<TD>2016.2
+<TD> Mode = Commercial Corner = Worst SpeedGrade = 8 LowPower = FALSE CheckedforHTV = FALSE Run Time 0:00:07
+</TR>
+<TR>
+<TD class=head><B>back annotation
+<TD>2016.2
+<TD> Run Time 0:00:03
+</TR>
+<TR>
+<TD class=head><B>verifier (Loading Time)
+<TD>2016.2
+<TD> Strip = TRUE Run Time 0:00:00
+</TR>
+</TABLE>
+</TABLE><BR>
+
+<BR><CAPTION align="right" ><U><A href="#Top">Go to Top</A></U></CAPTION><HR>
+<CAPTION><H3><U><A name="Pin Table">Pin Table</A></U></H3></CAPTION>
+<TABLE BORDER cellSpacing="1" cellpadding="3">
+<TR>
+<TD class=head><B>Pin #
+<TD class=head><B>Pad Name
+<TD class=head><B>Net Name
+<TD class=head><B>PinType
+<TD class=head><B>bankName
+<TD class=head><B>Fixed
+</TR>
+<TR>
+<TD>IO3
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO5
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO8
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO10
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO11
+<TD>VCC
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO13
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO15
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO17
+<TD>VCCIO
+<TD>&nbsp
+<TD>&nbsp
+<TD>VCCIO(A)
+<TD>Y
+</TR>
+<TR>
+<TD>IO18
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO19
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO22
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO23
+<TD>VCCIO
+<TD>&nbsp
+<TD>&nbsp
+<TD>VCCIO(A)
+<TD>Y
+</TR>
+<TR>
+<TD>IO26
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO27
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO28
+<TD>VCC
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO30
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO32
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO34
+<TD>VCCIO
+<TD>&nbsp
+<TD>&nbsp
+<TD>VCCIO(A)
+<TD>Y
+</TR>
+<TR>
+<TD>IO35
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO37
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO40
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO44
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO48
+<TD>VCCIO
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>Y
+</TR>
+<TR>
+<TD>IO49
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO50
+<TD>VCCIO
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>Y
+</TR>
+<TR>
+<TD>IO52
+<TD>VCCIO
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>Y
+</TR>
+<TR>
+<TD>IO53
+<TD>VCC
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO56
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO61
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO67
+<TD>VCCIO
+<TD>&nbsp
+<TD>&nbsp
+<TD>VCCIO(B)
+<TD>Y
+</TR>
+<TR>
+<TD>IO71
+<TD>VCC
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO74
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO78
+<TD>VCCIO
+<TD>&nbsp
+<TD>&nbsp
+<TD>VCCIO(B)
+<TD>Y
+</TR>
+<TR>
+<TD>IO82
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO85
+<TD>VCCIO
+<TD>&nbsp
+<TD>&nbsp
+<TD>VCCIO(B)
+<TD>Y
+</TR>
+<TR>
+<TD>IO91
+<TD>VCC
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO95
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO105
+<TD>VCC
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO108
+<TD>VCCIO
+<TD>&nbsp
+<TD>&nbsp
+<TD>VCCIO(C)
+<TD>Y
+</TR>
+<TR>
+<TD>IO111
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO112
+<TD>VCCIO
+<TD>&nbsp
+<TD>&nbsp
+<TD>VCCIO(C)
+<TD>Y
+</TR>
+<TR>
+<TD>IO117
+<TD>VCCIO
+<TD>&nbsp
+<TD>&nbsp
+<TD>VCCIO(C)
+<TD>Y
+</TR>
+<TR>
+<TD>IO120
+<TD>VCC
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>IO122
+<TD>GND
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_0
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(A)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_1
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(A)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_2
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(A)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_3
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(A)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_4
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(A)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_5
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(A)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_6
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(A)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_7
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>CLK(A)/I/O(A)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_8
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>CLK(A)/I/O(A)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_9
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(A)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_10
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(A)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_11
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(A)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_12
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(A)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_13
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(A)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_14
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(A)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_15
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(A)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_16
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(B)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_17
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(B)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_18
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(B)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_19
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(B)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_20
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(B)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_21
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(B)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_22
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>CLK(B)/I/O(B)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_23
+<TD>I2S_WS_CLK_i_ibuf.I1
+<TD>I2S_WS_CLK_i
+<TD>INPUT
+<TD>I/O(B)
+<TD>Y
+</TR>
+<TR>
+<TD>FBIO_24
+<TD>I2S_DIN_i_ibuf.I1
+<TD>I2S_DIN_i
+<TD>INPUT
+<TD>I/O(B)
+<TD>Y
+</TR>
+<TR>
+<TD>FBIO_25
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(B)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_26
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(B)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_27
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(B)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_28
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(B)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_29
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(B)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_30
+<TD>NU (HIZ)
+<TD>&nbsp
+<TD>&nbsp
+<TD>I/O(B)
+<TD>&nbsp
+</TR>
+<TR>
+<TD>FBIO_31
+<TD>I2S_CLK_i_ibuf.I1
+<TD>I2S_CLK_i
+<TD>INPUT
+<TD>I/O(B)
+<TD>Y
+</TR>
+<TR>
+<TD>SFBIO_0
+<TD>NU (Connect to Vcc or Gnd)
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>SFBIO_1
+<TD>NU (Connect to Vcc or Gnd)
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>SFBIO_2
+<TD>NU (Connect to Vcc or Gnd)
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>SFBIO_3
+<TD>NU (Connect to Vcc or Gnd)
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>SFBIO_4
+<TD>NU (Connect to Vcc or Gnd)
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>SFBIO_5
+<TD>NU (Connect to Vcc or Gnd)
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>SFBIO_6
+<TD>NU (Connect to Vcc or Gnd)
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>SFBIO_7
+<TD>NU (Connect to Vcc or Gnd)
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>SFBIO_8
+<TD>NU (Connect to Vcc or Gnd)
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>SFBIO_9
+<TD>NU (Connect to Vcc or Gnd)
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>SFBIO_10
+<TD>NU (Connect to Vcc or Gnd)
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>SFBIO_11
+<TD>NU (Connect to Vcc or Gnd)
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>SFBIO_12
+<TD>NU (Connect to Vcc or Gnd)
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+<TR>
+<TD>SFBIO_13
+<TD>NU (Connect to Vcc or Gnd)
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+<TD>&nbsp
+</TR>
+</TABLE>
+</TABLE>
+</TABLE>
+</TABLE><BR>
+
+<BR><CAPTION align="right" ><U><A href="#Top">Go to Top</A></U></CAPTION><HR>
+<CAPTION><H3><U><A name="Fixed Flip Flops">Fixed Flip Flops</A></U></H3></CAPTION>
+<TABLE BORDER cellSpacing="1" cellpadding="3"></TABLE>
+None
+</TABLE>
+</TABLE><BR>
+
+<BR><CAPTION align="right" ><U><A href="#Top">Go to Top</A></U></CAPTION><HR>
+<CAPTION><H3><U><A name="Fixed RAM cells">Fixed RAM cells</A></U></H3></CAPTION>
+<TABLE BORDER cellSpacing="1" cellpadding="3"></TABLE>
+None
+</TABLE>
+</TABLE>
+<BR><CAPTION align="right" ><U><A href="#Top">Go to Top</A></U></CAPTION><HR>
+<CAPTION><H3><U><A name="Nets Removed by Technology Mapper">Nets Removed by Technology Mapper</A></U></H3></CAPTION>
+<TABLE BORDER cellSpacing="1" cellpadding="3"></TABLE>
+Removed Nets option is FALSE. Removed Nets information will not be displayed.
+<BR><CAPTION align="right" ><U><A href="#Top">Go to Top</A></U></CAPTION><HR>
+<CAPTION><H3><U><A name="Flip-flops clocked by non-clock cells">Flip-flops clocked by non-clock cells</A></U></H3></CAPTION>
+<TABLE BORDER cellSpacing="1" cellpadding="3"></TABLE>
+No such FFs exist in the design<BR>
+
+<BR><CAPTION align="right" ><U><A href="#Top">Go to Top</A></U></CAPTION><HR>

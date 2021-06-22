@@ -785,11 +785,11 @@ always @(
 
     // [RO] moved register to deci_filter
 	//DECI_FIFO_STS_REG_ADR : WBs_DAT_o <= { 16'h0, Deci_Rx_FIFO_Full,Deci_Rx_FIFO_Empty,7'h0, DeciData_Rx_FIFO_Level_i};  
-	DECI_FIFO_STS_REG_ADR : WBs_DAT_o <= {0};  
+	DECI_FIFO_STS_REG_ADR : WBs_DAT_o <= {32'b0};  
 
     // [RO] moved register to deci_filter
 	//DECI_FIFO_DATA_REG_ADR : WBs_DAT_o <= { Fifo_dat_r_up,Fifo_dat_r_lo};  
-	DECI_FIFO_DATA_REG_ADR : WBs_DAT_o <= {0};  
+	DECI_FIFO_DATA_REG_ADR : WBs_DAT_o <= {32'b0};  
 
 	//ACSLIP_REG_ADR        : WBs_DAT_o <= { 16'h0,6'h0, ACLSIP_Reg_i};
 
@@ -799,19 +799,19 @@ always @(
 
     // [RO] moved register to deci_filter
 	//DECI_FIFO_RST_ADR     : WBs_DAT_o <= { 31'h0, Deci_Rx_FIFO_Flush};
-	DECI_FIFO_RST_ADR     : WBs_DAT_o <= {0};
+	DECI_FIFO_RST_ADR     : WBs_DAT_o <= {32'b0};
 
     // [RO] moved register to deci_filter
     //DMA_EN_REG_ADR   	  : WBs_DAT_o <= { 31'h0, DMA_EN };
-    DMA_EN_REG_ADR   	  : WBs_DAT_o <= {0};
+    DMA_EN_REG_ADR   	  : WBs_DAT_o <= {32'b0};
 
     // [RO] moved register to deci_filter
 	//DMA_STS_REG_ADR  	  : WBs_DAT_o <= { DMA_Status};
-	DMA_STS_REG_ADR  	  : WBs_DAT_o <= {0};
+	DMA_STS_REG_ADR  	  : WBs_DAT_o <= {32'b0};
 
     // [RO] moved register to deci_filter
 	//DMA_CNT_REG_ADR  	  : WBs_DAT_o <= { 23'h0, DMA_CNT_o};
-	DMA_CNT_REG_ADR  	  : WBs_DAT_o <= {0};
+	DMA_CNT_REG_ADR  	  : WBs_DAT_o <= {32'b0};
 
 	// [RO] disable acslip
 	//ACSLIP_TIMER_REG_ADR  : WBs_DAT_o <= { 16'h0, acslip_timer_reg};
@@ -819,7 +819,7 @@ always @(
 
     // [RO] moved register to deci_filter
 	//FIR_DECI_CNTRL_REG_ADR : WBs_DAT_o <= { 30'h0, FIR_deci_int_en, FIR_deci_en};
-	FIR_DECI_CNTRL_REG_ADR : WBs_DAT_o <= {0};
+	FIR_DECI_CNTRL_REG_ADR : WBs_DAT_o <= {32'b0};
 
 	MIC_DAT_CNT_ADR 	  : WBs_DAT_o <= cnt_mic_dat_r;
 `ifdef AEC_1_0	
